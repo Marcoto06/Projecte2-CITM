@@ -14,6 +14,7 @@
       ]
     },
     "sdl3-ttf",
-    "tracy"
+    "tracy",
+    "tmxlite"
   ]
 }
