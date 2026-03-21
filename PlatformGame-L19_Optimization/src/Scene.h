@@ -95,4 +95,6 @@ private:
 
 	// L17 TODO 1: Current scene attribute with initial value
 	SceneID currentScene = SceneID::MAIN_MENU;
+
+	SDL_Texture* mainMenuBackground = nullptr;
 };

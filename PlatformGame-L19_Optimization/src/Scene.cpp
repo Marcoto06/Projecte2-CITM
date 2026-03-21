@@ -27,7 +27,7 @@ Scene::~Scene()
 bool Scene::Awake()
 {
 	LOG("Loading Scene");
-	LoadScene(currentScene); // empieza en MAIN_MENU
+	
 	bool ret = true;
 
 	return ret;
@@ -36,6 +36,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
+	LoadScene(currentScene); // empieza en MAIN_MENU
 	return true;
 }
 
@@ -186,18 +187,44 @@ void Scene::LoadMainMenu() {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
+	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/Backgrounds/MainMenu_Background.png");
+
+	int screenWidth, screenHeight;
+	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
+
+	int buttonWidth = 240;
+	int buttonHeight = 60;
+	int buttonMargin = 100;
+
 	// Instantiate a UIButton in the Scene
-	SDL_Rect btPos = { 520, 350, 120,20 };
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "MyButton", btPos, this));
+	SDL_Rect playButton = { screenWidth/2 - buttonWidth/2, screenHeight/2 - buttonMargin, buttonWidth, buttonHeight };
+	SDL_Rect optionsButton = { screenWidth/2 - buttonWidth/2, screenHeight/2, buttonWidth, buttonHeight };
+	SDL_Rect exitButton = { screenWidth/2 - buttonWidth/2, screenHeight/2 + buttonMargin, buttonWidth, buttonHeight };
+
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "PLAY", playButton, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "OPTIONS", optionsButton, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "EXIT", exitButton, this));
 	
 }
 
 void Scene::UnloadMainMenu() {
 	// Clean up UI elements related to the main menu
 	Engine::GetInstance().uiManager->CleanUp();	
+
+	if (mainMenuBackground != nullptr)
+	{
+		Engine::GetInstance().textures->UnLoad(mainMenuBackground);
+		mainMenuBackground = nullptr;
+	}
 }
 
-void Scene::UpdateMainMenu(float dt) {}
+void Scene::UpdateMainMenu(float dt) {
+
+	if (mainMenuBackground != nullptr)
+	{
+		Engine::GetInstance().render->DrawTexture(mainMenuBackground, 0, 0, NULL, 0.0f);
+	}
+}
 
 void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 {
@@ -206,6 +233,13 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 	case 1: // Button MyButton
 		LOG("Main Menu: MyButton clicked!");
 		ChangeScene(SceneID::LEVEL1);
+		break;
+	case 2: // Button Options
+		//TODO
+		break;
+	case 3: // Button Exit
+		LOG("Main Menu: Exit clicked!");
+		Engine::GetInstance().quit = true;
 		break;
 	default:
 		break;
