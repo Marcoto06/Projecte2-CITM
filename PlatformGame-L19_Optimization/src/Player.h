@@ -37,6 +37,7 @@ private:
 	void GetPhysicsValues();
 	void Move();
 	void Jump();
+	void Func_Attacks(float dt);
 	void Teleport();
 	void ApplyPhysics();
 	void Draw(float dt);
@@ -50,15 +51,31 @@ public:
 	int texW, texH;
 
 	//Audio fx
-	int pickCoinFxId;
-
-	// L08 TODO 5: Add physics to the player - declare a Physics body
+	int pickCoinFxId; //??????
+	
 	PhysBody* pbody;
 	float jumpForce = 2.5f; // The force to apply when jumping
+	float attackTimer = 0.0f;
+
+	//ESTADOS
 	bool isJumping = false; // Flag to check if the player is currently jumping
+	bool facingRight = true;
+	bool isAttacking = false;
+
 
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
 
+	//Fixture
+	PhysBody* syringeBody = nullptr;
+
+	enum class PLAYERSTATE {
+		IDLE,
+		MOVE,
+		JUMP,
+		ATTACK
+	};
+
+	PLAYERSTATE currentState = PLAYERSTATE::IDLE;
 };

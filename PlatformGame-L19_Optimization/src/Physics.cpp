@@ -177,7 +177,63 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
     return pbody;
 }
 
-// 
+void Physics::Func_AddSensorFixture(PhysBody* pbody, int width, int height, int offsetX, int offsetY, int tag)
+{
+    if (!pbody) return;
+
+    b2BodyId b = pbody->body;
+
+    b2Vec2 center = { PIXEL_TO_METERS(offsetX), PIXEL_TO_METERS(offsetY) };
+    float hx = PIXEL_TO_METERS(width) * 0.5f;
+    float hy = PIXEL_TO_METERS(height) * 0.5f;
+    b2Rot rot = { cosf(0.0f), sinf(0.0f) };
+    b2Polygon box = b2MakeOffsetBox(hx, hy, center, rot);
+
+
+    b2ShapeDef sdef = b2DefaultShapeDef();
+    sdef.isSensor = true;
+    sdef.enableContactEvents = true;
+    sdef.enableSensorEvents = true;
+
+
+    sdef.userData = reinterpret_cast<void*>(static_cast<uintptr_t>(tag));
+
+    b2CreatePolygonShape(b, &sdef, &box);
+}
+
+PhysBody* Physics::Func_CreateTemporarySensor(int width, int height, float absoluteX, float absoluteY, ColliderType tag, float angleDegrees)
+{
+    b2BodyDef def = b2DefaultBodyDef();
+    def.type = b2_staticBody;
+    def.position = { PIXEL_TO_METERS(absoluteX), PIXEL_TO_METERS(absoluteY) };
+
+    b2BodyId b = b2CreateBody(world, &def);
+
+    float hx = PIXEL_TO_METERS(width) * 0.5f;
+    float hy = PIXEL_TO_METERS(height) * 0.5f;
+
+    float rad = angleDegrees * (3.14159265f / 180.0f);
+    b2Rot rot = { cosf(rad), sinf(rad) };
+
+    b2Polygon box = b2MakeOffsetBox(hx, hy, { 0.0f, 0.0f }, rot);
+
+    b2ShapeDef sdef = b2DefaultShapeDef();
+    sdef.isSensor = true;
+    sdef.enableContactEvents = true;
+    sdef.enableSensorEvents = true;
+
+    b2CreatePolygonShape(b, &sdef, &box);
+
+    PhysBody* pbody = new PhysBody();
+    pbody->body = b;
+    pbody->ctype = tag; 
+    pbody->listener = nullptr;
+
+    b2Body_SetUserData(b, ToUserData(pbody));
+
+    return pbody;
+}
+
 bool Physics::PostUpdate()
 {
     bool ret = true;

@@ -18,7 +18,7 @@ public:
     bool HasFinishedOnce() const;
     void Update(float dt);
     const SDL_Rect& GetCurrentFrame() const;
-    int GetFrameCount() const;
+    int Func_GetFrameCount() const;
 
 private:
     std::vector<AnimFrame> frames_;
@@ -46,6 +46,10 @@ public:
 
     bool Has(const std::string& name) const;
 
+    bool Func_HasCurrentAnimationFinished() const;
+    void Func_SetAnimationLoop(const std::string& name, bool loop);
+
+    int Func_GetCurrentFrameIndex() const;
 private:
     int tileW_ = 0, tileH_ = 0, columns_ = 0;
     std::unordered_map<std::string, Animation> clips_;

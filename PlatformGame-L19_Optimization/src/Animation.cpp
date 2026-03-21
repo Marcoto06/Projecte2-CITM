@@ -51,7 +51,7 @@ const SDL_Rect& Animation::GetCurrentFrame() const {
     return frames_[currentIndex_].rect;
 }
 
-int Animation::GetFrameCount() const { return static_cast<int>(frames_.size()); }
+int Animation::Func_GetFrameCount() const { return static_cast<int>(frames_.size()); }
 
 // ---------- AnimationSet ----------
 
@@ -143,4 +143,30 @@ const std::string& AnimationSet::GetCurrentName() const {
 
 bool AnimationSet::Has(const std::string& name) const {
     return clips_.find(name) != clips_.end();
+}
+
+bool AnimationSet::Func_HasCurrentAnimationFinished() const {
+    if (Has(currentName_)) {
+        // Llama a la función de la animación individual
+        return clips_.at(currentName_).HasFinishedOnce();
+    }
+    // Si no existe la anim, asumimos que no ha terminado
+    return false;
+}
+
+void AnimationSet::Func_SetAnimationLoop(const std::string& name, bool loop) {
+    if (Has(name)) {
+        // Llama a la función de la animación individual
+        clips_[name].SetLoop(loop);
+    }
+}
+
+int AnimationSet::Func_GetCurrentFrameIndex() const
+{
+    if (Has(currentName_))
+    {
+        return clips_.at(currentName_).Func_GetFrameCount();
+    }
+
+    return 0;
 }

@@ -29,6 +29,7 @@ enum class ColliderType {
     ITEM,
     PLATFORM,
     ENEMY,
+    SYRINGE,
     UNKNOWN
     // ..
 };
@@ -72,6 +73,9 @@ public:
     PhysBody* CreateCircle(int x, int y, int radious, bodyType type);
     PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type);
     PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type);
+
+    void Func_AddSensorFixture(PhysBody* pbody, int width, int height, int offsetX, int offsetY, int tag);
+    PhysBody* Func_CreateTemporarySensor(int width, int height, float absoluteX, float absoluteY, ColliderType tag, float angleDegrees = 0.0f);
 
     // Invoked from our event processing
     void BeginContact(b2ShapeId shapeA, b2ShapeId shapeB);

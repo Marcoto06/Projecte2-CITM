@@ -25,14 +25,16 @@ bool Player::Awake() {
 }
 
 bool Player::Start() {
+	#define PLAYER_BODY_TAG 1
+	#define PLAYER_FEET_TAG 2
 
 	// load
 	std::unordered_map<int, std::string> aliases = { {0,"idle"},{11,"move"},{22,"jump"} };
-	anims.LoadFromTSX("Assets/Textures/Provisional/spritesheet.tsx", aliases);
+	anims.LoadFromTSX("Assets/Textures/player2_spritesheet.tsx", aliases);
 	anims.SetCurrent("idle");
 
 	//L03: TODO 2: Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Provisional/spritesheet.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/player2_spritesheet.png");
 
 	// L08 TODO 5: Add physics to the player - initialize physics body
 	//Engine::GetInstance().textures->GetSize(texture, texW, texH);
@@ -49,6 +51,8 @@ bool Player::Start() {
 	//initialize audio effect
 	pickCoinFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/coin-collision-sound-342335.wav");
 
+	currentState = PLAYERSTATE::IDLE;
+
 	return true;
 }
 
@@ -62,6 +66,7 @@ bool Player::Update(float dt)
 	GetPhysicsValues();
 	Move();
 	Jump();
+	Func_Attacks(dt);
 	Teleport();
 	ApplyPhysics();
 
@@ -86,10 +91,12 @@ void Player::Move() {
 	// Move left/right
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		velocity.x = -speed;
+		facingRight = false;
 		anims.SetCurrent("move");
 	}
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		velocity.x = speed;
+		facingRight = true;
 		anims.SetCurrent("move");
 	}
 }
@@ -100,6 +107,62 @@ void Player::Jump() {
 		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0.0f, -jumpForce, true);
 		anims.SetCurrent("jump");
 		isJumping = true;
+	}
+}
+
+void Player::Func_Attacks(float dt) {
+
+	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking) {
+		currentState = PLAYERSTATE::ATTACK;
+		isAttacking = true;
+		attackTimer = 300.0f;
+		anims.SetCurrent("attack");
+	}
+
+	if (isAttacking) {
+		attackTimer -= dt;
+		//Destruction
+		if (syringeBody != nullptr) {
+			Engine::GetInstance().physics->DeletePhysBody(syringeBody);
+			syringeBody = nullptr;
+		}
+
+		if (attackTimer > 0.0f) {
+			float progress = 1.0f - (attackTimer / 300.0f);
+
+			float width = 40.0f;
+			float height = 15.0f;
+
+			//Pivot pos
+			float pivotLocalX = 15.0f;
+			float pivotLocalY = -10.0f;
+
+			float startAngle = -90.0f;
+			float endAngle = facingRight ? 0.0f : -180.0f;
+			float currentAngle = startAngle + ((endAngle - startAngle) * progress);
+
+			if (!facingRight) {
+				pivotLocalX = -pivotLocalX;
+			}
+
+			//playerpos
+			int playerX, playerY;
+			pbody->GetPosition(playerX, playerY);
+
+			float distanceToCenter = width / 2.0f;
+			float angleRad = currentAngle * (3.14159265f / 180.0f);
+
+			float absoluteCenterX = playerX + pivotLocalX + (distanceToCenter * cos(angleRad));
+			float absoluteCenterY = playerY + pivotLocalY + (distanceToCenter * sin(angleRad));
+
+			//create hitbox
+			syringeBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
+				(int)width, (int)height, absoluteCenterX, absoluteCenterY, ColliderType::SYRINGE, currentAngle);
+		}
+		else {
+			currentState = PLAYERSTATE::IDLE;
+			isAttacking = false;
+		}
 	}
 }
 
@@ -114,7 +177,6 @@ void Player::ApplyPhysics() {
 }
 
 void Player::Draw(float dt) {
-
 	anims.Update(dt);
 	const SDL_Rect& animFrame = anims.GetCurrentFrame();
 
@@ -139,8 +201,14 @@ void Player::Draw(float dt) {
 	}
 
 	// L10: TODO 5: Draw the player using the texture and the current animation frame
-	Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame);
-
+	if (facingRight)
+	{
+		Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame);
+	}
+	else
+	{
+		Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL);
+	}
 }
 
 bool Player::CleanUp()
