@@ -88,6 +88,9 @@ bool Scene::PostUpdate()
 	/*if(Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;*/
 
+	if (Engine::GetInstance().quit == true)
+		ret = false;
+
 	return ret;
 }
 
@@ -101,6 +104,7 @@ bool Scene::OnUIMouseClickEvent(UIElement* uiElement)
 		HandleMainMenuUIEvents(uiElement);
 		break;
 	case SceneID::LEVEL1:
+		HandlePauseMenuUIEvents(uiElement);
 		break;
 	case SceneID::LEVEL2:
 		break;
@@ -132,7 +136,6 @@ void Scene::LoadScene(SceneID newScene)
 {
 	auto& engine = Engine::GetInstance();
 
-	HandlePause();
 	switch (newScene)
 	{
 	case SceneID::MAIN_MENU:
@@ -184,13 +187,8 @@ void Scene::LoadMainMenu() {
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect continue_button_pos = { 520, 350, 120,20 };
-	SDL_Rect options_button_pos = { 520, 350, 120,20 };
-	SDL_Rect quit_button_pos = { 520, 350, 120,20 };
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continue_button_pos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Options", options_button_pos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Quit", quit_button_pos, this));
-
+	SDL_Rect btPos = { 520, 350, 120,20 };
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "MyButton", btPos, this));
 	
 }
 
@@ -214,12 +212,58 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 	}
 }
 
-void HandlePause() {
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-		Engine::GetInstance().paused = !Engine::GetInstance().paused;
+
+// *********************************************
+// PAUSE MENU functions
+// *********************************************
+
+void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
+{
+	switch (uiElement->id)
+	{
+	case 1: // PAUSE MENU: CONTINUE
+		LOG("PAUSE MENU: CONTINUE clicked!");
+		Engine::GetInstance().paused = false;
+		UnloadMainMenu();
+		break;
+	case 2: // PAUSE MENU: OPTIONS
+		//TODO
+		break;
+	case 3: // PAUSE MENU: QUIT
+		LOG("PAUSE MENU: QUIT clicked!");
+		Engine::GetInstance().quit = true;
+		break;
+	default:
+		break;
 	}
 }
 
+void Scene::HandlePause() {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		Engine::GetInstance().paused = !Engine::GetInstance().paused;
+	}
+
+	if (Engine::GetInstance().paused) {
+		LoadPauseMenu();
+	}
+}
+
+void Scene::LoadPauseMenu() {
+	int button_width = 120;
+	int button_height = 20;
+	int button_margin = 10;
+
+	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
+	int center_window_posY = Engine::GetInstance().window->height / 2;
+
+	SDL_Rect continue_button_pos = { center_window_posX, center_window_posY - button_height - button_margin, button_width, button_height };
+	SDL_Rect options_button_pos = { center_window_posX, center_window_posY, button_width, button_height };
+	SDL_Rect quit_button_pos = { center_window_posX, center_window_posY + button_height + button_margin, button_width, button_height };
+
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continue_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "Options", options_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "Quit", quit_button_pos, this));
+}
 
 // *********************************************
 // Level 1 functions
@@ -252,6 +296,7 @@ void Scene::LoadLevel1() {
 }
 
 void Scene::UpdateLevel1(float dt) {
+	HandlePause();
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 		ChangeScene(SceneID::LEVEL2);

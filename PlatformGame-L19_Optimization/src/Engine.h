@@ -89,6 +89,7 @@ public:
 		EXIT
 	};
 	bool paused = false;
+	bool quit = false;
 
 	// Modules
 	std::shared_ptr<Window> window;

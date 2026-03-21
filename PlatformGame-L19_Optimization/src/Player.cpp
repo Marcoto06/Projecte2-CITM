@@ -54,6 +54,7 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+	Draw(dt);
 	if (Engine::GetInstance().paused == true) {
 		return true;
 	}
@@ -63,7 +64,6 @@ bool Player::Update(float dt)
 	Jump();
 	Teleport();
 	ApplyPhysics();
-	Draw(dt);
 
 	return true;
 }
