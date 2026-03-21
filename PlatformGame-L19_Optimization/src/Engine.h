@@ -88,6 +88,7 @@ public:
 		FAIL,
 		EXIT
 	};
+	bool paused = false;
 
 	// Modules
 	std::shared_ptr<Window> window;

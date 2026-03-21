@@ -66,6 +66,7 @@ private:
 	void UnloadMainMenu();
 	void UpdateMainMenu(float dt);
 	void HandleMainMenuUIEvents(UIElement* uiElement);
+	void HandlePause();
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
 	void LoadLevel1();
@@ -78,8 +79,8 @@ private:
 	void UpdateLevel2(float dt);
 	void UnloadLevel2();
 
-private:
 
+private:
 	//L03: TODO 3b: Declare a Player attribute
 	std::shared_ptr<Player> player;
 	SDL_Texture* mouseTileTex = nullptr;

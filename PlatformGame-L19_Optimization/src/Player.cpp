@@ -54,6 +54,9 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+	if (Engine::GetInstance().paused == true) {
+		return true;
+	}
 	ZoneScoped;
 	GetPhysicsValues();
 	Move();
