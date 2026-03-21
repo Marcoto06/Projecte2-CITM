@@ -85,8 +85,8 @@ bool Scene::PostUpdate()
 		break;
 	}
 
-	if(Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	/*if(Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;*/
 
 	return ret;
 }
@@ -132,6 +132,7 @@ void Scene::LoadScene(SceneID newScene)
 {
 	auto& engine = Engine::GetInstance();
 
+	HandlePause();
 	switch (newScene)
 	{
 	case SceneID::MAIN_MENU:
@@ -212,6 +213,13 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 		break;
 	}
 }
+
+void HandlePause() {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		Engine::GetInstance().paused = !Engine::GetInstance().paused;
+	}
+}
+
 
 // *********************************************
 // Level 1 functions
@@ -314,4 +322,3 @@ void Scene::UnloadLevel2() {
 	Engine::GetInstance().entityManager->CleanUp();
 
 }
-
