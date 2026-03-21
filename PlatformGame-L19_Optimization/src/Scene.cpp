@@ -180,11 +180,17 @@ void Scene::UnloadCurrentScene() {
 
 void Scene::LoadMainMenu() {
 
-	Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
+	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect btPos = { 520, 350, 120,20 };
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "MyButton", btPos, this));
+	SDL_Rect continue_button_pos = { 520, 350, 120,20 };
+	SDL_Rect options_button_pos = { 520, 350, 120,20 };
+	SDL_Rect quit_button_pos = { 520, 350, 120,20 };
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continue_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Options", options_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Quit", quit_button_pos, this));
+
+	
 }
 
 void Scene::UnloadMainMenu() {
@@ -213,7 +219,7 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 
 void Scene::LoadLevel1() {
 
-	Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/level-iv-339695.wav");
+	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/level-iv-339695.wav");
 
 	//Call the function to load the map. 
 	Engine::GetInstance().map->Load("Assets/Maps/", "MapTemplate.tmx");

@@ -112,7 +112,7 @@ void Enemy::Draw(float dt) {
 	position.setY((float)y);
 
 	// Draw pathfinding debug
-	pathfinding->DrawPath();
+	//pathfinding->DrawPath();
 
 	//Draw the player using the texture and the current animation frame
 	Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame);
