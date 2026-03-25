@@ -27,7 +27,7 @@ bool Enemy::Awake() {
 bool Enemy::Start() {
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"} };
+	std::unordered_map<int, std::string> aliases = { {0,"idle"}, {1,"stuned"}};
 	anims.LoadFromTSX("Assets/Textures/enemy_Spritesheet.tsx", aliases);
 	anims.SetCurrent("idle");
 
@@ -62,7 +62,7 @@ bool Enemy::Update(float dt)
 	ZoneScoped;
 	PerformPathfinding();
 	GetPhysicsValues();
-	Move();
+	Func_EnemyStates();
 	ApplyPhysics();
 	Draw(dt);
 
@@ -89,8 +89,28 @@ void Enemy::GetPhysicsValues() {
 	velocity = { 0, velocity.y }; 
 }
 
+void Enemy::Func_EnemyStates(float dt)
+{
+	switch (currentEState)
+	{
+	case Enemy::ENEMYSTATES::WALKING:
+		Move();
+		break;
+	case Enemy::ENEMYSTATES::CHASING:
+		break;
+	case Enemy::ENEMYSTATES::STUNED:
+		LOG("STUNNED");
+		//put a timer to change back to walking
+		anims.SetCurrent("stuned");
+		break;
+	default:
+		break;
+	}
+}
+
 void Enemy::Move() {
 
+	velocity.x = -speed;
 	// Move 
 }
 
@@ -115,7 +135,15 @@ void Enemy::Draw(float dt) {
 	//pathfinding->DrawPath();
 
 	//Draw the player using the texture and the current animation frame
-	Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame);
+
+	if (isFacingRight) //this depends on how is the sprite made
+	{
+		Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame);
+	}
+	else
+	{
+		Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL);
+	}
 }
 
 bool Enemy::CleanUp()
@@ -147,10 +175,37 @@ Vector2D Enemy::GetPosition() {
 
 //Define OnCollision function for the enemy. 
 void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
-
+	switch (physB->ctype)
+	{
+	case ColliderType::SYRINGE:
+		if (!isStuned)
+		{
+			currentEState = ENEMYSTATES::STUNED;
+			isStuned = true;
+		}
+		else
+		{
+			//add func_suckattack thing 
+		}
+		break;
+	}
 }
 
 void Enemy::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
-
+	//idk if i should keep this here or in OnCollision regular
+	//switch (physB->ctype)
+	//{
+	//case ColliderType::SYRINGE:
+	//	if (!isStuned)
+	//	{
+	//		currentEState = ENEMYSTATES::STUNED;
+	//		isStuned = true;
+	//	}
+	//	else
+	//	{
+	//		//add func_suckattack thing 
+	//	}
+	//	break;
+	//}
 }

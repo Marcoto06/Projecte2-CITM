@@ -4687,7 +4687,7 @@
 		</data>
 	</layer>
 	<objectgroup id="8" name="Entities">
-		<object id="8" name="Player" type="Player" x="63" y="672">
+		<object id="8" name="Player" type="Player" x="63" y="655">
 			<point />
 		</object>
 		<object id="12" name="Enemy1" type="Enemy" x="230" y="520">
