@@ -46,6 +46,8 @@ public:
 		return dt;
 	}
 
+	void Func_PauseEngine();
+
 private:
 
 	// Private constructor to prevent instantiation

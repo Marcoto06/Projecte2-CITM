@@ -257,7 +257,7 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 	{
 	case 1: // PAUSE MENU: CONTINUE
 		LOG("PAUSE MENU: CONTINUE clicked!");
-		Engine::GetInstance().paused = false;
+		Engine::GetInstance().Func_PauseEngine();
 		UnloadMainMenu();
 		break;
 	case 2: // PAUSE MENU: OPTIONS
@@ -274,11 +274,14 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 
 void Scene::HandlePause() {
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-		Engine::GetInstance().paused = !Engine::GetInstance().paused;
-	}
+		Engine::GetInstance().Func_PauseEngine();
 
-	if (Engine::GetInstance().paused) {
-		LoadPauseMenu();
+		if (Engine::GetInstance().paused) {
+			LoadPauseMenu();
+		}
+		else {
+			UnloadMainMenu();
+		}
 	}
 }
 

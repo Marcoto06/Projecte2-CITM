@@ -60,6 +60,7 @@ bool Player::Update(float dt)
 {
 	Draw(dt);
 	if (Engine::GetInstance().paused == true) {
+		//Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		return true;
 	}
 	ZoneScoped;
@@ -144,7 +145,7 @@ void Player::Func_Attacks(float dt) {
 			if (!facingRight) {
 				pivotLocalX = -pivotLocalX;
 			}
-
+			
 			//playerpos
 			int playerX, playerY;
 			pbody->GetPosition(playerX, playerY);

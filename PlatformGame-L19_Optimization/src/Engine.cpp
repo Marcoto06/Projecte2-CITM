@@ -311,4 +311,6 @@ bool Engine::LoadConfig()
     return ret;
 }
 
-
+void Engine::Func_PauseEngine() {
+    paused = !paused;
+}

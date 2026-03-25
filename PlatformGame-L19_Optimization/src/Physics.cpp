@@ -39,6 +39,9 @@ bool Physics::Start()
 bool Physics::PreUpdate()
 {
     bool ret = true;
+    if (Engine::GetInstance().paused == true) {
+        return ret;
+    }
 
     // Step (update) the World
     // Get the dt from the engine. Note that dt is in milliseconds and Box2D steps in seconds
