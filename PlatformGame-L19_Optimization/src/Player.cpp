@@ -164,6 +164,17 @@ void Player::Func_Attacks(float dt) {
 			isAttacking = false;
 		}
 	}
+
+	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking) {
+		currentState = PLAYERSTATE::SUCKING;
+		isSucking = true;
+		anims.SetCurrent("sucking");
+	}
+
+	if (isSucking == true)
+	{
+
+	}
 }
 
 void Player::ApplyPhysics() {
@@ -237,6 +248,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
+	case ColliderType::ENEMY:
+		//to do
 	default:
 		break;
 	}
@@ -255,6 +268,8 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	case ColliderType::UNKNOWN:
 		LOG("End Collision UNKNOWN");
 		break;
+	case ColliderType::ENEMY:
+		//to do
 	default:
 		break;
 	}
