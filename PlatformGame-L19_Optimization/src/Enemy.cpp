@@ -62,7 +62,7 @@ bool Enemy::Update(float dt)
 	ZoneScoped;
 	PerformPathfinding();
 	GetPhysicsValues();
-	Func_EnemyStates();
+	Func_EnemyStates(dt);
 	ApplyPhysics();
 	Draw(dt);
 
