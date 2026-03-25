@@ -61,6 +61,7 @@ public:
 	bool isJumping = false; // Flag to check if the player is currently jumping
 	bool facingRight = true;
 	bool isAttacking = false;
+	bool isSucking = false;
 
 
 private:
@@ -74,7 +75,8 @@ private:
 		IDLE,
 		MOVE,
 		JUMP,
-		ATTACK
+		ATTACK,
+		SUCKING
 	};
 
 	PLAYERSTATE currentState = PLAYERSTATE::IDLE;

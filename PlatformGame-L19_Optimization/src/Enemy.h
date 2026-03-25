@@ -27,6 +27,7 @@ public:
 private:
 	void PerformPathfinding();
 	void GetPhysicsValues();
+	void Func_EnemyStates(float dt);
 	void Move();
 	void ApplyPhysics();
 	void Draw(float dt);
@@ -34,13 +35,26 @@ private:
 public:
 
 	//Declare enemy parameters
-	float speed = 4.0f;
+	float speed = 2.0f;
 	SDL_Texture* texture = NULL;
 	int texW, texH;
 	PhysBody* pbody;
+
+	//bools
+	bool isStuned = false;
+	bool isFacingRight = false;
 
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
 	std::shared_ptr<Pathfinding> pathfinding;
+
+	enum class ENEMYSTATES
+	{
+		WALKING,
+		CHASING, //idk if we're going to use this
+		STUNED
+	};
+
+	ENEMYSTATES currentEState = ENEMYSTATES::WALKING;
 };

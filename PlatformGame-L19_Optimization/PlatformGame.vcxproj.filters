@@ -17,6 +17,9 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{eaf9226b-488a-4c6a-9d1a-2222fdb48e0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\UI">
+      <UniqueIdentifier>{a322c54b-dcd4-4ef8-970a-5f742f3e4d03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json">
@@ -90,14 +93,17 @@
     <ClCompile Include="src\Animation.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\UIManager.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\UIButton.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\TracyMemory.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIButton.cpp">
+      <Filter>Source Files\Engine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIManager.cpp">
+      <Filter>Source Files\Engine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UISlidebar.cpp">
+      <Filter>Source Files\Engine\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,14 +170,17 @@
     <ClInclude Include="src\Animation.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\UIManager.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\UIButton.h">
-      <Filter>Source Files\Engine</Filter>
+      <Filter>Source Files\Engine\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\UIElement.h">
-      <Filter>Source Files\Engine</Filter>
+      <Filter>Source Files\Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIManager.h">
+      <Filter>Source Files\Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UISlidebar.h">
+      <Filter>Source Files\Engine\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

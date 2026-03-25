@@ -198,15 +198,80 @@ bool Map::Load(std::string path, std::string fileName)
 
         //Iterate the layer and create colliders
         for (const auto& mapLayer : mapData.layers) {
-            if (mapLayer->name == "Collisions") {
-                for (int i = 0; i < mapData.width; i++) {
-                    for (int j = 0; j < mapData.height; j++) {
+            if (mapLayer->name == "Collisions") 
+            {
+                std::vector<std::vector<bool>> visited(mapData.height, std::vector<bool>(mapData.width, false));    // Vector for saving checked tiles
+
+                for (int j = 0; j < mapData.height; ++j)
+                {
+                    for (int i = 0; i < mapData.width; ++i)
+                    {
                         int gid = mapLayer->Get(i, j);
-                        if (gid == 49) {
-                            Vector2D mapCoord = MapToWorld(i, j);
-                            PhysBody* c1 = Engine::GetInstance().physics.get()->CreateRectangle((int)(mapCoord.getX()+ mapData.tileWidth/2), (int)(mapCoord.getY()+ mapData.tileHeight/2), mapData.tileWidth, mapData.tileHeight, STATIC);
+
+                        if (gid != 0 && !visited[j][i]) // Checks if the tile has collision and if is checked to start defining the collider
+                        {
+                            int currentWidth = 0;
+
+                            for (int k = i; k < mapData.width; ++k) // Checks the collider width
+                            {
+                                int next_gid = mapLayer->Get(k, j);
+
+                                if (next_gid != 0 && !visited[j][k])  // Checks if the next tile has collision and if is checked
+                                {
+                                    currentWidth++;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            int currentHeight = 1;
+
+                            for (int l = j + 1; l < mapData.height; ++l)    // Gest the collider height
+                            {
+                                bool rowIsSolid = true; // Solid row assumed
+
+                                for (int m = i; m < i + currentWidth; ++m)  // Checks the row from previous width
+                                {
+                                    int check_gid = mapLayer->Get(m, l);
+
+                                    if (check_gid == 0 || visited[l][m])    // Checks if the next tile has collision and if is checked
+                                    {
+                                        rowIsSolid = false;
+                                        break;
+                                    }
+                                }
+
+                                if (rowIsSolid)
+                                {
+                                    currentHeight++;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            for (int row = j; row < j + currentHeight; ++row)
+                            {
+                                for (int col = i; col < i + currentWidth; ++col)
+                                {
+                                    visited[row][col] = true;
+                                }
+                            }
+
+                            float colliderWidth = (float)currentWidth * mapData.tileWidth;
+                            float colliderHeight = (float)currentHeight * mapData.tileHeight;
+
+                            Vector2D startWorldPos = MapToWorld(i, j);
+
+                            float centerX = startWorldPos.getX() + (colliderWidth / 2.0f);
+                            float centerY = startWorldPos.getY() + (colliderHeight / 2.0f);
+
+                            PhysBody* c1 = Engine::GetInstance().physics.get()->CreateRectangle(centerX, centerY, colliderWidth, colliderHeight, STATIC);
                             c1->ctype = ColliderType::PLATFORM;
-							colliderList.push_back(c1);
+                            colliderList.push_back(c1);
                         }
                     }
                 }
