@@ -290,12 +290,15 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 void Scene::HandlePause() {
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		Engine::GetInstance().Func_PauseEngine();
-		
-	if (Engine::GetInstance().paused) {
-		if (!Engine::GetInstance().quiting)
-			LoadPauseMenu();
-	} else {
+
+		if (Engine::GetInstance().paused) {
+			if (!Engine::GetInstance().quiting) {
+				LoadPauseMenu();
+			}
+		}
+		else {
 			UnloadMainMenu();
+		}
 	}
 }
 
