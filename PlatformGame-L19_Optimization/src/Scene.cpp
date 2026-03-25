@@ -265,7 +265,22 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		break;
 	case 3: // PAUSE MENU: QUIT
 		LOG("PAUSE MENU: QUIT clicked!");
+		Engine::GetInstance().quiting = true;
+		UnloadMainMenu();
+		LoadQuitMenu();
+		//
+		break;
+	case 4: // PAUSE MENU: OPTIONS
+		//TODO
+		UnloadMainMenu();
+		ChangeScene(SceneID::MAIN_MENU);
+		break;
+	case 5: // PAUSE MENU: Quit to Desktop
 		Engine::GetInstance().quit = true;
+		break;
+	case 6: // PAUSE MENU: Quit to Desktop
+		Engine::GetInstance().quiting = false;
+		UnloadMainMenu();
 		break;
 	default:
 		break;
@@ -278,9 +293,12 @@ void Scene::HandlePause() {
 	}
 
 	if (Engine::GetInstance().paused) {
-		LoadPauseMenu();
+		if (!Engine::GetInstance().quiting)
+			LoadPauseMenu();
 	}
 }
+
+
 
 void Scene::LoadPauseMenu() {
 	int button_width = 120;
@@ -297,6 +315,29 @@ void Scene::LoadPauseMenu() {
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continue_button_pos, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "Options", options_button_pos, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "Quit", quit_button_pos, this));
+	
+}
+
+void Scene::LoadOptionsMenu() {
+	
+}
+
+void Scene::LoadQuitMenu() {
+	int button_width = 120;
+	int button_height = 20;
+	int button_margin = 10;
+
+	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
+	int center_window_posY = Engine::GetInstance().window->height / 2;
+
+	SDL_Rect menu_button_pos = { center_window_posX, center_window_posY - button_height - button_margin, button_width, button_height };
+	SDL_Rect desktop_button_pos = { center_window_posX, center_window_posY, button_width, button_height };
+	SDL_Rect cancel_button_pos = { center_window_posX, center_window_posY + button_height*2 + button_margin, button_width, button_height };
+
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 4, "Quit to Main Menu", menu_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "Quit to Desktop", desktop_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, "Cancel", cancel_button_pos, this));
+
 }
 
 // *********************************************

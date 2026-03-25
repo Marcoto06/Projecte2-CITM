@@ -69,6 +69,8 @@ private:
 	void HandlePauseMenuUIEvents(UIElement* uiElement);
 	void HandlePause();
 	void LoadPauseMenu();
+	void LoadOptionsMenu();
+	void LoadQuitMenu();
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
 	void LoadLevel1();
