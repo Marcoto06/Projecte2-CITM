@@ -91,6 +91,7 @@ void Enemy::GetPhysicsValues() {
 
 void Enemy::Func_EnemyStates(float dt)
 {
+
 	switch (currentEState)
 	{
 	case Enemy::ENEMYSTATES::WALKING:
@@ -99,9 +100,13 @@ void Enemy::Func_EnemyStates(float dt)
 	case Enemy::ENEMYSTATES::CHASING:
 		break;
 	case Enemy::ENEMYSTATES::STUNED:
-		LOG("STUNNED");
+			LOG("STUNNED");
 		//put a timer to change back to walking
 		anims.SetCurrent("stuned");
+		if (timer_01.ReadMSec() > 7000.0f)
+		{
+			currentEState = ENEMYSTATES::WALKING;
+		}
 		break;
 	default:
 		break;
@@ -178,10 +183,11 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::SYRINGE:
-		if (!isStuned)
+		if (!isStunned)
 		{
+			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
-			isStuned = true;
+			isStunned = true;
 		}
 		else
 		{

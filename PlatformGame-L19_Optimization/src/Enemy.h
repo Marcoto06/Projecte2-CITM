@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Animation.h"
+#include "Timer.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 #include "Pathfinding.h"
@@ -40,8 +41,11 @@ public:
 	int texW, texH;
 	PhysBody* pbody;
 
+	float stuntimer = 7.0f;
+	Timer timer_01;
+
 	//bools
-	bool isStuned = false;
+	bool isStunned = false;
 	bool isFacingRight = false;
 
 private:
