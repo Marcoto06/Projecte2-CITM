@@ -6,7 +6,6 @@
 #include "Log.h"
 #include "Item.h"
 #include "Enemy.h"
-#include "tracy/Tracy.hpp"
 
 EntityManager::EntityManager() : Module()
 {
@@ -15,7 +14,8 @@ EntityManager::EntityManager() : Module()
 
 // Destructor
 EntityManager::~EntityManager()
-{}
+{
+}
 
 // Called before render is available
 bool EntityManager::Awake()
@@ -24,7 +24,7 @@ bool EntityManager::Awake()
 	bool ret = true;
 
 	//Iterates over the entities and calls the Awake
-	for(const auto entity : entities)
+	for (const auto entity : entities)
 	{
 		if (entity->active == false) continue;
 		ret = entity->Awake();
@@ -36,10 +36,10 @@ bool EntityManager::Awake()
 
 bool EntityManager::Start() {
 
-	bool ret = true; 
+	bool ret = true;
 
 	//Iterates over the entities and calls Start
-	for(const auto entity : entities)
+	for (const auto entity : entities)
 	{
 		if (entity->active == false) continue;
 		ret = entity->Start();
@@ -53,7 +53,7 @@ bool EntityManager::CleanUp()
 {
 	bool ret = true;
 
-	for(const auto entity : entities)
+	for (const auto entity : entities)
 	{
 		if (entity->active == false) continue;
 		ret = entity->Destroy();
@@ -95,20 +95,18 @@ void EntityManager::DestroyEntity(std::shared_ptr<Entity> entity)
 
 void EntityManager::AddEntity(std::shared_ptr<Entity> entity)
 {
-	if ( entity != nullptr) entities.push_back(entity);
+	if (entity != nullptr) entities.push_back(entity);
 }
 
 bool EntityManager::Update(float dt)
 {
-	ZoneScoped;
-
 	bool ret = true;
 
 	//List to store entities pending deletion
 	std::list<std::shared_ptr<Entity>> pendingDelete;
-	
+
 	//Iterates over the entities and calls Update
-	for(const auto entity : entities)
+	for (const auto entity : entities)
 	{
 		//If the entity is marked for deletion, add it to the pendingDelete list
 		if (entity->pendingToDelete)
@@ -127,20 +125,4 @@ bool EntityManager::Update(float dt)
 	}
 
 	return ret;
-}
-
-bool EntityManager::PostUpdate() {
-
-	//Iterates over the entities and calls Update
-	for (const auto entity : entities)
-	{
-		//If the entity is marked for deletion, add it to the pendingDelete list
-		if (entity->pendingToDelete)
-		{
-			DestroyEntity(entity);
-		}
-	}
-
-	return true;
-
 }
