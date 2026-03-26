@@ -258,7 +258,7 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 	case 1: // PAUSE MENU: CONTINUE
 		LOG("PAUSE MENU: CONTINUE clicked!");
 		Engine::GetInstance().Func_PauseEngine();
-		UnloadMainMenu();
+		Engine::GetInstance().uiManager->CleanUp();
 		break;
 	case 2: // PAUSE MENU: OPTIONS
 		//TODO
@@ -266,13 +266,13 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 	case 3: // PAUSE MENU: QUIT
 		LOG("PAUSE MENU: QUIT clicked!");
 		Engine::GetInstance().quiting = true;
-		UnloadMainMenu();
+		Engine::GetInstance().uiManager->CleanUp();
 		LoadQuitMenu();
 		//
 		break;
 	case 4: // PAUSE MENU: OPTIONS
 		//TODO
-		UnloadMainMenu();
+		Engine::GetInstance().uiManager->CleanUp();
 		ChangeScene(SceneID::MAIN_MENU);
 		break;
 	case 5: // PAUSE MENU: Quit to Desktop
@@ -280,7 +280,9 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		break;
 	case 6: // PAUSE MENU: Quit to Desktop
 		Engine::GetInstance().quiting = false;
-		UnloadMainMenu();
+		Engine::GetInstance().uiManager->CleanUp();
+		LoadPauseMenu();
+
 		break;
 	default:
 		break;
@@ -292,9 +294,7 @@ void Scene::HandlePause() {
 		Engine::GetInstance().Func_PauseEngine();
 
 		if (Engine::GetInstance().paused) {
-			if (!Engine::GetInstance().quiting) {
-				LoadPauseMenu();
-			}
+			LoadPauseMenu();
 		}
 		else {
 			UnloadMainMenu();
@@ -327,20 +327,20 @@ void Scene::LoadOptionsMenu() {
 }
 
 void Scene::LoadQuitMenu() {
-	int button_width = 120;
-	int button_height = 20;
-	int button_margin = 10;
+	int buttonWidth = 120;
+	int buttonHeight = 20;
+	int buttonMargin = 10;
 
-	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
-	int center_window_posY = Engine::GetInstance().window->height / 2;
+	int centerWindowPosX = (Engine::GetInstance().window->width / 2) - buttonWidth / 2;
+	int centerWindowPosY = Engine::GetInstance().window->height / 2;
 
-	SDL_Rect menu_button_pos = { center_window_posX, center_window_posY - button_height - button_margin, button_width, button_height };
-	SDL_Rect desktop_button_pos = { center_window_posX, center_window_posY, button_width, button_height };
-	SDL_Rect cancel_button_pos = { center_window_posX, center_window_posY + button_height*2 + button_margin, button_width, button_height };
+	SDL_Rect menuButtonPos = { centerWindowPosX, centerWindowPosY - buttonHeight - buttonMargin, buttonWidth, buttonHeight };
+	SDL_Rect desktopButtonPos = { centerWindowPosX, centerWindowPosY, buttonWidth, buttonHeight };
+	SDL_Rect cancelButtonPos = { centerWindowPosX, centerWindowPosY + buttonHeight*2 + buttonMargin, buttonWidth, buttonHeight };
 
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 4, "Quit to Main Menu", menu_button_pos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "Quit to Desktop", desktop_button_pos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, "Cancel", cancel_button_pos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 4, "Quit to Main Menu", menuButtonPos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "Quit to Desktop", desktopButtonPos, this));
+	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, "Cancel", cancelButtonPos, this));
 
 }
 
