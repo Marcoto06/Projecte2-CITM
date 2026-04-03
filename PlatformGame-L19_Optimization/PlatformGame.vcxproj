@@ -168,7 +168,6 @@
     <ClCompile Include="src\TracyMemory.cpp" />
     <ClCompile Include="src\UIButton.cpp" />
     <ClCompile Include="src\UIManager.cpp" />
-    <ClCompile Include="src\UISlidebar.cpp" />
     <ClCompile Include="src\UISlider.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
     <ClCompile Include="src\Window.cpp" />
@@ -196,7 +195,6 @@
     <ClInclude Include="src\UIButton.h" />
     <ClInclude Include="src\UIElement.h" />
     <ClInclude Include="src\UIManager.h" />
-    <ClInclude Include="src\UISlidebar.h" />
     <ClInclude Include="src\UISlider.h" />
     <ClInclude Include="src\Vector2D.h" />
     <ClInclude Include="src\Window.h" />

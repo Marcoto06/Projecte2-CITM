@@ -102,9 +102,6 @@
     <ClCompile Include="src\UIManager.cpp">
       <Filter>Source Files\Engine\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\UISlidebar.cpp">
-      <Filter>Source Files\Engine\UI</Filter>
-    </ClCompile>
     <ClCompile Include="src\UISlider.cpp">
       <Filter>Source Files\Engine\UI</Filter>
     </ClCompile>
@@ -180,9 +177,6 @@
       <Filter>Source Files\Engine\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\UIManager.h">
-      <Filter>Source Files\Engine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UISlidebar.h">
       <Filter>Source Files\Engine\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\UISlider.h">
