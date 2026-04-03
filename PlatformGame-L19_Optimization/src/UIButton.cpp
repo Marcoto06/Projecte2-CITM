@@ -2,6 +2,8 @@
 #include "Render.h"
 #include "Engine.h"
 #include "Audio.h"
+#include "Textures.h"
+
 
 UIButton::UIButton(int id, SDL_Rect bounds, const char* text) : UIElement(UIElementType::BUTTON, id)
 {
@@ -23,6 +25,8 @@ bool UIButton::Update(float dt)
 	{
 		// L16: TODO 3: Update the state of the GUiButton according to the mouse position
 		Vector2D mousePos = Engine::GetInstance().input->GetMousePosition();
+
+		//mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
 
 		//If the position of the mouse if inside the bounds of the button 
 		if (mousePos.getX() > bounds.x && mousePos.getX() < bounds.x + bounds.w && mousePos.getY() > bounds.y && mousePos.getY() < bounds.y + bounds.h) {

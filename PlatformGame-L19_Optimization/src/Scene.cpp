@@ -187,19 +187,19 @@ void Scene::LoadMainMenu() {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
-	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/Backgrounds/MainMenu_Background.png");
+	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
 
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
-	int buttonWidth = 240;
-	int buttonHeight = 60;
+	int buttonWidth = 350;
+	int buttonHeight = 130;
 	int buttonMargin = 100;
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect playButton = { screenWidth/2 - buttonWidth/2, screenHeight/2 - buttonMargin, buttonWidth, buttonHeight };
-	SDL_Rect optionsButton = { screenWidth/2 - buttonWidth/2, screenHeight/2, buttonWidth, buttonHeight };
-	SDL_Rect exitButton = { screenWidth/2 - buttonWidth/2, screenHeight/2 + buttonMargin, buttonWidth, buttonHeight };
+	SDL_Rect playButton = { 133, 389, buttonWidth, buttonHeight };
+	SDL_Rect optionsButton = { 133, 555, buttonWidth, buttonHeight };
+	SDL_Rect exitButton = { 133, 736, buttonWidth, buttonHeight };
 
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "PLAY", playButton, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "OPTIONS", optionsButton, this));
