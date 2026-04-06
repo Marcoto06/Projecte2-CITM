@@ -91,21 +91,31 @@ void Enemy::GetPhysicsValues() {
 
 void Enemy::Func_EnemyStates(float dt)
 {
-
 	switch (currentEState)
 	{
 	case Enemy::ENEMYSTATES::WALKING:
+		anims.SetCurrent("idle"); // Ensure animation resets so it doesn't look stunned
 		Move();
 		break;
 	case Enemy::ENEMYSTATES::CHASING:
 		break;
 	case Enemy::ENEMYSTATES::STUNED:
-			LOG("STUNNED");
-		//put a timer to change back to walking
 		anims.SetCurrent("stuned");
-		if (timer_01.ReadMSec() > 7000.0f)
-		{
-			currentEState = ENEMYSTATES::WALKING;
+
+		if (isBeingSucked) {
+			// Check if 3 seconds of sucking have passed
+			if (suckTimer.ReadMSec() >= 3000.0f) {
+				Destroy();
+				return;
+			}
+		}
+		else {
+			// Check if 7 seconds of normal stun have passed
+			if (timer_01.ReadMSec() > 7000.0f)
+			{
+				currentEState = ENEMYSTATES::WALKING;
+				isStunned = false;
+			}
 		}
 		break;
 	default:
@@ -185,13 +195,16 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::SYRINGE:
 		if (!isStunned)
 		{
-			timer_01.Start();
+			timer_01.Start(); // Start stun timer ONLY ONCE
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
 		}
-		else
-		{
-			//add func_suckattack thing 
+		break;
+	case ColliderType::SUCK_ZONE:
+		// Only suck if already stunned and not currently being sucked
+		if (isStunned && !isBeingSucked) {
+			isBeingSucked = true;
+			suckTimer.Start(); // Start suck timer ONLY ONCE upon entering the zone
 		}
 		break;
 	}
@@ -199,19 +212,11 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 void Enemy::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
-	//idk if i should keep this here or in OnCollision regular
-	//switch (physB->ctype)
-	//{
-	//case ColliderType::SYRINGE:
-	//	if (!isStuned)
-	//	{
-	//		currentEState = ENEMYSTATES::STUNED;
-	//		isStuned = true;
-	//	}
-	//	else
-	//	{
-	//		//add func_suckattack thing 
-	//	}
-	//	break;
-	//}
+	switch (physB->ctype)
+	{
+	case ColliderType::SUCK_ZONE:
+		// Stop sucking if player moves away or releases right click
+		isBeingSucked = false;
+		break;
+	}
 }

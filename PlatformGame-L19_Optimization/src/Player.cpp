@@ -90,12 +90,12 @@ void Player::GetPhysicsValues() {
 void Player::Move() {
 
 	// Move left/right
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
 		velocity.x = -speed;
 		facingRight = false;
 		anims.SetCurrent("move");
 	}
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
 		velocity.x = speed;
 		facingRight = true;
 		anims.SetCurrent("move");
@@ -104,7 +104,7 @@ void Player::Move() {
 
 void Player::Jump() {
 	// This function can be used for more complex jump logic if needed
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking) {
 		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0.0f, -jumpForce, true);
 		anims.SetCurrent("jump");
 		isJumping = true;
@@ -112,7 +112,7 @@ void Player::Jump() {
 }
 
 void Player::Func_Attacks(float dt) {
-
+	// Stun ATTACK
 	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking) {
 		currentState = PLAYERSTATE::ATTACK;
 		isAttacking = true;
@@ -166,15 +166,47 @@ void Player::Func_Attacks(float dt) {
 		}
 	}
 
-	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking) {
+	// Suck ATTACK
+	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking) {
 		currentState = PLAYERSTATE::SUCKING;
 		isSucking = true;
 		anims.SetCurrent("sucking");
+
+		// Crear una hitbox temporal que durará mientras mantengas el click
+		int playerX, playerY;
+		pbody->GetPosition(playerX, playerY);
+
+		float width = 50.0f;  // Zona de succión ligeramente más grande
+		float height = 30.0f;
+		float pivotLocalX = facingRight ? 25.0f : -25.0f;
+
+		// IMPORTANTE: Asegúrate de añadir SUCK_ZONE a tu enum ColliderType
+		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
+			(int)width, (int)height, playerX + pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
 	}
 
-	if (isSucking == true)
-	{
+	// SUCK ATTACK (MANTENIMIENTO Y FIN)
+	if (isSucking) {
+		// Comprobar si se suelta el click derecho
+		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP) {
+			currentState = PLAYERSTATE::IDLE;
+			isSucking = false;
 
+			// Destruir la hitbox de succión
+			if (suckBody != nullptr) {
+				Engine::GetInstance().physics->DeletePhysBody(suckBody);
+				suckBody = nullptr;
+			}
+		}
+		else {
+			// Si mantenemos el botón, la hitbox debe seguir la posición del jugador
+			if (suckBody != nullptr) {
+				int playerX, playerY;
+				pbody->GetPosition(playerX, playerY);
+				float pivotLocalX = facingRight ? 25.0f : -25.0f;
+				suckBody->SetPosition((int)(playerX + pivotLocalX), playerY);
+			}
+		}
 	}
 }
 

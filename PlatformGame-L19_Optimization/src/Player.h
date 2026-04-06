@@ -62,7 +62,7 @@ public:
 	bool facingRight = true;
 	bool isAttacking = false;
 	bool isSucking = false;
-
+	
 
 private:
 	b2Vec2 velocity;
@@ -70,6 +70,7 @@ private:
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;
+	PhysBody* suckBody = nullptr;
 
 	enum class PLAYERSTATE {
 		IDLE,

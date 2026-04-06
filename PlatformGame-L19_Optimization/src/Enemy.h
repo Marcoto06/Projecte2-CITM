@@ -43,10 +43,14 @@ public:
 
 	float stuntimer = 7.0f;
 	Timer timer_01;
+	Timer suckTimer; 
 
 	//bools
 	bool isStunned = false;
 	bool isFacingRight = false;
+	bool isBeingSucked = false; 
+
+	
 
 private:
 	b2Vec2 velocity;
