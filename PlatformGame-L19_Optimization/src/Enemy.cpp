@@ -195,16 +195,16 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::SYRINGE:
 		if (!isStunned)
 		{
-			timer_01.Start(); // Start stun timer ONLY ONCE
+			timer_01.Start(); 
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
 		}
 		break;
 	case ColliderType::SUCK_ZONE:
-		// Only suck if already stunned and not currently being sucked
+		// Only suck ifstunned and not being sucked
 		if (isStunned && !isBeingSucked) {
 			isBeingSucked = true;
-			suckTimer.Start(); // Start suck timer ONLY ONCE upon entering the zone
+			suckTimer.Start();
 		}
 		break;
 	}
@@ -215,7 +215,7 @@ void Enemy::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	switch (physB->ctype)
 	{
 	case ColliderType::SUCK_ZONE:
-		// Stop sucking if player moves away or releases right click
+		// Stop sucking if player releases right click
 		isBeingSucked = false;
 		break;
 	}
