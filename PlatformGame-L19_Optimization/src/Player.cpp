@@ -244,28 +244,15 @@ void Player::Draw(float dt) {
 		Engine::GetInstance().render->camera.x = -(float)mapSize.getX() + Engine::GetInstance().render->camera.w;
 	}
 
-
-
 	float hitboxW = 32.0f;
 	float hitboxH = 32.0f;
 
-	// Asegúrate de que texW y texH correspondan a los 128x128 de tu animFrame,
-	// no al 256x256 original de la imagen completa.
 	float texW = animFrame.w;
 	float texH = animFrame.h;
-
-	// Calculamos las posiciones alineando las esquinas inferiores izquierdas
+	
 	float drawX = x - (hitboxW / 2.0f);
 	float drawY = (y + (hitboxH / 2.0f)) - texH;
 
-	// Dibujamos la textura
-	
-
-
-
-
-
-	// L10: TODO 5: Draw the player using the texture and the current animation frame
 	if (facingRight)
 	{
 		Engine::GetInstance().render->DrawTexture(texture, drawX, drawY, &animFrame);
@@ -273,7 +260,7 @@ void Player::Draw(float dt) {
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - texW / 2, y - texH / 2, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL);
+		Engine::GetInstance().render->DrawTexture(texture, drawX,drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL);
 	}
 }
 
