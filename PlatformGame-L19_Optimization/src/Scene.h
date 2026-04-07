@@ -21,6 +21,13 @@ enum class MainMenuState
 	OPTIONS
 };
 
+enum class PauseMenuState
+{
+	MAIN,
+	OPTIONS,
+	QUIT_CONFIRM
+};
+
 class Scene : public Module
 {
 public:
@@ -77,8 +84,8 @@ private:
 	void HandlePauseMenuUIEvents(UIElement* uiElement);
 	void HandlePause();
 	void LoadPauseMenu();
-	void LoadOptionsMenu();
-	void LoadQuitMenu();
+	void LoadPauseOptionsMenu();
+	void LoadPauseQuitMenu();
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
 	void LoadLevel1();
@@ -106,6 +113,7 @@ private:
 	// L17 TODO 1: Current scene attribute with initial value
 	SceneID currentScene = SceneID::MAIN_MENU;
 	MainMenuState currentMenuState = MainMenuState::MAIN_BUTTONS;
+	PauseMenuState currentPauseState = PauseMenuState::MAIN;
 
 	SDL_Texture* mainMenuBackground = nullptr;
 };

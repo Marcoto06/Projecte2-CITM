@@ -109,6 +109,7 @@ bool Scene::OnUIMouseClickEvent(UIElement* uiElement)
 		HandlePauseMenuUIEvents(uiElement);
 		break;
 	case SceneID::LEVEL2:
+		HandlePauseMenuUIEvents(uiElement);
 		break;
 	default:
 		break;
@@ -308,24 +309,35 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		Engine::GetInstance().uiManager->CleanUp();
 		break;
 	case 2: // PAUSE MENU: OPTIONS
-		//TODO
+		LoadPauseOptionsMenu();
 		break;
 	case 3: // PAUSE MENU: QUIT
 		LOG("PAUSE MENU: QUIT clicked!");
 		Engine::GetInstance().quiting = true;
 		Engine::GetInstance().uiManager->CleanUp();
-		LoadQuitMenu();
+		LoadPauseQuitMenu();
 		break;
-	case 4: // PAUSE MENU: OPTIONS
-		//TODO
+	case 4: // PAUSE MENU: QUIT to Main Menu
 		Engine::GetInstance().uiManager->CleanUp();
 		ChangeScene(SceneID::MAIN_MENU);
+		Engine::GetInstance().Func_PauseEngine();
 		break;
-	case 5: // PAUSE MENU: Quit to Desktop
+	case 5: // PAUSE MENU QUIT CONFIRM: Quit to Desktop
 		Engine::GetInstance().quit = true;
 		break;
-	case 6: // PAUSE MENU: Quit to Desktop
+	case 6: // PAUSE MENU QUIT CONFIRM: BACK to Main Pause
 		Engine::GetInstance().quiting = false;
+		Engine::GetInstance().uiManager->CleanUp();
+		LoadPauseMenu();
+		break;
+	case 7: // PAUSE MENU OPTIONS: Volume Slider
+	{
+		UISlider* slider = static_cast<UISlider*>(uiElement);
+		float volume = slider->GetValue() / 100.0f;
+		Engine::GetInstance().audio->SetMusicVolume(volume);
+		break;
+	}
+	case 8: // PAUSE MENU OPTIONS: Back Button
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
 		break;
@@ -349,6 +361,9 @@ void Scene::HandlePause() {
 
 
 void Scene::LoadPauseMenu() {
+	Engine::GetInstance().uiManager->CleanUp();
+	currentPauseState = PauseMenuState::MAIN;
+
 	int button_width = 120;
 	int button_height = 20;
 	int button_margin = 10;
@@ -366,11 +381,25 @@ void Scene::LoadPauseMenu() {
 	
 }
 
-void Scene::LoadOptionsMenu() {
-	
+void Scene::LoadPauseOptionsMenu() 
+{
+	Engine::GetInstance().uiManager->CleanUp();
+	currentPauseState = PauseMenuState::OPTIONS;
+
+	int center_window_posX = (Engine::GetInstance().window->width / 2) - 175;
+	int center_window_posY = Engine::GetInstance().window->height / 2;
+
+	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 10, 350, 20 };
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 7, "VOLUME", sliderBounds, this);
+
+	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 40, 120, 20 };
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 8, "BACK", backButtonPos, this);
 }
 
-void Scene::LoadQuitMenu() {
+void Scene::LoadPauseQuitMenu() {
+
+	currentPauseState = PauseMenuState::QUIT_CONFIRM;
+
 	int buttonWidth = 120;
 	int buttonHeight = 20;
 	int buttonMargin = 10;
@@ -420,6 +449,14 @@ void Scene::LoadLevel1() {
 
 void Scene::UpdateLevel1(float dt) {
 	HandlePause();
+
+	if (Engine::GetInstance().paused) {
+		int w, h;
+		Engine::GetInstance().window->GetWindowSize(w, h);
+		SDL_Rect fullscreenRect = { 0, 0, w, h };
+
+		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+	}
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 		ChangeScene(SceneID::LEVEL2);
@@ -471,6 +508,17 @@ void Scene::LoadLevel2() {
 }
 
 void Scene::UpdateLevel2(float dt) {
+
+	HandlePause();
+
+	if (Engine::GetInstance().paused) {
+		int w, h;
+		Engine::GetInstance().window->GetWindowSize(w, h);
+		SDL_Rect fullscreenRect = { 0, 0, w, h };
+
+		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+	}
+
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		ChangeScene(SceneID::LEVEL1);
 	}
