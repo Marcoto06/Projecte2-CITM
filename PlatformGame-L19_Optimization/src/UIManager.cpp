@@ -1,5 +1,6 @@
 #include "UIManager.h"
 #include "UIButton.h"
+#include "UISlider.h"
 #include "Engine.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -27,7 +28,10 @@ std::shared_ptr<UIElement> UIManager::CreateUIElement(UIElementType type, int id
 	case UIElementType::BUTTON:
 		uiElement = std::make_shared<UIButton>(id, bounds, text);
 		break;
-	}
+	case UIElementType::SLIDER:
+		uiElement = std::make_shared<UISlider>(id, bounds, text);
+		break;
+	}	
 
 	//Set the observer
 	uiElement->observer = observer;
@@ -40,6 +44,20 @@ std::shared_ptr<UIElement> UIManager::CreateUIElement(UIElementType type, int id
 
 bool UIManager::Update(float dt)
 {	
+	std::vector<std::shared_ptr<UIElement>> elementsToUpdate;
+	for (const auto& uiElement : UIElementsList)
+	{
+		elementsToUpdate.push_back(uiElement);
+	}
+
+	// 2. Actualizamos solo los elementos de nuestra copia segura
+	for (const auto& uiElement : elementsToUpdate)
+	{
+		if (!uiElement->pendingToDelete)
+		{
+			uiElement->Update(dt);
+		}
+	}
 	//List to store entities pending deletion
 	std::list<std::shared_ptr<UIElement>> pendingDelete;
 
@@ -49,9 +67,6 @@ bool UIManager::Update(float dt)
 		if (uiElement->pendingToDelete)
 		{
 			pendingDelete.push_back(uiElement);
-		}
-		else {
-			uiElement->Update(dt);
 		}
 	}
 
@@ -71,6 +86,8 @@ bool UIManager::CleanUp()
 	{
 		uiElement->CleanUp();
 	}
+
+	UIElementsList.clear();
 
 	return true;
 }

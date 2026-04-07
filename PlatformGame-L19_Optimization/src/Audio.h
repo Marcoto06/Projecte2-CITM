@@ -37,6 +37,8 @@ public:
     void SetMusicVolume(float volume); // 0.0f – 1.0f
     void SetSFXVolume(float volume);   // 0.0f – 1.0f
 
+    float GetMusicVolume() const { return music_volume_; }
+
 private:
 
     struct SoundData {

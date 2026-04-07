@@ -7,7 +7,6 @@ public:
     UISlider(int id, SDL_Rect bounds, const char* text);
 
     bool Update(float dt) override;
-    bool Draw(float dt);
 
     int GetValue() const { return value; }
     void SetValue(int v);

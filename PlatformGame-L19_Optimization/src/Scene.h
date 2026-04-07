@@ -15,6 +15,11 @@ enum class SceneID
 	LEVEL2
 };
 
+enum class MainMenuState
+{
+	MAIN_BUTTONS,
+	OPTIONS
+};
 
 class Scene : public Module
 {
@@ -65,7 +70,10 @@ private:
 	void LoadMainMenu();
 	void UnloadMainMenu();
 	void UpdateMainMenu(float dt);
+	void ShowMainMenuButtons();
+	void LoadOptionsMainMenu();
 	void HandleMainMenuUIEvents(UIElement* uiElement);
+
 	void HandlePauseMenuUIEvents(UIElement* uiElement);
 	void HandlePause();
 	void LoadPauseMenu();
@@ -97,6 +105,7 @@ private:
 
 	// L17 TODO 1: Current scene attribute with initial value
 	SceneID currentScene = SceneID::MAIN_MENU;
+	MainMenuState currentMenuState = MainMenuState::MAIN_BUTTONS;
 
 	SDL_Texture* mainMenuBackground = nullptr;
 };

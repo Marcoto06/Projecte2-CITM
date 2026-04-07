@@ -13,6 +13,7 @@
 #include "Item.h"
 #include "Enemy.h"
 #include "UIManager.h"
+#include "UISlider.h"
 
 Scene::Scene() : Module()
 {
@@ -187,14 +188,25 @@ void Scene::LoadMainMenu() {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
-	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
+	if (mainMenuBackground == nullptr)
+	{
+		mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
+	}	
+
+	ShowMainMenuButtons();
+}
+
+void Scene::ShowMainMenuButtons() 
+{
+	Engine::GetInstance().uiManager->CleanUp();
+
+	currentMenuState = MainMenuState::MAIN_BUTTONS;
 
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
 	int buttonWidth = 350;
 	int buttonHeight = 130;
-	int buttonMargin = 100;
 
 	// Instantiate a UIButton in the Scene
 	SDL_Rect playButton = { 133, 389, buttonWidth, buttonHeight };
@@ -204,7 +216,6 @@ void Scene::LoadMainMenu() {
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "PLAY", playButton, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "OPTIONS", optionsButton, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "EXIT", exitButton, this));
-	
 }
 
 void Scene::UnloadMainMenu() {
@@ -224,6 +235,14 @@ void Scene::UpdateMainMenu(float dt) {
 	{
 		Engine::GetInstance().render->DrawTexture(mainMenuBackground, 0, 0, NULL, 0.0f);
 	}
+	if (currentMenuState == MainMenuState::OPTIONS) {
+		int w, h;
+		Engine::GetInstance().window->GetWindowSize(w, h);
+
+		SDL_Rect fullscreenRect = { 0, 0, w, h };
+
+		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+	}
 }
 
 void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
@@ -235,17 +254,45 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 		ChangeScene(SceneID::LEVEL1);
 		break;
 	case 2: // Button Options
-		//TODO
+		LOG("Main Menu: Options button clicked!");
+		LoadOptionsMainMenu();
 		break;
 	case 3: // Button Exit
 		LOG("Main Menu: Exit clicked!");
 		Engine::GetInstance().quit = true;
+		break;
+	case 4:
+	{
+		UISlider * slider = static_cast<UISlider*>(uiElement);
+		float volume = slider->GetValue() / 100.0f;
+		Engine::GetInstance().audio->SetMusicVolume(volume);
+		break;
+	}
+	case 5:
+		LOG("Main Menu: Back button clicked!");
+		ShowMainMenuButtons();
 		break;
 	default:
 		break;
 	}
 }
 
+// *********************************************
+// OPTIONS MAIN MENU functions
+// *********************************************
+
+void Scene::LoadOptionsMainMenu() 
+{
+	Engine::GetInstance().uiManager->CleanUp();
+
+	currentMenuState = MainMenuState::OPTIONS;
+
+	SDL_Rect sliderBounds = { 133, 389, 350, 20 };
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
+
+	SDL_Rect backButtonPos = { 133, 736, 350, 130 };
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "BACK", backButtonPos, this);
+}	
 
 // *********************************************
 // PAUSE MENU functions
@@ -268,7 +315,6 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		Engine::GetInstance().quiting = true;
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadQuitMenu();
-		//
 		break;
 	case 4: // PAUSE MENU: OPTIONS
 		//TODO
@@ -282,7 +328,6 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		Engine::GetInstance().quiting = false;
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
-
 		break;
 	default:
 		break;
@@ -301,7 +346,6 @@ void Scene::HandlePause() {
 		}
 	}
 }
-
 
 
 void Scene::LoadPauseMenu() {

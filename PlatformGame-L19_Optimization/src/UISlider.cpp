@@ -1,14 +1,20 @@
 #include "UISlider.h"
 #include "Engine.h"
 #include "Render.h"
+#include "Audio.h"
 
 UISlider::UISlider(int id, SDL_Rect bounds, const char* text) : UIElement(UIElementType::SLIDER, id)
 {
     this->bounds = bounds;
     this->text = text;
+	this->texture = nullptr;
 
-    knobBounds = { bounds.x, bounds.y, 20, bounds.h };
-    SetValue(50);
+    knobBounds = { bounds.x, bounds.y, bounds.h, bounds.h };
+
+	float currentVolume = Engine::GetInstance().audio->GetMusicVolume();
+	int initialValue = (int)(currentVolume * 100.0f);
+
+    SetValue(initialValue);
 }
 
 void UISlider::SetValue(int v) {
@@ -45,19 +51,22 @@ bool UISlider::Update(float dt) {
         }
     }    
 
-    return true;
-}
-
-bool UISlider::Draw(float dt) 
-{
     if (texture != nullptr)
-    {
+    {   
+		// Draws the bar first and then the handle from the same texture
+        Engine::GetInstance().render->DrawTexture(texture, bounds.x, bounds.y, nullptr, 0.0f);
         Engine::GetInstance().render->DrawTexture(texture, knobBounds.x, knobBounds.y, nullptr, 0.0f);
     }
     else
     {
-        Engine::GetInstance().render->DrawRectangle(knobBounds, 255, 0, 0, 255, true, false);
+        Engine::GetInstance().render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
+
+        int radius = knobBounds.w / 2;
+        int centerX = knobBounds.x + radius;
+        int centerY = knobBounds.y + (knobBounds.h / 2);
+
+        Engine::GetInstance().render->DrawCircle(centerX, centerY, radius, 255, 0, 0, 255, false);
     }
 
-	return true;
+    return true;
 }
