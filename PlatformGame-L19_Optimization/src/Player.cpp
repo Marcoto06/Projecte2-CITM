@@ -260,7 +260,7 @@ void Player::Draw(float dt) {
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, drawX,drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL);
+		Engine::GetInstance().render->DrawTexture(texture, drawX,drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 0.5f);
 	}
 }
 
