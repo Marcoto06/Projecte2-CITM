@@ -255,7 +255,7 @@ void Player::Draw(float dt) {
 
 	if (facingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, drawX, drawY, &animFrame);
+		Engine::GetInstance().render->DrawTexture(texture, drawX, drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 0.5f);
 		
 	}
 	else
