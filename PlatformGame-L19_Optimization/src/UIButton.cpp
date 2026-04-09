@@ -26,7 +26,6 @@ bool UIButton::Update(float dt)
 		// L16: TODO 3: Update the state of the GUiButton according to the mouse position
 		Vector2D mousePos = Engine::GetInstance().input->GetMousePosition();
 
-		//mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
 
 		//If the position of the mouse if inside the bounds of the button 
 		if (mousePos.getX() > bounds.x && mousePos.getX() < bounds.x + bounds.w && mousePos.getY() > bounds.y && mousePos.getY() < bounds.y + bounds.h) {
@@ -46,24 +45,60 @@ bool UIButton::Update(float dt)
 		}
 
 		//L16: TODO 4: Draw the button according the GuiControl State
-		switch (state)
+
+		if (texture != nullptr)
 		{
-		case UIElementState::DISABLED:
-			Engine::GetInstance().render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
-			break;
-		case UIElementState::NORMAL:
-			Engine::GetInstance().render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
-			break;
-		case UIElementState::FOCUSED:
-			Engine::GetInstance().render->DrawRectangle(bounds, 0, 0, 20, 255, true, false);
-			break;
-		case UIElementState::PRESSED:
-			Engine::GetInstance().render->DrawRectangle(bounds, 0, 255, 0, 255, true, false);
-			break;
+			int texW, texH;
+			Engine::GetInstance().textures->GetSize(texture, texW, texH);
+
+			int frameHeight = texH / 4;
+
+			section.x = 0;
+			section.w = texW;
+			section.h = frameHeight;
+
+			switch (state)
+			{
+			case UIElementState::DISABLED:
+				section.y = 0;
+				break;
+			case UIElementState::NORMAL:
+				section.y = frameHeight;
+				break;
+			case UIElementState::FOCUSED:
+				section.y = frameHeight * 2;
+				break;
+			case UIElementState::PRESSED:
+			case UIElementState::SELECTED:
+				section.y = frameHeight * 3;
+				break;
+			default:
+				section.y = frameHeight;
+				break;
+			}
+
+			Engine::GetInstance().render->DrawTexture(texture, bounds.x, bounds.y, &section, 0.0f);
 		}
+		else
+		{
+			switch (state)
+			{
+			case UIElementState::DISABLED:
+				Engine::GetInstance().render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
+				break;
+			case UIElementState::NORMAL:
+				Engine::GetInstance().render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
+				break;
+			case UIElementState::FOCUSED:
+				Engine::GetInstance().render->DrawRectangle(bounds, 0, 0, 20, 255, true, false);
+				break;
+			case UIElementState::PRESSED:
+				Engine::GetInstance().render->DrawRectangle(bounds, 0, 255, 0, 255, true, false);
+				break;
+			}
 
-		Engine::GetInstance().render->DrawText(text.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, {255,255,255,255});
-
+			Engine::GetInstance().render->DrawText(text.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255,255 });
+		}
 	}
 
 	return false;

@@ -116,4 +116,10 @@ private:
 	PauseMenuState currentPauseState = PauseMenuState::MAIN;
 
 	SDL_Texture* mainMenuBackground = nullptr;
+
+	SDL_Texture* playButtonTexture = nullptr;
+	SDL_Texture* optionsButtonTexture = nullptr;
+	SDL_Texture* exitButtonTexture = nullptr;
+
+	SDL_Texture* backButtonTexture = nullptr;
 };

@@ -209,14 +209,25 @@ void Scene::ShowMainMenuButtons()
 	int buttonWidth = 350;
 	int buttonHeight = 130;
 
-	// Instantiate a UIButton in the Scene
-	SDL_Rect playButton = { 133, 389, buttonWidth, buttonHeight };
-	SDL_Rect optionsButton = { 133, 555, buttonWidth, buttonHeight };
-	SDL_Rect exitButton = { 133, 736, buttonWidth, buttonHeight };
+	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ContinueButton.png");
+	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/SettingsButton.png");
+	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "PLAY", playButton, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "OPTIONS", optionsButton, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "EXIT", exitButton, this));
+	// Instantiate a UIButton in the Scene
+	SDL_Rect playButtonRect = { 133, 389, buttonWidth, buttonHeight };
+	SDL_Rect optionsButtonRect = { 133, 555, buttonWidth, buttonHeight };
+	SDL_Rect exitButtonRect = { 133, 736, buttonWidth, buttonHeight };
+
+	auto playButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " ",playButtonRect, this);
+	playButton->SetTexture(playButtonTexture);
+	auto optionsButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, " ", optionsButtonRect, this);
+	optionsButton->SetTexture(optionsButtonTexture);
+	auto exitButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, " ", exitButtonRect, this);
+	exitButton->SetTexture(exitButtonTexture);
+
+	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "PLAY", playButtonRect, this));
+	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "OPTIONS", optionsButtonRect, this));
+	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "EXIT", exitButtonRect, this));
 }
 
 void Scene::UnloadMainMenu() {
@@ -291,8 +302,14 @@ void Scene::LoadOptionsMainMenu()
 	SDL_Rect sliderBounds = { 133, 389, 350, 20 };
 	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
 
-	SDL_Rect backButtonPos = { 133, 736, 350, 130 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "BACK", backButtonPos, this);
+	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
+
+	SDL_Rect backButtonRect = { 133, 736, 350, 130 };
+
+	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, " ", backButtonRect, this);
+	backButton->SetTexture(exitButtonTexture);
+
+	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "BACK", backButtonPos, this);
 }	
 
 // *********************************************
@@ -371,11 +388,16 @@ void Scene::LoadPauseMenu() {
 	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
-	SDL_Rect continue_button_pos = { center_window_posX, center_window_posY - button_height - button_margin, button_width, button_height };
+	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
+
+	SDL_Rect continueButtonRect = { center_window_posX, center_window_posY - button_height - button_margin, button_width, button_height };
 	SDL_Rect options_button_pos = { center_window_posX, center_window_posY, button_width, button_height };
 	SDL_Rect quit_button_pos = { center_window_posX, center_window_posY + button_height + button_margin, button_width, button_height };
 
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continue_button_pos, this));
+	auto playButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " ", continueButtonRect, this);
+	playButton->SetTexture(playButtonTexture);
+
+	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continueButtonRect, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "Options", options_button_pos, this));
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "Quit", quit_button_pos, this));
 	
