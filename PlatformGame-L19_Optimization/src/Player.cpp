@@ -29,12 +29,12 @@ bool Player::Start() {
 	#define PLAYER_FEET_TAG 2
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"},{11,"move"},{22,"jump"} };
-	anims.LoadFromTSX("Assets/Textures/Characters/Pruebas_Doctora.tsx", aliases);
+	std::unordered_map<int, std::string> aliases = { {0,"idle"},{20,"move"},{40,"puncture"},{49,"extract"},{60,"stop?"},{80, "taptap"}};
+	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora_PNG.tsx", aliases);
 	anims.SetCurrent("idle");
 
 	//L03: TODO 2: Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/spritesheet_Skull_Doctor.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Doctora_PNG.png");
 
 	// L08 TODO 5: Add physics to the player - initialize physics body
 	//Engine::GetInstance().textures->GetSize(texture, texW, texH);
@@ -91,14 +91,19 @@ void Player::Move() {
 
 	// Move left/right
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
-		velocity.x = -currentSpeed;
+		velocity.x = -normalSpeed;
 		facingRight = false;
 		anims.SetCurrent("move");
 	}
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
-		velocity.x = currentSpeed;
+		velocity.x = normalSpeed;
 		facingRight = true;
 		anims.SetCurrent("move");
+	}
+	
+	if (!isJumping && !isSucking && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_A))
+	{
+		anims.SetCurrent("idle");
 	}
 }
 
@@ -170,7 +175,7 @@ void Player::Func_Attacks(float dt) {
 	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking) {
 		currentState = PLAYERSTATE::SUCKING;
 		isSucking = true;
-		anims.SetCurrent("sucking");
+		anims.SetCurrent("extract");
 
 		// Crear una hitbox temporal que durará mientras mantengas el click
 		int playerX, playerY;

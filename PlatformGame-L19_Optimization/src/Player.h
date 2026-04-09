@@ -46,15 +46,7 @@ private:
 public:
 
 	//Speed control
-	float normalSpeed = 5.0f;      
-	float boostSpeed = 10.0f;       
-	float currentSpeed;              
-
-	bool speedBoostActive = false;
-	float boostTimer = 0.0f;
-	float boostDuration = 3.0f;
-
-	
+	float normalSpeed = 5.0f;      	
 
 	SDL_Texture* texture = NULL;
 
@@ -74,7 +66,7 @@ public:
 	bool facingRight = true;
 	bool isAttacking = false;
 	bool isSucking = false;
-	
+	bool isMoving = false;
 
 private:
 	b2Vec2 velocity;
