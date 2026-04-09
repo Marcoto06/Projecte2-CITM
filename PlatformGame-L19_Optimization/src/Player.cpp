@@ -250,17 +250,17 @@ void Player::Draw(float dt) {
 	float texW = animFrame.w;
 	float texH = animFrame.h;
 	
-	float drawX = x - (hitboxW / 2.0f);
-	float drawY = (y + (hitboxH / 2.0f)) - texH;
+	float drawX = x - (hitboxW / 1.0f);
+	float drawY = (y + (hitboxH / 1.0f)) -  texH;
 
 	if (facingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, drawX, drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 0.5f);
+		Engine::GetInstance().render->DrawTexture(texture, drawX, drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 		
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, drawX,drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 0.5f);
+		Engine::GetInstance().render->DrawTexture(texture, drawX,drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 }
 
