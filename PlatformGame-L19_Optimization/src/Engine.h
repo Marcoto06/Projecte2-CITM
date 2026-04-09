@@ -90,6 +90,7 @@ public:
 		FAIL,
 		EXIT
 	};
+
 	bool paused = false;
 	bool quiting = false;
 	bool quit = false;

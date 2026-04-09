@@ -105,6 +105,9 @@
     <ClCompile Include="src\UISlider.cpp">
       <Filter>Source Files\Engine\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIComboBox.cpp">
+      <Filter>Source Files\Engine\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -180,6 +183,9 @@
       <Filter>Source Files\Engine\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\UISlider.h">
+      <Filter>Source Files\Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIComboBox.h">
       <Filter>Source Files\Engine\UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,7 @@ Window::~Window()
 }
 
 // Called before render is available
-bool Window::Awake()
+bool Window::Awake() 
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -45,7 +45,7 @@ bool Window::Awake()
 
 		// SDL3: SDL_CreateWindow(title, w, h, flags). Set position separately.
 		window = SDL_CreateWindow("Platform Game", width, height, flags);
-
+	
 		if (window == NULL)
 		{
 			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -97,4 +97,15 @@ void Window::GetWindowSize(int& width, int& height) const
 int Window::GetScale() const
 {
 	return scale;
+}
+
+void Window::SetFullScreen(bool state) {
+	
+	if (state == true)
+	{
+		SDL_SetWindowFullscreenMode(window, nullptr); // use desktop resolution
+		SDL_SetWindowFullscreen(window, true);
+	}
+	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	SDL_ShowWindow(window);
 }

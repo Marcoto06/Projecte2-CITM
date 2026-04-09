@@ -5,6 +5,12 @@
 #include "SDL3/SDL.h"
 #include "SDL3_ttf/SDL_ttf.h"
 
+
+struct Resolution {
+	int Width;
+	int Height;
+};
+
 class Render : public Module
 {
 public:
@@ -30,6 +36,7 @@ public:
 
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
+	void SetResolution(int pos);
 
 	// Drawing
 	bool DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX, SDL_FlipMode flip = SDL_FLIP_NONE, float scale = 0) const;
@@ -44,13 +51,13 @@ public:
 
 	// L19 TODO 4: Create a method to know if a rectangle is inside the camera frustum
 	bool IsOnScreenWorldRect(float x, float y, float w, float h, int margin = 0) const;
-
 public:
 
 	SDL_Renderer* renderer;
 	SDL_Rect camera;
 	SDL_Rect viewport;
 	SDL_Color background;
+	Resolution ResolutionList[4];
 
 private:
 	bool vsync = false;

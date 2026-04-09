@@ -29,7 +29,8 @@ bool Render::Awake()
 
 	int scale = Engine::GetInstance().window->GetScale();
 	SDL_Window* window = Engine::GetInstance().window->window;
-
+	
+	
 	//L05 TODO 5 - Load the configuration of the Render module
 	
 	// SDL3: no flags; create default renderer and set vsync separately
@@ -65,6 +66,11 @@ bool Render::Awake()
 
 	//load a font into memory
 	font = TTF_OpenFont("Assets/Fonts/arial.ttf", 25);
+
+	ResolutionList[0] = { 1280, 720 };
+	ResolutionList[1] = { 1920, 1080 };
+	ResolutionList[2] = { 2560, 1440 };
+	ResolutionList[3] = { 3840, 2160 };
 
 	return ret;
 }
@@ -339,4 +345,8 @@ bool Render::IsOnScreenWorldRect(float x, float y, float w, float h, int margin)
 	return result;
 }
 
+void Render::SetResolution(int index) {
 
+	Engine::GetInstance().window->width = ResolutionList[index].Width;
+	Engine::GetInstance().window->height = ResolutionList[index].Height;
+}
