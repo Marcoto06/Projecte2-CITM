@@ -41,11 +41,21 @@ private:
 	void Teleport();
 	void ApplyPhysics();
 	void Draw(float dt);
+	void ActivateSpeedBoost(float duration, float amount);
 
 public:
 
-	//Declare player parameters
-	float speed = 4.0f;
+	//Speed control
+	float normalSpeed = 5.0f;      
+	float boostSpeed = 10.0f;       
+	float currentSpeed;              
+
+	bool speedBoostActive = false;
+	float boostTimer = 0.0f;
+	float boostDuration = 3.0f;
+
+	
+
 	SDL_Texture* texture = NULL;
 
 	int texW, texH;
@@ -56,6 +66,8 @@ public:
 	PhysBody* pbody;
 	float jumpForce = 1.75f; // The force to apply when jumping
 	float attackTimer = 0.0f;
+	int kill_counter = 0;
+
 
 	//ESTADOS
 	bool isJumping = false; // Flag to check if the player is currently jumping
@@ -67,6 +79,9 @@ public:
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
+
+	float speedMultiplier = 1.0f;
+	float boostTimer = 0.0f;
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;

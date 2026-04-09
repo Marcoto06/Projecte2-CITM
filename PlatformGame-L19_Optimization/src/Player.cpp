@@ -91,12 +91,12 @@ void Player::Move() {
 
 	// Move left/right
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
-		velocity.x = -speed;
+		velocity.x = -currentSpeed;
 		facingRight = false;
 		anims.SetCurrent("move");
 	}
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
-		velocity.x = speed;
+		velocity.x = currentSpeed;
 		facingRight = true;
 		anims.SetCurrent("move");
 	}
@@ -315,6 +315,11 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	default:
 		break;
 	}
+}
+
+void Player::ActivateSpeedBoost(float duration, float amount) {
+	speedMultiplier = amount;
+	boostTimer = duration;
 }
 
 Vector2D Player::GetPosition() {
