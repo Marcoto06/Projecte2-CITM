@@ -576,7 +576,7 @@
  </layer>
  <layer id="5" name="Collisions" width="30" height="17">
   <properties>
-   <property name="Draw" type="bool" value="false"/>
+   <property name="Draw" type="bool" value="true"/>
   </properties>
   <data>
    <tile/>
