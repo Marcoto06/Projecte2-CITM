@@ -76,6 +76,10 @@ struct TileSet
     SDL_Rect GetRect(unsigned int gid) {
         SDL_Rect rect = { 0 };
 
+        if (columns <= 0 || tileWidth <= 0 || tileHeight <= 0) {
+            return rect;
+        }
+
         int relativeIndex = gid - firstGid;
         rect.w = tileWidth;
         rect.h = tileHeight;

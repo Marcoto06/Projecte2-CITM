@@ -58,13 +58,11 @@ bool Map::Update(float dt)
                         if (gid != 0) {
                             //L09: TODO 3: Obtain the tile set using GetTilesetFromTileId
                             TileSet* tileSet = GetTilesetFromTileId(gid);
-                            if (tileSet != nullptr) {
-                                //Get the Rect from the tileSetTexture;
+                            if (tileSet != nullptr && tileSet->texture != nullptr && tileSet->columns > 0) {
                                 SDL_Rect tileRect = tileSet->GetRect(gid);
-                                //Get the screen coordinates from the tile coordinates
                                 Vector2D mapCoord = MapToWorld(i, j);
-                                //Draw the texture
                                 Engine::GetInstance().render->DrawTexture(tileSet->texture, (int)mapCoord.getX(), (int)mapCoord.getY(), &tileRect);
+                            
                             }
                         }
                     }
@@ -79,14 +77,15 @@ bool Map::Update(float dt)
 // L09: TODO 2: Implement function to the Tileset based on a tile id
 TileSet* Map::GetTilesetFromTileId(int gid) const
 {
-    TileSet* set = nullptr;
-    for (const auto& tileset : mapData.tilesets) {
-        set = tileset;
-        if (gid >= tileset->firstGid && gid < tileset->firstGid + tileset->tileCount) {
-            break;
+    for (const auto& tileset : mapData.tilesets)
+    {
+        if (gid >= tileset->firstGid && gid < tileset->firstGid + tileset->tileCount)
+        {
+            return tileset;
         }
     }
-    return set;
+
+    return nullptr;
 }
 
 // Called before quitting
@@ -149,25 +148,52 @@ bool Map::Load(std::string path, std::string fileName)
         // L06: TODO 4: Implement the LoadTileSet function to load the tileset properties
        
         //Iterate the Tileset
-        for(pugi::xml_node tilesetNode = mapFileXML.child("map").child("tileset"); tilesetNode!=NULL; tilesetNode = tilesetNode.next_sibling("tileset"))
-		{
-            //Load Tileset attributes
-			TileSet* tileSet = new TileSet();
+        for (pugi::xml_node tilesetNode = mapFileXML.child("map").child("tileset");
+            tilesetNode;
+            tilesetNode = tilesetNode.next_sibling("tileset"))
+        {
+            TileSet* tileSet = new TileSet();
             tileSet->firstGid = tilesetNode.attribute("firstgid").as_int();
-            tileSet->name = tilesetNode.attribute("name").as_string();
-            tileSet->tileWidth = tilesetNode.attribute("tilewidth").as_int();
-            tileSet->tileHeight = tilesetNode.attribute("tileheight").as_int();
-            tileSet->spacing = tilesetNode.attribute("spacing").as_int();
-            tileSet->margin = tilesetNode.attribute("margin").as_int();
-            tileSet->tileCount = tilesetNode.attribute("tilecount").as_int();
-            tileSet->columns = tilesetNode.attribute("columns").as_int();
+            tileSet->texture = nullptr;
 
-			//Load the tileset image
-			std::string imgName = tilesetNode.child("image").attribute("source").as_string();
-            tileSet->texture = Engine::GetInstance().textures->Load((mapPath+imgName).c_str());
+            pugi::xml_node dataNode = tilesetNode;
+            pugi::xml_document externalTsx;
 
-			mapData.tilesets.push_back(tileSet);
-		}
+            // Si el tileset es externo: <tileset source="algo.tsx"/>
+            if (tilesetNode.attribute("source"))
+            {
+                std::string tsxFile = tilesetNode.attribute("source").as_string();
+                std::string fullTsxPath = mapPath + tsxFile;
+
+                pugi::xml_parse_result tsxResult = externalTsx.load_file(fullTsxPath.c_str());
+                if (!tsxResult)
+                {
+                    LOG("Could not load external tileset %s. Error: %s", fullTsxPath.c_str(), tsxResult.description());
+                    delete tileSet;
+                    continue;
+                }
+
+                dataNode = externalTsx.child("tileset");
+            }
+
+            tileSet->name = dataNode.attribute("name").as_string();
+            tileSet->tileWidth = dataNode.attribute("tilewidth").as_int();
+            tileSet->tileHeight = dataNode.attribute("tileheight").as_int();
+            tileSet->spacing = dataNode.attribute("spacing").as_int();
+            tileSet->margin = dataNode.attribute("margin").as_int();
+            tileSet->tileCount = dataNode.attribute("tilecount").as_int();
+            tileSet->columns = dataNode.attribute("columns").as_int();
+
+            std::string imgName = dataNode.child("image").attribute("source").as_string();
+            tileSet->texture = Engine::GetInstance().textures->Load((mapPath + imgName).c_str());
+
+            if (tileSet->texture == nullptr)
+            {
+                LOG("Could not load tileset texture: %s", (mapPath + imgName).c_str());
+            }
+
+            mapData.tilesets.push_back(tileSet);
+        }
 
         // L07: TODO 3: Iterate all layers in the TMX and load each of them
         for (pugi::xml_node layerNode = mapFileXML.child("map").child("layer"); layerNode != NULL; layerNode = layerNode.next_sibling("layer")) {
