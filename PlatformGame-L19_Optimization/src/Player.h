@@ -61,12 +61,18 @@ public:
 	int kill_counter = 0;
 
 
-	//ESTADOS
+	//STATES
 	bool isJumping = false; // Flag to check if the player is currently jumping
 	bool facingRight = true;
 	bool isAttacking = false;
 	bool isSucking = false;
 	bool isMoving = false;
+
+	//PERMANENT UPGRADES
+	bool hasWallJump;
+	bool hasSlide;
+	bool hasAcidResistance;
+	bool hasAscend;
 
 private:
 	b2Vec2 velocity;
