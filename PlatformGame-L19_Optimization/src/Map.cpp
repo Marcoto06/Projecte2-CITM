@@ -159,7 +159,7 @@ bool Map::Load(std::string path, std::string fileName)
             pugi::xml_node dataNode = tilesetNode;
             pugi::xml_document externalTsx;
 
-            // Si el tileset es externo: <tileset source="algo.tsx"/>
+            // If extern Tileset: <tileset source="algo.tsx"/>
             if (tilesetNode.attribute("source"))
             {
                 std::string tsxFile = tilesetNode.attribute("source").as_string();
