@@ -248,6 +248,7 @@ void Player::Draw(float dt) {
 	else {
 		Engine::GetInstance().render->camera.x = -(float)mapSize.getX() + Engine::GetInstance().render->camera.w;
 	}
+	Engine::GetInstance().render->camera.y = (int)-position.getY() + (int)(Engine::GetInstance().render->camera.h / 4 * 3);
 
 	float hitboxW = 32.0f;
 	float hitboxH = 32.0f;
