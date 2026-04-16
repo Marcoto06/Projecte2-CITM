@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="23">
+ <properties>
+  <property name="Draw" type="bool" value="true"/>
+ </properties>
  <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <wangsets>
@@ -59,6 +62,9 @@
  <tileset firstgid="51" source="Pruebas_Tiles.tsx"/>
  <tileset firstgid="307" source="Fondo Boca.tsx"/>
  <layer id="10" name="Background" width="30" height="17">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile gid="307"/>
    <tile gid="308"/>
