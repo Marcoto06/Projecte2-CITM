@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Engine.h"
 #include "Textures.h"
+#include "Enemy.h"
 #include "Audio.h"
 #include "Input.h"
 #include "Render.h"
@@ -58,6 +59,7 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+	/*LOG("%f", velocity.x);*/
 	Draw(dt);
 	if (Engine::GetInstance().paused == true) {
 		//Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
@@ -71,7 +73,14 @@ bool Player::Update(float dt)
 
 	ZoneScoped;
 	GetPhysicsValues();
-	Move();
+	if (hasASpeedBoost)
+	{
+		Func_BoostMovement();
+	}
+	else
+	{
+		Move();
+	}
 	Jump();
 	Func_Attacks(dt);
 	Teleport();
@@ -184,6 +193,39 @@ void Player::Move() {
 	if (!isJumping && !isSucking && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_A))
 	{
 		anims.SetCurrent("idle");
+	}
+}
+
+void Player::ActivateSpeedBoost() {
+	hasASpeedBoost = true;
+	LOG("Boost iniciado!");
+}
+
+void Player::Func_BoostMovement() {
+	float durationMS = 5000.0f; // 5 segundos en milisegundos
+	boostTimer_01.Start();
+	// Movimiento con velocidad de boost
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
+		velocity.x = -boostSpeed;
+		facingRight = false;
+		anims.SetCurrent("move");
+	}
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
+		velocity.x = boostSpeed;
+		facingRight = true;
+		anims.SetCurrent("move");
+	}
+
+	// Si no se pulsa nada, idle
+	if (!isJumping && !isSucking && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_A))
+	{
+		anims.SetCurrent("idle");
+	}
+
+	if (boostTimer_01.ReadMSec() > durationMS)
+	{
+		hasASpeedBoost = false;
+		LOG("Boost terminado");
 	}
 }
 
@@ -360,6 +402,7 @@ bool Player::CleanUp()
 
 // L08 TODO 6: Define OnCollision function for the player. 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
+	Enemy* enemy;
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
@@ -378,7 +421,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	case ColliderType::ENEMY:
-		//to do
+		enemy = (Enemy*)physB->listener;
+		if (enemy != nullptr) {
+			enemy->Destroy(this); // "this" es el puntero al Player actual
+		}
+		break;
 	default:
 		break;
 	}
@@ -402,11 +449,6 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	default:
 		break;
 	}
-}
-
-void Player::ActivateSpeedBoost(float duration, float amount) {
-	speedMultiplier = amount;
-	boostTimer = duration;
 }
 
 Vector2D Player::GetPosition() {
