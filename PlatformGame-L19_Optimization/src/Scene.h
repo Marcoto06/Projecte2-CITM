@@ -85,7 +85,7 @@ private:
 	void HandlePause();
 	void LoadPauseMenu();
 	void LoadPauseOptionsMenu();
-	void LoadPauseQuitMenu();
+	//void LoadPauseQuitMenu();
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
 	void LoadLevel1();
@@ -122,4 +122,11 @@ private:
 	SDL_Texture* exitButtonTexture = nullptr;
 
 	SDL_Texture* backButtonTexture = nullptr;
+
+	SDL_Texture* continuePauseButtonTexture = nullptr;
+	SDL_Texture* optionsPauseButtonTexture = nullptr;
+	SDL_Texture* menuQuitPauseButtonTexture = nullptr;
+	SDL_Texture* gameQuitButtonTexture = nullptr;
+
+	
 };
