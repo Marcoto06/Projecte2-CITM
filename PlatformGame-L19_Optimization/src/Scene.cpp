@@ -329,36 +329,23 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		LoadPauseOptionsMenu();
 		break;
 	case 3: // PAUSE MENU: QUIT
-		LOG("PAUSE MENU: QUIT clicked!");
-		Engine::GetInstance().quiting = true;
-		Engine::GetInstance().uiManager->CleanUp();
-		LoadPauseQuitMenu();
-		break;
-	case 4: // PAUSE MENU: QUIT to Main Menu
 		Engine::GetInstance().uiManager->CleanUp();
 		ChangeScene(SceneID::MAIN_MENU);
 		Engine::GetInstance().Func_PauseEngine();
 		break;
-	case 5: // PAUSE MENU QUIT CONFIRM: Quit to Desktop
+	case 4: // PAUSE MENU: QUIT to Main Menu
 		Engine::GetInstance().quit = true;
 		break;
-	case 6: // PAUSE MENU QUIT CONFIRM: BACK to Main Pause
-		Engine::GetInstance().quiting = false;
-		Engine::GetInstance().uiManager->CleanUp();
-		LoadPauseMenu();
-		break;
-	case 7: // PAUSE MENU OPTIONS: Volume Slider
+	case 5: // PAUSE MENU OPTIONS: Volume Slider
 	{
 		UISlider* slider = static_cast<UISlider*>(uiElement);
 		float volume = slider->GetValue() / 100.0f;
 		Engine::GetInstance().audio->SetMusicVolume(volume);
 		break;
 	}
-	case 8: // PAUSE MENU OPTIONS: Back Button
+	case 6: // PAUSE MENU OPTIONS: Back Button
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
-		break;
-	default:
 		break;
 	}
 }
@@ -382,25 +369,38 @@ void Scene::LoadPauseMenu() {
 	currentPauseState = PauseMenuState::MAIN;
 
 	int button_width = 120;
-	int button_height = 20;
-	int button_margin = 10;
+	int button_height = 40;
+	int button_margin = 20;
 
 	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
-	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
+	//continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
+	//optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
+	//menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
+	//gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
 
-	SDL_Rect continueButtonRect = { center_window_posX, center_window_posY - button_height - button_margin, button_width, button_height };
-	SDL_Rect options_button_pos = { center_window_posX, center_window_posY, button_width, button_height };
-	SDL_Rect quit_button_pos = { center_window_posX, center_window_posY + button_height + button_margin, button_width, button_height };
+	SDL_Rect continueButtonRect = { center_window_posX, center_window_posY - (button_height * 2) - button_margin, button_width, button_height };
+	SDL_Rect optionsButtonRect = { center_window_posX, center_window_posY - button_height - (button_margin / 2 ), button_width, button_height };
+	SDL_Rect quitToMenuButtonRect = { center_window_posX, center_window_posY, button_width, button_height };
+	SDL_Rect quitToDesktopButtonRect = { center_window_posX, center_window_posY + button_height + (button_margin / 2), button_width, button_height };
 
-	auto playButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " ", continueButtonRect, this);
-	playButton->SetTexture(playButtonTexture);
+	auto continueButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " CONTINUE ", continueButtonRect, this);
+	continueButton->SetTexture(continuePauseButtonTexture);
+
+	auto optionsButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, " OPTIONS ", optionsButtonRect, this);
+	optionsButton->SetTexture(optionsPauseButtonTexture);
+
+	auto quitToMenuButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, " QUIT TO MENU ", quitToMenuButtonRect, this);
+	quitToMenuButton->SetTexture(menuQuitPauseButtonTexture);
+
+	auto quitToDesktopButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 4, " QUIT TO DESKTOP ", quitToDesktopButtonRect, this);
+	quitToDesktopButton->SetTexture(gameQuitButtonTexture);
 
 	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continueButtonRect, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "Options", options_button_pos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "Quit", quit_button_pos, this));
-	
+	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "Options", optionsButtonRect, this));
+	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "Quit", quitToMenuButtonRect, this));
+	///std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 20, "Salir", quitToDesktopButtonRect, this));
 }
 
 void Scene::LoadPauseOptionsMenu() 
@@ -412,12 +412,13 @@ void Scene::LoadPauseOptionsMenu()
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
 	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 10, 350, 20 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 7, "VOLUME", sliderBounds, this);
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, "VOLUME", sliderBounds, this);
 
-	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 40, 120, 20 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 8, "BACK", backButtonPos, this);
+	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 40, 120, 40 };
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, " BACK ", backButtonPos, this);
 }
 
+/*
 void Scene::LoadPauseQuitMenu() {
 
 	currentPauseState = PauseMenuState::QUIT_CONFIRM;
@@ -438,6 +439,7 @@ void Scene::LoadPauseQuitMenu() {
 	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, "Cancel", cancelButtonPos, this));
 
 }
+*/
 
 // *********************************************
 // Level 1 functions
