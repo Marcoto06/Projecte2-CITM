@@ -109,7 +109,6 @@ public:
 	std::shared_ptr<Physics> physics;
 	std::shared_ptr<UIManager> uiManager;
 
-
 private: 
 
 	// Delta time

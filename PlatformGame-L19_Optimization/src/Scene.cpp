@@ -178,7 +178,6 @@ void Scene::UnloadCurrentScene() {
 		UnloadLevel2();
 		break;
 	}
-
 }
 
 // *********************************************
@@ -412,7 +411,7 @@ void Scene::LoadPauseOptionsMenu()
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
 	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 10, 350, 20 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, "VOLUME", sliderBounds, this);
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, " VOLUME ", sliderBounds, this);
 
 	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 40, 120, 40 };
 	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, " BACK ", backButtonPos, this);
