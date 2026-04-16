@@ -60,20 +60,18 @@ bool UIButton::Update(float dt)
 			switch (state)
 			{
 			case UIElementState::DISABLED:
+			case UIElementState::NORMAL:
 				section.y = 0;
 				break;
-			case UIElementState::NORMAL:
-				section.y = frameHeight;
-				break;
 			case UIElementState::FOCUSED:
-				section.y = frameHeight * 2;
+				section.y = frameHeight;
 				break;
 			case UIElementState::PRESSED:
-			case UIElementState::SELECTED:
-				section.y = frameHeight * 3;
+				section.y = frameHeight * 2;
 				break;
+			case UIElementState::SELECTED:				
 			default:
-				section.y = frameHeight;
+				section.y = 0;
 				break;
 			}
 

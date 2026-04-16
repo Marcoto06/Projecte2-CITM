@@ -30,7 +30,7 @@ bool Player::Start() {
 	#define PLAYER_FEET_TAG 2
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"},{20,"move"},{40,"puncture"},{49,"extract"},{60,"stop?"},{80, "taptap"}};
+	std::unordered_map<int, std::string> aliases = { {0,"idle"},{20,"move"},{40,"puncture"},{49,"extract"},{60,"stop?"},{80, "taptap"},{100, "Atack"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora_PNG.tsx", aliases);
 	anims.SetCurrent("idle");
 
@@ -65,6 +65,12 @@ bool Player::Update(float dt)
 		//Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		return true;
 	}
+
+	UpdateAttack(dt);
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+		Attack();
+	}
+
 	ZoneScoped;
 	GetPhysicsValues();
 	if (hasASpeedBoost)
@@ -94,6 +100,80 @@ void Player::GetPhysicsValues() {
 	// Read current velocity
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
 	velocity = { 0, velocity.y }; // Reset horizontal velocity by default, this way the player stops when no key is pressed
+}
+
+void Player::Attack()
+{
+	if (isAttacking) return;
+	if (attackCooldownTimer > 0.0f) return;
+
+	isAttacking = true;
+	attackTimer = attackDuration;
+	attackCooldownTimer = attackCooldown;
+	attackHitBoxActive = false;
+
+	currentState = PLAYERSTATE::ATTACK;
+
+	// Más adelante:
+	// anims.SetCurrent("attack");
+}
+
+void Player::UpdateAttack(float dt)
+{
+	if (attackCooldownTimer > 0.0f)
+	{
+		attackCooldownTimer -= dt;
+		if (attackCooldownTimer < 0.0f)
+			attackCooldownTimer = 0.0f;
+	}
+
+	if (!isAttacking) return;
+
+	attackTimer -= dt;
+
+	float elapsed = attackDuration - attackTimer;
+
+	if (elapsed >= 0.05f && elapsed <= 0.12f)
+	{
+		if (!attackHitBoxActive)
+		{
+			attackHitBoxActive = true;
+			StartAttackHitBox();
+		}
+	}
+	else
+	{
+		if (attackHitBoxActive)
+		{
+			attackHitBoxActive = false;
+			StopAttackHitBox();
+		}
+	}
+
+	if (attackTimer <= 0.0f)
+	{
+		attackTimer = 0.0f;
+		isAttacking = false;
+
+		if (attackHitBoxActive)
+		{
+			attackHitBoxActive = false;
+			StopAttackHitBox();
+		}
+
+		if (!isJumping)
+			currentState = PLAYERSTATE::IDLE;
+	}
+}
+
+void Player::StartAttackHitBox()
+{
+	// Create the attack hitbox
+}
+
+void Player::StopAttackHitBox()
+{
+	// Destroy the attack hitbox
 }
 
 void Player::Move() {
@@ -290,6 +370,7 @@ void Player::Draw(float dt) {
 	else {
 		Engine::GetInstance().render->camera.x = -(float)mapSize.getX() + Engine::GetInstance().render->camera.w;
 	}
+	Engine::GetInstance().render->camera.y = (int)-position.getY() + (int)(Engine::GetInstance().render->camera.h / 4 * 3);
 
 	float hitboxW = 32.0f;
 	float hitboxH = 32.0f;
