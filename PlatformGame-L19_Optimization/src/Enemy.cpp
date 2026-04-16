@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Player.h"
 #include "Engine.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -105,7 +106,7 @@ void Enemy::Func_EnemyStates(float dt)
 		if (isBeingSucked) {
 			// Check if 3 seconds of sucking have passed
 			if (suckTimer.ReadMSec() >= 3000.0f) {
-				Destroy();
+				Destroy(nullptr);
 				return;
 			}
 		}
@@ -169,9 +170,14 @@ bool Enemy::CleanUp()
 	return true;
 }
 
-bool Enemy::Destroy()
+bool Enemy::Destroy(Player* player) // Bien: coincide con el .h
 {
 	LOG("Destroying Enemy");
+
+	if (player != nullptr) {
+		player->ActivateSpeedBoost();
+	}
+
 	active = false;
 	pendingToDelete = true;
 	return true;

@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Animation.h"
+#include "Timer.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 
@@ -41,12 +42,15 @@ private:
 	void Teleport();
 	void ApplyPhysics();
 	void Draw(float dt);
-	void ActivateSpeedBoost(float duration, float amount);
+	void Func_BoostMovement();
 
 public:
 
+	void ActivateSpeedBoost();
+
 	//Speed control
 	float normalSpeed = 5.0f;      	
+	float boostSpeed = 8.0f;      	
 
 	SDL_Texture* texture = NULL;
 
@@ -67,6 +71,7 @@ public:
 	bool isAttacking = false;
 	bool isSucking = false;
 	bool isMoving = false;
+	bool hasASpeedBoost = false;
 
 	//PERMANENT UPGRADES
 	bool hasWallJump;
@@ -74,12 +79,12 @@ public:
 	bool hasAcidResistance;
 	bool hasAscend;
 
+
+	Timer boostTimer_01;
+
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
-
-	float speedMultiplier = 1.0f;
-	float boostTimer = 0.0f;
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;
