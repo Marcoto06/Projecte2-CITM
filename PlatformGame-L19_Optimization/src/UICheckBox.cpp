@@ -1,11 +1,11 @@
-#include "UIButton.h"
+#include "UICheckBox.h"
 #include "Render.h"
 #include "Engine.h"
 #include "Audio.h"
 #include "Textures.h"
 
 
-UIButton::UIButton(int id, SDL_Rect bounds, const char* text) : UIElement(UIElementType::BUTTON, id)
+UICheckBox::UICheckBox(int id, SDL_Rect bounds, const char* text) : UIElement(UIElementType::BUTTON, id)
 {
 	this->bounds = bounds;
 	this->text = text;
@@ -14,12 +14,22 @@ UIButton::UIButton(int id, SDL_Rect bounds, const char* text) : UIElement(UIElem
 	drawBasic = false;
 }
 
-UIButton::~UIButton()
+UICheckBox::UICheckBox(int id, SDL_Rect bounds, const char* text, bool val) : UIElement(UIElementType::BUTTON, id)
+{
+	this->bounds = bounds;
+	this->text = text;
+
+	canClick = true;
+	drawBasic = false;
+	value = val;
+}
+
+UICheckBox::~UICheckBox()
 {
 
 }
 
-bool UIButton::Update(float dt)
+bool UICheckBox::Update(float dt)
 {
 	if (state != UIElementState::DISABLED)
 	{
@@ -98,15 +108,23 @@ bool UIButton::Update(float dt)
 				break;
 			}
 
-			Engine::GetInstance().render->DrawText(text.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255,255 });
+			if (value) {
+				Engine::GetInstance().render->DrawText("X", bounds.x, bounds.y, 40, 40, {255,255,255,255});
+			}
+			
+			Engine::GetInstance().render->DrawText(text.c_str(), bounds.x + 60, bounds.y, 160, 40, { 255,255,255,255 });
 		}
 	}
 
 	return false;
 }
 
-bool UIButton::CleanUp()
+bool UICheckBox::CleanUp()
 {
 	pendingToDelete = true;
 	return true;
+}
+
+void UICheckBox::SetValue(bool val) {
+	value = val;
 }

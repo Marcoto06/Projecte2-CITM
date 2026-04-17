@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "UIManager.h"
 #include "UISlider.h"
+#include "UICheckBox.h"
 
 Scene::Scene() : Module()
 {
@@ -213,14 +214,16 @@ void Scene::ShowMainMenuButtons()
 	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect playButtonRect = { 133, 389, buttonWidth, buttonHeight };
-	SDL_Rect optionsButtonRect = { 133, 555, buttonWidth, buttonHeight };
-	SDL_Rect exitButtonRect = { 133, 736, buttonWidth, buttonHeight };
+	SDL_Rect playButtonRect = { 133 , 389 , buttonWidth, buttonHeight };
+	SDL_Rect optionsButtonRect = { 133 , 555 , buttonWidth, buttonHeight };
+	SDL_Rect exitButtonRect = { 133 , 736 , buttonWidth, buttonHeight };
 
 	auto playButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " ",playButtonRect, this);
 	playButton->SetTexture(playButtonTexture);
+
 	auto optionsButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, " ", optionsButtonRect, this);
 	optionsButton->SetTexture(optionsButtonTexture);
+
 	auto exitButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, " ", exitButtonRect, this);
 	exitButton->SetTexture(exitButtonTexture);
 
@@ -254,6 +257,7 @@ void Scene::UpdateMainMenu(float dt) {
 
 		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
 	}
+
 }
 
 void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
@@ -294,6 +298,7 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 
 void Scene::LoadOptionsMainMenu() 
 {
+	
 	Engine::GetInstance().uiManager->CleanUp();
 
 	currentMenuState = MainMenuState::OPTIONS;
@@ -335,18 +340,31 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 	case 4: // PAUSE MENU: QUIT to Main Menu
 		Engine::GetInstance().quit = true;
 		break;
-	case 5: // PAUSE MENU OPTIONS: Volume Slider
+	case 5: // PAUSE MENU OPTIONS: Fullscreen Toggle
+	{
+		Engine::GetInstance().render->ToggleFullScreen();
+		UICheckBox* check = static_cast<UICheckBox*>(uiElement);
+		bool value = Engine::GetInstance().render->IsFullScreen();
+		check->SetValue(value);
+
+		break;
+	}
+	case 6: // PAUSE MENU OPTIONS: Volume Slider
 	{
 		UISlider* slider = static_cast<UISlider*>(uiElement);
 		float volume = slider->GetValue() / 100.0f;
 		Engine::GetInstance().audio->SetMusicVolume(volume);
 		break;
 	}
-	case 6: // PAUSE MENU OPTIONS: Back Button
+	case 7: // PAUSE MENU OPTIONS: Back Button
+	{
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
 		break;
 	}
+	
+	}
+
 }
 
 void Scene::HandlePause() {
@@ -410,11 +428,14 @@ void Scene::LoadPauseOptionsMenu()
 	int center_window_posX = (Engine::GetInstance().window->width / 2) - 175;
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
+	SDL_Rect checkBoxPos = { center_window_posX, center_window_posY - 60, 40, 40 };
+	std::shared_ptr<UIElement> elem = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::CHECKBOX, 5, " FULLSCREEN ", checkBoxPos, this);
+
 	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 10, 350, 20 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, " VOLUME ", sliderBounds, this);
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
 
 	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 40, 120, 40 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, " BACK ", backButtonPos, this);
+	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " BACK ", backButtonPos, this);
 }
 
 /*

@@ -167,6 +167,7 @@
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\TracyMemory.cpp" />
     <ClCompile Include="src\UIButton.cpp" />
+    <ClCompile Include="src\UICheckBox.cpp" />
     <ClCompile Include="src\UIComboBox.cpp" />
     <ClCompile Include="src\UIManager.cpp" />
     <ClCompile Include="src\UISlider.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="src\Textures.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\UIButton.h" />
+    <ClInclude Include="src\UICheckBox.h" />
     <ClInclude Include="src\UIComboBox.h" />
     <ClInclude Include="src\UIElement.h" />
     <ClInclude Include="src\UIManager.h" />

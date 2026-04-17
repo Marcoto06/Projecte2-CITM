@@ -67,10 +67,13 @@ bool Render::Awake()
 	//load a font into memory
 	font = TTF_OpenFont("Assets/Fonts/arial.ttf", 25);
 
-	ResolutionList[0] = { 1280, 720 };
+	SDL_SetRenderLogicalPresentation(renderer, camera.w, camera.h, SDL_LOGICAL_PRESENTATION_STRETCH);
+
+	
+	/*ResolutionList[0] = { 1280, 720 };
 	ResolutionList[1] = { 1920, 1080 };
 	ResolutionList[2] = { 2560, 1440 };
-	ResolutionList[3] = { 3840, 2160 };
+	ResolutionList[3] = { 3840, 2160 };*/
 
 	return ret;
 }
@@ -96,6 +99,13 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+	int currentW = 0;
+	int currentH = 0;
+
+	SDL_GetRenderOutputSize(Engine::GetInstance().render->renderer, &currentW, &currentH);
+	renderScaleW = (float)currentW / (float)1920;
+	renderScaleH = (float)currentH / (float)1080;
+
 	return true;
 }
 
@@ -345,8 +355,11 @@ bool Render::IsOnScreenWorldRect(float x, float y, float w, float h, int margin)
 	return result;
 }
 
-void Render::SetResolution(int index) {
+RenderScale Render::GetRenderScale() {
+	return RenderScale{renderScaleW, renderScaleH};
+}
 
-	Engine::GetInstance().window->width = ResolutionList[index].Width;
-	Engine::GetInstance().window->height = ResolutionList[index].Height;
+void Render::ToggleFullScreen() {
+	fullscreen = !fullscreen;
+	SDL_SetWindowFullscreen(Engine::GetInstance().window->window, fullscreen);
 }

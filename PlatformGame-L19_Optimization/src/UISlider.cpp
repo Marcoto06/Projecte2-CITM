@@ -31,14 +31,17 @@ bool UISlider::Update(float dt) {
 
     Vector2D mousePos = Engine::GetInstance().input->GetMousePosition();
 
-    if (mousePos.getX() > bounds.x && mousePos.getX() < bounds.x + bounds.w &&
-        mousePos.getY() > bounds.y && mousePos.getY() < bounds.y + bounds.h) {
+    float scaleW = Engine::GetInstance().render->GetRenderScale().W;
+    float scaleH = Engine::GetInstance().render->GetRenderScale().H;
+
+    if (mousePos.getX() > (bounds.x * scaleW) && mousePos.getX() < (bounds.x * scaleW) + (bounds.w * scaleW) &&
+        mousePos.getY() > (bounds.y * scaleH) && mousePos.getY() < (bounds.y * scaleH) + (bounds.h * scaleH)) {
 
         if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT ||
             Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
         {
-            float mouseRelX = mousePos.getX() - bounds.x;
-            float width = (float)bounds.w;
+            float mouseRelX = mousePos.getX() - (bounds.x * scaleW);
+            float width = (float)(bounds.w * scaleW);
 
             int newValue = (int)((mouseRelX / width) * 100);
             SetValue(newValue);

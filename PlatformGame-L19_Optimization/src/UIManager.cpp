@@ -1,6 +1,7 @@
 #include "UIManager.h"
 #include "UIButton.h"
 #include "UISlider.h"
+#include "UICheckBox.h"
 #include "Engine.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -31,8 +32,19 @@ std::shared_ptr<UIElement> UIManager::CreateUIElement(UIElementType type, int id
 	case UIElementType::SLIDER:
 		uiElement = std::make_shared<UISlider>(id, bounds, text);
 		break;
-	}	
-
+	case UIElementType::CHECKBOX: {
+		uiElement = std::make_shared<UICheckBox>(id, bounds, text);
+		if (text == " FULLSCREEN ") {
+			bool value = Engine::GetInstance().render->IsFullScreen();
+			uiElement = std::make_shared<UICheckBox>(id, bounds, text, value);
+		}
+		else {
+			uiElement = std::make_shared<UICheckBox>(id, bounds, text);
+		}
+		break;
+	}
+	}
+	
 	//Set the observer
 	uiElement->observer = observer;
 
@@ -91,5 +103,3 @@ bool UIManager::CleanUp()
 
 	return true;
 }
-
-

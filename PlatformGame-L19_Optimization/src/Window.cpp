@@ -98,14 +98,3 @@ int Window::GetScale() const
 {
 	return scale;
 }
-
-void Window::SetFullScreen(bool state) {
-	
-	if (state == true)
-	{
-		SDL_SetWindowFullscreenMode(window, nullptr); // use desktop resolution
-		SDL_SetWindowFullscreen(window, true);
-	}
-	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	SDL_ShowWindow(window);
-}
