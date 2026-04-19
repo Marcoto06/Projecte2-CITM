@@ -37,16 +37,13 @@ bool Player::Start() {
 	//L03: TODO 2: Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Doctora_PNG.png");
 
-	// L08 TODO 5: Add physics to the player - initialize physics body
-	//Engine::GetInstance().textures->GetSize(texture, texW, texH);
-	texW = 32;
-	texH = 32;
-	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX(), (int)position.getY(), texW / 2, bodyType::DYNAMIC);
+	texW = 96;
+	texH = 168;
+	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW, texH, bodyType::DYNAMIC);
 
-	// L08 TODO 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+	pbody->SetFixedRotation(true);
 	pbody->listener = this;
 
-	// L08 TODO 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect
@@ -198,12 +195,12 @@ void Player::Move() {
 
 void Player::ActivateSpeedBoost() {
 	hasASpeedBoost = true;
+	boostTimer_01.Start();
 	LOG("Boost iniciado!");
 }
 
 void Player::Func_BoostMovement() {
 	float durationMS = 5000.0f; // 5 segundos en milisegundos
-	boostTimer_01.Start();
 	// Movimiento con velocidad de boost
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
 		velocity.x = -boostSpeed;
@@ -216,7 +213,6 @@ void Player::Func_BoostMovement() {
 		anims.SetCurrent("move");
 	}
 
-	// Si no se pulsa nada, idle
 	if (!isJumping && !isSucking && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_A))
 	{
 		anims.SetCurrent("idle");
@@ -249,19 +245,17 @@ void Player::Func_Attacks(float dt) {
 
 	if (isAttacking) {
 		attackTimer -= dt;
-		//Destruction
-		if (syringeBody != nullptr) {
-			Engine::GetInstance().physics->DeletePhysBody(syringeBody);
-			syringeBody = nullptr;
-		}
 
 		if (attackTimer > 0.0f) {
+			if (syringeBody != nullptr) {
+				Engine::GetInstance().physics->DeletePhysBody(syringeBody);
+				syringeBody = nullptr;
+			}
+
 			float progress = 1.0f - (attackTimer / 300.0f);
+			float width = 100.0f;
+			float height = 30.0f;
 
-			float width = 40.0f;
-			float height = 15.0f;
-
-			//Pivot pos
 			float pivotLocalX = 15.0f;
 			float pivotLocalY = -10.0f;
 
@@ -272,8 +266,7 @@ void Player::Func_Attacks(float dt) {
 			if (!facingRight) {
 				pivotLocalX = -pivotLocalX;
 			}
-			
-			//playerpos
+
 			int playerX, playerY;
 			pbody->GetPosition(playerX, playerY);
 
@@ -283,13 +276,23 @@ void Player::Func_Attacks(float dt) {
 			float absoluteCenterX = playerX + pivotLocalX + (distanceToCenter * cos(angleRad));
 			float absoluteCenterY = playerY + pivotLocalY + (distanceToCenter * sin(angleRad));
 
-			//create hitbox
 			syringeBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
 				(int)width, (int)height, absoluteCenterX, absoluteCenterY, ColliderType::SYRINGE, currentAngle);
 		}
 		else {
 			currentState = PLAYERSTATE::IDLE;
 			isAttacking = false;
+
+			if (syringeBody != nullptr) {
+				Engine::GetInstance().physics->DeletePhysBody(syringeBody);
+				syringeBody = nullptr;
+			}
+		}
+	}
+	else {
+		if (syringeBody != nullptr) {
+			Engine::GetInstance().physics->DeletePhysBody(syringeBody);
+			syringeBody = nullptr;
 		}
 	}
 
@@ -299,38 +302,33 @@ void Player::Func_Attacks(float dt) {
 		isSucking = true;
 		anims.SetCurrent("extract");
 
-		// Crear una hitbox temporal que durará mientras mantengas el click
 		int playerX, playerY;
 		pbody->GetPosition(playerX, playerY);
 
-		float width = 50.0f;  // Zona de succión ligeramente más grande
-		float height = 30.0f;
-		float pivotLocalX = facingRight ? 25.0f : -25.0f;
+		float width = 100.0f;  
+		float height = 60.0f;
+		float pivotLocalX = facingRight ? 100.0f : -100.0f;
 
-		// IMPORTANTE: Asegúrate de añadir SUCK_ZONE a tu enum ColliderType
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
-			(int)width, (int)height, playerX + pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
+			(int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
+		suckBody->listener = this;
 	}
 
-	// SUCK ATTACK (MANTENIMIENTO Y FIN)
 	if (isSucking) {
-		// Comprobar si se suelta el click derecho
 		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP) {
 			currentState = PLAYERSTATE::IDLE;
 			isSucking = false;
 
-			// Destruir la hitbox de succión
 			if (suckBody != nullptr) {
 				Engine::GetInstance().physics->DeletePhysBody(suckBody);
 				suckBody = nullptr;
 			}
 		}
 		else {
-			// Si mantenemos el botón, la hitbox debe seguir la posición del jugador
 			if (suckBody != nullptr) {
 				int playerX, playerY;
 				pbody->GetPosition(playerX, playerY);
-				float pivotLocalX = facingRight ? 25.0f : -25.0f;
+				float pivotLocalX = facingRight ? 100.0f : -100.0f;
 				suckBody->SetPosition((int)(playerX + pivotLocalX), playerY);
 			}
 		}
@@ -372,23 +370,17 @@ void Player::Draw(float dt) {
 	}
 	Engine::GetInstance().render->camera.y = (int)-position.getY() + (int)(Engine::GetInstance().render->camera.h / 4 * 3);
 
-	float hitboxW = 32.0f;
-	float hitboxH = 32.0f;
-
 	float texW = animFrame.w;
 	float texH = animFrame.h;
 	
-	float drawX = x - (hitboxW / 1.0f);
-	float drawY = (y + (hitboxH / 1.0f)) -  texH;
-
 	if (facingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, drawX, drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 84, position.getY() - 168, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 		
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, drawX,drawY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 182, position.getY() - 168, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 }
 
@@ -399,15 +391,13 @@ bool Player::CleanUp()
 	Engine::GetInstance().physics->DeletePhysBody(pbody);
 	return true;
 }
-
-// L08 TODO 6: Define OnCollision function for the player. 
+ 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	Enemy* enemy;
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		//reset the jump flag when touching the ground
 		isJumping = false;
 		anims.SetCurrent("idle");
 		break;
@@ -420,12 +410,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
-	case ColliderType::ENEMY:
-		enemy = (Enemy*)physB->listener;
-		if (enemy != nullptr) {
-			enemy->Destroy(this); // "this" es el puntero al Player actual
-		}
-		break;
+	//case ColliderType::ENEMY:
+	//	enemy = (Enemy*)physB->listener;
+	//	if (enemy != nullptr) {
+	//		enemy->Destroy(this);
+	//	}
+	//	break;
 	default:
 		break;
 	}

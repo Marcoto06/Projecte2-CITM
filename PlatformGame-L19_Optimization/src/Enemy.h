@@ -50,6 +50,7 @@ public:
 	bool isFacingRight = false;
 	bool isBeingSucked = false; 
 
+	Player* attackingPlayer = nullptr;
 	
 
 private:

@@ -47,6 +47,7 @@ public:
     float GetRotation() const;
     bool  Contains(int x, int y) const;
     int   RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
+    void SetFixedRotation(bool fixed);
 
 public:
     b2BodyId body;              // id instead of pointer (v3.x)
@@ -74,7 +75,6 @@ public:
     PhysBody* CreateCircle(int x, int y, int radious, bodyType type);
     PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type);
     PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type);
-
     void Func_AddSensorFixture(PhysBody* pbody, int width, int height, int offsetX, int offsetY, int tag);
     PhysBody* Func_CreateTemporarySensor(int width, int height, float absoluteX, float absoluteY, ColliderType tag, float angleDegrees = 0.0f);
 

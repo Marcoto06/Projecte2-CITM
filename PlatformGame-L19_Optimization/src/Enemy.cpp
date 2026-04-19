@@ -106,7 +106,10 @@ void Enemy::Func_EnemyStates(float dt)
 		if (isBeingSucked) {
 			// Check if 3 seconds of sucking have passed
 			if (suckTimer.ReadMSec() >= 3000.0f) {
-				Destroy(nullptr);
+
+				// Reemplaza Destroy(nullptr) por esto:
+				Destroy(attackingPlayer);
+
 				return;
 			}
 		}
@@ -207,10 +210,11 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}
 		break;
 	case ColliderType::SUCK_ZONE:
-		// Only suck ifstunned and not being sucked
 		if (isStunned && !isBeingSucked) {
 			isBeingSucked = true;
 			suckTimer.Start();
+
+			attackingPlayer = (Player*)physB->listener;
 		}
 		break;
 	}

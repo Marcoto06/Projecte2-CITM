@@ -237,6 +237,11 @@ PhysBody* Physics::Func_CreateTemporarySensor(int width, int height, float absol
     return pbody;
 }
 
+void PhysBody::SetFixedRotation(bool fixed)
+{
+    b2Body_SetFixedRotation(body, fixed);
+}
+
 bool Physics::PostUpdate()
 {
     bool ret = true;
