@@ -173,6 +173,14 @@ bool Enemy::CleanUp()
 	return true;
 }
 
+bool Enemy::Destroy()
+{
+	LOG("Destroying Enemy");
+	active = false;
+	pendingToDelete = true;
+	return true;
+}
+
 bool Enemy::Destroy(Player* player) // Good: coincide with the .h
 {
 	LOG("Destroying Enemy");
@@ -181,9 +189,7 @@ bool Enemy::Destroy(Player* player) // Good: coincide with the .h
 		player->ActivateSpeedBoost();
 	}
 
-	active = false;
-	pendingToDelete = true;
-	return true;
+	return Destroy();
 }
 
 void Enemy::SetPosition(Vector2D pos) {

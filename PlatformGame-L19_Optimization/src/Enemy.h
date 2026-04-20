@@ -23,6 +23,7 @@ public:
 	void OnCollisionEnd(PhysBody* physA, PhysBody* physB);
 	void SetPosition(Vector2D pos);
 	Vector2D GetPosition();
+	bool Destroy() override;
 	bool Destroy(Player* player);
 
 private:
