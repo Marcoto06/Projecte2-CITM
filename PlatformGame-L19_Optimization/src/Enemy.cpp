@@ -107,7 +107,7 @@ void Enemy::Func_EnemyStates(float dt)
 			// Check if 3 seconds of sucking have passed
 			if (suckTimer.ReadMSec() >= 3000.0f) {
 
-				// Reemplaza Destroy(nullptr) por esto:
+				// Replace Destroy(nullptr) for this:
 				Destroy(attackingPlayer);
 
 				return;
@@ -173,7 +173,7 @@ bool Enemy::CleanUp()
 	return true;
 }
 
-bool Enemy::Destroy(Player* player) // Bien: coincide con el .h
+bool Enemy::Destroy(Player* player) // Good: coincide with the .h
 {
 	LOG("Destroying Enemy");
 
