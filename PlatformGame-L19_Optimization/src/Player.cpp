@@ -39,7 +39,7 @@ bool Player::Start() {
 
 	texW = 96;
 	texH = 168;
-	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW, texH, bodyType::DYNAMIC);
+	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW, texH - 40, bodyType::DYNAMIC);
 
 	pbody->SetFixedRotation(true);
 	pbody->listener = this;

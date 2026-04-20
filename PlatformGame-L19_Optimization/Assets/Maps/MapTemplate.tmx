@@ -4657,6 +4657,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="73"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4724,8 +4725,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="73"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4860,8 +4860,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="73"/>
+   <tile gid="73"/>
    <tile/>
    <tile/>
    <tile/>

@@ -72,7 +72,7 @@ public:
 	void ActivateSpeedBoost();
 
 	//Speed control
-	float normalSpeed = 5.0f;      	
+	float normalSpeed = 7.5f;      	
 	float boostSpeed = 10.0f;      	
 
 	SDL_Texture* texture = NULL;
@@ -83,7 +83,7 @@ public:
 	int pickCoinFxId; //??????
 	
 	PhysBody* pbody;
-	float jumpForce = 40.0f; // The force to apply when jumping
+	float jumpForce = 43.0f; // The force to apply when jumping
 	int kill_counter = 0;
 
 
