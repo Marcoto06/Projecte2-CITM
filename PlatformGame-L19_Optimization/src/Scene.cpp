@@ -206,17 +206,17 @@ void Scene::ShowMainMenuButtons()
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
-	int buttonWidth = 350;
-	int buttonHeight = 130;
+	int buttonWidth = 290;
+	int buttonHeight = 86;
 
-	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ContinueButton.png");
-	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/SettingsButton.png");
+	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PlayButton.png");
+	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/OptionsButton.png");
 	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect playButtonRect = { 133 , 389 , buttonWidth, buttonHeight };
-	SDL_Rect optionsButtonRect = { 133 , 555 , buttonWidth, buttonHeight };
-	SDL_Rect exitButtonRect = { 133 , 736 , buttonWidth, buttonHeight };
+	SDL_Rect playButtonRect = { 146 , 412 , buttonWidth, buttonHeight };
+	SDL_Rect optionsButtonRect = { 149 , 578 , buttonWidth, buttonHeight };
+	SDL_Rect exitButtonRect = { 148 , 759 , buttonWidth, buttonHeight };
 
 	auto playButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " ",playButtonRect, this);
 	playButton->SetTexture(playButtonTexture);

@@ -54,7 +54,7 @@ bool UIButton::Update(float dt)
 			int texW, texH;
 			Engine::GetInstance().textures->GetSize(texture, texW, texH);
 
-			int frameHeight = texH / 4;
+			int frameHeight = texH / 3;
 
 			section.x = 0;
 			section.w = texW;
