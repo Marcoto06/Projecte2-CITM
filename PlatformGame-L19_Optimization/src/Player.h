@@ -83,7 +83,7 @@ public:
 	int pickCoinFxId; //??????
 	
 	PhysBody* pbody;
-	float jumpForce = 43.0f; // The force to apply when jumping
+	float jumpForce = 20.0f; // The force to apply when jumping
 	int kill_counter = 0;
 
 
