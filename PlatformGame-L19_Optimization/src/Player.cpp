@@ -359,8 +359,8 @@ void Player::Draw(float dt) {
 	Vector2D mapSize = Engine::GetInstance().map->GetMapSizeInPixels();
 	float limitLeft = (float)Engine::GetInstance().render->camera.w / 4;
 	float limitRight = (float)mapSize.getX() - Engine::GetInstance().render->camera.w * 3 / 4;
-	float limitUp = (float)Engine::GetInstance().render->camera.h;
-	float limitDown = (float)mapSize.getY() - 128;
+	float limitUp = (float)Engine::GetInstance().render->camera.h - 128;
+	float limitDown = (float)mapSize.getY();
 	//LIMIT X CAMERA
 	if (position.getX() - limitLeft > 0 && position.getX() < limitRight) {
 		Engine::GetInstance().render->camera.x = (int) - position.getX() + (int)(Engine::GetInstance().render->camera.w / 4);
@@ -379,7 +379,7 @@ void Player::Draw(float dt) {
 		Engine::GetInstance().render->camera.y = 0;
 	}
 	else {
-		Engine::GetInstance().render->camera.y = -(float)mapSize.getY() + Engine::GetInstance().render->camera.h;
+		Engine::GetInstance().render->camera.y = -(float)mapSize.getY() + Engine::GetInstance().render->camera.h - 128;
 	}
 	//Engine::GetInstance().render->camera.y = (int)-position.getY() + (int)(Engine::GetInstance().render->camera.h / 4 * 3);
 
