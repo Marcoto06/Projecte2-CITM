@@ -147,16 +147,16 @@ bool AnimationSet::Has(const std::string& name) const {
 
 bool AnimationSet::Func_HasCurrentAnimationFinished() const {
     if (Has(currentName_)) {
-        // Llama a la función de la animación individual
+        // Calls to the function of the individual animation 
         return clips_.at(currentName_).HasFinishedOnce();
     }
-    // Si no existe la anim, asumimos que no ha terminado
+    // if the anim do not exist, we asume that it have not ended
     return false;
 }
 
 void AnimationSet::Func_SetAnimationLoop(const std::string& name, bool loop) {
     if (Has(name)) {
-        // Llama a la función de la animación individual
+        // Calls to the function of the individual animation
         clips_[name].SetLoop(loop);
     }
 }

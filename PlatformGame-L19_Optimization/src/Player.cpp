@@ -111,7 +111,7 @@ void Player::Attack()
 
 	currentState = PLAYERSTATE::ATTACK;
 
-	// Más adelante:
+	// Later:
 	// anims.SetCurrent("attack");
 }
 
@@ -200,8 +200,8 @@ void Player::ActivateSpeedBoost() {
 }
 
 void Player::Func_BoostMovement() {
-	float durationMS = 5000.0f; // 5 segundos en milisegundos
-	// Movimiento con velocidad de boost
+	float durationMS = 5000.0f; // 5 seconds in miliseconds
+	// Movemement with the boost velocity
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
 		velocity.x = -boostSpeed;
 		facingRight = false;

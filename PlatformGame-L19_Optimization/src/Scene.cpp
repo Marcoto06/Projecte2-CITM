@@ -38,7 +38,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	LoadScene(currentScene); // empieza en MAIN_MENU
+	LoadScene(currentScene); // start in MAIN_MENU
 	return true;
 }
 
