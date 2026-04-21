@@ -38,8 +38,8 @@ bool Enemy::Start() {
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
 
 	//Add physics to the enemy - initialize physics body
-	texW = 64;
-	texH = 64;
+	texW = 74;
+	texH = 74;
 	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX()+texW/2, (int)position.getY()+texH/2, texW / 2, bodyType::DYNAMIC);
 
 	//Assign enemy class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
@@ -276,11 +276,11 @@ void Enemy::Draw(float dt) {
 
 	if (isFacingRight) //this depends on how is the sprite made
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 95, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 50, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 95, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) + 50, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 	}
 }
 
