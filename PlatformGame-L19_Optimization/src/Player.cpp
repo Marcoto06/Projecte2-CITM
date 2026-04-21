@@ -179,12 +179,12 @@ void Player::Move() {
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
 		velocity.x = -normalSpeed;
 		facingRight = false;
-		anims.SetCurrent("move");
+		anims.SetCurrent("run");
 	}
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
 		velocity.x = normalSpeed;
 		facingRight = true;
-		anims.SetCurrent("move");
+		anims.SetCurrent("run");
 	}
 	
 	if (!isJumping && !isSucking && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_A))
@@ -205,12 +205,12 @@ void Player::Func_BoostMovement() {
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
 		velocity.x = -boostSpeed;
 		facingRight = false;
-		anims.SetCurrent("move");
+		anims.SetCurrent("run");
 	}
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
 		velocity.x = boostSpeed;
 		facingRight = true;
-		anims.SetCurrent("move");
+		anims.SetCurrent("run");
 	}
 
 	if (!isJumping && !isSucking && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) && !Engine::GetInstance().input->GetKey(SDL_SCANCODE_A))
