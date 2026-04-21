@@ -8012,7 +8012,7 @@
   </data>
  </layer>
  <objectgroup id="8" name="Entities">
-  <object id="21" name="Player" type="Player" x="97.7576" y="1007.88">
+  <object id="21" name="Player" type="Player" x="97.7576" y="944.244">
    <point/>
   </object>
  </objectgroup>

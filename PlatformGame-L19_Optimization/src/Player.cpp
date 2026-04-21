@@ -388,12 +388,12 @@ void Player::Draw(float dt) {
 	
 	if (facingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 84, position.getY() - 168, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 432, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 		
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 182, position.getY() - 168, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 432, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 }
 
