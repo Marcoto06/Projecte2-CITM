@@ -27,6 +27,7 @@ public:
 	bool Destroy(Player* player);
 
 private:
+private:
 	void PerformPathfinding();
 	void GetPhysicsValues();
 	void Func_EnemyStates(float dt);
@@ -59,7 +60,7 @@ public:
 	const int pathfindingUpdateRate = 30; // frequency in frames
 
 	bool isPlayerDetected = false;
-	float detectionRange = 250.0f;
+	float detectionRange = 450.0f;
 
 private:
 	b2Vec2 velocity;

@@ -151,7 +151,7 @@ bool Pathfinding::IsWalkable(int x, int y) const {
 			//Check if the gid is different from the blocked gid
             if (gid != blockedGid) {
                 isWalkable = true;
-            }
+            }  
         }
 	}
 
