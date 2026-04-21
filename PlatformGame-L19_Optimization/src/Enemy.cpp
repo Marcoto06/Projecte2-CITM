@@ -61,6 +61,23 @@ bool Enemy::Start() {
 bool Enemy::Update(float dt)
 {
 	ZoneScoped;
+
+	Vector2D currentPos = GetPosition();
+	bool isVisible = Engine::GetInstance().render->IsOnScreenWorldRect(currentPos.getX(), currentPos.getY(), texW, texH, 150);
+	if (isVisible)
+	{
+		pathfindingFrameCount++;
+
+		if (pathfindingFrameCount >= pathfindingUpdateRate)
+		{
+			PerformPathfinding();
+			//LOG("Calculating enemy route");
+			pathfindingFrameCount = 0;
+		}
+
+		Move();
+	}
+
 	PerformPathfinding();
 	GetPhysicsValues();
 	Func_EnemyStates(dt);

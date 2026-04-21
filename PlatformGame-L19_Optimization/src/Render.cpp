@@ -351,8 +351,14 @@ bool Render::DrawText(const char* text, int x, int y, int w, int h, SDL_Color co
 // L19 TODO 4: Create a method to know if a rectangle is inside the camera frustum
 bool Render::IsOnScreenWorldRect(float x, float y, float w, float h, int margin) const
 {
-	bool result = false;
-	return result;
+	int scale = Engine::GetInstance().window->GetScale();
+
+	float screen_x = camera.x + (x * scale);
+	float screen_y = camera.y + (y * scale);
+	float screen_w = w * scale;
+	float screen_h = h * scale;
+
+	return (screen_x + screen_w >= -margin && screen_x <= camera.w + margin && screen_y + screen_h >= -margin && screen_y <= camera.h + margin);
 }
 
 RenderScale Render::GetRenderScale() {

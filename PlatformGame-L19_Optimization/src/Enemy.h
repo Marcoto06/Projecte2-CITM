@@ -53,6 +53,8 @@ public:
 
 	Player* attackingPlayer = nullptr;
 	
+	int pathfindingFrameCount = 0;
+	const int pathfindingUpdateRate = 30; // frequency in frames
 
 private:
 	b2Vec2 velocity;
