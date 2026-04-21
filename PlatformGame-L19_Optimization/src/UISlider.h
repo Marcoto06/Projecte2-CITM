@@ -1,5 +1,6 @@
 #pragma once
 #include "UIElement.h"
+#include "Textures.h"
 
 class UISlider : public UIElement
 {
@@ -11,8 +12,11 @@ public:
     int GetValue() const { return value; }
     void SetValue(int v);
 
+    void SetKnobTexture(SDL_Texture* tex);
+
 private:
     int value = 50;
     SDL_Rect knobBounds;
+    SDL_Texture* knobTexture = nullptr;
 };
 

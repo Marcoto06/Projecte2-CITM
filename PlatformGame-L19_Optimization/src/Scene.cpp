@@ -189,10 +189,10 @@ void Scene::LoadMainMenu() {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
-	if (mainMenuBackground == nullptr)
+	/*if (mainMenuBackground == nullptr)
 	{
 		mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
-	}	
+	}*/	
 
 	ShowMainMenuButtons();
 }
@@ -202,6 +202,8 @@ void Scene::ShowMainMenuButtons()
 	Engine::GetInstance().uiManager->CleanUp();
 
 	currentMenuState = MainMenuState::MAIN_BUTTONS;
+
+	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
 
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
@@ -256,6 +258,13 @@ void Scene::UpdateMainMenu(float dt) {
 		SDL_Rect fullscreenRect = { 0, 0, w, h };
 
 		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+
+		sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
+		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
+
+		sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
+		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+
 	}
 
 }
@@ -303,12 +312,25 @@ void Scene::LoadOptionsMainMenu()
 
 	currentMenuState = MainMenuState::OPTIONS;
 
-	SDL_Rect sliderBounds = { 133, 389, 350, 20 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
+	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/menu INCORPUS.png");
 
-	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
+	int screenWidth, screenHeight;
+	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
-	SDL_Rect backButtonRect = { 133, 736, 350, 130 };
+	SDL_Texture* sliderBarTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBar.png");
+	SDL_Texture* sliderKnobTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
+
+	SDL_Rect sliderBounds = { ((screenWidth - sliderBarTexture->w) / 2) + 50, (screenHeight / 2) - 80, 399, 25 };
+	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
+	auto audioSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
+
+	auto audioSlider = std::static_pointer_cast<UISlider>(audioSliderElement);
+	audioSlider->SetTexture(sliderBarTexture);
+	audioSlider->SetKnobTexture(sliderKnobTexture);
+
+	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
+
+	SDL_Rect backButtonRect = { (screenWidth - exitButtonTexture->w) / 2, 736, 350, 130};
 
 	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, " ", backButtonRect, this);
 	backButton->SetTexture(exitButtonTexture);
@@ -361,10 +383,8 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
 		break;
+	}	
 	}
-	
-	}
-
 }
 
 void Scene::HandlePause() {
@@ -385,22 +405,24 @@ void Scene::LoadPauseMenu() {
 	Engine::GetInstance().uiManager->CleanUp();
 	currentPauseState = PauseMenuState::MAIN;
 
-	int button_width = 120;
-	int button_height = 40;
+	int button_width = 290;
+	int button_height = 86;
 	int button_margin = 20;
 
 	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
-	//continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
-	//optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
-	//menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
-	//gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PauseContinueButton.png");
+	pauseOptionsMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Fondo_pause_menu.png");
+		
+	continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/ContinueButton.png");
+	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
+	menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitToMenuButton.png");
+	gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitGameButton.png");
 
-	SDL_Rect continueButtonRect = { center_window_posX, center_window_posY - (button_height * 2) - button_margin, button_width, button_height };
-	SDL_Rect optionsButtonRect = { center_window_posX, center_window_posY - button_height - (button_margin / 2 ), button_width, button_height };
-	SDL_Rect quitToMenuButtonRect = { center_window_posX, center_window_posY, button_width, button_height };
-	SDL_Rect quitToDesktopButtonRect = { center_window_posX, center_window_posY + button_height + (button_margin / 2), button_width, button_height };
+	SDL_Rect continueButtonRect = { center_window_posX, center_window_posY - (button_height * 2) - (button_margin * 2), button_width, button_height };
+	SDL_Rect optionsButtonRect = { center_window_posX, continueButtonRect.y + button_height + button_margin, button_width, button_height };
+	SDL_Rect quitToMenuButtonRect = { center_window_posX, optionsButtonRect.y + button_height + button_margin, button_width, button_height };
+	SDL_Rect quitToDesktopButtonRect = { center_window_posX, quitToMenuButtonRect.y + button_height + button_margin, button_width, button_height };
 
 	auto continueButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " CONTINUE ", continueButtonRect, this);
 	continueButton->SetTexture(continuePauseButtonTexture);
@@ -428,13 +450,13 @@ void Scene::LoadPauseOptionsMenu()
 	int center_window_posX = (Engine::GetInstance().window->width / 2) - 175;
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
-	SDL_Rect checkBoxPos = { center_window_posX, center_window_posY - 60, 40, 40 };
+	SDL_Rect checkBoxPos = { center_window_posX, center_window_posY - 260, 40, 40 };
 	std::shared_ptr<UIElement> elem = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::CHECKBOX, 5, " FULLSCREEN ", checkBoxPos, this);
 
 	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 10, 350, 20 };
 	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
 
-	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 40, 120, 40 };
+	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 140, 120, 40 };
 	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " BACK ", backButtonPos, this);
 }
 
@@ -500,6 +522,14 @@ void Scene::UpdateLevel1(float dt) {
 		SDL_Rect fullscreenRect = { 0, 0, w, h };
 
 		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+
+		int imgWidth = 855;
+		int imgHeight = 839;
+
+		int pauseOptionsMenuPosX = (w - imgWidth) / 2;
+		int pauseOptionsMenuPosY = (h - imgHeight) / 2;
+
+		Engine::GetInstance().render->DrawTexture(pauseOptionsMenuTexture, pauseOptionsMenuPosX, pauseOptionsMenuPosY, NULL, 0.0f);
 	}
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {

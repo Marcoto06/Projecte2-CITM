@@ -128,5 +128,9 @@ private:
 	SDL_Texture* menuQuitPauseButtonTexture = nullptr;
 	SDL_Texture* gameQuitButtonTexture = nullptr;
 
+	SDL_Texture* pauseOptionsMenuTexture = nullptr;
+
+	SDL_Texture* sliderBoxTexture = nullptr;
+	SDL_Texture* sliderAudioTexture = nullptr;
 	
 };
