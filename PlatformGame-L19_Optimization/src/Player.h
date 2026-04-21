@@ -51,6 +51,7 @@ private:
 	void GetPhysicsValues();
 	void Move();
 	void Jump();
+	void Func_PlayerState();
 	void Func_Attacks(float dt);
 	void Teleport();
 	void ApplyPhysics();
@@ -94,6 +95,7 @@ public:
 	bool isSucking = false;
 	bool isMoving = false;
 	bool hasASpeedBoost = false;
+	bool onGround = false;
 
 	//PERMANENT UPGRADES
 	bool hasWallJump;
@@ -115,9 +117,13 @@ private:
 	enum class PLAYERSTATE {
 		IDLE,
 		MOVE,
-		JUMP,
 		ATTACK,
-		SUCKING
+		SUCKING,
+		PREPARE_JUMP,
+		JUMPING,
+		JUMPING2,
+		FALLING_JUMP,
+		END_JUMP,
 	};
 
 	PLAYERSTATE currentState = PLAYERSTATE::IDLE;

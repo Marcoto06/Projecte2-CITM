@@ -120,6 +120,13 @@ bool AnimationSet::LoadFromTSX(const char* tsxPath,
     return !clips_.empty();
 }
 
+bool AnimationSet::HasCurrentAnimationFinished() const {
+    if (Has(currentName_)) {
+        return clips_.at(currentName_).HasFinishedOnce();
+    }
+    return false;
+}
+
 void AnimationSet::SetCurrent(const std::string& name) {
     if (currentName_ == name) return; // no change
     if (!Has(name)) return;           // unknown name

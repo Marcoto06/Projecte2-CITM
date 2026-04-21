@@ -41,6 +41,7 @@ public:
     // manage animations
     void SetCurrent(const std::string& name);
     void Update(float dtSeconds);
+    bool HasCurrentAnimationFinished() const;
     const SDL_Rect& GetCurrentFrame() const;
     const std::string& GetCurrentName() const;
 
