@@ -33,6 +33,8 @@ private:
 	void Move();
 	void ApplyPhysics();
 	void Draw(float dt);
+	bool IsPlayerDetected() const;
+	Vector2D GetNextPathTile() const;
 
 public:
 
@@ -55,6 +57,9 @@ public:
 	
 	int pathfindingFrameCount = 0;
 	const int pathfindingUpdateRate = 30; // frequency in frames
+
+	bool isPlayerDetected = false;
+	float detectionRange = 250.0f;
 
 private:
 	b2Vec2 velocity;

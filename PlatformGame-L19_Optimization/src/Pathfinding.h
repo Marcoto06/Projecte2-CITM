@@ -23,7 +23,7 @@ public:
     // L11: BFS Pathfinding methods
     void ResetPath(Vector2D pos);
     void DrawPath();
-    bool IsWalkable(int x, int y);
+    bool IsWalkable(int x, int y) const;
     void PropagateBFS();
 
     // L12: Methods for BFS + Pathfinding and cost function for Dijkstra
@@ -32,9 +32,10 @@ public:
     void PropagateDijkstra();
 
     // L13: A* Pathfinding methods
-    void PropagateAStar(ASTAR_HEURISTICS heuristic);
+    void PropagateAStar(ASTAR_HEURISTICS heuristic, const Vector2D& destinationTile);
 
-    bool CanPropagateAStar(Vector2D destinationTile);
+    bool CanPropagateAStar(const Vector2D& destinationTile) const;
+    const std::list<Vector2D>& GetPathTiles() const;
 
 private:
     int Find(std::list<Vector2D> vector, Vector2D elem);

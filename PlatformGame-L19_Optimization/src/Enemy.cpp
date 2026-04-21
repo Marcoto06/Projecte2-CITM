@@ -64,24 +64,40 @@ bool Enemy::Update(float dt)
 {
 	ZoneScoped;
 
+	GetPhysicsValues();
+
+	if (!isStunned)
+	{
+		isPlayerDetected = IsPlayerDetected();
+
+		if (isPlayerDetected)
+		{
+			currentEState = ENEMYSTATES::CHASING;
+		}
+		else
+		{
+			currentEState = ENEMYSTATES::WALKING;
+		}
+	}
+
 	Vector2D currentPos = GetPosition();
 	bool isVisible = Engine::GetInstance().render->IsOnScreenWorldRect(currentPos.getX(), currentPos.getY(), texW, texH, 150);
-	if (isVisible)
+
+	if (isVisible && currentEState == ENEMYSTATES::CHASING)
 	{
 		pathfindingFrameCount++;
 
 		if (pathfindingFrameCount >= pathfindingUpdateRate)
 		{
 			PerformPathfinding();
-			//LOG("Calculating enemy route");
 			pathfindingFrameCount = 0;
 		}
-
-		Move();
+	}
+	else
+	{
+		pathfindingFrameCount = 0;
 	}
 
-	PerformPathfinding();
-	GetPhysicsValues();
 	Func_EnemyStates(dt);
 	ApplyPhysics();
 	Draw(dt);
@@ -89,17 +105,28 @@ bool Enemy::Update(float dt)
 	return true;
 }
 
-void Enemy::PerformPathfinding() {
+void Enemy::PerformPathfinding()
+{
+	Map* map = Engine::GetInstance().map.get();
 
-	//Get the position of the enemy
-	Vector2D pos = GetPosition();
-	//Convert to tile coordinates
-	Vector2D tilePos = Engine::GetInstance().map.get()->WorldToMap((int)pos.getX(), (int)pos.getY());
-	//Reset pathfinding
-	pathfinding->ResetPath(tilePos);
+	Vector2D enemyPosition = GetPosition();
+	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
 
-	while(pathfinding->CanPropagateAStar(tilePos)) {
-		pathfinding->PropagateAStar(SQUARED);
+	Vector2D originTile = map->WorldToMap(
+		(int)(enemyPosition.getX() + (texW * 0.5f)),
+		(int)(enemyPosition.getY() + (texH * 0.5f))
+	);
+
+	Vector2D destinationTile = map->WorldToMap(
+		(int)(playerPosition.getX() + 16),
+		(int)(playerPosition.getY() + 16)
+	);
+
+	pathfinding->ResetPath(originTile);
+
+	while (pathfinding->CanPropagateAStar(destinationTile))
+	{
+		pathfinding->PropagateAStar(SQUARED, destinationTile);
 	}
 }
 
@@ -114,26 +141,28 @@ void Enemy::Func_EnemyStates(float dt)
 	switch (currentEState)
 	{
 	case Enemy::ENEMYSTATES::WALKING:
-		anims.SetCurrent("walk"); // Ensure animation resets so it doesn't look stunned
+		anims.SetCurrent("idle");
 		Move();
 		break;
+
 	case Enemy::ENEMYSTATES::CHASING:
+		anims.SetCurrent("walk");
+		Move();
 		break;
+
 	case Enemy::ENEMYSTATES::STUNED:
 		anims.SetCurrent("stunned");
 
-		if (isBeingSucked) {
-			// Check if 3 seconds of sucking have passed
-			if (suckTimer.ReadMSec() >= 3000.0f) {
-
-				// Replace Destroy(nullptr) for this:
+		if (isBeingSucked)
+		{
+			if (suckTimer.ReadMSec() >= 3000.0f)
+			{
 				Destroy(attackingPlayer);
-
 				return;
 			}
 		}
-		else {
-			// Check if 7 seconds of normal stun have passed
+		else
+		{
 			if (timer_01.ReadMSec() > 7000.0f)
 			{
 				currentEState = ENEMYSTATES::WALKING;
@@ -141,15 +170,86 @@ void Enemy::Func_EnemyStates(float dt)
 			}
 		}
 		break;
+
 	default:
 		break;
 	}
 }
 
-void Enemy::Move() {
+void Enemy::Move()
+{
+	velocity.x = 0.0f;
 
-	velocity.x = -speed;
-	// Move 
+	switch (currentEState)
+	{
+	case ENEMYSTATES::WALKING:
+		break;
+
+	case ENEMYSTATES::CHASING:
+	{
+		Vector2D nextPathTile = GetNextPathTile();
+
+		if (nextPathTile.getX() < 0 || nextPathTile.getY() < 0)
+		{
+			break;
+		}
+
+		Map* map = Engine::GetInstance().map.get();
+		Vector2D nextTileWorldPosition = map->MapToWorld((int)nextPathTile.getX(), (int)nextPathTile.getY());
+
+		float targetX = nextTileWorldPosition.getX() + (map->GetTileWidth() * 0.5f);
+		float currentX = GetPosition().getX() + (texW * 0.5f);
+
+		const float horizontalTolerance = 4.0f;
+		float deltaX = targetX - currentX;
+
+		if (deltaX > horizontalTolerance)
+		{
+			velocity.x = speed;
+			isFacingRight = true;
+		}
+		else if (deltaX < -horizontalTolerance)
+		{
+			velocity.x = -speed;
+			isFacingRight = false;
+		}
+
+		break;
+	}
+
+	case ENEMYSTATES::STUNED:
+		break;
+
+	default:
+		break;
+	}
+}
+
+bool Enemy::IsPlayerDetected() const
+{
+	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
+	Vector2D enemyPosition = const_cast<Enemy*>(this)->GetPosition();
+
+	float distanceX = playerPosition.getX() - enemyPosition.getX();
+	float distanceY = playerPosition.getY() - enemyPosition.getY();
+	float squaredDistance = (distanceX * distanceX) + (distanceY * distanceY);
+
+	return squaredDistance <= (detectionRange * detectionRange);
+}
+
+Vector2D Enemy::GetNextPathTile() const
+{
+	const std::list<Vector2D>& pathTiles = pathfinding->GetPathTiles();
+
+	if (pathTiles.size() <= 1)
+	{
+		return Vector2D(-1, -1);
+	}
+
+	auto nextTileIt = pathTiles.rbegin();
+	++nextTileIt; // first reverse element is the current/origin tile, second is the next tile to follow
+
+	return *nextTileIt;
 }
 
 void Enemy::ApplyPhysics() {
