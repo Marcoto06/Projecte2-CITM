@@ -28,12 +28,14 @@ bool Enemy::Awake() {
 bool Enemy::Start() {
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
-	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Eosinofilo.tsx", aliases);
+	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"}};
+	//anims eosinofilo
+	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
+	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", aliases);
 	anims.SetCurrent("walk");
 
 	//Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Eosinofilo.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
 
 	//Add physics to the enemy - initialize physics body
 	texW = 64;
@@ -118,7 +120,7 @@ void Enemy::Func_EnemyStates(float dt)
 	case Enemy::ENEMYSTATES::CHASING:
 		break;
 	case Enemy::ENEMYSTATES::STUNED:
-		anims.SetCurrent("idleBoomerang");
+		anims.SetCurrent("stunned");
 
 		if (isBeingSucked) {
 			// Check if 3 seconds of sucking have passed
@@ -174,11 +176,11 @@ void Enemy::Draw(float dt) {
 
 	if (isFacingRight) //this depends on how is the sprite made
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 95, y - (texH / 2) - 180, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 95, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 95, y - (texH / 2) - 180, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 95, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 	}
 }
 
