@@ -328,12 +328,12 @@ void Scene::LoadOptionsMainMenu()
 	audioSlider->SetTexture(sliderBarTexture);
 	audioSlider->SetKnobTexture(sliderKnobTexture);
 
-	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
+	backButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
 
-	SDL_Rect backButtonRect = { (screenWidth - exitButtonTexture->w) / 2, 736, 350, 130};
+	SDL_Rect backButtonRect = { (screenWidth - backButtonTexture->w) / 2, 736, 290, 86};
 
 	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, " ", backButtonRect, this);
-	backButton->SetTexture(exitButtonTexture);
+	backButton->SetTexture(backButtonTexture);
 
 	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "BACK", backButtonPos, this);
 }	
@@ -447,17 +447,34 @@ void Scene::LoadPauseOptionsMenu()
 	Engine::GetInstance().uiManager->CleanUp();
 	currentPauseState = PauseMenuState::OPTIONS;
 
-	int center_window_posX = (Engine::GetInstance().window->width / 2) - 175;
+	int button_width = 290;
+	int button_height = 86;
+	int button_margin = 20;
+
+	int center_window_posX = (Engine::GetInstance().window->width / 2) - button_width / 2;
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
-	SDL_Rect checkBoxPos = { center_window_posX, center_window_posY - 260, 40, 40 };
+	SDL_Rect checkBoxPos = { center_window_posX - 130, center_window_posY - 200, 40, 40 };
 	std::shared_ptr<UIElement> elem = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::CHECKBOX, 5, " FULLSCREEN ", checkBoxPos, this);
 
-	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 10, 350, 20 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
+	SDL_Texture* sliderBarTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBar.png");
+	SDL_Texture* sliderKnobTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
 
-	SDL_Rect backButtonPos = { center_window_posX + 115, center_window_posY + 140, 120, 40 };
-	Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " BACK ", backButtonPos, this);
+	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 80, 399, 25 };
+	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
+	auto audioSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
+
+	auto audioSlider = std::static_pointer_cast<UISlider>(audioSliderElement);
+	audioSlider->SetTexture(sliderBarTexture);
+	audioSlider->SetKnobTexture(sliderKnobTexture);
+
+	backButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
+
+	SDL_Rect backButtonPos = { center_window_posX, center_window_posY + 140, 290, 86};
+
+	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " ", backButtonPos, this);
+	backButton->SetTexture(backButtonTexture);
+	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " BACK ", backButtonPos, this);
 }
 
 /*
@@ -530,6 +547,15 @@ void Scene::UpdateLevel1(float dt) {
 		int pauseOptionsMenuPosY = (h - imgHeight) / 2;
 
 		Engine::GetInstance().render->DrawTexture(pauseOptionsMenuTexture, pauseOptionsMenuPosX, pauseOptionsMenuPosY, NULL, 0.0f);
+
+		if (currentPauseState == PauseMenuState::OPTIONS)
+		{
+			sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
+			Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
+
+			sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
+			Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+		}
 	}
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
