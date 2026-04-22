@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="252" columns="21">
- <image source="Atlas_Doctora.png" width="10752" height="6144"/>
+<tileset version="1.10" tiledversion="1.11.2" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="273" columns="21">
+ <image source="Atlas_Doctora.png" width="10752" height="6656"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>
@@ -171,6 +171,25 @@
    <frame tileid="177" duration="100"/>
   </animation>
  </tile>
+ <tile id="189">
+  <animation>
+   <frame tileid="189" duration="100"/>
+   <frame tileid="190" duration="100"/>
+   <frame tileid="191" duration="100"/>
+   <frame tileid="192" duration="100"/>
+   <frame tileid="193" duration="100"/>
+   <frame tileid="194" duration="100"/>
+   <frame tileid="195" duration="100"/>
+   <frame tileid="196" duration="100"/>
+   <frame tileid="197" duration="100"/>
+   <frame tileid="198" duration="100"/>
+   <frame tileid="199" duration="100"/>
+   <frame tileid="200" duration="100"/>
+   <frame tileid="201" duration="100"/>
+   <frame tileid="202" duration="100"/>
+   <frame tileid="203" duration="100"/>
+  </animation>
+ </tile>
  <tile id="210">
   <animation>
    <frame tileid="210" duration="100"/>
@@ -179,6 +198,46 @@
    <frame tileid="213" duration="100"/>
    <frame tileid="214" duration="100"/>
    <frame tileid="215" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="231">
+  <animation>
+   <frame tileid="231" duration="100"/>
+   <frame tileid="232" duration="100"/>
+   <frame tileid="233" duration="100"/>
+   <frame tileid="234" duration="100"/>
+   <frame tileid="235" duration="100"/>
+   <frame tileid="236" duration="100"/>
+   <frame tileid="237" duration="100"/>
+   <frame tileid="238" duration="100"/>
+   <frame tileid="239" duration="100"/>
+   <frame tileid="240" duration="100"/>
+   <frame tileid="241" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="252">
+  <animation>
+   <frame tileid="252" duration="100"/>
+   <frame tileid="253" duration="100"/>
+   <frame tileid="254" duration="100"/>
+   <frame tileid="255" duration="100"/>
+   <frame tileid="256" duration="100"/>
+   <frame tileid="257" duration="100"/>
+   <frame tileid="258" duration="100"/>
+   <frame tileid="259" duration="100"/>
+   <frame tileid="260" duration="100"/>
+   <frame tileid="261" duration="100"/>
+   <frame tileid="262" duration="100"/>
+   <frame tileid="263" duration="100"/>
+   <frame tileid="264" duration="100"/>
+   <frame tileid="265" duration="100"/>
+   <frame tileid="266" duration="100"/>
+   <frame tileid="267" duration="100"/>
+   <frame tileid="268" duration="100"/>
+   <frame tileid="269" duration="100"/>
+   <frame tileid="270" duration="100"/>
+   <frame tileid="271" duration="100"/>
+   <frame tileid="272" duration="100"/>
   </animation>
  </tile>
 </tileset>
