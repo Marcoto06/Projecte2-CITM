@@ -135,6 +135,8 @@ private:
 
 	SDL_Texture* sliderBoxTexture = nullptr;
 	SDL_Texture* sliderAudioTexture = nullptr;
+	SDL_Texture* sliderBarTexture = nullptr;
+	SDL_Texture* sliderKnobTexture = nullptr;
 
 	SDL_Texture* heartFullTexture = nullptr;
 	SDL_Texture* heartHalfTexture = nullptr;
