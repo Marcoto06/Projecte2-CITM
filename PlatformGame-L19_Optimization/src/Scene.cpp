@@ -387,7 +387,23 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
 		break;
-	}	
+	}
+	case 10: //	DEATH SCREEN: Try Again Button
+	{
+		isGameOver = false;
+		Engine::GetInstance().paused = false;
+		Engine::GetInstance().uiManager->CleanUp();
+		ChangeScene(currentScene);
+		break;
+	}
+	case 11: //	DEATH SCREEN: Go To Menu Button
+	{
+		isGameOver = false;
+		Engine::GetInstance().paused = false;
+		Engine::GetInstance().uiManager->CleanUp();
+		ChangeScene(SceneID::MAIN_MENU);
+		break;
+	}
 	}
 }
 
@@ -522,6 +538,10 @@ void Scene::LoadLevel1() {
 	std::shared_ptr<Item> item = std::dynamic_pointer_cast<Item>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ITEM));
 	item->position = Vector2D(200, 672);
 	item->Start(); //L17 Important call Start
+
+	heartFullTexture= Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
+	heartHalfTexture= Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
+	heartEmptyTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
 }
 
 void Scene::UpdateLevel1(float dt) {
@@ -550,26 +570,40 @@ void Scene::UpdateLevel1(float dt) {
 			sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
 			Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
 		}
+
+		if (isGameOver)
+		{
+			Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+
+			deathScreenMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/Fondo_death_menu.png");
+			Engine::GetInstance().render->DrawTexture(deathScreenMenuTexture, (w - deathScreenMenuTexture->w) / 2, (h -deathScreenMenuTexture->h) / 2, NULL, 0.0f);
+
+		}
 	}
 
 	if (!Engine::GetInstance().paused)
 	{
 		if (player && player->active)
 		{
+			SDL_Texture* currentHeartTex = nullptr;
+
 			if (player->playerCurrentHp > player->playerMaxHp / 2)
 			{
-				playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
+				currentHeartTex = heartFullTexture;
 			}
 			else if (player->playerCurrentHp <= player->playerMaxHp / 2 && player->playerCurrentHp > 0)
 			{
-				playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
+				currentHeartTex = heartHalfTexture;
 			}
 			else
 			{
-				playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
+				currentHeartTex = heartEmptyTexture;
 			}
 
-			Engine::GetInstance().render->DrawTexture(playerHpIndicatorTexture, 100, 100, NULL, 0.0f);
+			if (currentHeartTex != nullptr)
+			{
+				Engine::GetInstance().render->DrawTexture(currentHeartTex, 100, 100, NULL, 0.0f);
+			}
 		}
 	}
 
@@ -651,4 +685,35 @@ void Scene::UnloadLevel2() {
 	Engine::GetInstance().map->CleanUp();
 	Engine::GetInstance().entityManager->CleanUp();
 
+}
+
+
+void Scene::ActivateGameOver()
+{
+	ShowDeathScreen();
+}
+
+void Scene::ShowDeathScreen()
+{
+	if (isGameOver)	return;
+	isGameOver = true;
+	Engine::GetInstance().paused = true;
+
+	int w, h;
+	Engine::GetInstance().window->GetWindowSize(w, h);
+
+	int buttonWidth = 290;
+	int buttonHeight = 86;
+
+	gameOverTryAgainButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/TryAgainButton.png");
+	gameOverGoToMenuButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/GoToMenuButton.png");
+
+	SDL_Rect tryAgainButtonRect = { ((w / 2) - buttonWidth) - 20 ,(h / 2) + 40 , buttonWidth, buttonHeight };
+	SDL_Rect goToMenuButtonRect = { ((w / 2) + 10) + 20 , (h / 2) + 40 , buttonWidth, buttonHeight };
+
+	auto tryAgainButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 10, " TRY AGAIN ", tryAgainButtonRect, this);
+	tryAgainButton->SetTexture(gameOverTryAgainButtonTexture);
+
+	auto goToMenuButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 11, " GO TO MENU ", goToMenuButtonRect, this);
+	goToMenuButton->SetTexture(gameOverGoToMenuButtonTexture);
 }

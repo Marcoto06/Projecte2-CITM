@@ -267,8 +267,10 @@ void Player::Jump() {
 void Player::Func_PlayerState() {
 	
 	if (currentState == PLAYERSTATE::DEATH) {
-		if (anims.HasCurrentAnimationFinished()) {
-			Destroy();
+		if (anims.HasCurrentAnimationFinished()) 
+		{
+			//Destroy();
+			Engine::GetInstance().scene->ActivateGameOver();
 		}
 		return;
 	}

@@ -142,6 +142,8 @@ void Render::ResetViewPort()
 // Blit to screen
 bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY, SDL_FlipMode flip, float scale) const
 {
+	if (texture == nullptr) return false;
+
 	bool ret = true;
 	if (scale == 0) {
 		scale = float(Engine::GetInstance().window->GetScale());
