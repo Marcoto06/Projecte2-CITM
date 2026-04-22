@@ -100,6 +100,8 @@ void EntityManager::AddEntity(std::shared_ptr<Entity> entity)
 
 bool EntityManager::Update(float dt)
 {
+	if (Engine::GetInstance().paused)return true;
+
 	bool ret = true;
 
 	//List to store entities pending deletion
