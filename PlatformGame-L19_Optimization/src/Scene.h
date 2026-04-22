@@ -71,6 +71,8 @@ public:
 	void UnloadCurrentScene();
 	void LoadScene(SceneID newScene);
 
+	void ActivateGameOver();
+
 private:
 
 	// L17 TODO 3: Define specific function for main menu scene: Load, Unload, Handle UI events
@@ -98,6 +100,7 @@ private:
 	void UpdateLevel2(float dt);
 	void UnloadLevel2();
 
+	void ShowDeathScreen();
 
 private:
 	//L03: TODO 3b: Declare a Player attribute
@@ -133,6 +136,15 @@ private:
 	SDL_Texture* sliderBoxTexture = nullptr;
 	SDL_Texture* sliderAudioTexture = nullptr;
 
-	SDL_Texture* playerHpIndicatorTexture = nullptr;
+	SDL_Texture* heartFullTexture = nullptr;
+	SDL_Texture* heartHalfTexture = nullptr;
+	SDL_Texture* heartEmptyTexture = nullptr;
+
+	SDL_Texture* deathScreenMenuTexture = nullptr;
+
+	SDL_Texture* gameOverTryAgainButtonTexture = nullptr;
+	SDL_Texture* gameOverGoToMenuButtonTexture = nullptr;
+
+	bool isGameOver = false;
 	
 };
