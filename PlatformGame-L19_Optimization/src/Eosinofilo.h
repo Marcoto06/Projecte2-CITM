@@ -24,7 +24,7 @@ public:
 	void SetPosition(Vector2D pos);
 	Vector2D GetPosition();
 	bool Destroy() override;
-	bool Destroy(Player* player);
+	bool Destroy(Player* pplayer);
 
 private:
 	void GetPhysicsValues();
@@ -72,4 +72,5 @@ private:
 
 	Timer waitTimer;
 	Timer moveTimer;
+	std::shared_ptr<Player> player;
 };

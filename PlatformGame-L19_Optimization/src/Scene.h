@@ -72,6 +72,7 @@ public:
 	void LoadScene(SceneID newScene);
 
 	void ActivateGameOver();
+	std::shared_ptr<Player> player;
 
 private:
 
@@ -104,7 +105,6 @@ private:
 
 private:
 	//L03: TODO 3b: Declare a Player attribute
-	std::shared_ptr<Player> player;
 	SDL_Texture* mouseTileTex = nullptr;
 	std::string tilePosDebug = "[0,0]";
 	bool once = false;

@@ -105,7 +105,7 @@ public:
 	bool isHurt = false;
 
 	//CHARGES
-	bool hasPowerJump = true;
+	bool hasPowerJump = false;
 	float powerJumpForce = 25.0f;
 
 	//PERMANENT UPGRADES

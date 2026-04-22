@@ -7435,9 +7435,9 @@
    <tile/>
    <tile/>
    <tile gid="120"/>
-   <tile gid="78"/>
-   <tile gid="94"/>
-   <tile gid="94"/>
+   <tile gid="121"/>
+   <tile gid="110"/>
+   <tile gid="110"/>
    <tile gid="111"/>
    <tile/>
    <tile/>
@@ -7495,9 +7495,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="109"/>
-   <tile gid="110"/>
-   <tile gid="111"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
