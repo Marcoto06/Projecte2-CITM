@@ -511,6 +511,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::PLATFORM:
 		LOG("End Collision PLATFORM");
+		onGround = false;
 		break;
 	case ColliderType::ITEM:
 		LOG("End Collision ITEM");
