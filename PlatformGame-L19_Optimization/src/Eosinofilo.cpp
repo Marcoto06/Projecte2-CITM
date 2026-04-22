@@ -31,11 +31,11 @@ bool Eosinofilo::Start() {
 	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"} };
 	//anims eosinofilo
 	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {24,"tentaclesIn"}, {48,"idleBoomerang"}, {72,"tentaclesOut"}, {96,"boomerangOut"}, {120,"idleEmpty"}, {144,"boomerangIn"},{168,"stunBoomerang"}, {192,"stunEmpty"}, {216,"hurtBoomerang"}, {240,"hurtEmpty"},{264,"deathBoomerang"},{288,"deathEmpty"} };
-	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_eosinofilo_final.tsx", aliases);
+	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Eosinofilo.tsx", aliases);
 	anims.SetCurrent("walk");
 
 	//Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_eosinofilo_final.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Eosinofilo.png");
 
 	//Add physics to the enemy - initialize physics body
 	texW = 64;
