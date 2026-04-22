@@ -416,6 +416,7 @@ MapLayer* Map::GetNavigationLayer() {
 
 				//Get the entity type and position
                 std::string entityType = objectNode.attribute("type").as_string();
+                std::string name = objectNode.attribute("name").as_string();
                 float x = objectNode.attribute("x").as_float();
                 float y = objectNode.attribute("y").as_float();
                 
@@ -434,9 +435,15 @@ MapLayer* Map::GetNavigationLayer() {
                 }
                 else if (entityType == "Enemy") {
                     // Create Enemy entity
-                    const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
-                    enemy->position = Vector2D(x, y);
-                    enemy->Start(); //L17: Importan to call Start to initialize teh Entity
+                    if (name == "Streptococus") {
+                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
+                        enemy->position = Vector2D(x, y);
+                        enemy->Start(); //L17: Importan to call Start to initialize teh Entity
+                    }else if (name == "Eosinofilo") {
+                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
+                        enemy->position = Vector2D(x, y);
+                        enemy->Start(); //L17: Importan to call Start to initialize teh Entity
+                    }
                 }
             }
         }

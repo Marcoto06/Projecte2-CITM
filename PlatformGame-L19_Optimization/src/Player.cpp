@@ -275,17 +275,17 @@ void Player::Func_PlayerState() {
 		return;
 	}
 
-	if (currentState == PLAYERSTATE::FALLING_JUMP && onGround)
+	if (currentState == PLAYERSTATE::FALLING_JUMP && onGround && !isAttacking)
 	{
 		currentState = PLAYERSTATE::END_JUMP;
-		anims.SetCurrent("endJump");
+ 		anims.SetCurrent("endJump");
 	}
-	else if (currentState == PLAYERSTATE::JUMPING && velocity.y > 0.1f)
+	else if (currentState == PLAYERSTATE::JUMPING && velocity.y > 0.1f && !isAttacking)
 	{
 		currentState = PLAYERSTATE::FALLING_JUMP;
 		anims.SetCurrent("fallingJump");
 	}
-	else if ((currentState == PLAYERSTATE::IDLE || currentState == PLAYERSTATE::MOVE) && !onGround)
+	else if ((currentState == PLAYERSTATE::IDLE || currentState == PLAYERSTATE::MOVE) && !onGround && !isAttacking)
 	{
 		currentState = PLAYERSTATE::FALLING_JUMP;
 		anims.SetCurrent("fallingJump");
