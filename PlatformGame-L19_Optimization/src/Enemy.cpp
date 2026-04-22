@@ -258,29 +258,51 @@ void Enemy::ApplyPhysics() {
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
-void Enemy::Draw(float dt) {
-
+void Enemy::Draw(float dt)
+{
 	anims.Update(dt);
 	const SDL_Rect& animFrame = anims.GetCurrentFrame();
 
-	// Update render position using your PhysBody helper
 	int x, y;
 	pbody->GetPosition(x, y);
 	position.setX((float)x);
 	position.setY((float)y);
 
-	// Draw pathfinding debug
-	//pathfinding->DrawPath();
+	int frameW = animFrame.w;
+	int frameH = animFrame.h;
 
-	//Draw the player using the texture and the current animation frame
+	int drawX = x - (frameW / 2);
+	int drawY = y - (frameH / 2) - 40;
 
-	if (isFacingRight) //this depends on how is the sprite made
+	if (isFacingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) - 50, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(
+			texture,
+			drawX,
+			drawY,
+			&animFrame,
+			1.0f,
+			0.0,
+			frameW / 2,
+			frameH / 2,
+			SDL_FLIP_HORIZONTAL,
+			1.0f
+		);
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, x - (texW / 2) + 50, y - (texH / 2) - 155, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(
+			texture,
+			drawX,
+			drawY,
+			&animFrame,
+			1.0f,
+			0.0,
+			frameW / 2,
+			frameH / 2,
+			SDL_FLIP_NONE,
+			1.0f
+		);
 	}
 }
 
