@@ -552,10 +552,28 @@ void Scene::UpdateLevel1(float dt) {
 		}
 	}
 
+	if (!Engine::GetInstance().paused)
+	{
+		if (player->playerCurrentHp > player->playerMaxHp / 2) 
+		{
+			playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
+		}
+		else if (player->playerCurrentHp <= player->playerMaxHp / 2 && player->playerCurrentHp > 0)
+		{
+			playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
+		}
+		else
+		{
+			playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
+		}
+
+		Engine::GetInstance().render->DrawTexture(playerHpIndicatorTexture, 100, 100, NULL, 0.0f);
+
+	}
+
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 		ChangeScene(SceneID::LEVEL2);
 	}
-
 }
 
 void Scene::UnloadLevel1() {

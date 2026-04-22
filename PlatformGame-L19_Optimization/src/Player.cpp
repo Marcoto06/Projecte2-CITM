@@ -15,6 +15,7 @@
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name = "Player";
+	playerCurrentHp = playerMaxHp;
 }
 
 Player::~Player() {
@@ -520,7 +521,13 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		LOG("End Collision UNKNOWN");
 		break;
 	case ColliderType::ENEMY:
-		//to do
+		LOG("End Collision ENEMY");
+		if (playerCurrentHp > 0)
+		{
+			playerCurrentHp--;
+		}
+		LOG("Current HP: %i", playerCurrentHp);
+		break;
 	default:
 		break;
 	}
