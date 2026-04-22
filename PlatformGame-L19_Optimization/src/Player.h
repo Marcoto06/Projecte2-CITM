@@ -96,6 +96,7 @@ public:
 	bool isMoving = false;
 	bool hasASpeedBoost = false;
 	bool onGround = false;
+	bool nextToWall = false;
 
 	//CHARGES
 	bool hasPowerJump = true;

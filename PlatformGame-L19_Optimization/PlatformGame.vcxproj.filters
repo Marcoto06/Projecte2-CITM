@@ -111,6 +111,12 @@
     <ClCompile Include="src\UICheckBox.cpp">
       <Filter>Source Files\Engine\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Eosinofilo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Eosinofilo.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -193,6 +199,10 @@
     </ClInclude>
     <ClInclude Include="src\UICheckBox.h">
       <Filter>Source Files\Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Eosinofilo.h" />
+    <ClInclude Include="src\Eosinofilo.h">
+      <Filter>Source Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

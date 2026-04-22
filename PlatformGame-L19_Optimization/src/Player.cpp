@@ -200,6 +200,9 @@ void Player::Move() {
 		velocity.x = normalSpeed;
 		facingRight = true;
 	}
+	if (nextToWall == true && velocity.y != 0.0f) {
+		velocity.x = 0;
+	}
 }
 
 void Player::ActivateSpeedBoost() {
@@ -232,7 +235,7 @@ void Player::Func_BoostMovement() {
 
 void Player::Jump() {
 	// This function can be used for more complex jump logic if needed
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking && onGround == true) {
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 		float forceToUse = jumpForce;
 		if (hasPowerJump == true) {
@@ -242,6 +245,7 @@ void Player::Jump() {
 		anims.SetCurrent("prepareJump");
 		isJumping = true;
 		onGround = false;
+		nextToWall = true;
 	}
 }
 
@@ -490,6 +494,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			isJumping = false;
 			onGround = true;
 		}
+		else if (velocity.y != 0.0f){
+			nextToWall = true;
+		}
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
@@ -512,6 +519,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	case ColliderType::PLATFORM:
 		LOG("End Collision PLATFORM");
 		onGround = false;
+		nextToWall = false;
 		break;
 	case ColliderType::ITEM:
 		LOG("End Collision ITEM");
