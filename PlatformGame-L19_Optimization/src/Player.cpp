@@ -469,7 +469,6 @@ void Player::Func_Attacks(float dt) {
 
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
 			(int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
-		suckBody->listener = this;
 	}
 
 	if (isSucking) {

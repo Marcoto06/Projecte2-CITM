@@ -10010,16 +10010,16 @@
   <object id="28" name="Streptococus" type="Enemy" x="1118.71" y="1974.41">
    <point/>
   </object>
-  <object id="30" name="Eosinofilo" type="Enemy" x="1185.71" y="1543.68">
+  <object id="30" name="Eosinofilo" type="Enemy" x="1167.53" y="1470.95">
    <point/>
   </object>
   <object id="31" name="Streptococus" type="Enemy" x="2360.61" y="1063.64">
    <point/>
   </object>
-  <object id="32" name="Eosinofilo" type="Enemy" x="3478.79" y="766.667">
+  <object id="32" name="Eosinofilo" type="Enemy" x="3366.67" y="681.819">
    <point/>
   </object>
-  <object id="33" name="Eosinofilo" type="Enemy" x="2927.27" y="1457.58">
+  <object id="33" name="Eosinofilo" type="Enemy" x="2903.03" y="1363.64">
    <point/>
   </object>
  </objectgroup>

@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 #include "tracy/Tracy.hpp"
+#include <box2d/box2d.h>
 
 Eosinofilo::Eosinofilo() : Entity(EntityType::EOSINOFILO)
 {
@@ -47,6 +48,7 @@ bool Eosinofilo::Start() {
 
 	//ssign collider type
 	pbody->ctype = ColliderType::ENEMY;
+	b2Body_SetGravityScale(pbody->body, 0.0f);
 
 	//Get the position of the enemy
 	Vector2D pos = GetPosition();
@@ -93,6 +95,10 @@ bool Eosinofilo::Update(float dt)
 				//MOURE
 			}
 		}
+	}
+	else {
+		b2Body_SetGravityScale(pbody->body, 100.0f);
+		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0, 0);
 	}
 
 	Vector2D currentPos = GetPosition();
@@ -141,6 +147,7 @@ void Eosinofilo::Func_EnemyStates(float dt)
 			if (timer_01.ReadMSec() > 7000.0f)
 			{
 				currentEState = ENEMYSTATES::PATROLING;
+				b2Body_SetGravityScale(pbody->body, 0.0f);
 				isStunned = false;
 			}
 		}
