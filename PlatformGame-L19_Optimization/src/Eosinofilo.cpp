@@ -76,7 +76,7 @@ bool Eosinofilo::Start() {
 	Vector2D pos = GetPosition();
 	//Convert to tile coordinates
 	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY() + 1);
-	player = Engine::GetInstance().scene->player;
+	player = Engine::GetInstance().scene->player.get();
 
 	//Reset pathfinding
 	static bool randomSeedInitialized = false;
