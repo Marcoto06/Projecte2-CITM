@@ -51,6 +51,25 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	if (isPlayingVideo) {
+		
+		plm_decode(plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
+
+		if (introVideo.texture && introVideo.buffer) {
+			SDL_UpdateTexture(introVideo.texture, NULL, introVideo.buffer, introVideo.width * 4);
+
+			SDL_RenderTexture(Engine::GetInstance().render->renderer, introVideo.texture, NULL, NULL);
+		}
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(plm))	// If space is pressed or the video has ended, stop the video and load the main menu
+		{
+			StopIntroVideo();
+			ChangeScene(SceneID::LEVEL1);
+		}
+
+		return true;
+	}
+
 	switch (currentScene)
 	{
 	case SceneID::INTRO_SCREEN:
@@ -285,8 +304,12 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 	switch (uiElement->id)
 	{
 	case 1: // Button MyButton
-		LOG("Main Menu: MyButton clicked!");
-		ChangeScene(SceneID::LEVEL1);
+
+		// INTRO VIDEO DISABLER
+		// UNCOMMENT & COMMENT THE LINES BELOW TO SKIP THE INTRO VIDEO AND GO DIRECTLY TO THE MAIN MENU
+
+		//ChangeScene(SceneID::LEVEL1);
+		PlayIntroVideo();
 		break;
 	case 2: // Button Options
 		LOG("Main Menu: Options button clicked!");
@@ -719,4 +742,59 @@ void Scene::ShowDeathScreen()
 
 	auto goToMenuButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 11, " GO TO MENU ", goToMenuButtonRect, this);
 	goToMenuButton->SetTexture(gameOverGoToMenuButtonTexture);
+}
+
+
+void Scene::OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user)
+{
+	VideoData* vd = static_cast<VideoData*>(user);
+
+	if (vd->buffer) 
+	{
+	
+		plm_frame_to_rgba(frame, vd->buffer, vd->width * 4);
+	}
+}
+
+void Scene::PlayIntroVideo() {
+
+	plm = plm_create_with_filename("Assets/Video/AnimaticaFinal.mpg");
+
+	if (!plm) {
+		LOG("Error: No se pudo cargar el video AnimaticaFinal.mpg");
+		ChangeScene(SceneID::LEVEL1); // Fallback: if failed to load video, goes directly to level 1
+		return;
+	}
+
+	plm_set_loop(plm, 0); // 0 = No loop, 1 = Loop indefinitely
+	introVideo.width = plm_get_width(plm);
+	introVideo.height = plm_get_height(plm);
+
+	introVideo.buffer = new uint8_t[introVideo.width * introVideo.height * 4];
+
+	// We create an SDL texture prepared to receive pixels by streaming
+	introVideo.texture = SDL_CreateTexture(
+		Engine::GetInstance().render->renderer,
+		SDL_PIXELFORMAT_RGBA32,
+		SDL_TEXTUREACCESS_STREAMING,
+		introVideo.width,
+		introVideo.height
+	);
+
+	plm_set_video_decode_callback(plm, OnVideoFrame, &introVideo);
+
+	isPlayingVideo = true;
+	Engine::GetInstance().uiManager->CleanUp();
+}
+
+void Scene::StopIntroVideo() {
+	isPlayingVideo = false;
+
+	if (plm) plm_destroy(plm);
+	if (introVideo.texture) SDL_DestroyTexture(introVideo.texture);
+	if (introVideo.buffer) delete[] introVideo.buffer;
+
+	plm = nullptr;
+	introVideo.texture = nullptr;
+	introVideo.buffer = nullptr;
 }

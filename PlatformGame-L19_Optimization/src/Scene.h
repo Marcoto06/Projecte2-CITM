@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "UIButton.h"
+#include "pl_mpeg.h"
 
 struct SDL_Texture;
 
@@ -76,6 +77,11 @@ public:
 
 private:
 
+	void PlayIntroVideo();
+	void StopIntroVideo();
+
+	static void OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user);	//Callback function required by pl_mpeg to return video frames
+
 	// L17 TODO 3: Define specific function for main menu scene: Load, Unload, Handle UI events
 	void LoadMainMenu();
 	void UnloadMainMenu();
@@ -104,6 +110,18 @@ private:
 	void ShowDeathScreen();
 
 private:
+
+	struct VideoData {
+		SDL_Texture* texture = nullptr;
+		uint8_t* buffer = nullptr;
+		int width = 0;
+		int height = 0;
+	};
+
+	VideoData introVideo;
+	plm_t* plm = nullptr;      // Principal pointer to the library
+	bool isPlayingVideo = false;
+
 	//L03: TODO 3b: Declare a Player attribute
 	SDL_Texture* mouseTileTex = nullptr;
 	std::string tilePosDebug = "[0,0]";
