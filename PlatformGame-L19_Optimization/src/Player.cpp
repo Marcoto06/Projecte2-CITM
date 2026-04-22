@@ -15,6 +15,7 @@
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name = "Player";
+	playerCurrentHp = playerMaxHp;
 }
 
 Player::~Player() {
@@ -311,11 +312,22 @@ void Player::Func_PlayerState() {
 
 void Player::Func_Attacks(float dt) {
 	// Stun ATTACK
-	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking && !isSucking) {
+	// Left click attack
+	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking && !isSucking)
+	{
 		currentState = PLAYERSTATE::ATTACK;
 		isAttacking = true;
-		attackTimer = 900.0f;
-		anims.SetCurrent("stun");
+
+		if (!onGround)
+		{
+			attackTimer = 1000.0f;
+			anims.SetCurrent("airAttack");
+		}
+		else
+		{
+			attackTimer = 1300.0f;
+			anims.SetCurrent("stun");
+		}
 	}
 
 	if (isAttacking) {
@@ -357,9 +369,26 @@ void Player::Func_Attacks(float dt) {
 			syringeBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
 				(int)width, (int)height, absoluteCenterX, absoluteCenterY, ColliderType::SYRINGE, angleRad);
 		}
-		else if (attackTimer <= 0.0f) {
-			currentState = PLAYERSTATE::IDLE;
+		else if (attackTimer <= 0.0f)
+		{
+			attackTimer = 0.0f;
 			isAttacking = false;
+
+			if (!onGround)
+			{
+				currentState = PLAYERSTATE::FALLING_JUMP;
+				anims.SetCurrent("fallingJump");
+			}
+			else if (isMoving)
+			{
+				currentState = PLAYERSTATE::MOVE;
+				anims.SetCurrent("run");
+			}
+			else
+			{
+				currentState = PLAYERSTATE::IDLE;
+				anims.SetCurrent("idle");
+			}
 		}
 	}
 	else {
@@ -369,11 +398,29 @@ void Player::Func_Attacks(float dt) {
 		}
 	}
 
-	if (anims.HasCurrentAnimationFinished())
+	/*if (anims.HasCurrentAnimationFinished())
 	{
-		currentState = PLAYERSTATE::IDLE;
-		anims.SetCurrent("idle");
-	}
+		if (isAttacking)
+		{
+			if (!onGround)
+			{
+				currentState = PLAYERSTATE::FALLING_JUMP;
+				anims.SetCurrent("fallingJump");
+			}
+			else if (isMoving)
+			{
+				currentState = PLAYERSTATE::MOVE;
+				anims.SetCurrent("run");
+			}
+			else
+			{
+				currentState = PLAYERSTATE::IDLE;
+				anims.SetCurrent("idle");
+			}
+
+			isAttacking = false;
+		}
+	}*/
 
 	// Suck ATTACK
 	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking) {
@@ -528,7 +575,13 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		LOG("End Collision UNKNOWN");
 		break;
 	case ColliderType::ENEMY:
-		//to do
+		LOG("End Collision ENEMY");
+		if (playerCurrentHp > 0)
+		{
+			playerCurrentHp--;
+		}
+		LOG("Current HP: %i", playerCurrentHp);
+		break;
 	default:
 		break;
 	}

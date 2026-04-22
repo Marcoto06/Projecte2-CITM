@@ -132,5 +132,7 @@ private:
 
 	SDL_Texture* sliderBoxTexture = nullptr;
 	SDL_Texture* sliderAudioTexture = nullptr;
+
+	SDL_Texture* playerHpIndicatorTexture = nullptr;
 	
 };

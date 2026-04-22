@@ -87,6 +87,8 @@ public:
 	float jumpForce = 20.0f; // The force to apply when jumping
 	int kill_counter = 0;
 
+	int playerMaxHp = 5;
+	int playerCurrentHp;
 
 	//STATES
 	bool isJumping = false; // Flag to check if the player is currently jumping
