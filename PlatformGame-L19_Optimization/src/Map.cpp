@@ -432,6 +432,12 @@ MapLayer* Map::GetNavigationLayer() {
                         player->SetPosition(Vector2D(x, y));
                     }
                 }
+                else if (entityType == "Enemy") {
+                    // Create Enemy entity
+                    const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
+                    enemy->position = Vector2D(x, y);
+                    enemy->Start(); //L17: Importan to call Start to initialize teh Entity
+                }
             }
         }
     }

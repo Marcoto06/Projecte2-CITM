@@ -234,7 +234,11 @@ void Player::Jump() {
 	// This function can be used for more complex jump logic if needed
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking) {
 		currentState = PLAYERSTATE::PREPARE_JUMP;
-		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0.0f, -jumpForce, true);
+		float forceToUse = jumpForce;
+		if (hasPowerJump == true) {
+			forceToUse = powerJumpForce;
+		}
+		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0.0f, -forceToUse, true);
 		anims.SetCurrent("prepareJump");
 		isJumping = true;
 		onGround = false;

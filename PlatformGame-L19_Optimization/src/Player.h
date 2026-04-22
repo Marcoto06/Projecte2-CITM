@@ -84,7 +84,7 @@ public:
 	int pickCoinFxId; //??????
 	
 	PhysBody* pbody;
-	float jumpForce = 25.0f; // The force to apply when jumping
+	float jumpForce = 20.0f; // The force to apply when jumping
 	int kill_counter = 0;
 
 
@@ -96,6 +96,10 @@ public:
 	bool isMoving = false;
 	bool hasASpeedBoost = false;
 	bool onGround = false;
+
+	//CHARGES
+	bool hasPowerJump = true;
+	float powerJumpForce = 25.0f;
 
 	//PERMANENT UPGRADES
 	bool hasWallJump;
