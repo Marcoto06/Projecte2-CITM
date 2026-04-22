@@ -10007,10 +10007,10 @@
   <object id="21" name="Player" type="Player" x="99" y="1142">
    <point/>
   </object>
-  <object id="28" name="Enemy" type="Enemy" x="1097.5" y="1983.5">
+  <object id="28" name="Streptococus" type="Enemy" x="1097.5" y="1983.5">
    <point/>
   </object>
-  <object id="30" name="Enemy" type="Enemy" x="2364.5" y="1025.5">
+  <object id="30" name="Eosinofilo" type="Enemy" x="452.379" y="852.773">
    <point/>
   </object>
  </objectgroup>

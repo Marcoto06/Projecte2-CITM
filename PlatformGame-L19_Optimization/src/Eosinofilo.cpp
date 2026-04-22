@@ -68,11 +68,30 @@ bool Eosinofilo::Update(float dt)
 
 		if (isPlayerDetected)
 		{
-			currentEState = ENEMYSTATES::ATTACKING;
+			if (waitTimer.ReadSec() >= 3) {
+				currentEState = ENEMYSTATES::ATTACKING;
+			} else if (waitTimer.ReadSec() <= 0){
+				waitTimer.Start();
+			}
 		}
 		else
 		{
 			currentEState = ENEMYSTATES::PATROLING;
+		}
+		if (currentEState == ENEMYSTATES::ATTACKING){
+			//SPAWN BUMERANG
+			moveTimer.Start();
+			currentEState = ENEMYSTATES::MOVING;
+			//Assigna una direccio aleatoria per moure
+		}
+		else if (currentEState == ENEMYSTATES::MOVING) {
+			if (moveTimer.ReadSec() >= 3) {
+				waitTimer.Start();
+				currentEState = ENEMYSTATES::PATROLING;
+			}
+			else {
+				//MOURE
+			}
 		}
 	}
 

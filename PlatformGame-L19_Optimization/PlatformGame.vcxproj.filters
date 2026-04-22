@@ -20,6 +20,9 @@
     <Filter Include="Source Files\Engine\UI">
       <UniqueIdentifier>{a322c54b-dcd4-4ef8-970a-5f742f3e4d03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Projectiles">
+      <UniqueIdentifier>{c831773b-519a-4e79-8bba-832409f76651}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json">
@@ -114,6 +117,9 @@
     <ClCompile Include="src\Eosinofilo.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\EOS_Bumerang.cpp">
+      <Filter>Source Files\Game\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -200,6 +206,9 @@
     <ClInclude Include="Eosinofilo.h" />
     <ClInclude Include="src\Eosinofilo.h">
       <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EOS_Bumerang.h">
+      <Filter>Source Files\Game\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

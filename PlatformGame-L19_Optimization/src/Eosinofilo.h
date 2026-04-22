@@ -63,9 +63,13 @@ private:
 	enum class ENEMYSTATES
 	{
 		PATROLING,
+		MOVING,
 		ATTACKING,
 		STUNED
 	};
 
 	ENEMYSTATES currentEState = ENEMYSTATES::PATROLING;
+
+	Timer waitTimer;
+	Timer moveTimer;
 };
