@@ -99,6 +99,10 @@ public:
 	bool hasASpeedBoost = false;
 	bool onGround = false;
 	bool nextToWall = false;
+	bool canMove = true;
+	bool canJump = true;
+	bool canAttack = true;
+	bool isHurt = false;
 
 	//CHARGES
 	bool hasPowerJump = true;
@@ -112,7 +116,7 @@ public:
 
 
 	Timer boostTimer_01;
-
+	Timer hurtTimer;
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
@@ -131,6 +135,7 @@ private:
 		JUMPING2,
 		FALLING_JUMP,
 		END_JUMP,
+		DEATH
 	};
 
 	PLAYERSTATE currentState = PLAYERSTATE::IDLE;

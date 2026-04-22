@@ -31,7 +31,7 @@ bool Player::Start() {
 	#define PLAYER_FEET_TAG 2
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"}, {210, "crouch"} };
+	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"}, {210, "crouch"}, {231, "death"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora.tsx", aliases);
 	anims.SetCurrent("idle"); 
 
@@ -48,6 +48,7 @@ bool Player::Start() {
 	anims.Func_SetAnimationLoop("stun", false);
 	anims.Func_SetAnimationLoop("airAttack", false);
 
+	anims.Func_SetAnimationLoop("death", false);
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Doctora.png");
 
 	texW = 96;
@@ -82,15 +83,24 @@ bool Player::Update(float dt)
 	}
 
 	ZoneScoped;
+
+	if (isHurt) {
+		if (hurtTimer.ReadMSec() > 300.0f) {
+			isHurt = false;
+		}
+	}
 	GetPhysicsValues();
-	if (hasASpeedBoost)
-	{
-		Func_BoostMovement();
+
+	if (!isHurt) {
+		if (hasASpeedBoost) {
+			Func_BoostMovement();
+		}
+		else {
+			Move();
+		}
+		Jump();
 	}
-	else
-	{
-		Move();
-	}
+
 	Jump();
 	Func_PlayerState();
 	Func_Attacks(dt);
@@ -110,7 +120,11 @@ void Player::Teleport() {
 void Player::GetPhysicsValues() {
 	// Read current velocity
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
-	velocity = { 0, velocity.y }; // Reset horizontal velocity by default, this way the player stops when no key is pressed
+
+	if (!isHurt) {
+		velocity = { 0, velocity.y };
+	}
+
 }
 
 void Player::Attack()
@@ -191,12 +205,12 @@ void Player::Move() {
 
 	isMoving = false; // Reseteamos cada frame
 
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
 		isMoving = true;
 		velocity.x = -normalSpeed;
 		facingRight = false;
 	}
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking && canMove) {
 		isMoving = true;
 		velocity.x = normalSpeed;
 		facingRight = true;
@@ -216,12 +230,12 @@ void Player::Func_BoostMovement() {
 	float durationMS = 5000.0f; // 5 seconds in miliseconds
 	isMoving = false; 
 
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
 		isMoving = true;
 		velocity.x = -boostSpeed;
 		facingRight = false;
 	}
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking && canMove) {
 		isMoving = true;
 		velocity.x = boostSpeed;
 		facingRight = true;
@@ -236,7 +250,7 @@ void Player::Func_BoostMovement() {
 
 void Player::Jump() {
 	// This function can be used for more complex jump logic if needed
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking && onGround == true) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking && onGround == true && canJump) {
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 		float forceToUse = jumpForce;
 		if (hasPowerJump == true) {
@@ -251,6 +265,13 @@ void Player::Jump() {
 }
 
 void Player::Func_PlayerState() {
+	
+	if (currentState == PLAYERSTATE::DEATH) {
+		if (anims.HasCurrentAnimationFinished()) {
+			Destroy();
+		}
+		return;
+	}
 
 	if (currentState == PLAYERSTATE::FALLING_JUMP && onGround)
 	{
@@ -296,6 +317,10 @@ void Player::Func_PlayerState() {
 			currentState = Player::PLAYERSTATE::MOVE;
 			anims.SetCurrent("run"); 
 		}
+		else
+		{
+			anims.SetCurrent("idle");
+		}
 		break;
 
 	case Player::PLAYERSTATE::MOVE:
@@ -313,7 +338,7 @@ void Player::Func_PlayerState() {
 void Player::Func_Attacks(float dt) {
 	// Stun ATTACK
 	// Left click attack
-	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking && !isSucking)
+	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking && !isSucking && canAttack)
 	{
 		currentState = PLAYERSTATE::ATTACK;
 		isAttacking = true;
@@ -398,6 +423,11 @@ void Player::Func_Attacks(float dt) {
 		}
 	}
 
+	if (anims.HasCurrentAnimationFinished())
+	{
+		currentState = PLAYERSTATE::IDLE;
+	}
+
 	/*if (anims.HasCurrentAnimationFinished())
 	{
 		if (isAttacking)
@@ -423,7 +453,7 @@ void Player::Func_Attacks(float dt) {
 	}*/
 
 	// Suck ATTACK
-	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking) {
+	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking && canAttack) {
 		currentState = PLAYERSTATE::SUCKING;
 		isSucking = true;
 		anims.SetCurrent("extract");
@@ -431,9 +461,9 @@ void Player::Func_Attacks(float dt) {
 		int playerX, playerY;
 		pbody->GetPosition(playerX, playerY);
 
-		float width = 100.0f;  
-		float height = 60.0f;
-		float pivotLocalX = facingRight ? 100.0f : -100.0f;
+		float width = 55.0f;  
+		float height = 90.0f;
+		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
 			(int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
@@ -454,8 +484,8 @@ void Player::Func_Attacks(float dt) {
 			if (suckBody != nullptr) {
 				int playerX, playerY;
 				pbody->GetPosition(playerX, playerY);
-				float pivotLocalX = facingRight ? 100.0f : -100.0f;
-				suckBody->SetPosition((int)(playerX + pivotLocalX), playerY);
+				float pivotLocalX = facingRight ? 52.5f : -52.5f;
+				suckBody->SetPosition((int)(playerX + pivotLocalX), playerY + 22);
 			}
 		}
 	}
@@ -554,6 +584,37 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
+	case ColliderType::ENEMY:
+		LOG("End Collision ENEMY");
+		if (playerCurrentHp > 0)
+		{
+			playerCurrentHp--;
+			LOG("Current HP: %i", playerCurrentHp);
+			int playerX, playerY;
+			pbody->GetPosition(playerX, playerY);
+
+			int enemyX, enemyY;
+			physB->GetPosition(enemyX, enemyY);
+
+			float knockbackX = (playerX < enemyX) ? -7.0f : 7.0f;
+			float knockbackY = -5.0f;
+
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, { knockbackX, knockbackY });
+
+			isHurt = true;
+			hurtTimer.Start();
+		}
+		else
+		{
+			LOG("Player has died!");
+			canMove = false;
+			canJump = false;
+			canAttack = false;
+			currentState = PLAYERSTATE::DEATH;
+			anims.SetCurrent("death");
+		}
+		LOG("Current HP: %i", playerCurrentHp);
+		break;
 	default:
 		break;
 	}
@@ -573,14 +634,6 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("End Collision UNKNOWN");
-		break;
-	case ColliderType::ENEMY:
-		LOG("End Collision ENEMY");
-		if (playerCurrentHp > 0)
-		{
-			playerCurrentHp--;
-		}
-		LOG("Current HP: %i", playerCurrentHp);
 		break;
 	default:
 		break;
