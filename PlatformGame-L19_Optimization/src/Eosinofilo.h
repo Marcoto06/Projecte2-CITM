@@ -26,7 +26,8 @@ public:
 	void OnBoomerangLost();
 	Vector2D GetPosition();
 	bool Destroy() override;
-	bool Destroy(Player* pplayer);
+	bool Destroy(Player* player);
+	Player* player = nullptr;
 
 private:
 	void GetPhysicsValues();
@@ -93,3 +94,5 @@ private:
 
 	Timer waitTimer;
 	Timer moveTimer;
+	Timer attackTimer;
+};
