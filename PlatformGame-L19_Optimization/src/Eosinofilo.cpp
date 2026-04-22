@@ -76,6 +76,7 @@ bool Eosinofilo::Start() {
 	Vector2D pos = GetPosition();
 	//Convert to tile coordinates
 	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY() + 1);
+	player = Engine::GetInstance().scene->player;
 
 	//Reset pathfinding
 	static bool randomSeedInitialized = false;
@@ -462,13 +463,11 @@ bool Eosinofilo::Destroy()
 	return true;
 }
 
-bool Eosinofilo::Destroy(Player* player) // Good: coincide with the .h
+bool Eosinofilo::Destroy(Player* pplayer) // Good: coincide with the .h
 {
 	LOG("Destroying Enemy");
 
-	if (player != nullptr) {
-		player->ActivateSpeedBoost();
-	}
+	player->hasPowerJump = true;
 
 	return Destroy();
 }
