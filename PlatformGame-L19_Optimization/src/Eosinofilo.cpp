@@ -1,4 +1,5 @@
 #include "Eosinofilo.h"
+#include "Boomerang.h"
 #include "Player.h"
 #include "Engine.h"
 #include "Textures.h"
@@ -12,6 +13,9 @@
 #include "Map.h"
 #include "tracy/Tracy.hpp"
 #include <box2d/box2d.h>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
 
 Eosinofilo::Eosinofilo() : Entity(EntityType::EOSINOFILO)
 {
@@ -31,9 +35,27 @@ bool Eosinofilo::Start() {
 	// load
 	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"} };
 	//anims eosinofilo
-	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {24,"tentaclesIn"}, {48,"idleBoomerang"}, {72,"tentaclesOut"}, {96,"boomerangOut"}, {120,"idleEmpty"}, {144,"boomerangIn"},{168,"stunBoomerang"}, {192,"stunEmpty"}, {216,"hurtBoomerang"}, {240,"hurtEmpty"},{264,"deathBoomerang"},{288,"deathEmpty"} };
+	std::unordered_map<int, std::string> aliases = {
+	{0,   "move"},
+	{24,  "stop"},
+	{48,  "idle"},
+	{72,  "tentaclesOut"},
+	{96,  "boomerangOut"},
+	{120, "idleEmpty"},
+	{144, "boomerangIn"},
+	{168, "stunBoomerang"},
+	{192, "stunEmpty"},
+	{216, "hurtBoomerang"},
+	{240, "hurtEmpty"},
+	{264, "deathBoomerang"},
+	{288, "deathEmpty"}
+	};
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Eosinofilo.tsx", aliases);
-	anims.SetCurrent("walk");
+	anims.SetCurrent("idle");
+	anims.Func_SetAnimationLoop("attack", false);
+	anims.Func_SetAnimationLoop("stop", false);
+	anims.Func_SetAnimationLoop("boomerangOut", false);
+	anims.Func_SetAnimationLoop("boomerangIn", false);
 
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Eosinofilo.png");
@@ -55,6 +77,14 @@ bool Eosinofilo::Start() {
 	//Convert to tile coordinates
 	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY() + 1);
 
+	//Reset pathfinding
+	static bool randomSeedInitialized = false;
+	if (!randomSeedInitialized)
+	{
+		std::srand((unsigned int)std::time(nullptr));
+		randomSeedInitialized = true;
+	}
+
 	return true;
 }
 
@@ -68,41 +98,73 @@ bool Eosinofilo::Update(float dt)
 	{
 		isPlayerDetected = IsPlayerDetected();
 
-		if (isPlayerDetected)
+		switch (currentEState)
 		{
-			if (waitTimer.ReadSec() >= 3) {
-				currentEState = ENEMYSTATES::ATTACKING;
-			} else if (waitTimer.ReadSec() <= 0){
-				waitTimer.Start();
+		case ENEMYSTATES::PATROLING:
+			if (hasBoomerangEquipped && isPlayerDetected)
+			{
+				StartAttack();
 			}
-		}
-		else
-		{
-			currentEState = ENEMYSTATES::PATROLING;
-		}
-		if (currentEState == ENEMYSTATES::ATTACKING){
-			//SPAWN BUMERANG
-			moveTimer.Start();
-			currentEState = ENEMYSTATES::MOVING;
-			//Assigna una direccio aleatoria per moure
-		}
-		else if (currentEState == ENEMYSTATES::MOVING) {
-			if (moveTimer.ReadSec() >= 3) {
-				waitTimer.Start();
+			break;
+
+		case ENEMYSTATES::ATTACKING:
+			if (!hasSpawnedBoomerang && attackTimer.ReadMSec() >= 150.0f)
+			{
+				hasSpawnedBoomerang = true;
+				SpawnBoomerang();
+			}
+
+			if (anims.HasCurrentAnimationFinished())
+			{
+				currentEState = ENEMYSTATES::WAITING_FOR_BOOMERANG;
+			}
+			break;
+
+		case ENEMYSTATES::WAITING_FOR_BOOMERANG:
+			// Stay still here.
+			// The boomerang itself will decide whether it returns or is lost.
+			break;
+
+		case ENEMYSTATES::RECEIVING:
+			if (anims.HasCurrentAnimationFinished())
+			{
+				hasBoomerangEquipped = true;
+				StartRandomMove();
+			}
+			break;
+
+		case ENEMYSTATES::IDLE_EMPTY:
+			if (!boomerangIsActive && !hasBoomerangEquipped && waitTimer.ReadSec() >= 3.0f)
+			{
+				StartRandomMove();
+			}
+			break;
+
+		case ENEMYSTATES::MOVING:
+			if (moveTimer.ReadSec() >= 3.0f)
+			{
 				currentEState = ENEMYSTATES::PATROLING;
+
+				if (hasBoomerangEquipped)
+				{
+					anims.SetCurrent("idle");
+				}
+				else
+				{
+					anims.SetCurrent("idleEmpty");
+				}
 			}
-			else {
-				//MOURE
-			}
+			break;
+
+		case ENEMYSTATES::STUNED:
+			break;
 		}
 	}
-	else {
+	else
+	{
 		b2Body_SetGravityScale(pbody->body, 100.0f);
 		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0, 0);
 	}
-
-	Vector2D currentPos = GetPosition();
-	bool isVisible = Engine::GetInstance().render->IsOnScreenWorldRect(currentPos.getX(), currentPos.getY(), texW, texH, 150);
 
 	Func_EnemyStates(dt);
 	ApplyPhysics();
@@ -111,10 +173,9 @@ bool Eosinofilo::Update(float dt)
 	return true;
 }
 
-void Eosinofilo::GetPhysicsValues() {
-	// Read current velocity
-	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
-	velocity = { 0, velocity.y };
+void Eosinofilo::GetPhysicsValues()
+{
+	velocity = b2Vec2_zero;
 }
 
 void Eosinofilo::Func_EnemyStates(float dt)
@@ -122,17 +183,37 @@ void Eosinofilo::Func_EnemyStates(float dt)
 	switch (currentEState)
 	{
 	case Eosinofilo::ENEMYSTATES::PATROLING:
-		anims.SetCurrent("idleBoomerang");
-		Move();
+		velocity = b2Vec2_zero;
+		anims.SetCurrent(hasBoomerangEquipped ? "idle" : "idleEmpty");
 		break;
 
 	case Eosinofilo::ENEMYSTATES::ATTACKING:
-		anims.SetCurrent("walk");
+		velocity = b2Vec2_zero;
+		anims.SetCurrent("boomerangOut");
+		break;
+
+	case Eosinofilo::ENEMYSTATES::WAITING_FOR_BOOMERANG:
+		velocity = b2Vec2_zero;
+		anims.SetCurrent(hasBoomerangEquipped ? "idle" : "idleEmpty");
+		break;
+
+	case Eosinofilo::ENEMYSTATES::RECEIVING:
+		velocity = b2Vec2_zero;
+		anims.SetCurrent("boomerangIn");
+		break;
+
+	case Eosinofilo::ENEMYSTATES::IDLE_EMPTY:
+		velocity = b2Vec2_zero;
+		anims.SetCurrent("idleEmpty");
+		break;
+
+	case Eosinofilo::ENEMYSTATES::MOVING:
+		anims.SetCurrent("move");
 		Move();
 		break;
 
 	case Eosinofilo::ENEMYSTATES::STUNED:
-		anims.SetCurrent("stunBoomerang");
+		anims.SetCurrent(hasBoomerangEquipped ? "stunBoomerang" : "stunEmpty");
 
 		if (isBeingSucked)
 		{
@@ -149,6 +230,7 @@ void Eosinofilo::Func_EnemyStates(float dt)
 				currentEState = ENEMYSTATES::PATROLING;
 				b2Body_SetGravityScale(pbody->body, 0.0f);
 				isStunned = false;
+				anims.SetCurrent(hasBoomerangEquipped ? "idle" : "idleEmpty");
 			}
 		}
 		break;
@@ -160,22 +242,31 @@ void Eosinofilo::Func_EnemyStates(float dt)
 
 void Eosinofilo::Move()
 {
-	velocity.x = 0.0f;
+	velocity = b2Vec2_zero;
 
 	switch (currentEState)
 	{
 	case ENEMYSTATES::PATROLING:
 		break;
 
+	case ENEMYSTATES::MOVING:
+		velocity.x = randomMoveDirection.x * moveSpeed;
+		velocity.y = randomMoveDirection.y * moveSpeed;
+
+		if (velocity.x > 0.0f)
+		{
+			isFacingRight = true;
+		}
+		else if (velocity.x < 0.0f)
+		{
+			isFacingRight = false;
+		}
+		break;
+
 	case ENEMYSTATES::ATTACKING:
-	{
-
-		break;
-	}
-
+	case ENEMYSTATES::IDLE_EMPTY:
+	case ENEMYSTATES::RECEIVING:
 	case ENEMYSTATES::STUNED:
-		break;
-
 	default:
 		break;
 	}
@@ -191,6 +282,114 @@ bool Eosinofilo::IsPlayerDetected() const
 	float squaredDistance = (distanceX * distanceX) + (distanceY * distanceY);
 
 	return squaredDistance <= (detectionRange * detectionRange);
+}
+
+void Eosinofilo::StartAttack()
+{
+	currentEState = ENEMYSTATES::ATTACKING;
+	attackTimer.Start();
+	hasSpawnedBoomerang = false;
+	velocity = b2Vec2_zero;
+	anims.SetCurrent("boomerangOut");
+}
+
+// Implementation of the SpawnBoomerang function that creates a new Boomerang entity, sets its position and direction based on the Eosinofilo's current state, and adds it to the EntityManager.
+void Eosinofilo::SpawnBoomerang()
+{
+	std::shared_ptr<Boomerang> boomerang = std::make_shared<Boomerang>();
+
+	boomerang->Start();
+
+	Vector2D eosPosition = GetPosition();
+	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
+
+	float spawnOffsetY = 20.0f;
+
+	Vector2D spawnPosition(
+		eosPosition.getX(),
+		eosPosition.getY() + spawnOffsetY
+	);
+
+	Vector2D directionToPlayer(
+		playerPosition.getX() - spawnPosition.getX(),
+		playerPosition.getY() - spawnPosition.getY()
+	);
+
+	if (directionToPlayer.getX() >= 0.0f)
+	{
+		isFacingRight = true;
+	}
+	else
+	{
+		isFacingRight = false;
+	}
+
+	boomerang->SetOwner(this);
+	boomerang->SetSpawnPosition(spawnPosition);
+	boomerang->SetDirection(directionToPlayer);
+
+	boomerangIsActive = true;
+	hasBoomerangEquipped = false;
+
+	Engine::GetInstance().entityManager->AddEntity(boomerang);
+}
+
+void Eosinofilo::StartRandomMove()
+{
+	SetRandomMoveDirection();
+	moveTimer.Start();
+	currentEState = ENEMYSTATES::MOVING;
+	anims.SetCurrent("move");
+}
+
+void Eosinofilo::StartIdleEmpty()
+{
+	currentEState = ENEMYSTATES::IDLE_EMPTY;
+	hasBoomerangEquipped = false;
+	anims.SetCurrent("idleEmpty");
+	waitTimer.Start();
+}
+
+void Eosinofilo::RestoreBoomerang()
+{
+	hasBoomerangEquipped = true;
+	boomerangIsActive = false;
+	currentEState = ENEMYSTATES::PATROLING;
+	anims.SetCurrent("idle");
+}
+
+void Eosinofilo::OnBoomerangReturned()
+{
+	boomerangIsActive = false;
+	hasBoomerangEquipped = false;
+	currentEState = ENEMYSTATES::RECEIVING;
+	anims.SetCurrent("boomerangIn");
+}
+
+void Eosinofilo::OnBoomerangLost()
+{
+	boomerangIsActive = false;
+	hasBoomerangEquipped = false;
+	currentEState = ENEMYSTATES::IDLE_EMPTY;
+	anims.SetCurrent("idleEmpty");
+	waitTimer.Start();
+}
+
+void Eosinofilo::SetRandomMoveDirection()
+{
+	int dirX = 0;
+	int dirY = 0;
+
+	while (dirX == 0 && dirY == 0)
+	{
+		dirX = (std::rand() % 3) - 1;
+		dirY = (std::rand() % 3) - 1;
+	}
+
+	float length = std::sqrt((float)(dirX * dirX + dirY * dirY));
+
+	randomMoveDirection.x = dirX / length;
+	randomMoveDirection.y = dirY / length;
 }
 
 void Eosinofilo::ApplyPhysics() {

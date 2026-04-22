@@ -22,6 +22,8 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnCollisionEnd(PhysBody* physA, PhysBody* physB);
 	void SetPosition(Vector2D pos);
+	void OnBoomerangReturned();
+	void OnBoomerangLost();
 	Vector2D GetPosition();
 	bool Destroy() override;
 	bool Destroy(Player* player);
@@ -33,6 +35,12 @@ private:
 	void ApplyPhysics();
 	void Draw(float dt);
 	bool IsPlayerDetected() const;
+	void StartAttack();
+	void StartRandomMove();
+	void SetRandomMoveDirection();
+	void SpawnBoomerang();
+	void StartIdleEmpty();
+	void RestoreBoomerang();
 
 public:
 
@@ -56,6 +64,16 @@ public:
 	bool isPlayerDetected = false;
 	float detectionRange = 450.0f;
 
+	bool hasAttackCooldown = false;
+	bool hasSpawnedBoomerang = false;
+
+	bool hasBoomerangEquipped = true;
+	bool boomerangIsActive = false;
+
+	float moveSpeed = 3.0f;
+
+	b2Vec2 randomMoveDirection = b2Vec2_zero;
+
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
@@ -63,8 +81,11 @@ private:
 	enum class ENEMYSTATES
 	{
 		PATROLING,
-		MOVING,
 		ATTACKING,
+		WAITING_FOR_BOOMERANG,
+		RECEIVING,
+		IDLE_EMPTY,
+		MOVING,
 		STUNED
 	};
 
@@ -72,4 +93,5 @@ private:
 
 	Timer waitTimer;
 	Timer moveTimer;
+	Timer attackTimer;
 };
