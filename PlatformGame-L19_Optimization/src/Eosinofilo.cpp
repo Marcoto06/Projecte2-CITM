@@ -28,18 +28,18 @@ bool Eosinofilo::Awake() {
 bool Eosinofilo::Start() {
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"} };
+	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"} };
 	//anims eosinofilo
-	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
-	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", aliases);
+	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {24,"tentaclesIn"}, {48,"idleBoomerang"}, {72,"tentaclesOut"}, {96,"boomerangOut"}, {120,"idleEmpty"}, {144,"boomerangIn"},{168,"stunBoomerang"}, {192,"stunEmpty"}, {216,"hurtBoomerang"}, {240,"hurtEmpty"},{264,"deathBoomerang"},{288,"deathEmpty"} };
+	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Eosinofilo.tsx", aliases);
 	anims.SetCurrent("walk");
 
 	//Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Eosinofilo.png");
 
 	//Add physics to the enemy - initialize physics body
-	texW = 74;
-	texH = 74;
+	texW = 64;
+	texH = 64;
 	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX() + texW / 2, (int)position.getY() + texH / 2, texW / 2, bodyType::DYNAMIC);
 
 	//Assign enemy class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
@@ -97,7 +97,7 @@ void Eosinofilo::Func_EnemyStates(float dt)
 	switch (currentEState)
 	{
 	case Eosinofilo::ENEMYSTATES::PATROLING:
-		anims.SetCurrent("idle");
+		anims.SetCurrent("idleBoomerang");
 		Move();
 		break;
 
@@ -107,7 +107,7 @@ void Eosinofilo::Func_EnemyStates(float dt)
 		break;
 
 	case Eosinofilo::ENEMYSTATES::STUNED:
-		anims.SetCurrent("stunned");
+		anims.SetCurrent("stunBoomerang");
 
 		if (isBeingSucked)
 		{
@@ -187,7 +187,7 @@ void Eosinofilo::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 40;
+	int drawY = y - (frameH / 2) - 82;
 
 	if (isFacingRight)
 	{
