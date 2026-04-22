@@ -128,7 +128,7 @@ bool Scene::CleanUp()
 
 Vector2D Scene::GetPlayerPosition()
 {
-	if (player)
+	if (player && player->active)
 	{
 		return player->GetPosition();
 	}
@@ -554,21 +554,23 @@ void Scene::UpdateLevel1(float dt) {
 
 	if (!Engine::GetInstance().paused)
 	{
-		if (player->playerCurrentHp > player->playerMaxHp / 2) 
+		if (player && player->active)
 		{
-			playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
-		}
-		else if (player->playerCurrentHp <= player->playerMaxHp / 2 && player->playerCurrentHp > 0)
-		{
-			playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
-		}
-		else
-		{
-			playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
-		}
+			if (player->playerCurrentHp > player->playerMaxHp / 2)
+			{
+				playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
+			}
+			else if (player->playerCurrentHp <= player->playerMaxHp / 2 && player->playerCurrentHp > 0)
+			{
+				playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
+			}
+			else
+			{
+				playerHpIndicatorTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
+			}
 
-		Engine::GetInstance().render->DrawTexture(playerHpIndicatorTexture, 100, 100, NULL, 0.0f);
-
+			Engine::GetInstance().render->DrawTexture(playerHpIndicatorTexture, 100, 100, NULL, 0.0f);
+		}
 	}
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {

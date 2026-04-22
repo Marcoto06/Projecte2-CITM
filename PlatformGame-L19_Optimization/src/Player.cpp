@@ -586,34 +586,38 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::ENEMY:
 		LOG("End Collision ENEMY");
-		if (playerCurrentHp > 0)
+
+		if (!isHurt && currentState != PLAYERSTATE::DEATH)
 		{
 			playerCurrentHp--;
 			LOG("Current HP: %i", playerCurrentHp);
-			int playerX, playerY;
-			pbody->GetPosition(playerX, playerY);
 
-			int enemyX, enemyY;
-			physB->GetPosition(enemyX, enemyY);
+			if (playerCurrentHp > 0)
+			{
+				int playerX, playerY;
+				pbody->GetPosition(playerX, playerY);
 
-			float knockbackX = (playerX < enemyX) ? -7.0f : 7.0f;
-			float knockbackY = -5.0f;
+				int enemyX, enemyY;
+				physB->GetPosition(enemyX, enemyY);
 
-			Engine::GetInstance().physics->SetLinearVelocity(pbody, { knockbackX, knockbackY });
+				float knockbackX = (playerX < enemyX) ? -7.0f : 7.0f;
+				float knockbackY = -5.0f;
 
-			isHurt = true;
-			hurtTimer.Start();
-		}
-		else
-		{
-			LOG("Player has died!");
-			canMove = false;
-			canJump = false;
-			canAttack = false;
-			currentState = PLAYERSTATE::DEATH;
-			anims.SetCurrent("death");
-		}
-		LOG("Current HP: %i", playerCurrentHp);
+				Engine::GetInstance().physics->SetLinearVelocity(pbody, { knockbackX, knockbackY });
+
+				isHurt = true;
+				hurtTimer.Start();
+			}
+			else
+			{
+				LOG("Player has died!");
+				canMove = false;
+				canJump = false;
+				canAttack = false;
+				currentState = PLAYERSTATE::DEATH;
+				anims.SetCurrent("death");
+			}
+		}		
 		break;
 	default:
 		break;
