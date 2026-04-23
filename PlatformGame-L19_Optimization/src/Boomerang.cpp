@@ -47,7 +47,7 @@ bool Boomerang::Start()
 	);
 
 	pbody->listener = this;
-	pbody->ctype = ColliderType::UNKNOWN;
+	pbody->ctype = ColliderType::ENEMY;
 
 	return true;
 }

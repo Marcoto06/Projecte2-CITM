@@ -78,6 +78,8 @@ public:
 
 	SDL_Texture* texture = NULL;
 
+	SDL_Texture* healText = NULL;
+
 	int texW, texH;
 
 	//Audio fx
@@ -107,6 +109,8 @@ public:
 	//CHARGES
 	bool hasPowerJump = false;
 	float powerJumpForce = 25.0f;
+	
+	bool healing = false;
 
 	//PERMANENT UPGRADES
 	bool hasWallJump;
@@ -117,9 +121,11 @@ public:
 
 	Timer boostTimer_01;
 	Timer hurtTimer;
+	AnimationSet effectAnims;
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
+	
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;

@@ -325,7 +325,11 @@ bool Enemy::Destroy()
 
 bool Enemy::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	player->playerCurrentHp += 1;
+	if (player->playerCurrentHp < player->playerMaxHp) {
+		player->playerCurrentHp += 1;
+	}
+	player->healing = true;
+	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
 

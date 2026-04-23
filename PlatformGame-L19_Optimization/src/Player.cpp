@@ -33,7 +33,12 @@ bool Player::Start() {
 	// load
 	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"}, {231, "death"}, {252, "spark"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora.tsx", aliases);
+	std::unordered_map<int, std::string> effects = { {0,"lifeUp"}, {16, "aux"} };
+	effectAnims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_LifeUp.tsx", effects);
+	effectAnims.SetCurrent("lifeUp");
 	anims.SetCurrent("idle"); 
+
+	effectAnims.Func_SetAnimationLoop("lifeUp", false);
 
 	anims.Func_SetAnimationLoop("absorb", false);
 	
@@ -50,6 +55,7 @@ bool Player::Start() {
 
 	anims.Func_SetAnimationLoop("death", false);
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Doctora.png");
+	healText = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_LifeUp.png");
 
 	texW = 96;
 	texH = 168;
@@ -551,6 +557,25 @@ void Player::Draw(float dt) {
 	else
 	{
 		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 432, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+	}
+
+	if (effectAnims.HasCurrentAnimationFinished() == true) {
+		healing = false;
+		effectAnims.SetCurrent("aux");
+	}
+
+	if (healing == true) {
+		effectAnims.Update(dt);
+		const SDL_Rect& effectAnimFrame = effectAnims.GetCurrentFrame();
+		if (facingRight)
+		{
+			Engine::GetInstance().render->DrawTexture(healText, position.getX() - 258, position.getY() - 170, &effectAnimFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+
+		}
+		else
+		{
+			Engine::GetInstance().render->DrawTexture(healText, position.getX() - 258, position.getY() - 170, &effectAnimFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		}
 	}
 }
 
