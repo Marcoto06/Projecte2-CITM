@@ -569,6 +569,9 @@ void Scene::LoadLevel1() {
 	heartFullTexture= Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
 	heartHalfTexture= Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
 	heartEmptyTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
+	heartContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Caja_vida.png");
+	habilityContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_vacio.png");
+	habilityPowerJumpTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_Salto.png");
 	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
 	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
 	deathScreenMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/Fondo_death_menu.png");
@@ -612,25 +615,36 @@ void Scene::UpdateLevel1(float dt) {
 	{
 		if (player && player->active)
 		{
-			SDL_Texture* currentHeartTex = nullptr;
+			SDL_Texture* currentHabilityTex = nullptr;
 
-			if (player->playerCurrentHp > player->playerMaxHp / 2)
-			{
-				currentHeartTex = heartFullTexture;
-			}
-			else if (player->playerCurrentHp <= player->playerMaxHp / 2 && player->playerCurrentHp > 0)
-			{
-				currentHeartTex = heartHalfTexture;
-			}
-			else
-			{
-				currentHeartTex = heartEmptyTexture;
+			int playerFullHearts = player->playerCurrentHp / 2;
+			int damagedHearts = 5 - playerFullHearts;
+			int halfHeart = player->playerCurrentHp % 2;
+
+			Engine::GetInstance().render->DrawTexture(heartContainerTexture, 200, 64, NULL, 0.0f);
+
+			for (int i = 0; i < playerFullHearts; ++i) {
+				Engine::GetInstance().render->DrawTexture(heartFullTexture, 230 + (i * 70), 74, NULL, 0.0f);
 			}
 
-			if (currentHeartTex != nullptr)
-			{
-				Engine::GetInstance().render->DrawTexture(currentHeartTex, 100, 100, NULL, 0.0f);
+			if (halfHeart == 1) {
+				Engine::GetInstance().render->DrawTexture(heartHalfTexture, 230 + (playerFullHearts * 70), 74, NULL, 0.0f);
 			}
+			else if (damagedHearts > 0){
+				Engine::GetInstance().render->DrawTexture(heartEmptyTexture, 230 + (playerFullHearts * 70), 74, NULL, 0.0f);
+			}
+
+			for (int i = playerFullHearts + 1; i < 5; ++i) {
+				Engine::GetInstance().render->DrawTexture(heartEmptyTexture, 230 + (i * 70), 74, NULL, 0.0f);
+			}
+
+			if (player->hasPowerJump == true) {
+				currentHabilityTex = habilityPowerJumpTexture;
+			}
+			else {
+				currentHabilityTex = habilityContainerTexture;
+			}
+			Engine::GetInstance().render->DrawTexture(currentHabilityTex, 0, 0, NULL, 0.0f);
 		}
 	}
 

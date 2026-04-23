@@ -159,6 +159,10 @@ private:
 	SDL_Texture* heartFullTexture = nullptr;
 	SDL_Texture* heartHalfTexture = nullptr;
 	SDL_Texture* heartEmptyTexture = nullptr;
+	SDL_Texture* heartContainerTexture = nullptr;
+
+	SDL_Texture* habilityContainerTexture = nullptr;
+	SDL_Texture* habilityPowerJumpTexture = nullptr;
 
 	SDL_Texture* deathScreenMenuTexture = nullptr;
 

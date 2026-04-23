@@ -87,7 +87,7 @@ public:
 	float jumpForce = 20.0f; // The force to apply when jumping
 	int kill_counter = 0;
 
-	int playerMaxHp = 5;
+	int playerMaxHp = 10;
 	int playerCurrentHp;
 
 	//STATES

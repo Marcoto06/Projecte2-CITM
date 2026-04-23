@@ -25,6 +25,7 @@ public:
 	Vector2D GetPosition();
 	bool Destroy() override;
 	bool Destroy(Player* player);
+	Player* player = nullptr;
 
 private:
 private:

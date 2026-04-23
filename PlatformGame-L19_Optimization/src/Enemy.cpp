@@ -56,6 +56,7 @@ bool Enemy::Start() {
 	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY()+1);
 	//Reset pathfinding
 	pathfinding->ResetPath(tilePos);
+	player = Engine::GetInstance().scene->player.get();
 
 	return true;
 }
@@ -322,14 +323,9 @@ bool Enemy::Destroy()
 	return true;
 }
 
-bool Enemy::Destroy(Player* player) // Good: coincide with the .h
+bool Enemy::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	LOG("Destroying Enemy");
-
-	if (player != nullptr) {
-		player->ActivateSpeedBoost();
-	}
-
+	player->playerCurrentHp += 1;
 	return Destroy();
 }
 
