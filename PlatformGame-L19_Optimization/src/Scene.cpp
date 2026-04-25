@@ -664,7 +664,7 @@ void Scene::UnloadLevel1() {
 }
 
 void  Scene::PostUpdateLevel1() {
-
+	Engine::GetInstance().map->DrawForeground();
 	//L15 TODO 3: Call the function to load entities from the map
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		Engine::GetInstance().map->LoadEntities(player);

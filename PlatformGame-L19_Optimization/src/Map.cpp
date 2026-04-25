@@ -46,6 +46,9 @@ bool Map::Update(float dt)
         for (const auto& mapLayer : mapData.layers) {
             //L09 TODO 7: Check if the property Draw exist get the value, if it's true draw the lawyer
             if (mapLayer->properties.GetProperty("Draw") != NULL && mapLayer->properties.GetProperty("Draw")->value == true) {
+                if (mapLayer->properties.GetProperty("Foreground") != NULL && mapLayer->properties.GetProperty("Foreground")->value == true) {
+                    continue;
+                }
                 for (int i = 0; i < mapData.width; i++) {
                     for (int j = 0; j < mapData.height; j++) {
 
@@ -486,6 +489,38 @@ MapLayer* Map::GetNavigationLayer() {
      std::string mapPathName = mapPath + mapFileName;
      mapFileXML.save_file(mapPathName.c_str());
  
+ }
+
+ void Map::DrawForeground() {
+     if (!mapLoaded) return;
+
+     for (const auto& mapLayer : mapData.layers) {
+         if (mapLayer->properties.GetProperty("Draw") != NULL && mapLayer->properties.GetProperty("Draw")->value == true) {
+             // Solo dibujamos si TIENE la propiedad Foreground y es true
+             if (mapLayer->properties.GetProperty("Foreground") != NULL && mapLayer->properties.GetProperty("Foreground")->value == true) {
+                 for (int i = 0; i < mapData.width; i++) {
+                     for (int j = 0; j < mapData.height; j++) {
+                         int gid = mapLayer->Get(i, j);
+                         if (gid != 0) {
+                             TileSet* tileSet = GetTilesetFromTileId(gid);
+                             if (tileSet != nullptr && tileSet->texture != nullptr && tileSet->columns > 0) {
+                                 SDL_Rect tileRect = tileSet->GetRect(gid);
+                                 Vector2D mapCoord = MapToWorld(i, j);
+
+                                 float cameraX = Engine::GetInstance().render->camera.x;
+                                 float cameraY = Engine::GetInstance().render->camera.y;
+
+                                 int drawX = (int)(mapCoord.getX() + cameraX * (1.0f - mapLayer->parallaxX));
+                                 int drawY = (int)(mapCoord.getY() + cameraY * (1.0f - mapLayer->parallaxY));
+
+                                 Engine::GetInstance().render->DrawTexture(tileSet->texture, drawX, drawY, &tileRect);
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
  }
 
 

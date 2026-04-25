@@ -145,6 +145,8 @@ public:
 	Vector2D GetMapSizeInPixels();
     Vector2D GetMapSizeInTiles();
 
+    void DrawForeground();
+
     MapLayer* GetNavigationLayer();
 
     int GetTileWidth() {
