@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="27" nextobjectid="34">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="27" nextobjectid="34">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -25,7 +25,7 @@
  <tileset firstgid="2854" name="Tile_Glandula_Salival" tilewidth="64" tileheight="64" tilecount="9" columns="3">
   <image source="Tile_Glandula_Salival.png" width="250" height="250"/>
  </tileset>
- <layer id="25" name="BackGround" width="60" height="33">
+ <layer id="25" name="BackGround" width="60" height="33" parallaxx="1.1">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -2012,7 +2012,7 @@
    <tile gid="2853"/>
   </data>
  </layer>
- <layer id="24" name="MiddleGround" width="60" height="33">
+ <layer id="24" name="MiddleGround" width="60" height="33" parallaxx="1.2">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>

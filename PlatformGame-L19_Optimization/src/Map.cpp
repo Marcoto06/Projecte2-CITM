@@ -61,8 +61,14 @@ bool Map::Update(float dt)
                             if (tileSet != nullptr && tileSet->texture != nullptr && tileSet->columns > 0) {
                                 SDL_Rect tileRect = tileSet->GetRect(gid);
                                 Vector2D mapCoord = MapToWorld(i, j);
-                                Engine::GetInstance().render->DrawTexture(tileSet->texture, (int)mapCoord.getX(), (int)mapCoord.getY(), &tileRect);
-                            
+
+                                float cameraX = Engine::GetInstance().render->camera.x;
+                                float cameraY = Engine::GetInstance().render->camera.y;
+
+                                int drawX = (int)(mapCoord.getX() + cameraX * (1.0f - mapLayer->parallaxX));
+                                int drawY = (int)(mapCoord.getY() + cameraY * (1.0f - mapLayer->parallaxY));
+
+                                Engine::GetInstance().render->DrawTexture(tileSet->texture, drawX, drawY, &tileRect); 
                             }
                         }
                     }
@@ -205,6 +211,9 @@ bool Map::Load(std::string path, std::string fileName)
             mapLayer->name = layerNode.attribute("name").as_string();
             mapLayer->width = layerNode.attribute("width").as_int();
             mapLayer->height = layerNode.attribute("height").as_int();
+
+            mapLayer->parallaxX = layerNode.attribute("parallaxx").as_float(1.0f);
+            mapLayer->parallaxY = layerNode.attribute("parallaxy").as_float(1.0f);
 
             //L09: TODO 6 Call Load Layer Properties
             LoadProperties(layerNode, mapLayer->properties);
