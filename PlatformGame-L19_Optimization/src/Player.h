@@ -46,6 +46,9 @@ public:
 	Vector2D GetPosition();
 	void SetPosition(Vector2D pos);
 
+	void SetRespawnPosition(Vector2D pos);
+	Vector2D GetRespawnPosition() const { return respawnPosition; }
+
 private:
 
 	void GetPhysicsValues();
@@ -91,6 +94,8 @@ public:
 
 	int playerMaxHp = 10;
 	int playerCurrentHp;
+
+	Vector2D respawnPosition;
 
 	//STATES
 	bool isJumping = false; // Flag to check if the player is currently jumping

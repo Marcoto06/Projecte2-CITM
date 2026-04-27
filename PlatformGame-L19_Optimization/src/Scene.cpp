@@ -308,8 +308,8 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 		// INTRO VIDEO DISABLER
 		// UNCOMMENT & COMMENT THE LINES BELOW TO SKIP THE INTRO VIDEO AND GO DIRECTLY TO THE MAIN MENU
 
-		//ChangeScene(SceneID::LEVEL1);
-		PlayIntroVideo();
+		ChangeScene(SceneID::LEVEL1);
+		//PlayIntroVideo();
 		break;
 	case 2: // Button Options
 		LOG("Main Menu: Options button clicked!");

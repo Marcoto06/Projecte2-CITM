@@ -457,6 +457,32 @@ MapLayer* Map::GetNavigationLayer() {
                         enemy->Start(); //L17: Importan to call Start to initialize teh Entity
                     }
                 }
+                else if (entityType == "Checkpoint")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CHECKPOINT);
+                    std::shared_ptr<Checkpoint> checkpoint = std::dynamic_pointer_cast<Checkpoint>(e);
+
+                    checkpoint->position = Vector2D(x, y);
+                    checkpoint->name = name;
+
+                    pugi::xml_node properties = objectNode.child("properties");
+                    if (properties)
+                    {
+                        for (pugi::xml_node prop : properties.children("property"))
+                        {
+                            std::string propName = prop.attribute("name").as_string();
+                            if (propName == "isActive")
+                            {
+                                bool active = prop.attribute("value").as_bool();
+                                checkpoint->SetActive(active);
+                            }
+                        }
+                    }
+
+                    checkpoint->Awake();
+                    checkpoint->Start();
+
+                }
             }
         }
     }

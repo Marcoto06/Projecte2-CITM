@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include "Player.h"
+#include "Checkpoint.h"
 
 // L09: TODO 5: Add attributes to the property structure
 struct Properties

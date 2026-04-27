@@ -31,6 +31,7 @@ enum class ColliderType {
     ENEMY,
     SYRINGE,
     SUCK_ZONE,
+    CHECKPOINT,
     UNKNOWN
     // ..
 };

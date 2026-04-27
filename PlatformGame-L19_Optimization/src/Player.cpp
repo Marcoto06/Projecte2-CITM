@@ -23,6 +23,9 @@ Player::~Player() {
 }
 
 bool Player::Awake() {
+	Vector2D defaultPosition = GetPosition();
+	SetRespawnPosition(defaultPosition);
+
 	return true;
 }
 
@@ -679,6 +682,12 @@ Vector2D Player::GetPosition() {
 
 void Player::SetPosition(Vector2D pos) {
 	pbody->SetPosition((int)(pos.getX() + texW / 2), (int)(pos.getY() + texH / 2));
+}
+
+void Player::SetRespawnPosition(Vector2D pos)
+{
+	respawnPosition = pos;
+	LOG("Checkpoint reached! New respawn: %f, %f", pos.getX(), pos.getY());
 }
 
 bool Player::Destroy()
