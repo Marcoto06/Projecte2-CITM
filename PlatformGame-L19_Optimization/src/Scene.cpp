@@ -212,11 +212,6 @@ void Scene::LoadMainMenu() {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
 
-	/*if (mainMenuBackground == nullptr)
-	{
-		mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/fondo_menu (con titulo).png");
-	}*/	
-
 	/* Load all needed textures */
 
 	mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/menu INCORPUS.png");
@@ -261,10 +256,6 @@ void Scene::ShowMainMenuButtons()
 
 	auto exitButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, " ", exitButtonRect, this);
 	exitButton->SetTexture(exitButtonTexture);
-
-	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "PLAY", playButtonRect, this));
-	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "OPTIONS", optionsButtonRect, this));
-	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "EXIT", exitButtonRect, this));
 }
 
 void Scene::UnloadMainMenu() {
@@ -294,6 +285,9 @@ void Scene::UpdateMainMenu(float dt) {
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
 		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+
+		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 100, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 100, NULL, 0.0f);
 
 	}
 
@@ -327,6 +321,13 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 		break;
 	}
 	case 5:
+	{
+		UISlider* slider = static_cast<UISlider*>(uiElement);
+		float volume = slider->GetValue() / 100.0f;
+		Engine::GetInstance().audio->SetSFXVolume(volume);
+		break;
+	}
+	case 6:
 		LOG("Main Menu: Back button clicked!");
 		ShowMainMenuButtons();
 		break;
@@ -353,20 +354,24 @@ void Scene::LoadOptionsMainMenu()
 	
 
 	SDL_Rect sliderBounds = { ((screenWidth - sliderBarTexture->w) / 2) + 50, (screenHeight / 2) - 80, 399, 25 };
-	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
-	auto audioSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "VOLUME", sliderBounds, this);
+	auto musicSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "MUSIC", sliderBounds, this);
 
-	auto audioSlider = std::static_pointer_cast<UISlider>(audioSliderElement);
-	audioSlider->SetTexture(sliderBarTexture);
-	audioSlider->SetKnobTexture(sliderKnobTexture);
+	SDL_Rect fxSliderBounds = { ((screenWidth - sliderBarTexture->w) / 2) + 50, (screenHeight / 2) + 90, 399, 25 };
+	auto fxSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, "FX", fxSliderBounds, this);
+
+	auto musicSlider = std::static_pointer_cast<UISlider>(musicSliderElement);
+	musicSlider->SetTexture(sliderBarTexture);
+	musicSlider->SetKnobTexture(sliderKnobTexture);
+
+	auto fxSlider = std::static_pointer_cast<UISlider>(fxSliderElement);
+	fxSlider->SetTexture(sliderBarTexture);
+	fxSlider->SetKnobTexture(sliderKnobTexture);
 
 
 	SDL_Rect backButtonRect = { (screenWidth - backButtonTexture->w) / 2, 736, 290, 86};
 
-	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, " ", backButtonRect, this);
+	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, " ", backButtonRect, this);
 	backButton->SetTexture(backButtonTexture);
-
-	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "BACK", backButtonPos, this);
 }	
 
 // *********************************************
@@ -402,14 +407,21 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 
 		break;
 	}
-	case 6: // PAUSE MENU OPTIONS: Volume Slider
+	case 6: // PAUSE MENU OPTIONS: Music Slider
 	{
 		UISlider* slider = static_cast<UISlider*>(uiElement);
 		float volume = slider->GetValue() / 100.0f;
 		Engine::GetInstance().audio->SetMusicVolume(volume);
 		break;
 	}
-	case 7: // PAUSE MENU OPTIONS: Back Button
+	case 7: // PAUSE MENU OPTIONS: SFX Slider
+	{
+		UISlider* slider = static_cast<UISlider*>(uiElement);
+		float volume = slider->GetValue() / 100.0f;
+		Engine::GetInstance().audio->SetSFXVolume(volume);
+		break;
+	}
+	case 8: // PAUSE MENU OPTIONS: Back Button
 	{
 		Engine::GetInstance().uiManager->CleanUp();
 		LoadPauseMenu();
@@ -482,11 +494,6 @@ void Scene::LoadPauseMenu() {
 
 	auto quitToDesktopButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 4, " QUIT TO DESKTOP ", quitToDesktopButtonRect, this);
 	quitToDesktopButton->SetTexture(gameQuitButtonTexture);
-
-	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, "Continue", continueButtonRect, this));
-	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, "Options", optionsButtonRect, this));
-	//std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 3, "Quit", quitToMenuButtonRect, this));
-	///std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 20, "Salir", quitToDesktopButtonRect, this));
 }
 
 void Scene::LoadPauseOptionsMenu() 
@@ -507,45 +514,28 @@ void Scene::LoadPauseOptionsMenu()
 	SDL_Texture* sliderBarTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBar.png");
 	SDL_Texture* sliderKnobTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
 
-	SDL_Rect sliderBounds = { center_window_posX, center_window_posY - 80, 399, 25 };
-	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
-	auto audioSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " VOLUME ", sliderBounds, this);
+	SDL_Rect musicSliderBounds = { center_window_posX, center_window_posY - 80, 399, 25 };
+	auto musicSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " MUSIC ", musicSliderBounds, this);
 
-	auto audioSlider = std::static_pointer_cast<UISlider>(audioSliderElement);
-	audioSlider->SetTexture(sliderBarTexture);
-	audioSlider->SetKnobTexture(sliderKnobTexture);
+	SDL_Rect sfxSliderBounds = { center_window_posX, center_window_posY + 75, 399, 25 };
+	auto sfxSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 7, " SFX ", sfxSliderBounds, this);
+
+	auto musicSlider = std::static_pointer_cast<UISlider>(musicSliderElement);
+	musicSlider->SetTexture(sliderBarTexture);
+	musicSlider->SetKnobTexture(sliderKnobTexture);
+
+	auto sfxSlider = std::static_pointer_cast<UISlider>(sfxSliderElement);
+	sfxSlider->SetTexture(sliderBarTexture);
+	sfxSlider->SetKnobTexture(sliderKnobTexture);
 
 	backButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
 
-	SDL_Rect backButtonPos = { center_window_posX, center_window_posY + 140, 290, 86};
+	SDL_Rect backButtonPos = { center_window_posX, center_window_posY + 175, 290, 86};
 
-	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " ", backButtonPos, this);
+	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 8, " ", backButtonPos, this);
 	backButton->SetTexture(backButtonTexture);
-	//Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " BACK ", backButtonPos, this);
 }
 
-/*
-void Scene::LoadPauseQuitMenu() {
-
-	currentPauseState = PauseMenuState::QUIT_CONFIRM;
-
-	int buttonWidth = 120;
-	int buttonHeight = 20;
-	int buttonMargin = 10;
-
-	int centerWindowPosX = (Engine::GetInstance().window->width / 2) - buttonWidth / 2;
-	int centerWindowPosY = Engine::GetInstance().window->height / 2;
-
-	SDL_Rect menuButtonPos = { centerWindowPosX, centerWindowPosY - buttonHeight - buttonMargin, buttonWidth, buttonHeight };
-	SDL_Rect desktopButtonPos = { centerWindowPosX, centerWindowPosY, buttonWidth, buttonHeight };
-	SDL_Rect cancelButtonPos = { centerWindowPosX, centerWindowPosY + buttonHeight*2 + buttonMargin, buttonWidth, buttonHeight };
-
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 4, "Quit to Main Menu", menuButtonPos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 5, "Quit to Desktop", desktopButtonPos, this));
-	std::dynamic_pointer_cast<UIButton>(Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, "Cancel", cancelButtonPos, this));
-
-}
-*/
 
 // *********************************************
 // Level 1 functions
@@ -596,6 +586,9 @@ void Scene::UpdateLevel1(float dt) {
 		{
 			Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
 			Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+
+			Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 80, NULL, 0.0f);
+			Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 80, NULL, 0.0f);
 		}
 
 		if (isGameOver)
