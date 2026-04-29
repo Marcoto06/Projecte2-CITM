@@ -26,9 +26,11 @@ bool Checkpoint::Start()
     std::unordered_map<int, std::string> aliases;
     aliases[0] = "inactive";
     aliases[1] = "active";
+    aliases[24] = "deactivate";
 
     anims.LoadFromTSX("Assets/Textures/Entities/Atlas_Punto_Guardado.tsx", aliases); 
     anims.Func_SetAnimationLoop("active", false);
+    anims.Func_SetAnimationLoop("deactivate", false);
 
     if (isActive)
     {
@@ -55,6 +57,11 @@ bool Checkpoint::Start()
 bool Checkpoint::Update(float dt) 
 {
     anims.Update(dt);
+
+    if (anims.GetCurrentName() == "deactivate"  && anims.HasCurrentAnimationFinished())
+    {
+        anims.SetCurrent("inactive");
+    }
 
     if (texture != nullptr)
     {
@@ -127,11 +134,21 @@ void Checkpoint::OnCollision(PhysBody* physA, PhysBody* physB)
 }
 
 void Checkpoint::SetActive(bool active) {
-    isActive = active;
-    if (isActive) {
+
+    if (active) {
+        isActive = true;
         anims.SetCurrent("active");
     }
     else {
-        anims.SetCurrent("inactive");
+
+        if (isActive)
+        {
+            isActive = false;
+            anims.SetCurrent("deactivate");
+        }
+        else
+        {
+            anims.SetCurrent("inactive");
+        }
     }
 }
