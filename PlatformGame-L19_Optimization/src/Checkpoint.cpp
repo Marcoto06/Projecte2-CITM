@@ -127,6 +127,7 @@ void Checkpoint::OnCollision(PhysBody* physA, PhysBody* physB)
                     cp->SetActive(false);
                 }
             }
+            player->playerCurrentHp = player->playerMaxHp;
 
             SetActive(true);
         }

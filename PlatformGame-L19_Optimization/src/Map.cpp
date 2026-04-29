@@ -454,7 +454,7 @@ MapLayer* Map::GetNavigationLayer() {
                     }else if (name == "Eosinofilo") {
                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
                         enemy->position = Vector2D(x, y);
-                        enemy->Start(); //L17: Importan to call Start to initialize teh Entity
+                        enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }
                 }
                 else if (entityType == "Checkpoint")

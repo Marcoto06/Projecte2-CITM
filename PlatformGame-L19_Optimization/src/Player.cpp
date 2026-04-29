@@ -41,8 +41,6 @@ bool Player::Start() {
 	effectAnims.SetCurrent("lifeUp");
 	anims.SetCurrent("idle"); 
 
-	effectAnims.Func_SetAnimationLoop("lifeUp", false);
-
 	anims.Func_SetAnimationLoop("absorb", false);
 	
 	anims.Func_SetAnimationLoop("endabsorb", false);
@@ -564,7 +562,6 @@ void Player::Draw(float dt) {
 
 	if (effectAnims.HasCurrentAnimationFinished() == true) {
 		healing = false;
-		effectAnims.SetCurrent("aux");
 	}
 
 	if (healing == true) {
@@ -573,7 +570,6 @@ void Player::Draw(float dt) {
 		if (facingRight)
 		{
 			Engine::GetInstance().render->DrawTexture(healText, position.getX() - 258, position.getY() - 170, &effectAnimFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
-
 		}
 		else
 		{
