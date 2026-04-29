@@ -565,6 +565,8 @@ void Scene::LoadLevel1() {
 }
 
 void Scene::UpdateLevel1(float dt) {
+	Engine::GetInstance().map->DrawForeground();
+
 	HandlePause();
 
 	if (Engine::GetInstance().paused) {
@@ -657,7 +659,6 @@ void Scene::UnloadLevel1() {
 }
 
 void  Scene::PostUpdateLevel1() {
-	Engine::GetInstance().map->DrawForeground();
 	//L15 TODO 3: Call the function to load entities from the map
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		Engine::GetInstance().map->LoadEntities(player);
@@ -677,7 +678,7 @@ void Scene::LoadLevel2() {
 
 	Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/that-8-bit-music-322062.wav");
 
-	//Call the function to load the map. 
+	//Call the function to load the map.
 	Engine::GetInstance().map->Load("Assets/Maps/", "MapTemplateLevel2.tmx");
 
 	//Call the function to load entities from the map

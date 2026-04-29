@@ -60,7 +60,9 @@ bool Player::Start() {
 
 	texW = 96;
 	texH = 168;
-	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW / 2, texH - 40, bodyType::DYNAMIC);
+
+	//Hitbox
+	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW / 2, texH -15, bodyType::DYNAMIC);
 
 	pbody->SetFixedRotation(true);
 	pbody->listener = this;
