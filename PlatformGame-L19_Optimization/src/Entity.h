@@ -9,6 +9,7 @@ enum class EntityType
 	ITEM,
 	ENEMY,
 	EOSINOFILO,
+	COLLECTIBLES,
 	CHECKPOINT,
 	UNKNOWN
 };

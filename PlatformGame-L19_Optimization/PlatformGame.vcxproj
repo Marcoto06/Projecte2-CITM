@@ -151,6 +151,7 @@
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Boomerang.cpp" />
     <ClCompile Include="src\Checkpoint.cpp" />
+    <ClCompile Include="src\Collectibles.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\Boomerang.h" />
     <ClInclude Include="src\Checkpoint.h" />
+    <ClInclude Include="src\Collectibles.h" />
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Entity.h" />
