@@ -72,7 +72,8 @@ private:
 	{
 		WALKING,
 		CHASING, //idk if we're going to use this
-		STUNED
+		STUNED,
+		DEATH
 	};
 
 	ENEMYSTATES currentEState = ENEMYSTATES::WALKING;

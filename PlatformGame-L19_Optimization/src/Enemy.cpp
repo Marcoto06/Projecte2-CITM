@@ -33,14 +33,15 @@ bool Enemy::Start() {
 	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", aliases);
 	anims.SetCurrent("walk");
+	anims.Func_SetAnimationLoop("death", false);
 
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
 
 	//Add physics to the enemy - initialize physics body
-	texW = 74;
-	texH = 74;
-	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX()+texW/2, (int)position.getY()+texH/2, texW / 2, bodyType::DYNAMIC);
+	texW = 125;
+	texH = 60;
+	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX()+texW/2, (int)position.getY()+texH/2, texW, texH, bodyType::DYNAMIC);
 
 	//Assign enemy class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -158,8 +159,10 @@ void Enemy::Func_EnemyStates(float dt)
 		{
 			if (suckTimer.ReadMSec() >= 3000.0f)
 			{
-				Destroy(attackingPlayer);
-				return;
+				currentEState = ENEMYSTATES::DEATH;
+					return;
+			
+				
 			}
 		}
 		else
@@ -172,6 +175,15 @@ void Enemy::Func_EnemyStates(float dt)
 		}
 		break;
 
+	case Enemy::ENEMYSTATES::DEATH:
+
+		anims.SetCurrent("death");
+		if (anims.Func_HasCurrentAnimationFinished())
+		{
+			Destroy(attackingPlayer);
+			return;
+		}
+		break;
 	default:
 		break;
 	}
@@ -273,7 +285,7 @@ void Enemy::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 40;
+	int drawY = y - (frameH / 2) - 45;
 
 	if (isFacingRight)
 	{
@@ -284,8 +296,8 @@ void Enemy::Draw(float dt)
 			&animFrame,
 			1.0f,
 			0.0,
-			frameW / 2,
-			frameH / 2,
+			(frameW / 2),
+			(frameH / 2),
 			SDL_FLIP_HORIZONTAL,
 			1.0f
 		);
@@ -299,8 +311,8 @@ void Enemy::Draw(float dt)
 			&animFrame,
 			1.0f,
 			0.0,
-			frameW / 2,
-			frameH / 2,
+			(frameW / 2),
+			(frameH / 2),
 			SDL_FLIP_NONE,
 			1.0f
 		);

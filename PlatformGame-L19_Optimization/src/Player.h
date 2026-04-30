@@ -113,7 +113,7 @@ public:
 
 	//CHARGES
 	bool hasPowerJump = false;
-	float powerJumpForce = 25.0f;
+	float powerJumpForce = 30.0f;
 	
 	bool healing = false;
 

@@ -56,6 +56,8 @@ bool Eosinofilo::Start() {
 	anims.Func_SetAnimationLoop("stop", false);
 	anims.Func_SetAnimationLoop("boomerangOut", false);
 	anims.Func_SetAnimationLoop("boomerangIn", false);
+	anims.Func_SetAnimationLoop("deathBoomerang", false);
+	anims.Func_SetAnimationLoop("deathEmpty", false);
 
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Eosinofilo.png");
@@ -220,7 +222,8 @@ void Eosinofilo::Func_EnemyStates(float dt)
 		{
 			if (suckTimer.ReadMSec() >= 3000.0f)
 			{
-				Destroy(attackingPlayer);
+			
+				currentEState = ENEMYSTATES::DEATH;
 				return;
 			}
 		}
@@ -235,6 +238,17 @@ void Eosinofilo::Func_EnemyStates(float dt)
 			}
 		}
 		break;
+	case  Eosinofilo::ENEMYSTATES::DEATH:
+
+		anims.SetCurrent(hasBoomerangEquipped ? "deathBoomerang" : "deathEmpty");
+		if (anims.Func_HasCurrentAnimationFinished())
+		{
+			Destroy(attackingPlayer);
+			return;
+		}
+
+	break;
+
 
 	default:
 		break;
