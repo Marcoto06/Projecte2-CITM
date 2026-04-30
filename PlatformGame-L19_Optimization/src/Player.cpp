@@ -39,6 +39,8 @@ bool Player::Start() {
 	std::unordered_map<int, std::string> effects = { {0,"lifeUp"}, {16, "aux"} };
 	effectAnims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_LifeUp.tsx", effects);
 	effectAnims.SetCurrent("lifeUp");
+	effectAnims.Func_SetAnimationLoop("lifeUp", false);
+
 	anims.SetCurrent("idle"); 
 
 	anims.Func_SetAnimationLoop("absorb", false);
