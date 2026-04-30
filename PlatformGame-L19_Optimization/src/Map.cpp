@@ -483,6 +483,14 @@ MapLayer* Map::GetNavigationLayer() {
                     checkpoint->Start();
 
                 }
+               /* else if (entityType == "Collectibles")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::COLLECTIBLES);
+                    std::shared_ptr<Collectibles> COLLECTIBLES = std::dynamic_pointer_cast<COLLECTIBLES>(e);
+
+                    checkpoint->position = Vector2D(x, y);
+                    checkpoint->name = name;
+                }*/
             }
         }
     }

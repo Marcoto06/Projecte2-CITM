@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "Collectibles.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 
@@ -130,7 +131,7 @@ public:
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
-	
+	//std::vector<int> list_collectibles;
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;

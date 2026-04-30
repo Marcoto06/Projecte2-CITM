@@ -35,6 +35,9 @@
     <Filter Include="Source Files\Game\Scene">
       <UniqueIdentifier>{0ad61abe-a1e4-463c-94a0-7fc0323dd7b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Collectibles">
+      <UniqueIdentifier>{6351987b-b622-414e-9cb3-826a0787a5f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json">
@@ -138,6 +141,9 @@
     <ClCompile Include="src\Scene.cpp">
       <Filter>Source Files\Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Collectibles.cpp">
+      <Filter>Source Files\Game\Collectibles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -235,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="src\Scene.h">
       <Filter>Source Files\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Collectibles.h">
+      <Filter>Source Files\Game\Collectibles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
