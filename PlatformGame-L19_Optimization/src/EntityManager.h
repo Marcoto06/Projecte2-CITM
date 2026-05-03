@@ -32,6 +32,8 @@ public:
 
 	void AddEntity(std::shared_ptr<Entity> entity);
 
+	void ClearNonPlayerEntities();
+
 public:
 
 	std::list<std::shared_ptr<Entity>> entities;

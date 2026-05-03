@@ -136,3 +136,21 @@ bool EntityManager::Update(float dt)
 
 	return ret;
 }
+
+void EntityManager::ClearNonPlayerEntities()
+{
+	std::list<std::shared_ptr<Entity>> pendingDelete;
+
+	for (const auto entity : entities)
+	{
+		if (entity->type != EntityType::PLAYER)
+		{
+			pendingDelete.push_back(entity);
+		}
+	}
+
+	for (const auto entity : pendingDelete)
+	{
+		DestroyEntity(entity);
+	}
+}

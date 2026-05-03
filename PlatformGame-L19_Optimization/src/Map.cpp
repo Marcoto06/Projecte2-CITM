@@ -418,6 +418,8 @@ MapLayer* Map::GetNavigationLayer() {
 //L15 TODO 2: Define a method to load entities from the map XML
  void Map::LoadEntities(std::shared_ptr<Player>& player) {
     
+     Engine::GetInstance().entityManager->ClearNonPlayerEntities();
+
 	 //Iterate the object groups
      for (pugi::xml_node objectGroupNode = mapFileXML.child("map").child("objectgroup"); objectGroupNode != NULL; objectGroupNode = objectGroupNode.next_sibling("objectgroup")) {
 		 //Check if the object group is "Entities"
