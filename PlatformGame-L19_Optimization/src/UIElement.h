@@ -89,7 +89,8 @@ public:
 	int id;
 	UIElementType type;
 	UIElementState state;
-
+	bool isSelected = false;
+	
 	std::string text;       // UIElement text (if required)
 	SDL_Rect bounds;        // Position and size
 	SDL_Color color;        // Tint color

@@ -11,6 +11,7 @@ public:
 
     int GetValue() const { return value; }
     void SetValue(int v);
+    int GetValue();
 
     void SetKnobTexture(SDL_Texture* tex);
 
