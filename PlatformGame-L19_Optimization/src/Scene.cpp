@@ -242,8 +242,6 @@ void Scene::ShowMainMenuButtons()
 	int buttonWidth = 290;
 	int buttonHeight = 86;
 
-	
-
 	// Instantiate a UIButton in the Scene
 	SDL_Rect playButtonRect = { 146 , 412 , buttonWidth, buttonHeight };
 	SDL_Rect optionsButtonRect = { 149 , 578 , buttonWidth, buttonHeight };
@@ -251,6 +249,8 @@ void Scene::ShowMainMenuButtons()
 
 	auto playButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " ",playButtonRect, this);
 	playButton->SetTexture(playButtonTexture);
+	playButton->isSelected = true;
+	selectedUIID = 1;
 
 	auto optionsButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, " ", optionsButtonRect, this);
 	optionsButton->SetTexture(optionsButtonTexture);
@@ -276,6 +276,7 @@ void Scene::UpdateMainMenu(float dt) {
 	{
 		Engine::GetInstance().render->DrawTexture(mainMenuBackground, 0, 0, NULL, 0.0f);
 	}
+
 	if (currentMenuState == MainMenuState::OPTIONS) {
 		int w, h;
 		Engine::GetInstance().window->GetWindowSize(w, h);
@@ -290,6 +291,24 @@ void Scene::UpdateMainMenu(float dt) {
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 100, NULL, 0.0f);
 		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 100, NULL, 0.0f);
 
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			HandleUINavigation(4, 7, MenuNavDirection::UP);
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			HandleUINavigation(4, 7, MenuNavDirection::DOWN);
+
+		/* SLIDERS Controls */
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			HandleUINavigation(4, 7, MenuNavDirection::LEFT);
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			HandleUINavigation(4, 7, MenuNavDirection::RIGHT);
+		
+	}
+	else {
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			HandleUINavigation(1, 3, MenuNavDirection::UP);
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			HandleUINavigation(1, 3, MenuNavDirection::DOWN);
 	}
 
 }
@@ -323,21 +342,29 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 		LOG("Main Menu: Exit clicked!");
 		Engine::GetInstance().quit = true;
 		break;
-	case 4:
+	case 4: // Fullscreen Toggle
+	{
+		Engine::GetInstance().render->ToggleFullScreen();
+		UICheckBox* check = static_cast<UICheckBox*>(uiElement);
+		bool value = Engine::GetInstance().render->IsFullScreen();
+		check->SetValue(value);
+		break;
+	}
+	case 5:
 	{
 		UISlider * slider = static_cast<UISlider*>(uiElement);
 		float volume = slider->GetValue() / 100.0f;
 		Engine::GetInstance().audio->SetMusicVolume(volume);
 		break;
 	}
-	case 5:
+	case 6:
 	{
 		UISlider* slider = static_cast<UISlider*>(uiElement);
 		float volume = slider->GetValue() / 100.0f;
 		Engine::GetInstance().audio->SetSFXVolume(volume);
 		break;
 	}
-	case 6:
+	case 7:
 		LOG("Main Menu: Back button clicked!");
 		ShowMainMenuButtons();
 		break;
@@ -357,17 +384,19 @@ void Scene::LoadOptionsMainMenu()
 
 	currentMenuState = MainMenuState::OPTIONS;
 
-
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
-	
+	SDL_Rect checkBoxPos = { ((screenWidth - sliderBarTexture->w) / 2) + 50, (screenHeight / 2) - 200, 40, 40 };
+	auto fullcreenElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::CHECKBOX, 4, " FULLSCREEN ", checkBoxPos, this);
+	fullcreenElement->isSelected = true;
+	selectedUIID = 4;
 
 	SDL_Rect sliderBounds = { ((screenWidth - sliderBarTexture->w) / 2) + 50, (screenHeight / 2) - 80, 399, 25 };
-	auto musicSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 4, "MUSIC", sliderBounds, this);
+	auto musicSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, "MUSIC", sliderBounds, this);
 
 	SDL_Rect fxSliderBounds = { ((screenWidth - sliderBarTexture->w) / 2) + 50, (screenHeight / 2) + 90, 399, 25 };
-	auto fxSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 5, "FX", fxSliderBounds, this);
+	auto fxSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, "FX", fxSliderBounds, this);
 
 	auto musicSlider = std::static_pointer_cast<UISlider>(musicSliderElement);
 	musicSlider->SetTexture(sliderBarTexture);
@@ -380,7 +409,7 @@ void Scene::LoadOptionsMainMenu()
 
 	SDL_Rect backButtonRect = { (screenWidth - backButtonTexture->w) / 2, 736, 290, 86};
 
-	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 6, " ", backButtonRect, this);
+	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 7, " ", backButtonRect, this);
 	backButton->SetTexture(backButtonTexture);
 }	
 
@@ -469,7 +498,6 @@ void Scene::HandlePause() {
 	}
 }
 
-
 void Scene::LoadPauseMenu() {
 	Engine::GetInstance().uiManager->CleanUp();
 	currentPauseState = PauseMenuState::MAIN;
@@ -495,6 +523,8 @@ void Scene::LoadPauseMenu() {
 
 	auto continueButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 1, " CONTINUE ", continueButtonRect, this);
 	continueButton->SetTexture(continuePauseButtonTexture);
+	continueButton->isSelected = true;
+	selectedUIID = 1;
 
 	auto optionsButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 2, " OPTIONS ", optionsButtonRect, this);
 	optionsButton->SetTexture(optionsPauseButtonTexture);
@@ -519,14 +549,16 @@ void Scene::LoadPauseOptionsMenu()
 	int center_window_posY = Engine::GetInstance().window->height / 2;
 
 	SDL_Rect checkBoxPos = { center_window_posX - 130, center_window_posY - 200, 40, 40 };
-	std::shared_ptr<UIElement> elem = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::CHECKBOX, 5, " FULLSCREEN ", checkBoxPos, this);
+	auto fullcreenElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::CHECKBOX, 5, " FULLSCREEN ", checkBoxPos, this);
+	fullcreenElement->isSelected = true;
+	selectedUIID = 5;
 
 	SDL_Texture* sliderBarTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBar.png");
 	SDL_Texture* sliderKnobTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
 
 	SDL_Rect musicSliderBounds = { center_window_posX, center_window_posY - 80, 399, 25 };
 	auto musicSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 6, " MUSIC ", musicSliderBounds, this);
-
+	
 	SDL_Rect sfxSliderBounds = { center_window_posX, center_window_posY + 75, 399, 25 };
 	auto sfxSliderElement = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::SLIDER, 7, " SFX ", sfxSliderBounds, this);
 
@@ -603,6 +635,24 @@ void Scene::UpdateLevel1(float dt) {
 
 			Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 80, NULL, 0.0f);
 			Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 80, NULL, 0.0f);
+
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				HandleUINavigation(5, 8, MenuNavDirection::UP);
+			else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				HandleUINavigation(5, 8, MenuNavDirection::DOWN);
+
+			/* SLIDERS Controls */
+
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+				HandleUINavigation(5, 8, MenuNavDirection::LEFT);
+			else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+				HandleUINavigation(5, 8, MenuNavDirection::RIGHT);
+		}
+		else {
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+				HandleUINavigation(1, 4, MenuNavDirection::UP);
+			else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				HandleUINavigation(1, 4, MenuNavDirection::DOWN);
 		}
 
 		if (isGameOver)
@@ -986,4 +1036,60 @@ void Scene::LoadGame()
 		}
 	}
 	//LOG("Game successfully loaded from savegame.xml");
+}
+
+// *********************************************
+// UI Navigation
+// *********************************************
+
+void Scene::HandleUINavigation(int initialID, int finalID, MenuNavDirection direction) {
+	/* MENU NAVIGATION WITH KEYS */
+
+	auto selectedUI = Engine::GetInstance().uiManager->GetElement(selectedUIID);
+
+	switch (direction) {
+		case MenuNavDirection::UP:
+		{
+			selectedUI->isSelected = false;
+			selectedUI->state = UIElementState::NORMAL;
+
+			if (selectedUIID == initialID)
+				selectedUIID = finalID;
+			else
+				selectedUIID--;
+
+			Engine::GetInstance().uiManager->GetElement(selectedUIID)->isSelected = true;
+			break;
+		}
+		case MenuNavDirection::DOWN:
+		{
+			selectedUI->isSelected = false;
+			selectedUI->state = UIElementState::NORMAL;
+
+			if (selectedUIID == finalID)
+				selectedUIID = initialID;
+			else
+				selectedUIID++;
+
+			Engine::GetInstance().uiManager->GetElement(selectedUIID)->isSelected = true;
+			break;
+		}
+		case MenuNavDirection::LEFT:
+		{
+			if (selectedUI->type == UIElementType::SLIDER) {
+				auto sliderElement = std::static_pointer_cast<UISlider>(selectedUI);
+				sliderElement->SetValue(sliderElement->GetValue() - 1);
+			}
+
+			break;
+		}
+		case MenuNavDirection::RIGHT:
+		{
+			if (selectedUI->type == UIElementType::SLIDER) {
+				auto sliderElement = std::static_pointer_cast<UISlider>(selectedUI);
+				sliderElement->SetValue(sliderElement->GetValue() + 1);
+			}
+			break;
+		}
+	}
 }

@@ -24,6 +24,11 @@ void UISlider::SetValue(int v) {
     float percentage = (float)value / 100.0f;
 
     knobBounds.x = bounds.x + (int)(percentage * (bounds.w - knobBounds.w));
+
+}
+
+int UISlider::GetValue() {
+    return value;
 }
 
 bool UISlider::Update(float dt) {

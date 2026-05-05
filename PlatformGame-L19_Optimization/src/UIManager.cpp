@@ -21,7 +21,7 @@ bool UIManager::Start()
 std::shared_ptr<UIElement> UIManager::CreateUIElement(UIElementType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
 {
 	std::shared_ptr<UIElement> uiElement = std::make_shared<UIElement>();
-
+	uiElement->type = type;
 	// L16: TODO 1: Implement CreateUIElement function that instantiates a new UIElement according to the UIElementType and add it to the list of UIElements
 	//Call the constructor according to the UIElementType
 	switch (type)
@@ -102,4 +102,12 @@ bool UIManager::CleanUp()
 	UIElementsList.clear();
 
 	return true;
+}
+
+std::shared_ptr<UIElement> UIManager::GetElement(int id) {
+	for (const auto& uiElement : UIElementsList)
+	{
+		if (uiElement->id == id)
+			return uiElement;
+	}
 }

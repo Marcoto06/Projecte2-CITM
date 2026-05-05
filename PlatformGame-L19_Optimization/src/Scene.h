@@ -32,6 +32,14 @@ enum class PauseMenuState
 	QUIT_CONFIRM
 };
 
+enum class MenuNavDirection
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 class Scene : public Module
 {
 public:
@@ -103,6 +111,7 @@ private:
 	void LoadPauseMenu();
 	void LoadPauseOptionsMenu();
 	//void LoadPauseQuitMenu();
+	void HandleUINavigation(int initialID, int finalID, MenuNavDirection direction);
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
 	void LoadLevel1();
@@ -178,5 +187,6 @@ private:
 	SDL_Texture* gameOverGoToMenuButtonTexture = nullptr;
 
 	bool isGameOver = false;
-	
+	int selectedUIID;
+
 };

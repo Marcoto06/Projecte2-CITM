@@ -43,6 +43,17 @@ bool UIButton::Update(float dt)
 				NotifyObserver();
 			}
 		}
+		else if (isSelected) {
+			state = UIElementState::FOCUSED;
+
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
+				state = UIElementState::PRESSED;
+			}
+
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_UP) {
+				NotifyObserver();
+			}
+		}
 		else {
 			state = UIElementState::NORMAL;
 		}
