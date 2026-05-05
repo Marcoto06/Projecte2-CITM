@@ -1,6 +1,7 @@
 #include "Collectibles.h"
 #include "Player.h"
 #include "Engine.h"
+#include "Log.h"
 
 
 std::vector<Collectibles*> allCollectibles;
@@ -23,7 +24,6 @@ bool Collectibles::Start() {
 	allCollectibles.push_back(this);
 	std::unordered_map<int, std::string> aliases;
 
-
 	switch (c_num)
 	{
 	case 0:
@@ -37,17 +37,17 @@ bool Collectibles::Start() {
 		break;
 	}
 	
-	
+	w = 32;
+	h = 32;
 
-	//
 	int startX = (int)position.getX();
 	int startY = (int)position.getY();
 
 	int centerX = startX + (w / 2);
 	int centerY = startY + (h / 2);
 
-	pbody = Engine::GetInstance().physics->CreateRectangleSensor(centerX, centerY, 32, 32, bodyType::STATIC);
-	pbody->ctype = ColliderType::CHECKPOINT;
+	pbody = Engine::GetInstance().physics->CreateRectangleSensor(centerX, centerY, w, h, bodyType::STATIC);
+	pbody->ctype = ColliderType::COLLECTIBLES; 
 	pbody->listener = this;
 	return true;
 }
@@ -56,8 +56,18 @@ bool Collectibles::Update(float dt)
 {
 	if (texture != nullptr)
 	{
-		const SDL_Rect& rect = anims.GetCurrentFrame();
+		anims.Update(dt);
+		SDL_Rect rect = anims.GetCurrentFrame();
+
+		if (rect.w <= 0 || rect.h <= 0) {
+			rect = { 0, 0, 32, 32 };
+		}
+
 		Engine::GetInstance().render->DrawTexture(texture, (int)position.getX(), (int)position.getY(), &rect);
+	}
+	else
+	{
+		LOG("ERROR FATAL: La textura del coleccionable es NULL.");
 	}
 
 	if (picked)
@@ -102,15 +112,16 @@ void Collectibles::OnCollision(PhysBody* physA, PhysBody* physB)
 
 	PhysBody* other = (physA == pbody) ? physB : physA;
 
-	/*if (other->ctype == ColliderType::PLAYER)
+	if (other->ctype == ColliderType::PLAYER)
 	{
 		Player* player = (Player*)other->listener;
 
 		if (player != nullptr)
 		{
-			player.list
+			player->list_collectibles.push_back(this->c_num);
+			picked = true;
 		}
-	}*/
+	}
 }
 
 

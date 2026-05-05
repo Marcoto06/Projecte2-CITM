@@ -86,6 +86,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 	case EntityType::CHECKPOINT:
 		entity = std::make_shared<Checkpoint>();
 		break;
+	case EntityType::COLLECTIBLES:
+		entity = std::make_shared<Collectibles>();
+		break;
 	default:
 		break;
 	}
