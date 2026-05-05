@@ -34,6 +34,8 @@ public:
 
 	void ClearNonPlayerEntities();
 
+	std::shared_ptr<Entity> GetEntityByTiledId(int id);
+
 public:
 
 	std::list<std::shared_ptr<Entity>> entities;

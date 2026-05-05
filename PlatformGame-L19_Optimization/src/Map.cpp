@@ -434,6 +434,8 @@ MapLayer* Map::GetNavigationLayer() {
                 float x = objectNode.attribute("x").as_float();
                 float y = objectNode.attribute("y").as_float();
                 
+                int tiledId = objectNode.attribute("id").as_int();
+
                 // Create entity based on type
                 if (entityType == "Player") {
                     // Create Player entity
@@ -452,10 +454,12 @@ MapLayer* Map::GetNavigationLayer() {
                     if (name == "Streptococus") {
                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
                         enemy->position = Vector2D(x, y);
-                        enemy->Start(); //L17: Importan to call Start to initialize teh Entity
+                        enemy->tiledId = tiledId;
+                        enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }else if (name == "Eosinofilo") {
                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
                         enemy->position = Vector2D(x, y);
+                        enemy->tiledId = tiledId;
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }
                 }
@@ -481,6 +485,7 @@ MapLayer* Map::GetNavigationLayer() {
                         }
                     }
 
+                    checkpoint->tiledId = tiledId;
                     checkpoint->Awake();
                     checkpoint->Start();
 

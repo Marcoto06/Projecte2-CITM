@@ -473,6 +473,11 @@ bool Eosinofilo::Destroy()
 {
 	LOG("Destroying Eosinofilo");
 	active = false;
+
+	if (this->tiledId != -1) {
+		Engine::GetInstance().scene->destroyedEntitiesIds.push_back(this->tiledId);
+	}
+
 	pendingToDelete = true;
 	return true;
 }

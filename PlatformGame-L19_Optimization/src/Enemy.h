@@ -8,6 +8,7 @@
 #include "Pathfinding.h"
 
 struct SDL_Texture;
+class Player;
 
 class Enemy : public Entity
 {

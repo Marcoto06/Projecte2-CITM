@@ -3,8 +3,11 @@
 #include "Module.h"
 #include <list>
 #include <vector>
+#include <memory>
 #include "Player.h"
 #include "Checkpoint.h"
+
+class Player;
 
 // L09: TODO 5: Add attributes to the property structure
 struct Properties

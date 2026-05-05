@@ -8,6 +8,7 @@
 #include <SDL3/SDL.h>
 
 struct SDL_Texture;
+class Player;
 
 class Eosinofilo : public Entity
 {

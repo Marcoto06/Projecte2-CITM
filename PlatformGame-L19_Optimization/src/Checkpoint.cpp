@@ -101,6 +101,11 @@ bool Checkpoint::Destroy()
 {
     LOG("Destroying Checkpoint");
     active = false;
+
+    if (this->tiledId != -1) {
+        Engine::GetInstance().scene->destroyedEntitiesIds.push_back(this->tiledId);
+    }
+
     pendingToDelete = true;
     return true;
 }
@@ -130,6 +135,8 @@ void Checkpoint::OnCollision(PhysBody* physA, PhysBody* physB)
             player->playerCurrentHp = player->playerMaxHp;
 
             SetActive(true);
+
+			Engine::GetInstance().scene->SaveGame();
         }
     }
 }

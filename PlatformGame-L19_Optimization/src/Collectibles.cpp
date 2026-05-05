@@ -87,6 +87,11 @@ bool Collectibles::CleanUp()
 bool Collectibles::Destroy()
 {
 	active = false;
+
+	if (this->tiledId != -1) {
+		Engine::GetInstance().scene->destroyedEntitiesIds.push_back(this->tiledId);
+	}
+
 	pendingToDelete = true;
 	return true;
 }

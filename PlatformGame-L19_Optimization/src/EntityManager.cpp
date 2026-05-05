@@ -154,3 +154,15 @@ void EntityManager::ClearNonPlayerEntities()
 		DestroyEntity(entity);
 	}
 }
+
+std::shared_ptr<Entity> EntityManager::GetEntityByTiledId(int id)
+{
+	for (const auto entity : entities)
+	{
+		if (entity->tiledId == id && entity->active)
+		{
+			return entity;
+		}
+	}
+	return nullptr;
+}

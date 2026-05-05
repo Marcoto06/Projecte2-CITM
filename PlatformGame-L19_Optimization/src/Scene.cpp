@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Item.h"
 #include "Enemy.h"
+#include "Checkpoint.h"
 #include "UIManager.h"
 #include "UISlider.h"
 #include "UICheckBox.h"
@@ -297,7 +298,16 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 {
 	switch (uiElement->id)
 	{
-	case 1: // Button MyButton
+	case 1: // Play Button
+
+		if (std::remove("Saves/savegame.xml") == 0) 
+		{
+			LOG("savegame.xml deleted successfully.");
+		}
+		else 
+		{
+			LOG("savegame.xml not found or could not be deleted.");
+		}
 
 		// INTRO VIDEO DISABLER
 		// UNCOMMENT & COMMENT THE LINES BELOW TO SKIP THE INTRO VIDEO AND GO DIRECTLY TO THE MAIN MENU
@@ -562,6 +572,8 @@ void Scene::LoadLevel1() {
 	deathScreenMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/Fondo_death_menu.png");
 	gameOverTryAgainButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/TryAgainButton.png");
 	gameOverGoToMenuButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/GoToMenuButton.png");
+
+	LoadGame();
 }
 
 void Scene::UpdateLevel1(float dt) {
@@ -656,17 +668,25 @@ void Scene::UnloadLevel1() {
 	Engine::GetInstance().map->CleanUp();
 	Engine::GetInstance().entityManager->CleanUp();
 
+	destroyedEntitiesIds.clear();
+
 }
 
 void  Scene::PostUpdateLevel1() {
 	//L15 TODO 3: Call the function to load entities from the map
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) 
+	{
+		Engine::GetInstance().entityManager->ClearNonPlayerEntities();
+
 		Engine::GetInstance().map->LoadEntities(player);
+
+		LoadGame();
 	}
 
 	//L15 TODO 4: Call the function to save entities from the map
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-		Engine::GetInstance().map->SaveEntities(player);
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) 
+	{
+		SaveGame();
 	}
 }
 
@@ -683,6 +703,8 @@ void Scene::LoadLevel2() {
 
 	//Call the function to load entities from the map
 	Engine::GetInstance().map->LoadEntities(player);
+
+	LoadGame();
 }
 
 void Scene::UpdateLevel2(float dt) {
@@ -715,6 +737,7 @@ void Scene::UnloadLevel2() {
 	Engine::GetInstance().map->CleanUp();
 	Engine::GetInstance().entityManager->CleanUp();
 
+	destroyedEntitiesIds.clear();
 }
 
 
@@ -747,6 +770,10 @@ void Scene::ShowDeathScreen()
 	goToMenuButton->SetTexture(gameOverGoToMenuButtonTexture);
 }
 
+
+// *********************************************
+// Video rendering functions
+// *********************************************
 
 void Scene::OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user)
 {
@@ -800,4 +827,163 @@ void Scene::StopIntroVideo() {
 	plm = nullptr;
 	introVideo.texture = nullptr;
 	introVideo.buffer = nullptr;
+}
+
+// *********************************************
+// Saving/Loading functions
+// *********************************************
+
+void Scene::SaveGame() 
+{
+	//LOG("Saving Game...");
+	pugi::xml_document saveDoc;
+
+	saveDoc.load_file("savegame.xml");
+
+	pugi::xml_node root = saveDoc.child("save_estate");
+	if (!root) {
+		root = saveDoc.append_child("save_estate");
+	}
+
+	pugi::xml_node playerNode = root.child("player");
+	if (!playerNode) {
+		playerNode = root.append_child("player");
+	}
+
+	playerNode.remove_children();
+
+	if (player != nullptr)
+	{
+		pugi::xml_node posNode = playerNode.append_child("position");
+		posNode.append_attribute("x").set_value(player->GetPosition().getX());
+		posNode.append_attribute("y").set_value(player->GetPosition().getY());
+
+		pugi::xml_node statsNode = playerNode.append_child("stats");
+		statsNode.append_attribute("currentHp").set_value(player->playerCurrentHp);
+		statsNode.append_attribute("maxHp").set_value(player->playerMaxHp);
+
+		pugi::xml_node upgradesNode = playerNode.append_child("upgrades");	
+		upgradesNode.append_attribute("hasPowerJump").set_value(player->hasPowerJump);
+	}
+
+	pugi::xml_node worldNode = root.child("world");
+	if (!worldNode) worldNode = root.append_child("world");
+
+	std::string currentMapName = Engine::GetInstance().map->mapFileName;
+
+	pugi::xml_node levelNode = worldNode.find_child_by_attribute("level", "name", currentMapName.c_str());
+	if (!levelNode)
+	{
+		levelNode = worldNode.append_child("level");
+		levelNode.append_attribute("name").set_value(currentMapName.c_str());
+	}
+
+	levelNode.remove_children();
+	pugi::xml_node destroyedNode = levelNode.append_child("entities");
+	
+	for (int id : destroyedEntitiesIds)
+	{
+		pugi::xml_node entNode = destroyedNode.append_child("entity");
+		entNode.append_attribute("id").set_value(id);
+	}
+
+	pugi::xml_node checkpointNode = levelNode.append_child("active_checkpoint");
+	if (checkpointNode)
+	{
+		levelNode.remove_child(checkpointNode);
+	}
+	checkpointNode = levelNode.append_child("active_checkpoint");
+
+	int activeCpId = -1;
+	for (Checkpoint* cp : Checkpoint::allCheckpoints)
+	{
+		if (cp->IsActive()) 
+		{
+			activeCpId = cp->tiledId;
+			break;
+		}
+	}
+
+	checkpointNode.append_attribute("id").set_value(activeCpId);	
+
+	saveDoc.save_file("Saves/savegame.xml");
+	//LOG("Game successfully saved in Saves/savegame.xml");
+}
+
+void Scene::LoadGame() 
+{
+	//LOG("Loading Game...");
+	pugi::xml_document loadDoc;
+	pugi::xml_parse_result result = loadDoc.load_file("Saves/savegame.xml");
+
+	if (!result) {
+		LOG("There is no save or error reading Saves/savegame.xml");
+		return;
+	}
+
+	pugi::xml_node root = loadDoc.child("save_estate");
+	
+	pugi::xml_node playerNode = root.child("player");
+	if (playerNode && player != nullptr) 
+	{
+		pugi::xml_node posNode = playerNode.child("position");
+		if (posNode) 
+		{
+			float x = posNode.attribute("x").as_float();
+			float y = posNode.attribute("y").as_float();
+			player->SetPosition(Vector2D(x, y));
+		}
+
+		pugi::xml_node statsNode = playerNode.child("stats");
+		if (statsNode) 
+		{
+			player->playerCurrentHp = statsNode.attribute("currentHp").as_int();
+			player->playerMaxHp = statsNode.attribute("maxHp").as_int();
+		}
+
+		pugi::xml_node upgradesNode = playerNode.child("upgrades");
+		if (upgradesNode) 
+		{
+			player->hasPowerJump = upgradesNode.attribute("hasPowerJump").as_bool();
+		}
+	}
+
+	std::string currentMapName = Engine::GetInstance().map->mapFileName;
+	pugi::xml_node levelNode = root.child("world").find_child_by_attribute("level", "name", currentMapName.c_str());
+
+	if (levelNode) 
+	{		
+		destroyedEntitiesIds.clear();
+
+		pugi::xml_node destroyedNode = levelNode.child("entities");
+		for (pugi::xml_node entNode = destroyedNode.child("entity"); entNode; entNode = entNode.next_sibling("entity")) 
+		{
+			int deadId = entNode.attribute("id").as_int();
+
+			destroyedEntitiesIds.push_back(deadId);
+
+			std::shared_ptr<Entity> entityToKill = Engine::GetInstance().entityManager->GetEntityByTiledId(deadId);
+			if (entityToKill != nullptr)
+			{
+				entityToKill->Destroy();
+			}
+		}	
+
+		pugi::xml_node checkpointNode = levelNode.child("active_checkpoint");
+		if (checkpointNode)
+		{
+			int activeCpId = checkpointNode.attribute("id").as_int(-1);
+			if (activeCpId != -1)
+			{
+				std::shared_ptr<Entity> cpEntity = Engine::GetInstance().entityManager->GetEntityByTiledId(activeCpId);
+
+				if (cpEntity != nullptr && cpEntity->type == EntityType::CHECKPOINT)
+				{
+					std::shared_ptr<Checkpoint> cp = std::static_pointer_cast<Checkpoint>(cpEntity);
+					cp->SetActive(true);
+				}
+			}
+		}
+	}
+	//LOG("Game successfully loaded from savegame.xml");
 }

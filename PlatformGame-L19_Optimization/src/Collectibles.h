@@ -3,6 +3,7 @@
 #include "Textures.h"
 #include "Animation.h"
 #include "Physics.h"
+#include "Scene.h"
 
 class Collectibles : public Entity
 {

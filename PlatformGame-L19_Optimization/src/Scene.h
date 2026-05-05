@@ -4,8 +4,11 @@
 #include "Player.h"
 #include "UIButton.h"
 #include "pl_mpeg.h"
+#include <cstdio>
+#include <memory>
 
 struct SDL_Texture;
+class Player;
 
 //L17 TODO 1: Define SceneID enum class with INTRO_SCREEN, MAIN_MENU, LEVEL1, LEVEL2
 enum class SceneID
@@ -74,6 +77,11 @@ public:
 
 	void ActivateGameOver();
 	std::shared_ptr<Player> player;
+
+	std::vector<int> destroyedEntitiesIds;
+
+	void SaveGame();
+	void LoadGame();
 
 private:
 
