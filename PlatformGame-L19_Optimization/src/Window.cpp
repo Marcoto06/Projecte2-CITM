@@ -19,6 +19,7 @@ bool Window::Awake()
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
+
 	if (SDL_Init(SDL_INIT_VIDEO) != true)
 	{
 		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());

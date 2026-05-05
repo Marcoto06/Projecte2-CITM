@@ -51,6 +51,11 @@ public:
 		return keyboard[id];
 	}
 
+	KeyState GetControllerKey(int id) const
+	{
+		return controllerButtons[id - 1];
+	}
+
 	KeyState GetMouseButtonDown(int id) const
 	{
 		return mouseButtons[id - 1];
@@ -63,9 +68,13 @@ public:
 	Vector2D GetMousePosition();
 	Vector2D GetMouseMotion();
 
+	SDL_Gamepad* controller;
+
+	bool CheckController();
 private:
 	bool windowEvents[WE_COUNT];
 	KeyState* keyboard;
+	KeyState* controllerButtons;
 	KeyState mouseButtons[NUM_MOUSE_BUTTONS];
 	int	mouseMotionX;
 	int mouseMotionY;

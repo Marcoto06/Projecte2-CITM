@@ -271,6 +271,8 @@ void Scene::UnloadMainMenu() {
 }
 
 void Scene::UpdateMainMenu(float dt) {
+	int firstElement = 0;
+	int lastElement = 0;
 
 	if (mainMenuBackground != nullptr)
 	{
@@ -279,6 +281,7 @@ void Scene::UpdateMainMenu(float dt) {
 
 	if (currentMenuState == MainMenuState::OPTIONS) {
 		int w, h;
+		
 		Engine::GetInstance().window->GetWindowSize(w, h);
 
 		SDL_Rect fullscreenRect = { 0, 0, w, h };
@@ -291,25 +294,24 @@ void Scene::UpdateMainMenu(float dt) {
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 100, NULL, 0.0f);
 		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 100, NULL, 0.0f);
 
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-			HandleUINavigation(4, 7, MenuNavDirection::UP);
-		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			HandleUINavigation(4, 7, MenuNavDirection::DOWN);
-
-		/* SLIDERS Controls */
-
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			HandleUINavigation(4, 7, MenuNavDirection::LEFT);
-		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			HandleUINavigation(4, 7, MenuNavDirection::RIGHT);
+		firstElement = 4;
+		lastElement = 7;
 		
 	}
 	else {
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-			HandleUINavigation(1, 3, MenuNavDirection::UP);
-		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			HandleUINavigation(1, 3, MenuNavDirection::DOWN);
+		firstElement = 1;
+		lastElement = 3;
 	}
+
+	/* UI CONTROLS */
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_UP) == KEY_DOWN)
+		HandleUINavigation(firstElement, lastElement, MenuNavDirection::UP);
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_DOWN) == KEY_DOWN)
+		HandleUINavigation(firstElement, lastElement, MenuNavDirection::DOWN);
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_LEFT) == KEY_DOWN)
+		HandleUINavigation(firstElement, lastElement, MenuNavDirection::LEFT);
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_RIGHT) == KEY_DOWN)
+		HandleUINavigation(firstElement, lastElement, MenuNavDirection::RIGHT);
 
 }
 
@@ -486,7 +488,7 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 }
 
 void Scene::HandlePause() {
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_START) == KEY_DOWN) {
 		Engine::GetInstance().Func_PauseEngine();
 
 		if (Engine::GetInstance().paused) {
@@ -578,7 +580,6 @@ void Scene::LoadPauseOptionsMenu()
 	backButton->SetTexture(backButtonTexture);
 }
 
-
 // *********************************************
 // Level 1 functions
 // *********************************************
@@ -615,6 +616,9 @@ void Scene::UpdateLevel1(float dt) {
 
 	if (Engine::GetInstance().paused) {
 		int w, h;
+		int firstElement = 0;
+		int lastElement = 0;
+		
 		Engine::GetInstance().window->GetWindowSize(w, h);
 		SDL_Rect fullscreenRect = { 0, 0, w, h };
 
@@ -636,23 +640,12 @@ void Scene::UpdateLevel1(float dt) {
 			Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 80, NULL, 0.0f);
 			Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 80, NULL, 0.0f);
 
-			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-				HandleUINavigation(5, 8, MenuNavDirection::UP);
-			else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-				HandleUINavigation(5, 8, MenuNavDirection::DOWN);
-
-			/* SLIDERS Controls */
-
-			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-				HandleUINavigation(5, 8, MenuNavDirection::LEFT);
-			else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-				HandleUINavigation(5, 8, MenuNavDirection::RIGHT);
+			firstElement = 5;
+			lastElement = 8;
 		}
 		else {
-			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-				HandleUINavigation(1, 4, MenuNavDirection::UP);
-			else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-				HandleUINavigation(1, 4, MenuNavDirection::DOWN);
+			firstElement = 1;
+			lastElement = 4;
 		}
 
 		if (isGameOver)
@@ -661,6 +654,16 @@ void Scene::UpdateLevel1(float dt) {
 			Engine::GetInstance().render->DrawTexture(deathScreenMenuTexture, (w - deathScreenMenuTexture->w) / 2, (h -deathScreenMenuTexture->h) / 2, NULL, 0.0f);
 
 		}
+
+		/* UI CONTROLS */
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_UP) == KEY_DOWN)
+			HandleUINavigation(firstElement, lastElement, MenuNavDirection::UP);
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_DOWN) == KEY_DOWN)
+			HandleUINavigation(firstElement, lastElement, MenuNavDirection::DOWN);
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_LEFT) == KEY_REPEAT)
+			HandleUINavigation(firstElement, lastElement, MenuNavDirection::LEFT);
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_RIGHT) == KEY_REPEAT)
+			HandleUINavigation(firstElement, lastElement, MenuNavDirection::RIGHT);
 	}
 
 	if (!Engine::GetInstance().paused)
@@ -790,7 +793,6 @@ void Scene::UnloadLevel2() {
 	destroyedEntitiesIds.clear();
 }
 
-
 void Scene::ActivateGameOver()
 {
 	ShowDeathScreen();
@@ -819,7 +821,6 @@ void Scene::ShowDeathScreen()
 	auto goToMenuButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 11, " GO TO MENU ", goToMenuButtonRect, this);
 	goToMenuButton->SetTexture(gameOverGoToMenuButtonTexture);
 }
-
 
 // *********************************************
 // Video rendering functions
