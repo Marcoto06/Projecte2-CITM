@@ -144,6 +144,12 @@
     <ClCompile Include="src\Collectibles.cpp">
       <Filter>Source Files\Game\Collectibles</Filter>
     </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Source Files\Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomManager.cpp">
+      <Filter>Source Files\Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -244,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="src\Collectibles.h">
       <Filter>Source Files\Game\Collectibles</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Source Files\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomManager.h">
+      <Filter>Source Files\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
