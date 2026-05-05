@@ -1,4 +1,3 @@
-
 #include "Engine.h"
 #include "Render.h"
 #include "Textures.h"
@@ -7,6 +6,7 @@
 #include "Physics.h"
 #include "EntityManager.h"
 #include "tracy/Tracy.hpp"
+#include "Collectibles.h"
 
 #include <math.h>
 
@@ -430,6 +430,9 @@ MapLayer* Map::GetNavigationLayer() {
 
 				//Get the entity type and position
                 std::string entityType = objectNode.attribute("type").as_string();
+                if (entityType.empty() || entityType == "") {
+                    entityType = objectNode.attribute("class").as_string();
+                }
                 std::string name = objectNode.attribute("name").as_string();
                 float x = objectNode.attribute("x").as_float();
                 float y = objectNode.attribute("y").as_float();
@@ -490,14 +493,34 @@ MapLayer* Map::GetNavigationLayer() {
                     checkpoint->Start();
 
                 }
-               /* else if (entityType == "Collectibles")
+                else if (entityType == "Collectibles")
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::COLLECTIBLES);
-                    std::shared_ptr<Collectibles> COLLECTIBLES = std::dynamic_pointer_cast<COLLECTIBLES>(e);
+                    std::shared_ptr<Collectibles> collectible = std::dynamic_pointer_cast<Collectibles>(e);
 
-                    checkpoint->position = Vector2D(x, y);
-                    checkpoint->name = name;
-                }*/
+                    if (collectible != nullptr)
+                    {
+                        collectible->position = Vector2D(x, y);
+                        collectible->name = name;
+                        collectible->tiledId = tiledId;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "c_num")
+                                {
+                                    collectible->c_num = prop.attribute("value").as_int();
+                                }
+                            }
+                        }
+
+                        collectible->Awake();
+                        collectible->Start();
+                    }
+                }
             }
         }
     }

@@ -23,10 +23,11 @@ public:
 	/*static std::vector<Collectibles*> allCollectibles;*/
 	SDL_Texture* texture = NULL;
 	int w, h;
-	bool picked;
+	bool picked = false;
+	int c_num = 0;
+
 private:
 	AnimationSet anims;
 	PhysBody* pbody;
-	int c_num;
 };
 

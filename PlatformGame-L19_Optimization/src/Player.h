@@ -128,10 +128,12 @@ public:
 	Timer boostTimer_01;
 	Timer hurtTimer;
 	AnimationSet effectAnims;
+
+	std::vector<int> list_collectibles;
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
-	//std::vector<int> list_collectibles;
+	
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;
