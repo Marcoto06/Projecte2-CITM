@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="28" nextobjectid="41">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="28" nextobjectid="41">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -14,8 +14,9 @@
  <tileset firstgid="1" name="MapMetadata" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2" columns="2">
   <image source="MapMetadata.png" width="67" height="34"/>
  </tileset>
- <tileset firstgid="3" source="GlandulaSalival_Tileset2.tsx"/>
- <tileset firstgid="3" source="Atlas_2.3.tsx"/>
+ <tileset firstgid="3" name="Atlas_2.3" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="Atlas_2.3.png" width="1024" height="1024"/>
+ </tileset>
  <tileset firstgid="259" name="Boca_MidleGround" tilewidth="64" tileheight="64" tilecount="1980" columns="60">
   <image source="Boca_MidleGround.png" width="3840" height="2160"/>
  </tileset>
@@ -4758,8 +4759,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="3"/>
+   <tile gid="3"/>
    <tile/>
    <tile/>
    <tile/>
@@ -9961,6 +9962,43 @@
    <tile gid="37"/>
   </data>
  </layer>
+ <objectgroup id="8" name="Entities">
+  <object id="21" name="Player" type="Player" x="89.6667" y="1032.67">
+   <point/>
+  </object>
+  <object id="28" name="Streptococus" type="Enemy" x="1111.71" y="1925.41">
+   <point/>
+  </object>
+  <object id="30" name="Eosinofilo" type="Enemy" x="778.197" y="1549.62">
+   <point/>
+  </object>
+  <object id="31" name="Streptococus" type="Enemy" x="3684.61" y="1004.64">
+   <point/>
+  </object>
+  <object id="32" name="Eosinofilo" type="Enemy" x="3366.67" y="681.819">
+   <point/>
+  </object>
+  <object id="33" name="Eosinofilo" type="Enemy" x="2903.03" y="1363.64">
+   <point/>
+  </object>
+  <object id="34" name="CheckPoint" type="Checkpoint" x="2152.5" y="575.5">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="37" name="Collectibles" type="Collectibles" x="1567.58" y="1380.33">
+   <properties>
+    <property name="c_num" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="38" name="Door" type="door" x="2772.73" y="2045.45" width="703.03" height="81.8182">
+   <properties>
+    <property name="Type" value="Door"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="7" name="Navigation" width="60" height="33">
   <properties>
    <property name="Draw" type="bool" value="false"/>
@@ -11949,43 +11987,6 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="8" name="Entities">
-  <object id="21" name="Player" type="Player" x="89.6667" y="1032.67">
-   <point/>
-  </object>
-  <object id="28" name="Streptococus" type="Enemy" x="1111.71" y="1925.41">
-   <point/>
-  </object>
-  <object id="30" name="Eosinofilo" type="Enemy" x="778.197" y="1549.62">
-   <point/>
-  </object>
-  <object id="31" name="Streptococus" type="Enemy" x="3684.61" y="1004.64">
-   <point/>
-  </object>
-  <object id="32" name="Eosinofilo" type="Enemy" x="3366.67" y="681.819">
-   <point/>
-  </object>
-  <object id="33" name="Eosinofilo" type="Enemy" x="2903.03" y="1363.64">
-   <point/>
-  </object>
-  <object id="34" name="CheckPoint" type="Checkpoint" x="2152.5" y="575.5">
-   <properties>
-    <property name="isActive" type="bool" value="false"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="37" name="Collectibles" type="Collectibles" x="1567.58" y="1380.33">
-   <properties>
-    <property name="c_num" type="int" value="0"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="38" name="Door" type="door" x="2772.73" y="2045.45" width="703.03" height="81.8182">
-   <properties>
-    <property name="Type" value="Door"/>
-   </properties>
-  </object>
- </objectgroup>
  <layer id="27" name="Foreground" width="60" height="33">
   <properties>
    <property name="Draw" type="bool" value="true"/>
