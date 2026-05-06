@@ -498,6 +498,18 @@ void Scene::HandlePause() {
 			UnloadMainMenu();
 		}
 	}
+	
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		Engine::GetInstance().Func_PauseEngine();
+
+		if (Engine::GetInstance().paused) {
+			LoadInventoryMenu();
+		}
+		else {
+			UnloadMainMenu();
+		}
+	}
 }
 
 void Scene::LoadPauseMenu() {
@@ -578,6 +590,19 @@ void Scene::LoadPauseOptionsMenu()
 
 	auto backButton = Engine::GetInstance().uiManager->CreateUIElement(UIElementType::BUTTON, 8, " ", backButtonPos, this);
 	backButton->SetTexture(backButtonTexture);
+}
+
+void Scene::LoadInventoryMenu()
+{
+	Engine::GetInstance().uiManager->CleanUp();
+	currentPauseState = PauseMenuState::INVENTORY;	
+
+	pauseOptionsMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Fondo_pause_menu.png");
+}
+
+void Scene::UnloadPauseMenu()
+{
+
 }
 
 // *********************************************
