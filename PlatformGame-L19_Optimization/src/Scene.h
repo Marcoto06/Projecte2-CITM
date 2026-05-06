@@ -27,9 +27,11 @@ enum class MainMenuState
 
 enum class PauseMenuState
 {
+	NOTPAUSED,
 	MAIN,
 	OPTIONS,
-	QUIT_CONFIRM
+	QUIT_CONFIRM,
+	INVENTORY
 };
 
 enum class MenuNavDirection
@@ -109,8 +111,9 @@ private:
 	void HandlePauseMenuUIEvents(UIElement* uiElement);
 	void HandlePause();
 	void LoadPauseMenu();
+	void UnloadPauseMenu();
 	void LoadPauseOptionsMenu();
-	//void LoadPauseQuitMenu();
+	void LoadInventoryMenu();
 	void HandleUINavigation(int initialID, int finalID, MenuNavDirection direction);
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
@@ -151,7 +154,7 @@ private:
 	// L17 TODO 1: Current scene attribute with initial value
 	SceneID currentScene = SceneID::MAIN_MENU;
 	MainMenuState currentMenuState = MainMenuState::MAIN_BUTTONS;
-	PauseMenuState currentPauseState = PauseMenuState::MAIN;
+	PauseMenuState currentPauseState = PauseMenuState::NOTPAUSED;
 
 	SDL_Texture* mainMenuBackground = nullptr;
 
@@ -188,5 +191,4 @@ private:
 
 	bool isGameOver = false;
 	int selectedUIID;
-
 };
