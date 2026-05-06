@@ -16,9 +16,7 @@
 //
 //            DoorData d;
 //
-//            sscanf(line.c_str(),
-//                "%*[^x]x=\"%f\" %*[^y]y=\"%f\"",
-//                &d.x, &d.y);
+//            sscanf(line.c_str(), "%*[^x]x=\"%f\" %*[^y]y=\"%f\"", &d.x, &d.y);
 //
 //            d.targetRoom = "room_2.tmx";
 //            d.spawnX = 100;
@@ -31,9 +29,7 @@
 //        if (line.find("type=\"enemy\"") != std::string::npos) {
 //            EnemyData e;
 //
-//            sscanf(line.c_str(),
-//                "%*[^x]x=\"%f\" %*[^y]y=\"%f\"",
-//                &e.x, &e.y);
+//            sscanf(line.c_str(), "%*[^x]x=\"%f\" %*[^y]y=\"%f\"", &e.x, &e.y);
 //
 //            e.type = "slime";
 //            enemies.push_back(e);
