@@ -587,6 +587,27 @@ MapLayer* Map::GetNavigationLayer() {
      }
  }
 
+ bool Map::IsCollisionTileAtWorldPos(int x, int y) const
+ {
+     int tileX = x / mapData.tileWidth;
+     int tileY = y / mapData.tileHeight;
+
+     if (tileX < 0 || tileY < 0 || tileX >= mapData.width || tileY >= mapData.height)
+     {
+         return false;
+     }
+
+     for (const auto& mapLayer : mapData.layers)
+     {
+         if (mapLayer->name == "Collisions")
+         {
+             return mapLayer->Get(tileX, tileY) != 0;
+         }
+     }
+
+     return false;
+ }
+
 
 
 

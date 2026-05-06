@@ -61,6 +61,7 @@ private:
 	void ApplyPhysics();
 	void Draw(float dt);
 	void Func_BoostMovement();
+	void AutoStepUp();
 
 	// Methods of Atack
 
@@ -78,7 +79,10 @@ public:
 
 	//Speed control
 	float normalSpeed = 7.5f;      	
-	float boostSpeed = 10.0f;      	
+	float boostSpeed = 10.0f;      
+
+	int maxStepHeight = 28;
+	int stepCheckDistance = 14;
 
 	SDL_Texture* texture = NULL;
 
@@ -114,6 +118,7 @@ public:
 	bool isMoving = false;
 	bool hasASpeedBoost = false;
 	bool onGround = false;
+	int groundContacts = 0;
 	bool nextToWall = false;
 	bool canMove = true;
 	bool canJump = true;

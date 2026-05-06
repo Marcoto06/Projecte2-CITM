@@ -161,6 +161,8 @@ public:
         return mapData.tileHeight;
     }
 
+    bool IsCollisionTileAtWorldPos(int x, int y) const;
+
     //L15 TODO 2: Define a method to load entities from the map XML
     void LoadEntities(std::shared_ptr<Player>& player);
 	//L15 TODO 4: Define a method to save entities to the map XML

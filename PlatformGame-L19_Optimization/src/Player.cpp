@@ -109,6 +109,9 @@ bool Player::Update(float dt)
 		else {
 			Move();
 		}
+
+		AutoStepUp();
+
 		Jump(dt);
 	}
 
@@ -230,6 +233,44 @@ void Player::Move() {
 	}
 }
 
+void Player::AutoStepUp()
+{
+	if (!onGround || !isMoving || isJumping || isSucking || isAttacking)
+	{
+		return;
+	}
+
+	int playerX, playerY;
+	pbody->GetPosition(playerX, playerY);
+
+	int direction = facingRight ? 1 : -1;
+
+	int halfWidth = texW / 4;
+	int halfHeight = (texH - 15) / 2;
+
+	int frontX = playerX + direction * (halfWidth + stepCheckDistance);
+
+	int feetY = playerY + halfHeight - 4;
+	int kneeY = feetY - maxStepHeight;
+	int headY = playerY - halfHeight + 10;
+
+	bool solidAtFeet = Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, feetY);
+	bool freeAtKnee = !Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, kneeY);
+	bool freeAtHead = !Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, headY);
+
+	if (solidAtFeet && freeAtKnee && freeAtHead)
+	{
+		pbody->SetPosition(playerX + direction * 2, playerY - maxStepHeight);
+
+		velocity.y = 0.0f;
+		isJumping = false;
+		onGround = true;
+		nextToWall = false;
+		currentState = PLAYERSTATE::MOVE;
+		anims.SetCurrent("run");
+	}
+}
+
 void Player::ActivateSpeedBoost() {
 	hasASpeedBoost = true;
 	boostTimer_01.Start();
@@ -317,10 +358,17 @@ void Player::Func_PlayerState() {
 		return;
 	}
 
-	if (currentState == PLAYERSTATE::FALLING_JUMP && onGround && !isAttacking)
+	if ((currentState == PLAYERSTATE::FALLING_JUMP ||
+		currentState == PLAYERSTATE::JUMPING ||
+		currentState == PLAYERSTATE::PREPARE_JUMP)
+		&& onGround && !isAttacking)
 	{
 		currentState = PLAYERSTATE::END_JUMP;
- 		anims.SetCurrent("endJump");
+		anims.SetCurrent("endJump");
+
+		isJumping = false;
+		isHoldingJump = false;
+		jumpHoldTime = 0.0f;
 	}
 	else if (currentState == PLAYERSTATE::JUMPING && velocity.y > 0.1f && !isAttacking)
 	{
@@ -627,13 +675,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		if (velocity.y >= -0.1f) {
-			isJumping = false;
+
+		if (velocity.y >= -0.1f)
+		{
+			groundContacts++;
 			onGround = true;
+			isJumping = false;
+			nextToWall = false;
 		}
-		else if (velocity.y != 0.0f){
+		else
+		{
 			nextToWall = true;
 		}
+
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
@@ -690,7 +744,18 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::PLATFORM:
 		LOG("End Collision PLATFORM");
-		onGround = false;
+
+		if (groundContacts > 0)
+		{
+			groundContacts--;
+		}
+
+		if (groundContacts <= 0)
+		{
+			groundContacts = 0;
+			onGround = false;
+		}
+
 		nextToWall = false;
 		break;
 	case ColliderType::ITEM:
