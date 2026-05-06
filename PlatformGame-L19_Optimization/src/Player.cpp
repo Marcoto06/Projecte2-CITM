@@ -109,10 +109,9 @@ bool Player::Update(float dt)
 		else {
 			Move();
 		}
-		Jump();
+		Jump(dt);
 	}
 
-	Jump();
 	Func_PlayerState();
 	Func_Attacks(dt);
 	Teleport();
@@ -259,19 +258,51 @@ void Player::Func_BoostMovement() {
 	}
 }
 
-void Player::Jump() {
-	// This function can be used for more complex jump logic if needed
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isJumping == false && !isSucking && onGround == true && canJump) {
+void Player::Jump(float dt)
+{
+	KeyState spaceState = Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE);
+
+	if (spaceState == KEY_DOWN && !isJumping && !isSucking && onGround && canJump)
+	{
 		currentState = PLAYERSTATE::PREPARE_JUMP;
+
 		float forceToUse = jumpForce;
-		if (hasPowerJump == true) {
+
+		if (hasPowerJump == true)
+		{
 			forceToUse = powerJumpForce;
 		}
+
 		Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0.0f, -forceToUse, true);
+
 		anims.SetCurrent("prepareJump");
+
 		isJumping = true;
 		onGround = false;
 		nextToWall = true;
+
+		isHoldingJump = true;
+		jumpHoldTime = 0.0f;
+	}
+
+	if ((spaceState == KEY_DOWN || spaceState == KEY_REPEAT) && isHoldingJump && isJumping)
+	{
+		if (jumpHoldTime < maxJumpHoldTime)
+		{
+			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(
+				pbody,
+				0.0f,
+				-extraJumpForce,
+				true
+			);
+
+			jumpHoldTime += dt;
+		}
+	}
+
+	if (spaceState == KEY_UP)
+	{
+		isHoldingJump = false;
 	}
 }
 

@@ -54,7 +54,7 @@ private:
 
 	void GetPhysicsValues();
 	void Move();
-	void Jump();
+	void Jump(float dt);
 	void Func_PlayerState();
 	void Func_Attacks(float dt);
 	void Teleport();
@@ -90,7 +90,15 @@ public:
 	int pickCoinFxId; //??????
 	
 	PhysBody* pbody;
-	float jumpForce = 24.0f; // The force to apply when jumping
+
+	float jumpForce = 20.5f;
+
+	float jumpHoldTime = 0.0f;
+	float maxJumpHoldTime = 150.0f;
+	float extraJumpForce = 0.8f;
+
+	bool isHoldingJump = false;
+
 	int kill_counter = 0;
 
 	int playerMaxHp = 10;
