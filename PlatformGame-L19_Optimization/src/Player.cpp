@@ -858,9 +858,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	case ColliderType::ENEMY:
+	{
 		LOG("End Collision ENEMY");
 
-		if (!isHurt && currentState != PLAYERSTATE::DEATH)
+		Enemy* enemyPtr = (Enemy*)physB->listener;
+
+		if (!isHurt && currentState != PLAYERSTATE::DEATH && !enemyPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
 			LOG("Current HP: %i", playerCurrentHp);
@@ -892,6 +895,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 		}		
 		break;
+	}
 	default:
 		break;
 	}
