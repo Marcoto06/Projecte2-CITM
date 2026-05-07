@@ -32,7 +32,7 @@ public:
 	//Atack variables float and bools for the attack state and timers for the attack duration and cooldown.
 	bool isAtacking = false;
 
-	float attackDuration = 0.20f;
+	float attackDuration = 0.10f;
 
 	float attackCooldown = 0.40f;
 

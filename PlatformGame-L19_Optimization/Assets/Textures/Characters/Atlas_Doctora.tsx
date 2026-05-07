@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="273" columns="21">
+<tileset version="1.10" tiledversion="1.11.2" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="273" columns="21">
  <image source="Atlas_Doctora.png" width="10752" height="6656"/>
  <tile id="0">
   <animation>
@@ -139,35 +139,34 @@
  </tile>
  <tile id="147">
   <animation>
-   <frame tileid="147" duration="50"/>
-   <frame tileid="148" duration="50"/>
-   <frame tileid="149" duration="50"/>
-   <frame tileid="150" duration="50"/>
-   <frame tileid="151" duration="50"/>
-   <frame tileid="152" duration="50"/>
-   <frame tileid="153" duration="50"/>
+   <frame tileid="147" duration="25"/>
+   <frame tileid="148" duration="25"/>
+   <frame tileid="149" duration="25"/>
+   <frame tileid="150" duration="25"/>
+   <frame tileid="151" duration="25"/>
+   <frame tileid="152" duration="25"/>
+   <frame tileid="153" duration="25"/>
    <frame tileid="154" duration="100"/>
-   <frame tileid="155" duration="100"/>
-   <frame tileid="156" duration="100"/>
-   <frame tileid="157" duration="100"/>
-   <frame tileid="158" duration="100"/>
-   <frame tileid="159" duration="100"/>
-   <frame tileid="160" duration="100"/>
-   <frame tileid="161" duration="100"/>
-   <frame tileid="162" duration="100"/>
+   <frame tileid="155" duration="50"/>
+   <frame tileid="156" duration="50"/>
+   <frame tileid="157" duration="50"/>
+   <frame tileid="158" duration="50"/>
+   <frame tileid="159" duration="50"/>
+   <frame tileid="160" duration="50"/>
+   <frame tileid="161" duration="50"/>
+   <frame tileid="162" duration="50"/>
   </animation>
  </tile>
  <tile id="168">
   <animation>
-   <frame tileid="168" duration="50"/>
-   <frame tileid="169" duration="50"/>
-   <frame tileid="170" duration="50"/>
-   <frame tileid="171" duration="50"/>
-   <frame tileid="173" duration="50"/>
-   <frame tileid="174" duration="100"/>
-   <frame tileid="175" duration="100"/>
+   <frame tileid="168" duration="25"/>
+   <frame tileid="169" duration="25"/>
+   <frame tileid="170" duration="25"/>
+   <frame tileid="171" duration="25"/>
+   <frame tileid="173" duration="25"/>
+   <frame tileid="174" duration="50"/>
    <frame tileid="176" duration="100"/>
-   <frame tileid="177" duration="100"/>
+   <frame tileid="177" duration="50"/>
   </animation>
  </tile>
  <tile id="189">

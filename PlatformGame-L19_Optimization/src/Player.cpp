@@ -587,12 +587,12 @@ void Player::Func_Attacks(float dt) {
 
 		if (!onGround)
 		{
-			attackTimer = 1000.0f;
+			attackTimer = 750.0f;          
 			anims.SetCurrent("airAttack");
 		}
 		else
 		{
-			attackTimer = 1300.0f;
+			attackTimer = 750.0f;
 			anims.SetCurrent("stun");
 		}
 	}
@@ -605,20 +605,31 @@ void Player::Func_Attacks(float dt) {
 			syringeBody = nullptr;
 		}
 
-		if (attackTimer <= 200.0f && attackTimer > 0.0f) {
+		if (attackTimer <= 100.0f && attackTimer > 0.0f) {
 
-			float progress = 1.0f - (attackTimer / 200.0f);
+			float progress = 1.0f - (attackTimer / 100.0f);
 
-			float width = 120.0f;
-			float height = 30.0f;
+			float width, height;
+			float pivotLocalX, pivotLocalY;
 
-			float pivotLocalX = 15.0f;
-			float pivotLocalY = -10.0f;
+			if (!onGround)
+			{
+				width = 150.0f;
+				height = 170.0f;
+				pivotLocalX = 30.0f;
+				pivotLocalY = -30.0f;
+			}
+			else
+			{
+				width = 90.0f;
+				height = 140.0f;
+				pivotLocalX = 70.0f;
+				pivotLocalY = 0.0f;
 
+			}
+			
 			float startAngle = 90.0f;
 			float endAngle = facingRight ? -90.0f : 270.0f;
-
-			float currentAngle = startAngle + ((endAngle - startAngle) * progress);
 
 			if (!facingRight) {
 				pivotLocalX = -pivotLocalX;
@@ -626,15 +637,11 @@ void Player::Func_Attacks(float dt) {
 
 			int playerX, playerY;
 			pbody->GetPosition(playerX, playerY);
-
-			float distanceToCenter = width / 2.0f;
-			float angleRad = currentAngle * (3.14159265f / 180.0f);
-
-			float absoluteCenterX = playerX + pivotLocalX + (distanceToCenter * cos(angleRad));
-			float absoluteCenterY = playerY + pivotLocalY + (distanceToCenter * sin(angleRad));
+			float distX_player = playerX + pivotLocalX;
+			float distY_player = playerY + pivotLocalY;
 
 			syringeBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
-				(int)width, (int)height, absoluteCenterX, absoluteCenterY, ColliderType::SYRINGE, angleRad);
+				(int)width, (int)height, distX_player, distY_player, ColliderType::SYRINGE);
 		}
 		else if (attackTimer <= 0.0f)
 		{
