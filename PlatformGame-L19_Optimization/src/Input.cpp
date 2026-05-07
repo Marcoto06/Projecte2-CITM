@@ -74,10 +74,11 @@ bool Input::PreUpdate()
 			else
 				keyboard[i] = KEY_REPEAT;
 
-			/*if (controllerButtons[i] == KEY_IDLE)
-				controllerButtons[i] = KEY_DOWN;
-			else
-				controllerButtons[i] = KEY_REPEAT;*/
+			/*if (controllerButtons[i] == KEY_DOWN)
+				controllerButtons[i] = KEY_REPEAT;
+
+			if (controllerButtons[i] == KEY_UP)
+				controllerButtons[i] = KEY_IDLE;*/
 		}
 		else
 		{
@@ -86,9 +87,10 @@ bool Input::PreUpdate()
 			else
 				keyboard[i] = KEY_IDLE;
 
-			/*if (controllerButtons[i] == KEY_REPEAT || controllerButtons[i] == KEY_DOWN)
-				controllerButtons[i] = KEY_UP;
-			else
+			/*if (controllerButtons[i] == KEY_DOWN)
+				controllerButtons[i] = KEY_REPEAT;
+
+			if (controllerButtons[i] == KEY_UP)
 				controllerButtons[i] = KEY_IDLE;*/
 		}
 	}
@@ -152,7 +154,7 @@ bool Input::PreUpdate()
 			controller = NULL;
 			break;
 		case SDL_EVENT_GAMEPAD_BUTTON_DOWN: {
-			if (event.gbutton.button >= 0)
+			if (event.gbutton.button >= 0) 
 				controllerButtons[event.gbutton.button - 1] = KEY_DOWN;
 			break;
 		}
@@ -162,11 +164,12 @@ bool Input::PreUpdate()
 			break;
 		}
 		case SDL_EVENT_GAMEPAD_AXIS_MOTION: {
-
+			
 			break;
 		}
 		}
 	}
+	
 
 	return true;
 }

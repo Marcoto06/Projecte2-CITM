@@ -296,12 +296,20 @@ void Player::Move() {
 
 	isMoving = false; // Reseteamos cada frame
 
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
+	int x_axis_raw = SDL_GetGamepadAxis(Engine::GetInstance().input->controller, SDL_GAMEPAD_AXIS_LEFTX);
+
+	float x_axis_norm = x_axis_raw / 32767.0f;
+
+	if (x_axis_norm > -0.2f && x_axis_norm < 0.2f) {
+		x_axis_norm = 0.0f;
+	}
+
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 		isMoving = true;
 		velocity.x = -normalSpeed;
 		facingRight = false;
 	}
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isSucking && canMove) {
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
 		isMoving = true;
 		velocity.x = normalSpeed;
 		facingRight = true;
@@ -431,8 +439,14 @@ void Player::Func_BoostMovement() {
 void Player::Jump(float dt)
 {
 	KeyState spaceState = Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE);
+	
+	/* This is for detecting if a controller button is pressed (because it doesnt have KEY_REPEAT)*/
+	if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_EAST) == KEY_DOWN)
+		controllerJumpState = true;
+	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_EAST) == KEY_UP)
+		controllerJumpState = false;
 
-	if (spaceState == KEY_DOWN && !isJumping && !isSucking && onGround && canJump)
+	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && onGround && canJump)
 	{
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 
@@ -454,8 +468,8 @@ void Player::Jump(float dt)
 		isHoldingJump = true;
 		jumpHoldTime = 0.0f;
 	}
-
-	if ((spaceState == KEY_DOWN || spaceState == KEY_REPEAT) && isHoldingJump && isJumping)
+	
+	if ((spaceState == KEY_DOWN || spaceState == KEY_REPEAT || controllerJumpState) && isHoldingJump && isJumping)
 	{
 		if (jumpHoldTime < maxJumpHoldTime)
 		{
@@ -580,7 +594,8 @@ void Player::Func_PlayerState() {
 void Player::Func_Attacks(float dt) {
 	// Stun ATTACK
 	// Left click attack
-	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isAttacking && !isSucking && canAttack)
+	bool wantsToAttack = Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_WEST) == KEY_DOWN;
+	if (wantsToAttack && !isAttacking && !isSucking && canAttack)
 	{
 		currentState = PLAYERSTATE::ATTACK;
 		isAttacking = true;
@@ -695,7 +710,12 @@ void Player::Func_Attacks(float dt) {
 	}*/
 
 	// Suck ATTACK
-	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking && canAttack) {
+	if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_NORTH) == KEY_DOWN)
+		controllerSuckState = true;
+	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_NORTH) == KEY_UP)
+		controllerSuckState = false;
+
+	if ((Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN || controllerSuckState) && !isAttacking && !isSucking && canAttack) {
 		currentState = PLAYERSTATE::SUCKING;
 		isSucking = true;
 		anims.SetCurrent("extract");
@@ -712,7 +732,7 @@ void Player::Func_Attacks(float dt) {
 	}
 
 	if (isSucking) {
-		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP) {
+		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || !controllerSuckState) {
 			currentState = PLAYERSTATE::IDLE;
 			isSucking = false;
 

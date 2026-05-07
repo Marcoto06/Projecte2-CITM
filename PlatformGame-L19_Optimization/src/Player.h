@@ -116,6 +116,8 @@ public:
 
 	//STATES
 	bool isJumping = false; // Flag to check if the player is currently jumping
+	bool controllerJumpState = false;
+	bool controllerSuckState = false;
 	bool facingRight = true;
 	bool isAttacking = false;
 	bool isSucking = false;
