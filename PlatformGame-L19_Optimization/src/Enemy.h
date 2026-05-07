@@ -24,6 +24,7 @@ public:
 	void OnCollisionEnd(PhysBody* physA, PhysBody* physB);
 	void SetPosition(Vector2D pos);
 	Vector2D GetPosition();
+	bool IsEnemyStunned();
 	bool Destroy() override;
 	bool Destroy(Player* player);
 	Player* player = nullptr;

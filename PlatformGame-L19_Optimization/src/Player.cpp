@@ -71,9 +71,32 @@ bool Player::Start() {
 
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect
-	pickCoinFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/coin-collision-sound-342335.wav");
-
+	//Audios
+	std::unordered_map< std::string,Audio> list_audios;
+	{
+		audios.LoadFx("Assets/Audio/Fx/01-PASOS-consolidated.wav");
+		list_audios.insert({ "pasos",audios });
+		audios.LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
+		list_audios.insert({ "pasos2",audios });
+		audios.LoadFx("Assets/Audio/Fx/03-salto pantalon-consolidated.wav");
+		list_audios.insert({ "salto" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/04-aterrizar-consolidated.wav");
+		list_audios.insert({ "aterrizar" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/05-barrido-consolidated.wav");
+		list_audios.insert({ "barrido",audios });
+		audios.LoadFx("Assets/Audio/Fx/06-recibir daño doctora-consolidated.wav");
+		list_audios.insert({ "hit",audios });
+		audios.LoadFx("Assets/Audio/Fx/07-recibir daño doctora 2-consolidated.wav");
+		list_audios.insert({ "hit2" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/08-salto doctora-consolidated.wav");
+		list_audios.insert({"salto2" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/09-morir doctora-consolidated.wav");
+		list_audios.insert({ "death",audios });
+		audios.LoadFx("Assets/Audio/Fx/10-atacar doctora-consolidated.wav");
+		list_audios.insert({ "attack",audios });
+		audios.LoadFx("Assets/Audio/Fx/11-inyectar-consolidated.wav");
+		list_audios.insert({ "inject",audios });
+	}
 	currentState = PLAYERSTATE::IDLE;
 
 	return true;
@@ -602,12 +625,12 @@ void Player::Func_Attacks(float dt) {
 
 		if (!onGround)
 		{
-			attackTimer = 1000.0f;
+			attackTimer = 750.0f;          
 			anims.SetCurrent("airAttack");
 		}
 		else
 		{
-			attackTimer = 1300.0f;
+			attackTimer = 750.0f;
 			anims.SetCurrent("stun");
 		}
 	}
@@ -620,20 +643,31 @@ void Player::Func_Attacks(float dt) {
 			syringeBody = nullptr;
 		}
 
-		if (attackTimer <= 200.0f && attackTimer > 0.0f) {
+		if (attackTimer <= 100.0f && attackTimer > 0.0f) {
 
-			float progress = 1.0f - (attackTimer / 200.0f);
+			float progress = 1.0f - (attackTimer / 100.0f);
 
-			float width = 120.0f;
-			float height = 30.0f;
+			float width, height;
+			float pivotLocalX, pivotLocalY;
 
-			float pivotLocalX = 15.0f;
-			float pivotLocalY = -10.0f;
+			if (!onGround)
+			{
+				width = 150.0f;
+				height = 170.0f;
+				pivotLocalX = 30.0f;
+				pivotLocalY = -30.0f;
+			}
+			else
+			{
+				width = 110.0f;
+				height = 140.0f;
+				pivotLocalX = 80.0f;
+				pivotLocalY = 0.0f;
 
+			}
+			
 			float startAngle = 90.0f;
 			float endAngle = facingRight ? -90.0f : 270.0f;
-
-			float currentAngle = startAngle + ((endAngle - startAngle) * progress);
 
 			if (!facingRight) {
 				pivotLocalX = -pivotLocalX;
@@ -641,15 +675,11 @@ void Player::Func_Attacks(float dt) {
 
 			int playerX, playerY;
 			pbody->GetPosition(playerX, playerY);
-
-			float distanceToCenter = width / 2.0f;
-			float angleRad = currentAngle * (3.14159265f / 180.0f);
-
-			float absoluteCenterX = playerX + pivotLocalX + (distanceToCenter * cos(angleRad));
-			float absoluteCenterY = playerY + pivotLocalY + (distanceToCenter * sin(angleRad));
+			float distX_player = playerX + pivotLocalX;
+			float distY_player = playerY + pivotLocalY;
 
 			syringeBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
-				(int)width, (int)height, absoluteCenterX, absoluteCenterY, ColliderType::SYRINGE, angleRad);
+				(int)width, (int)height, distX_player, distY_player, ColliderType::SYRINGE);
 		}
 		else if (attackTimer <= 0.0f)
 		{
@@ -684,30 +714,6 @@ void Player::Func_Attacks(float dt) {
 	{
 		currentState = PLAYERSTATE::IDLE;
 	}
-
-	/*if (anims.HasCurrentAnimationFinished())
-	{
-		if (isAttacking)
-		{
-			if (!onGround)
-			{
-				currentState = PLAYERSTATE::FALLING_JUMP;
-				anims.SetCurrent("fallingJump");
-			}
-			else if (isMoving)
-			{
-				currentState = PLAYERSTATE::MOVE;
-				anims.SetCurrent("run");
-			}
-			else
-			{
-				currentState = PLAYERSTATE::IDLE;
-				anims.SetCurrent("idle");
-			}
-
-			isAttacking = false;
-		}
-	}*/
 
 	// Suck ATTACK
 	if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_NORTH) == KEY_DOWN)
@@ -878,9 +884,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	case ColliderType::ENEMY:
+	{
 		LOG("End Collision ENEMY");
 
-		if (!isHurt && currentState != PLAYERSTATE::DEATH)
+		Enemy* enemyPtr = (Enemy*)physB->listener;
+
+		if (!isHurt && currentState != PLAYERSTATE::DEATH && !enemyPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
 			LOG("Current HP: %i", playerCurrentHp);
@@ -912,6 +921,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 		}		
 		break;
+	}
 	default:
 		break;
 	}

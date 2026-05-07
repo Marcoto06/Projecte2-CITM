@@ -362,6 +362,16 @@ Vector2D Enemy::GetPosition() {
 	return Vector2D((float)x-texW/2,(float)y-texH/2);
 }
 
+bool Enemy::IsEnemyStunned() {
+
+	if (currentEState == ENEMYSTATES::STUNED or currentEState == ENEMYSTATES::DEATH)
+	{
+		return true;
+	}
+	else return false;
+}
+
+
 //Define OnCollision function for the enemy. 
 void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
