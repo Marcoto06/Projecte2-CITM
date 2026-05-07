@@ -65,7 +65,7 @@ bool Scene::Update(float dt)
 		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(plm))	// If space is pressed or the video has ended, stop the video and load the main menu
 		{
 			StopIntroVideo();
-			ChangeScene(SceneID::LEVEL1);
+			ChangeScene(SceneID::LEVEL);
 		}
 
 		return true;
@@ -78,11 +78,8 @@ bool Scene::Update(float dt)
 	case SceneID::MAIN_MENU:
 		UpdateMainMenu(dt);
 		break;
-	case SceneID::LEVEL1:
-		UpdateLevel1(dt);
-		break;
-	case SceneID::LEVEL2:
-		UpdateLevel2(dt);
+	case SceneID::LEVEL:
+		UpdateLevel(dt);
 		break;
 	}
 
@@ -99,10 +96,8 @@ bool Scene::PostUpdate()
 		break;
 	case SceneID::MAIN_MENU:
 		break;
-	case SceneID::LEVEL1:
-		PostUpdateLevel1();
-		break;
-	case SceneID::LEVEL2:
+	case SceneID::LEVEL:
+		PostUpdateLevel();
 		break;
 	default:
 		break;
@@ -126,10 +121,7 @@ bool Scene::OnUIMouseClickEvent(UIElement* uiElement)
 	case SceneID::MAIN_MENU:
 		HandleMainMenuUIEvents(uiElement);
 		break;
-	case SceneID::LEVEL1:
-		HandlePauseMenuUIEvents(uiElement);
-		break;
-	case SceneID::LEVEL2:
+	case SceneID::LEVEL:
 		HandlePauseMenuUIEvents(uiElement);
 		break;
 	default:
@@ -170,12 +162,8 @@ void Scene::LoadScene(SceneID newScene)
 		LoadMainMenu();
 		break;
 
-	case SceneID::LEVEL1:
-		LoadLevel1();
-		break;
-
-	case SceneID::LEVEL2:
-		LoadLevel2();
+	case SceneID::LEVEL:
+		LoadLevel("MapTemplate.tmx");
 		break;
 	}
 }
@@ -195,13 +183,10 @@ void Scene::UnloadCurrentScene() {
 		UnloadMainMenu();
 		break;
 
-	case SceneID::LEVEL1:
-		UnloadLevel1();
+	case SceneID::LEVEL:
+		UnloadLevel();
 		break;
 
-	case SceneID::LEVEL2:
-		UnloadLevel2();
-		break;
 	}
 }
 
@@ -333,7 +318,7 @@ void Scene::HandleMainMenuUIEvents(UIElement* uiElement)
 		// INTRO VIDEO DISABLER
 		// UNCOMMENT & COMMENT THE LINES BELOW TO SKIP THE INTRO VIDEO AND GO DIRECTLY TO THE MAIN MENU
 
-		ChangeScene(SceneID::LEVEL1);
+		ChangeScene(SceneID::LEVEL);
 		//PlayIntroVideo();
 		break;
 	case 2: // Button Options
@@ -609,12 +594,12 @@ void Scene::UnloadPauseMenu()
 // Level 1 functions
 // *********************************************
 
-void Scene::LoadLevel1() {
+void Scene::LoadLevel(std::string level) {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/level-iv-339695.wav");
 
 	//Call the function to load the map. 
-	Engine::GetInstance().map->Load("Assets/Maps/", "MapTemplate.tmx");
+	Engine::GetInstance().map->Load("Assets/Maps/", level);
 
 	//Call the function to load entities from the map
 	Engine::GetInstance().map->LoadEntities(player);
@@ -634,7 +619,7 @@ void Scene::LoadLevel1() {
 	LoadGame();
 }
 
-void Scene::UpdateLevel1(float dt) {
+void Scene::UpdateLevel(float dt) {
 	Engine::GetInstance().map->DrawForeground();
 
 	HandlePause();
@@ -727,13 +712,9 @@ void Scene::UpdateLevel1(float dt) {
 			Engine::GetInstance().render->DrawTexture(currentHabilityTex, 0, 0, NULL, 0.0f);
 		}
 	}
-
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
-		ChangeScene(SceneID::LEVEL2);
-	}
 }
 
-void Scene::UnloadLevel1() {
+void Scene::UnloadLevel() {
 
 	// Clean up UI elements related to the Level1
 	auto& uiManager = Engine::GetInstance().uiManager;
@@ -750,7 +731,7 @@ void Scene::UnloadLevel1() {
 
 }
 
-void  Scene::PostUpdateLevel1() {
+void  Scene::PostUpdateLevel() {
 	//L15 TODO 3: Call the function to load entities from the map
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) 
 	{
@@ -798,7 +779,7 @@ void Scene::UpdateLevel2(float dt) {
 	}
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-		ChangeScene(SceneID::LEVEL1);
+		ChangeScene(SceneID::LEVEL);
 	}
 }
 
@@ -868,7 +849,7 @@ void Scene::PlayIntroVideo() {
 
 	if (!plm) {
 		LOG("Error: No se pudo cargar el video AnimaticaFinal.mpg");
-		ChangeScene(SceneID::LEVEL1); // Fallback: if failed to load video, goes directly to level 1
+		ChangeScene(SceneID::LEVEL); // Fallback: if failed to load video, goes directly to level 1
 		return;
 	}
 

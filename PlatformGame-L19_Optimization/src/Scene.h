@@ -15,8 +15,7 @@ enum class SceneID
 {
 	INTRO_SCREEN,
 	MAIN_MENU,
-	LEVEL1,
-	LEVEL2
+	LEVEL,
 };
 
 enum class MainMenuState
@@ -117,10 +116,10 @@ private:
 	void HandleUINavigation(int initialID, int finalID, MenuNavDirection direction);
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
-	void LoadLevel1();
-	void UnloadLevel1();
-	void UpdateLevel1(float dt);
-	void PostUpdateLevel1();
+	void LoadLevel(std::string level);
+	void UnloadLevel();
+	void UpdateLevel(float dt);
+	void PostUpdateLevel();
 
 	// L17 TODO 5: Define specific functions for level2 scene: Load, Unload, Update
 	void LoadLevel2();
