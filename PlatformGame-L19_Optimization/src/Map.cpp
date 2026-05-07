@@ -46,36 +46,43 @@ bool Map::Update(float dt)
         for (const auto& mapLayer : mapData.layers) {
             //L09 TODO 7: Check if the property Draw exist get the value, if it's true draw the lawyer
             if (mapLayer->properties.GetProperty("Draw") != NULL && mapLayer->properties.GetProperty("Draw")->value == true) {
-                if (mapLayer->properties.GetProperty("Foreground") != NULL && mapLayer->properties.GetProperty("Foreground")->value == true) {
-                    continue;
+
+                bool isForeground = false;
+                auto foregroundProperty = mapLayer->properties.GetProperty("Foreground");
+                if (foregroundProperty != NULL && foregroundProperty->value == true)
+                {
+                    isForeground = true;
                 }
-                for (int i = 0; i < mapData.width; i++) {
-                    for (int j = 0; j < mapData.height; j++) {
+                if (!isForeground)
+                {
+                    for (int i = 0; i < mapData.width; i++) {
+                        for (int j = 0; j < mapData.height; j++) {
 
-                        // L07 TODO 9: Complete the draw function
+                            // L07 TODO 9: Complete the draw function
 
-                        //Get the gid from tile
-                        int gid = mapLayer->Get(i, j);
+                            //Get the gid from tile
+                            int gid = mapLayer->Get(i, j);
 
-                        //Check if the gid is different from 0 - some tiles are empty
-                        if (gid != 0) {
-                            //L09: TODO 3: Obtain the tile set using GetTilesetFromTileId
-                            TileSet* tileSet = GetTilesetFromTileId(gid);
-                            if (tileSet != nullptr && tileSet->texture != nullptr && tileSet->columns > 0) {
-                                SDL_Rect tileRect = tileSet->GetRect(gid);
-                                Vector2D mapCoord = MapToWorld(i, j);
+                            //Check if the gid is different from 0 - some tiles are empty
+                            if (gid != 0) {
+                                //L09: TODO 3: Obtain the tile set using GetTilesetFromTileId
+                                TileSet* tileSet = GetTilesetFromTileId(gid);
+                                if (tileSet != nullptr && tileSet->texture != nullptr && tileSet->columns > 0) {
+                                    SDL_Rect tileRect = tileSet->GetRect(gid);
+                                    Vector2D mapCoord = MapToWorld(i, j);
 
-                                float cameraX = Engine::GetInstance().render->camera.x;
-                                float cameraY = Engine::GetInstance().render->camera.y;
+                                    float cameraX = Engine::GetInstance().render->camera.x;
+                                    float cameraY = Engine::GetInstance().render->camera.y;
 
-                                int drawX = (int)(mapCoord.getX() + cameraX * (1.0f - mapLayer->parallaxX));
-                                int drawY = (int)(mapCoord.getY() + cameraY * (1.0f - mapLayer->parallaxY));
+                                    int drawX = (int)(mapCoord.getX() + cameraX * (1.0f - mapLayer->parallaxX));
+                                    int drawY = (int)(mapCoord.getY() + cameraY * (1.0f - mapLayer->parallaxY));
 
-                                Engine::GetInstance().render->DrawTexture(tileSet->texture, drawX, drawY, &tileRect); 
+                                    Engine::GetInstance().render->DrawTexture(tileSet->texture, drawX, drawY, &tileRect);
+                                }
                             }
                         }
                     }
-                }
+                }               
             }
         }
     }
@@ -445,7 +452,7 @@ MapLayer* Map::GetNavigationLayer() {
                     if (player == nullptr) {
                         player = std::dynamic_pointer_cast<Player>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAYER));
                         player->position = Vector2D(x, y);
-                        player->Start(); //L17: Importan to call Start to initialize teh Entity
+                        player->Start(); //L17: Important to call Start to initialize teh Entity
                     }
 					//If the player already exists, just set its position
                     else {
@@ -560,8 +567,10 @@ MapLayer* Map::GetNavigationLayer() {
 
      for (const auto& mapLayer : mapData.layers) {
          if (mapLayer->properties.GetProperty("Draw") != NULL && mapLayer->properties.GetProperty("Draw")->value == true) {
-             // Solo dibujamos si TIENE la propiedad Foreground y es true
-             if (mapLayer->properties.GetProperty("Foreground") != NULL && mapLayer->properties.GetProperty("Foreground")->value == true) {
+
+             auto foregroundProperty = mapLayer->properties.GetProperty("Foreground");
+
+             if (foregroundProperty != NULL && foregroundProperty->value == true) {
                  for (int i = 0; i < mapData.width; i++) {
                      for (int j = 0; j < mapData.height; j++) {
                          int gid = mapLayer->Get(i, j);
