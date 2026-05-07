@@ -41,7 +41,8 @@ bool Enemy::Start() {
 	//Add physics to the enemy - initialize physics body
 	texW = 125;
 	texH = 60;
-	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX()+texW/2, (int)position.getY()+texH/2, texW, texH, bodyType::DYNAMIC);
+	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX() + texW / 2, ((int)position.getY() + texH / 2), texW, texH, bodyType::DYNAMIC);
+	pbody->SetFixedRotation(true);
 
 	//Assign enemy class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -285,7 +286,7 @@ void Enemy::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 45;
+	int drawY = y - (frameH / 2) - 80;
 
 	if (isFacingRight)
 	{
