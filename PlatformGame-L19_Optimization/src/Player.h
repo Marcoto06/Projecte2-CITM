@@ -27,6 +27,8 @@ public:
 
 	bool Destroy();
 
+	bool TryStepUp();
+
 	//Atack variables float and bools for the attack state and timers for the attack duration and cooldown.
 	bool isAtacking = false;
 
@@ -81,8 +83,10 @@ public:
 	float normalSpeed = 7.5f;      	
 	float boostSpeed = 10.0f;      
 
-	int maxStepHeight = 28;
-	int stepCheckDistance = 14;
+	int stepHeight = 64;
+	int stepForward = 6;
+	int maxStepHeight = 70;
+	int stepCheckDistance = 8;
 
 	SDL_Texture* texture = NULL;
 
@@ -124,10 +128,13 @@ public:
 	bool canJump = true;
 	bool canAttack = true;
 	bool isHurt = false;
+	bool isSteppingUp = false;
 
 	//CHARGES
 	bool hasPowerJump = false;
 	float powerJumpForce = 30.0f;
+	float stepUpTimer = 0.0f;
+	float stepUpCooldown = 120.0f;
 	
 	bool healing = false;
 

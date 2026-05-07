@@ -102,6 +102,17 @@ bool Player::Update(float dt)
 	}
 	GetPhysicsValues();
 
+	if (stepUpTimer > 0.0f)
+	{
+		stepUpTimer -= dt;
+		if (stepUpTimer < 0.0f)
+		{
+			stepUpTimer = 0.0f;
+		}
+	}
+
+	isSteppingUp = false;
+
 	if (!isHurt) {
 		if (hasASpeedBoost) {
 			Func_BoostMovement();
@@ -121,6 +132,73 @@ bool Player::Update(float dt)
 	ApplyPhysics();
 
 	return true;
+}
+
+bool Player::TryStepUp()
+{
+	if (!onGround || isJumping || !isMoving || isSucking || isAttacking || stepUpTimer > 0.0f)
+	{
+		return false;
+	}
+
+	int playerX, playerY;
+	pbody->GetPosition(playerX, playerY);
+
+	int direction = facingRight ? 1 : -1;
+
+	int bodyWidth = texW / 2;
+	int bodyHeight = texH - 15;
+
+	int halfWidth = bodyWidth / 2;
+	int halfHeight = bodyHeight / 2;
+
+	int frontX = playerX + direction * (halfWidth + 6);
+	int frontFeetY = playerY + halfHeight - 12;
+
+	bool wallInFront = Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, frontFeetY);
+
+	if (!wallInFront)
+	{
+		return false;
+	}
+
+	for (int step = 4; step <= stepHeight; step += 4)
+	{
+		int testX = playerX + direction * stepForward;
+		int testY = playerY - step;
+
+		int left = testX - halfWidth + 6;
+		int right = testX + halfWidth - 6;
+		int top = testY - halfHeight + 6;
+		int bottom = testY + halfHeight - 6;
+
+		bool blocked =
+			Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, top) ||
+			Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, top) ||
+			Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, bottom) ||
+			Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, bottom);
+
+		if (!blocked)
+		{
+			pbody->SetPosition(testX, testY);
+
+			velocity.y = 0.0f;
+			onGround = true;
+			isJumping = false;
+			isHoldingJump = false;
+			jumpHoldTime = 0.0f;
+			nextToWall = false;
+			isSteppingUp = true;
+			stepUpTimer = stepUpCooldown;
+
+			currentState = PLAYERSTATE::MOVE;
+			anims.SetCurrent("run");
+
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Player::Teleport() {
@@ -235,7 +313,7 @@ void Player::Move() {
 
 void Player::AutoStepUp()
 {
-	if (!onGround || !isMoving || isJumping || isSucking || isAttacking)
+	if (!onGround || !isMoving || isSucking || isAttacking)
 	{
 		return;
 	}
@@ -245,29 +323,80 @@ void Player::AutoStepUp()
 
 	int direction = facingRight ? 1 : -1;
 
-	int halfWidth = texW / 4;
-	int halfHeight = (texH - 15) / 2;
+	int bodyWidth = texW / 2;
+	int bodyHeight = texH - 15;
+
+	int halfWidth = bodyWidth / 2;
+	int halfHeight = bodyHeight / 2;
 
 	int frontX = playerX + direction * (halfWidth + stepCheckDistance);
 
-	int feetY = playerY + halfHeight - 4;
-	int kneeY = feetY - maxStepHeight;
-	int headY = playerY - halfHeight + 10;
+	int lowerCheckY = playerY + halfHeight - 18;
+	int upperCheckY = playerY + halfHeight - maxStepHeight;
 
-	bool solidAtFeet = Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, feetY);
-	bool freeAtKnee = !Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, kneeY);
-	bool freeAtHead = !Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, headY);
+	bool obstacleInFront = false;
 
-	if (solidAtFeet && freeAtKnee && freeAtHead)
+	for (int y = lowerCheckY; y >= upperCheckY; y -= 8)
 	{
-		pbody->SetPosition(playerX + direction * 2, playerY - maxStepHeight);
+		if (Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, y))
+		{
+			obstacleInFront = true;
+			break;
+		}
+	}
 
-		velocity.y = 0.0f;
-		isJumping = false;
-		onGround = true;
-		nextToWall = false;
-		currentState = PLAYERSTATE::MOVE;
-		anims.SetCurrent("run");
+	if (!obstacleInFront)
+	{
+		return;
+	}
+
+	auto IsAreaFree = [&](int centerX, int centerY) -> bool
+		{
+			int left = centerX - halfWidth + 4;
+			int right = centerX + halfWidth - 4;
+			int top = centerY - halfHeight + 6;
+			int bottom = centerY + halfHeight - 8;
+
+			for (int y = top; y <= bottom; y += 12)
+			{
+				if (Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, y)) return false;
+				if (Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, y)) return false;
+			}
+
+			return true;
+		};
+
+	auto HasGroundBelow = [&](int centerX, int centerY) -> bool
+		{
+			int leftFootX = centerX - halfWidth + 8;
+			int rightFootX = centerX + halfWidth - 8;
+			int footY = centerY + halfHeight + 2;
+
+			return Engine::GetInstance().map->IsCollisionTileAtWorldPos(leftFootX, footY) ||
+				Engine::GetInstance().map->IsCollisionTileAtWorldPos(rightFootX, footY);
+		};
+
+	for (int step = 2; step <= maxStepHeight; step += 2)
+	{
+		int testX = playerX + direction * 3;
+		int testY = playerY - step;
+
+		if (IsAreaFree(testX, testY) && HasGroundBelow(testX, testY))
+		{
+			pbody->SetPosition(testX, testY);
+
+			velocity.y = 0.0f;
+			isJumping = false;
+			isHoldingJump = false;
+			jumpHoldTime = 0.0f;
+			onGround = true;
+			nextToWall = false;
+
+			currentState = PLAYERSTATE::MOVE;
+			anims.SetCurrent("run");
+
+			return;
+		}
 	}
 }
 
@@ -355,6 +484,27 @@ void Player::Func_PlayerState() {
 			//Destroy();
 			Engine::GetInstance().scene->ActivateGameOver();
 		}
+		return;
+	}
+
+	if (isSteppingUp)
+	{
+		if (isMoving)
+		{
+			currentState = PLAYERSTATE::MOVE;
+			anims.SetCurrent("run");
+		}
+		else
+		{
+			currentState = PLAYERSTATE::IDLE;
+			anims.SetCurrent("idle");
+		}
+
+		isJumping = false;
+		isHoldingJump = false;
+		jumpHoldTime = 0.0f;
+		onGround = true;
+
 		return;
 	}
 
@@ -676,6 +826,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 
+		if (isMoving && onGround)
+		{
+			if (TryStepUp())
+			{
+				break;
+			}
+		}
+
 		if (velocity.y >= -0.1f)
 		{
 			groundContacts++;
@@ -689,6 +847,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}
 
 		break;
+
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		Engine::GetInstance().audio->PlayFx(pickCoinFxId);
@@ -753,7 +912,11 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		if (groundContacts <= 0)
 		{
 			groundContacts = 0;
-			onGround = false;
+
+			if (!isSteppingUp)
+			{
+				onGround = false;
+			}
 		}
 
 		nextToWall = false;
