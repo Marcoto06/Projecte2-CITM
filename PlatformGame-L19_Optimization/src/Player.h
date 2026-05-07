@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Timer.h"
 #include "Collectibles.h"
+#include "Audio.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 
@@ -99,7 +100,7 @@ public:
 	
 	PhysBody* pbody;
 
-	float jumpForce = 20.5f;
+	float jumpForce = 17.5f;
 
 	float jumpHoldTime = 0.0f;
 	float maxJumpHoldTime = 150.0f;
@@ -153,7 +154,7 @@ public:
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;
-	
+	Audio audios;
 
 	//Fixture
 	PhysBody* syringeBody = nullptr;

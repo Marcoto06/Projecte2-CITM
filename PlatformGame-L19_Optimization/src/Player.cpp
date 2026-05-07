@@ -71,9 +71,32 @@ bool Player::Start() {
 
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect
-	pickCoinFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/coin-collision-sound-342335.wav");
-
+	//Audios
+	std::unordered_map< std::string,Audio> list_audios;
+	{
+		audios.LoadFx("Assets/Audio/Fx/01-PASOS-consolidated.wav");
+		list_audios.insert({ "pasos",audios });
+		audios.LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
+		list_audios.insert({ "pasos2",audios });
+		audios.LoadFx("Assets/Audio/Fx/03-salto pantalon-consolidated.wav");
+		list_audios.insert({ "salto" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/04-aterrizar-consolidated.wav");
+		list_audios.insert({ "aterrizar" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/05-barrido-consolidated.wav");
+		list_audios.insert({ "barrido",audios });
+		audios.LoadFx("Assets/Audio/Fx/06-recibir daño doctora-consolidated.wav");
+		list_audios.insert({ "hit",audios });
+		audios.LoadFx("Assets/Audio/Fx/07-recibir daño doctora 2-consolidated.wav");
+		list_audios.insert({ "hit2" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/08-salto doctora-consolidated.wav");
+		list_audios.insert({"salto2" ,audios });
+		audios.LoadFx("Assets/Audio/Fx/09-morir doctora-consolidated.wav");
+		list_audios.insert({ "death",audios });
+		audios.LoadFx("Assets/Audio/Fx/10-atacar doctora-consolidated.wav");
+		list_audios.insert({ "attack",audios });
+		audios.LoadFx("Assets/Audio/Fx/11-inyectar-consolidated.wav");
+		list_audios.insert({ "inject",audios });
+	}
 	currentState = PLAYERSTATE::IDLE;
 
 	return true;
@@ -621,9 +644,9 @@ void Player::Func_Attacks(float dt) {
 			}
 			else
 			{
-				width = 90.0f;
+				width = 110.0f;
 				height = 140.0f;
-				pivotLocalX = 70.0f;
+				pivotLocalX = 80.0f;
 				pivotLocalY = 0.0f;
 
 			}
@@ -676,30 +699,6 @@ void Player::Func_Attacks(float dt) {
 	{
 		currentState = PLAYERSTATE::IDLE;
 	}
-
-	/*if (anims.HasCurrentAnimationFinished())
-	{
-		if (isAttacking)
-		{
-			if (!onGround)
-			{
-				currentState = PLAYERSTATE::FALLING_JUMP;
-				anims.SetCurrent("fallingJump");
-			}
-			else if (isMoving)
-			{
-				currentState = PLAYERSTATE::MOVE;
-				anims.SetCurrent("run");
-			}
-			else
-			{
-				currentState = PLAYERSTATE::IDLE;
-				anims.SetCurrent("idle");
-			}
-
-			isAttacking = false;
-		}
-	}*/
 
 	// Suck ATTACK
 	if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && !isAttacking && !isSucking && canAttack) {
