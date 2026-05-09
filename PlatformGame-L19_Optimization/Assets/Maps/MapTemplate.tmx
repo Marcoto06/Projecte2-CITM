@@ -9993,7 +9993,7 @@
    </properties>
    <point/>
   </object>
-  <object id="38" name="Door" type="door" x="2772.73" y="2045.45" width="703.03" height="81.8182">
+  <object id="38" name="Door" type="door" x="2749.73" y="2084.45" width="708.03" height="42.8182">
    <properties>
     <property name="Destination" value="MapCor_Sala1.tmx"/>
     <property name="Type" value="Door"/>
