@@ -1520,7 +1520,7 @@
    <properties>
     <property name="Destination" value="MapCor_Sala1"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1810"/>
+    <property name="playerX" type="float" value="1800"/>
     <property name="playerY" type="float" value="992"/>
    </properties>
   </object>
