@@ -1219,12 +1219,12 @@
   </data>
  </layer>
  <objectgroup id="2" name="Entities">
-  <object id="1" name="Door" type="Door" x="2.25062" y="668.334" width="60.7666" height="677.701">
+  <object id="1" name="Door" type="Door" x="2.25062" y="756.334" width="60.7666" height="677.701">
    <properties>
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="2" name="Door" type="Door" x="1863.26" y="774.624" width="51.7642" height="592.957">
+  <object id="2" name="Door" type="Door" x="1861.26" y="838.624" width="51.7642" height="592.957">
    <properties>
     <property name="Destination" value="MapCor_Sala2"/>
     <property name="Type" value="Door"/>
