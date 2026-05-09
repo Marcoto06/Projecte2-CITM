@@ -464,33 +464,33 @@
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="4"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="33"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="17"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="33"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="17"/>
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -515,7 +515,7 @@
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="33"/>
-   <tile gid="33"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1531,12 +1531,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1556,14 +1556,14 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile gid="18"/>
    <tile gid="19"/>
    <tile gid="19"/>
    <tile gid="20"/>
-   <tile gid="4"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1589,7 +1589,7 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="20"/>
-   <tile gid="17"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1608,14 +1608,14 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="33"/>
+   <tile/>
    <tile gid="50"/>
    <tile gid="51"/>
    <tile gid="51"/>
    <tile gid="51"/>
    <tile gid="51"/>
    <tile gid="52"/>
-   <tile gid="17"/>
+   <tile/>
    <tile gid="33"/>
    <tile gid="33"/>
    <tile/>
@@ -1709,20 +1709,20 @@
    <tile/>
    <tile/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="17"/>
    <tile/>
    <tile/>
