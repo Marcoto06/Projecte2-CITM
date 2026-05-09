@@ -1516,7 +1516,7 @@
   </data>
  </layer>
  <objectgroup id="2" name="Entities">
-  <object id="1" name="Door" type="Door" x="4.14095" y="389.161" width="52" height="404">
+  <object id="1" name="Door" type="Door" x="4.14095" y="389.161" width="19.8858" height="404">
    <properties>
     <property name="Destination" value="MapCor_Sala1"/>
     <property name="Type" value="Door"/>
@@ -1524,7 +1524,7 @@
     <property name="playerY" type="float" value="992"/>
    </properties>
   </object>
-  <object id="2" name="Door" type="Door" x="371.583" y="1871.22" width="404" height="52">
+  <object id="2" name="Door" type="Door" x="52.5822" y="1899.06" width="404" height="28.4496">
    <properties>
     <property name="Destination" value="MapCor_Sala3"/>
     <property name="Type" value="Door"/>
