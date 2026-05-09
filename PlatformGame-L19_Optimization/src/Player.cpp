@@ -62,7 +62,7 @@ bool Player::Start() {
 
 	texW = 96;
 	texH = 168;
-
+	hasPowerJump = true;
 	//Hitbox
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW / 2, texH -15, bodyType::DYNAMIC);
 

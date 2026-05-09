@@ -11,6 +11,7 @@ enum class EntityType
 	EOSINOFILO,
 	COLLECTIBLES,
 	CHECKPOINT,
+	DOOR,
 	UNKNOWN
 };
 
