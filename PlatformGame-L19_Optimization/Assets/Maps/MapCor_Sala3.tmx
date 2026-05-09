@@ -2,6 +2,9 @@
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="26" height="42" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="9">
  <tileset firstgid="1" source="Atlas_2.3.tsx"/>
  <layer id="2" name="Map" width="26" height="42">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -1098,6 +1101,9 @@
   </data>
  </layer>
  <layer id="1" name="Collisions" width="26" height="42">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1133,7 +1139,6 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1142,7 +1147,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1159,8 +1165,6 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1168,7 +1172,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1185,16 +1191,16 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="1"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1212,14 +1218,14 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="20"/>
-   <tile gid="33"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="18"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1238,14 +1244,14 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="1"/>
-   <tile gid="17"/>
-   <tile/>
-   <tile gid="33"/>
    <tile/>
    <tile/>
-   <tile gid="33"/>
-   <tile gid="1"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1266,7 +1272,7 @@
    <tile gid="35"/>
    <tile gid="20"/>
    <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1292,8 +1298,8 @@
    <tile gid="35"/>
    <tile gid="36"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="33"/>
@@ -1319,7 +1325,7 @@
    <tile gid="36"/>
    <tile gid="33"/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="33"/>
