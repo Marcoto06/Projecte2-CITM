@@ -9993,12 +9993,12 @@
    </properties>
    <point/>
   </object>
-  <object id="38" name="Door" type="Door" x="2755.06" y="2077.9" width="704.03" height="42.5763">
+  <object id="38" name="Door" type="Door" x="3016.4" y="2084.57" width="704.03" height="42.5763">
    <properties>
     <property name="Destination" value="MapCor_Sala1.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="369.1"/>
-    <property name="playerY" type="float" value="974"/>
+    <property name="playerX" type="float" value="152"/>
+    <property name="playerY" type="float" value="878"/>
    </properties>
   </object>
   <object id="41" name="Collectibles" type="Collectibles" x="3720.67" y="659.333">

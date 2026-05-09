@@ -1229,16 +1229,16 @@
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="4" name="CheckPoint" type="Checkpoint" x="369.101" y="974.516">
+  <object id="4" name="CheckPoint" type="Checkpoint" x="355.101" y="686.516">
    <properties>
     <property name="isActive" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
-  <object id="6" name="Eosinofilo" type="Enemy" x="1237.84" y="612.167">
+  <object id="6" name="Eosinofilo" type="Enemy" x="1067.84" y="496.167">
    <point/>
   </object>
-  <object id="7" name="Eosinofilo" type="Enemy" x="1456.15" y="848.482">
+  <object id="7" name="Eosinofilo" type="Enemy" x="1358.15" y="708.482">
    <point/>
   </object>
  </objectgroup>
