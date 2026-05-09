@@ -9995,9 +9995,9 @@
   </object>
   <object id="38" name="Door" type="Door" x="3104.4" y="2088.57" width="704.03" height="42.5763">
    <properties>
-    <property name="Destination" value="MapCor_Sala1.tmx"/>
+    <property name="Destination" value="MapCor_Sala1"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="124"/>
+    <property name="playerX" type="float" value="155"/>
     <property name="playerY" type="float" value="868"/>
    </properties>
   </object>
