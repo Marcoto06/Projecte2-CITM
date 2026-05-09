@@ -1271,12 +1271,12 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="20"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="33"/>
+   <tile/>
+   <tile/>
    <tile gid="18"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1297,12 +1297,12 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="33"/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1323,12 +1323,12 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="33"/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1349,12 +1349,12 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1376,10 +1376,10 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="20"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile gid="18"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1402,10 +1402,10 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="36"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="35"/>
    <tile gid="35"/>
@@ -1428,10 +1428,10 @@
    <tile gid="51"/>
    <tile gid="51"/>
    <tile gid="52"/>
-   <tile gid="17"/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile gid="50"/>
    <tile gid="51"/>
    <tile gid="51"/>
@@ -1453,12 +1453,12 @@
    <tile gid="52"/>
    <tile/>
    <tile/>
-   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="50"/>

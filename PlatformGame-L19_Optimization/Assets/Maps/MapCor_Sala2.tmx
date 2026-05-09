@@ -1524,7 +1524,7 @@
     <property name="playerY" type="float" value="992"/>
    </properties>
   </object>
-  <object id="2" name="Door" type="Door" x="455.08" y="1864.8" width="52" height="404" rotation="90">
+  <object id="2" name="Door" type="Door" x="446.516" y="1866.94" width="52" height="404" rotation="90">
    <properties>
     <property name="Destination" value="MapCor_Sala3"/>
     <property name="Type" value="Door"/>
