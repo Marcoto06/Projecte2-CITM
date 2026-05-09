@@ -9996,7 +9996,7 @@
   <object id="38" name="Door" type="door" x="2749.73" y="2084.45" width="708.03" height="42.8182">
    <properties>
     <property name="Destination" value="MapCor_Sala1.tmx"/>
-    <property name="Type" value="Door"/>
+    <property name="Type" value="door"/>
    </properties>
   </object>
   <object id="41" name="Collectibles" type="Collectibles" x="3720.67" y="659.333">
