@@ -9997,8 +9997,8 @@
    <properties>
     <property name="Destination" value="MapCor_Sala1.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="152"/>
-    <property name="playerY" type="float" value="878"/>
+    <property name="playerX" type="float" value="357.1"/>
+    <property name="playerY" type="float" value="776"/>
    </properties>
   </object>
   <object id="41" name="Collectibles" type="Collectibles" x="3720.67" y="659.333">
