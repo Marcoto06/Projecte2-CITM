@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="11">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="12">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -780,9 +780,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="50"/>
    <tile gid="51"/>
    <tile gid="51"/>
@@ -811,7 +811,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="17"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1219,29 +1219,26 @@
   </data>
  </layer>
  <objectgroup id="2" name="Entities">
-  <object id="1" name="Door" type="door" x="2.25062" y="308.334" width="60.7666" height="650.428">
+  <object id="1" name="Door" type="door" x="2.25062" y="308.334" width="60.7666" height="677.701">
    <properties>
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="2" name="Door" type="door" x="1861.26" y="454.624" width="51.7642" height="562.654">
+  <object id="2" name="Door" type="door" x="1861.26" y="454.624" width="51.7642" height="592.957">
    <properties>
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="4" name="CheckPoint" type="Checkpoint" x="369.101" y="974.516">
+  <object id="4" name="CheckPoint" type="Checkpoint" x="355.101" y="686.516">
    <properties>
     <property name="isActive" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
-  <object id="6" name="Eosinofilo" type="Enemy" x="1237.84" y="612.167">
+  <object id="6" name="Eosinofilo" type="Enemy" x="1067.84" y="496.167">
    <point/>
   </object>
-  <object id="7" name="Eosinofilo" type="Enemy" x="1456.15" y="848.482">
-   <point/>
-  </object>
-  <object id="8" name="Player" type="Player" x="108.756" y="755.251">
+  <object id="7" name="Eosinofilo" type="Enemy" x="1358.15" y="708.482">
    <point/>
   </object>
  </objectgroup>
