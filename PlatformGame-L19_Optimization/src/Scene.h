@@ -92,6 +92,9 @@ public:
 	void SaveGame();
 	void LoadGame();
 
+	void LoadLevel(std::string level);
+	void UnloadLevel();
+
 private:
 
 	void PlayIntroVideo();
@@ -116,8 +119,6 @@ private:
 	void HandleUINavigation(int initialID, int finalID, MenuNavDirection direction);
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
-	void LoadLevel(std::string level);
-	void UnloadLevel();
 	void UpdateLevel(float dt);
 	void PostUpdateLevel();
 

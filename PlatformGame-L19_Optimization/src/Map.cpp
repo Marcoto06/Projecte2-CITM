@@ -7,6 +7,7 @@
 #include "EntityManager.h"
 #include "tracy/Tracy.hpp"
 #include "Collectibles.h"
+#include "Door.h"
 
 #include <math.h>
 
@@ -526,6 +527,40 @@ MapLayer* Map::GetNavigationLayer() {
 
                         collectible->Awake();
                         collectible->Start();
+                    }
+                }
+                else if (entityType == "Door") 
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DOOR);
+                    std::shared_ptr<Door> door = std::dynamic_pointer_cast<Door>(e);
+
+                    float width = objectNode.attribute("width").as_float();
+                    float height = objectNode.attribute("height").as_float();
+                    std::string destination = objectNode.attribute("Destination").as_string();
+
+                    if (door != nullptr)
+                    {
+                        door->position = Vector2D(x, y);
+                        door->name = name;
+                        door->tiledId = tiledId;
+                        door->width = width;
+                        door->height = height;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "Destination")
+                                {
+                                    door->destination = prop.attribute("value").as_string();
+                                }
+                            }
+                        }
+
+                        door->Awake();
+                        door->Start();
                     }
                 }
             }

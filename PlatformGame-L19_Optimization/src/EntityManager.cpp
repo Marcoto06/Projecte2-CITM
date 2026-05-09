@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "Eosinofilo.h"
 #include "Checkpoint.h"
+#include "Door.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -89,6 +90,8 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 	case EntityType::COLLECTIBLES:
 		entity = std::make_shared<Collectibles>();
 		break;
+	case EntityType::DOOR:
+		entity = std::make_shared<Door>();
 	default:
 		break;
 	}
