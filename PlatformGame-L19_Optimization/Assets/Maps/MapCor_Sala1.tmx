@@ -1229,7 +1229,7 @@
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="4" name="CheckPoint" type="Checkpoint" x="357.101" y="776.516">
+  <object id="4" name="CheckPoint" type="Checkpoint" x="355.101" y="748.516">
    <properties>
     <property name="isActive" type="bool" value="false"/>
    </properties>
