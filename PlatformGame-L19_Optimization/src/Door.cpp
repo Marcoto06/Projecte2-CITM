@@ -55,6 +55,6 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		Engine::GetInstance().scene->UnloadLevel();
-		Engine::GetInstance().scene->LoadLevel(destination);
+		Engine::GetInstance().scene->LoadLevel(destination, playerX, playerY);
 	}
 }

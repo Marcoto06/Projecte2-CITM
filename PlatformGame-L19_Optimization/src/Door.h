@@ -24,6 +24,7 @@ public:
 
 	std::string destination;
 	int width, height;
+	float playerX, playerY;
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 

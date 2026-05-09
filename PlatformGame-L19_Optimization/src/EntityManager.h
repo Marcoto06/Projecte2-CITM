@@ -23,7 +23,7 @@ public:
 	bool Update(float dt);
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp(bool total);
 
 	// Additional methods
 	std::shared_ptr<Entity> CreateEntity(EntityType type);

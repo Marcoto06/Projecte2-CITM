@@ -556,6 +556,14 @@ MapLayer* Map::GetNavigationLayer() {
                                 {
                                     door->destination = prop.attribute("value").as_string();
                                 }
+                                else if (propName == "playerX")
+                                {
+                                    door->playerX = prop.attribute("value").as_float();
+                                }
+                                else if (propName == "playerY")
+                                {
+                                    door->playerY = prop.attribute("value").as_float();
+                                }
                             }
                         }
 

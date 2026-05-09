@@ -52,13 +52,16 @@ bool EntityManager::Start() {
 }
 
 // Called before quitting
-bool EntityManager::CleanUp()
+bool EntityManager::CleanUp(bool total)
 {
 	bool ret = true;
 
 	for (const auto entity : entities)
 	{
 		if (entity->active == false) continue;
+		if (total == false && entity->type == EntityType::PLAYER) {
+			return ret;
+		}
 		ret = entity->Destroy();
 	}
 

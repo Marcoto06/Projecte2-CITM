@@ -163,7 +163,7 @@ void Scene::LoadScene(SceneID newScene)
 		break;
 
 	case SceneID::LEVEL:
-		LoadLevel("MapTemplate.tmx");
+		LoadLevel("MapTemplate");
 		break;
 	}
 }
@@ -418,6 +418,7 @@ void Scene::HandlePauseMenuUIEvents(UIElement* uiElement)
 		break;
 	case 3: // PAUSE MENU: QUIT
 		Engine::GetInstance().uiManager->CleanUp();
+		Engine::GetInstance().entityManager->CleanUp(true);
 		ChangeScene(SceneID::MAIN_MENU);
 		Engine::GetInstance().Func_PauseEngine();
 		break;
@@ -594,12 +595,13 @@ void Scene::UnloadPauseMenu()
 // Level 1 functions
 // *********************************************
 
-void Scene::LoadLevel(std::string level) {
+void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/level-iv-339695.wav");
 
 	//Call the function to load the map. 
-	Engine::GetInstance().map->Load("Assets/Maps/", level);
+	std::string map = level + ".tmx";
+	Engine::GetInstance().map->Load("Assets/Maps/", map);
 
 	//Call the function to load entities from the map
 	Engine::GetInstance().map->LoadEntities(player);
@@ -615,6 +617,11 @@ void Scene::LoadLevel(std::string level) {
 	deathScreenMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/Fondo_death_menu.png");
 	gameOverTryAgainButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/TryAgainButton.png");
 	gameOverGoToMenuButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/DeathMenu/GoToMenuButton.png");
+
+	if (playerX && playerY) {
+		player->SetPosition(Vector2D(playerX, playerY));
+		player->position = Vector2D(playerX, playerY);
+	}
 
 	LoadGame();
 }
@@ -720,12 +727,10 @@ void Scene::UnloadLevel() {
 	auto& uiManager = Engine::GetInstance().uiManager;
 	uiManager->CleanUp();
 
-	// Reset player reference (sets the shared_ptr to nullptr)
-	player.reset();
 
 	// Clean up map and entities
 	Engine::GetInstance().map->CleanUp();
-	Engine::GetInstance().entityManager->CleanUp();
+	Engine::GetInstance().entityManager->CleanUp(false);
 
 	destroyedEntitiesIds.clear();
 
@@ -794,7 +799,7 @@ void Scene::UnloadLevel2() {
 
 	// Clean up map and entities
 	Engine::GetInstance().map->CleanUp();
-	Engine::GetInstance().entityManager->CleanUp();
+	Engine::GetInstance().entityManager->CleanUp(false);
 
 	destroyedEntitiesIds.clear();
 }

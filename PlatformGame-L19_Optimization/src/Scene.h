@@ -92,7 +92,7 @@ public:
 	void SaveGame();
 	void LoadGame();
 
-	void LoadLevel(std::string level);
+	void LoadLevel(std::string level, float playerX = 0, float playerY = 0);
 	void UnloadLevel();
 
 private:
