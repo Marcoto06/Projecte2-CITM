@@ -2194,12 +2194,12 @@
   </data>
  </layer>
  <objectgroup id="3" name="Entities">
-  <object id="1" name="Door" type="door" x="507.258" y="-9.30748" width="642.216" height="55.8449">
+  <object id="1" name="Door" type="Door" x="507.258" y="-9.30748" width="642.216" height="55.8449">
    <properties>
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="3" name="Door" type="door" x="438.751" y="2625.03" width="780.962" height="55.8449">
+  <object id="3" name="Door" type="Door" x="438.751" y="2625.03" width="780.962" height="55.8449">
    <properties>
     <property name="Type" value="Door"/>
    </properties>
