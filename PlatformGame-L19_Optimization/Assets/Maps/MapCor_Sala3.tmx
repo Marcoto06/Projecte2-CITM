@@ -3304,7 +3304,7 @@
     <property name="Type" value="Door"/>
    </properties>
   </object>
-  <object id="3" name="Door" type="Door" x="438.751" y="2625.03" width="780.962" height="55.8449">
+  <object id="3" name="Door" type="Door" x="804.425" y="2628.03" width="780.962" height="55.8449">
    <properties>
     <property name="Type" value="Door"/>
    </properties>
