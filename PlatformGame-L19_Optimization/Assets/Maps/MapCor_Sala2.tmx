@@ -713,8 +713,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="2"/>
+   <tile gid="3"/>
    <tile gid="17"/>
    <tile/>
    <tile/>
@@ -1495,9 +1495,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="34"/>
+   <tile gid="18"/>
+   <tile gid="19"/>
+   <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="35"/>

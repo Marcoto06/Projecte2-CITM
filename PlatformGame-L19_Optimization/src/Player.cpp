@@ -496,13 +496,7 @@ void Player::Jump(float dt)
 	{
 		if (jumpHoldTime < maxJumpHoldTime)
 		{
-			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(
-				pbody,
-				0.0f,
-				-extraJumpForce,
-				true
-			);
-
+			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, 0.0f, -extraJumpForce, true);
 			jumpHoldTime += dt;
 		}
 	}
