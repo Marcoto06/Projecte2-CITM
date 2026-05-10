@@ -46,9 +46,9 @@ bool UIButton::Update(float dt)
 		else if (isSelected) {
 			state = UIElementState::FOCUSED;
 
-			/*if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
 				state = UIElementState::PRESSED;
-			}*/
+			}
 
 			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_UP || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_SOUTH) == KEY_UP) {
 				NotifyObserver();

@@ -95,6 +95,13 @@ public:
 	void LoadLevel(std::string level, float playerX = 0, float playerY = 0);
 	void UnloadLevel();
 
+	PauseMenuState GetPauseState() { return currentPauseState; };
+	void SetPauseState(PauseMenuState state) { currentPauseState = state; };
+
+	bool isGameOver = false;
+	SceneID GetCurrentScene() { return currentScene; };
+
+	Scene* GetScene() { return this; }
 private:
 
 	void PlayIntroVideo();
@@ -189,6 +196,5 @@ private:
 	SDL_Texture* gameOverTryAgainButtonTexture = nullptr;
 	SDL_Texture* gameOverGoToMenuButtonTexture = nullptr;
 
-	bool isGameOver = false;
 	int selectedUIID;
 };
