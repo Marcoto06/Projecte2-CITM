@@ -95,8 +95,8 @@ public:
 	void LoadLevel(std::string level, float playerX = 0, float playerY = 0);
 	void UnloadLevel();
 
-	PauseMenuState GetPauseState() { return currentPauseState; };
-	void SetPauseState(PauseMenuState state) { currentPauseState = state; };
+	//PauseMenuState GetPauseState() { return currentPauseState; };
+	//void SetPauseState(PauseMenuState state) { currentPauseState = state; };
 
 	bool isGameOver = false;
 	SceneID GetCurrentScene() { return currentScene; };
@@ -117,13 +117,13 @@ private:
 	void LoadOptionsMainMenu();
 	void HandleMainMenuUIEvents(UIElement* uiElement);
 
-	void HandlePauseMenuUIEvents(UIElement* uiElement);
+	//void HandlePauseMenuUIEvents(UIElement* uiElement);
 	void HandlePause();
-	void LoadPauseMenu();
-	void UnloadPauseMenu();
-	void LoadPauseOptionsMenu();
+	//void LoadPauseMenu();
+	//void UnloadPauseMenu();
+	//void LoadPauseOptionsMenu();
 	void LoadInventoryMenu();
-	void HandleUINavigation(int initialID, int finalID, MenuNavDirection direction);
+	//void HandleUINavigation(int initialID, int finalID, MenuNavDirection direction);
 
 	// L17 TODO 4: Define specific functions for level1 scene: Load, Unload, Update, PostUpdate
 	void UpdateLevel(float dt);

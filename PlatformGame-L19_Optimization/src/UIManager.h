@@ -15,6 +15,9 @@ public:
 	// Destructor
 	virtual ~UIManager();
 	
+	// Called before render is available
+	bool Awake();
+
 	// Called before the first frame
 	bool Start();
 
@@ -28,6 +31,30 @@ public:
 	std::shared_ptr<UIElement> CreateUIElement(UIElementType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds = { 0,0,0,0 });
 
 	std::shared_ptr<UIElement> GetElement(int id);
+
+	enum class PauseMenuState
+	{
+		NOTPAUSED,
+		MAIN,
+		OPTIONS,
+		QUIT_CONFIRM,
+		INVENTORY
+	};
+
+	enum class MainMenuState
+	{
+		MAIN_BUTTONS,
+		OPTIONS
+	};
+
+	MainMenuState currentMenuState = MainMenuState::MAIN_BUTTONS;;
+	PauseMenuState currentPauseState = PauseMenuState::NOTPAUSED;;
+
+	/* Main Menu */
+	void LoadMainMenuButtons();
+	void ShowMainMenuButtons();
+	void LoadOptionsMainMenu();
+	void HandleMainMenuUIEvents(UIElement* uiElement);
 
 	/* Pause Menu */
 	void ShowPauseMenu();
@@ -56,6 +83,14 @@ public:
 	std::list<std::shared_ptr<UIElement>> UIElementsList;
 	SDL_Texture* texture;
 	int selectedUIID;
+
+	/* Main menu Textures*/
+	SDL_Texture* mainMenuBackground = nullptr;
+	SDL_Texture* playButtonTexture = nullptr;
+	SDL_Texture* optionsButtonTexture = nullptr;
+	SDL_Texture* exitButtonTexture = nullptr;
+	SDL_Texture* sliderBarTexture = nullptr;
+	SDL_Texture* sliderKnobTexture = nullptr;
 
 	/* Pause menu Textures */
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;
