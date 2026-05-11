@@ -44,6 +44,7 @@ public:
 	enum class MainMenuState
 	{
 		MAIN_BUTTONS,
+		PLAY_MENU,
 		OPTIONS
 	};
 
@@ -54,6 +55,7 @@ public:
 	void LoadMainMenuButtons();
 	void ShowMainMenuButtons();
 	void LoadOptionsMainMenu();
+	void LoadPlayMainMenu();
 	void HandleMainMenuUIEvents(UIElement* uiElement);
 
 	/* Pause Menu */
@@ -87,6 +89,7 @@ public:
 	/* Main menu Textures*/
 	SDL_Texture* mainMenuBackground = nullptr;
 	SDL_Texture* playButtonTexture = nullptr;
+	SDL_Texture* newgameButtonTexture = nullptr;
 	SDL_Texture* optionsButtonTexture = nullptr;
 	SDL_Texture* exitButtonTexture = nullptr;
 	SDL_Texture* sliderBarTexture = nullptr;

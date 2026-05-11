@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<save_estate>
+	<player>
+		<position x="2295" y="574" />
+		<stats currentHp="10" maxHp="10" />
+		<upgrades hasPowerJump="true" />
+	</player>
+	<world>
+		<level name="MapTemplate.tmx">
+			<entities />
+			<active_checkpoint id="34" />
+		</level>
+	</world>
+</save_estate>

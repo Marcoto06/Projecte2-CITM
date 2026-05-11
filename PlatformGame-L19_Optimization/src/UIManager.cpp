@@ -139,6 +139,7 @@ void UIManager::LoadUITextures() {
 	sliderKnobTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
 	backButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
 	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PlayButton.png");
+	newgameButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/NewGameButton.png");
 	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/OptionsButton.png");
 	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
@@ -230,6 +231,19 @@ void UIManager::ShowMainMenuButtons()
 		lastElement = 7;
 
 	}
+	else if (currentMenuState == MainMenuState::PLAY_MENU)
+	{
+		int w, h;
+
+		Engine::GetInstance().window->GetWindowSize(w, h);
+
+		SDL_Rect fullscreenRect = { 0, 0, w, h };
+
+		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
+
+		firstElement = 7;
+		lastElement = 9;
+	}
 	else {
 		firstElement = 1;
 		lastElement = 3;
@@ -280,36 +294,53 @@ void UIManager::LoadOptionsMainMenu()
 	auto backButton = CreateUIElement(UIElementType::BUTTON, 7, " ", backButtonRect, Engine::GetInstance().scene->GetScene());
 	backButton->SetTexture(backButtonTexture);
 }
+void UIManager::LoadPlayMainMenu()
+{
+	CleanUp();
+
+	currentMenuState = MainMenuState::PLAY_MENU;
+
+	int buttonWidth = 290;
+	int buttonHeight = 86;
+	int buttonMargin = 20;
+
+	int screenWidth, screenHeight;
+	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
+
+	SDL_Rect newGameButtonRect = { (screenWidth - buttonWidth) / 2, (screenHeight / 2) - buttonHeight - buttonMargin, buttonWidth, buttonHeight };
+	SDL_Rect continueButtonRect = { (screenWidth - buttonWidth) / 2, (screenHeight / 2) + buttonMargin, buttonWidth, buttonHeight };
+	SDL_Rect backButtonRect = { (screenWidth - buttonWidth) / 2, (screenHeight / 2) + buttonHeight + (buttonMargin * 3), buttonWidth, buttonHeight };
+
+	auto newGameButton = CreateUIElement(UIElementType::BUTTON, 8, " ", newGameButtonRect, Engine::GetInstance().scene->GetScene());
+	newGameButton->SetTexture(newgameButtonTexture);
+	newGameButton->isSelected = true;
+	selectedUIID = 8;
+
+	auto continueButton = CreateUIElement(UIElementType::BUTTON, 9, " ", continueButtonRect, Engine::GetInstance().scene->GetScene());
+	continueButton->SetTexture(continuePauseButtonTexture);
+
+	auto backButton = CreateUIElement(UIElementType::BUTTON, 7, " ", backButtonRect, Engine::GetInstance().scene->GetScene());
+	backButton->SetTexture(backButtonTexture);
+}
 
 void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 {
 	switch (uiElement->id)
 	{
 	case 1: // Play Button
-
-		if (std::remove("Saves/savegame.xml") == 0)
-		{
-			LOG("savegame.xml deleted successfully.");
-		}
-		else
-		{
-			LOG("savegame.xml not found or could not be deleted.");
-		}
-
-		// INTRO VIDEO DISABLER
-		// UNCOMMENT & COMMENT THE LINES BELOW TO SKIP THE INTRO VIDEO AND GO DIRECTLY TO THE MAIN MENU
-
-		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
-		//Engine::GetInstance().scene->PlayIntroVideo();
+		LoadPlayMainMenu();
 		break;
+
 	case 2: // Button Options
 		LOG("Main Menu: Options button clicked!");
 		LoadOptionsMainMenu();
 		break;
+
 	case 3: // Button Exit
 		LOG("Main Menu: Exit clicked!");
 		Engine::GetInstance().quit = true;
 		break;
+
 	case 4: // Fullscreen Toggle
 	{
 		Engine::GetInstance().render->ToggleFullScreen();
@@ -333,9 +364,27 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 		break;
 	}
 	case 7:
+	{
 		LOG("Main Menu: Back button clicked!");
 		LoadMainMenuButtons();
 		break;
+	}
+	case 8: // NEW GAME BUTTON
+	{
+		LOG("STARTING NEW GAME");
+		std::remove("Saves/savegame.xml");
+
+		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
+		//Engine::GetInstance().scene->PlayIntroVideo();
+		break;
+	}
+	case 9: // CONTINUE BUTTON
+	{
+		LOG("CONTINUING GAME");
+		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
+		Engine::GetInstance().scene->LoadGame();
+		break;
+	}
 	default:
 		break;
 	}
