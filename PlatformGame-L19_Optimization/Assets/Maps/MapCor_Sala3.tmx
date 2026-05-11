@@ -4624,7 +4624,10 @@
   </object>
   <object id="3" name="Door" type="Door" x="432.425" y="3236.03" width="1076.96" height="55.8449">
    <properties>
+    <property name="Destination" value="MapCor_Sala14"/>
     <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="1800"/>
+    <property name="playerY" type="float" value="992"/>
    </properties>
   </object>
   <object id="4" name="Eosinofilo" type="Enemy" x="1656.73" y="2158.55">
