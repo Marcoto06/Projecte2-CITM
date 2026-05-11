@@ -145,16 +145,19 @@ bool Player::Update(float dt)
 			Move();
 		}
 
-		AutoStepUp();
+		if (!isSmall) {
+			AutoStepUp();
 
-		Jump(dt);
+			Jump(dt);
+
+			Func_Attacks(dt);
+		}
 	}
 
 	if (hasCrouch) {
 		Func_Small();
 	}
 	Func_PlayerState();
-	Func_Attacks(dt);
 	Teleport();
 	ApplyPhysics();
 
@@ -747,21 +750,23 @@ void Player::Func_Attacks(float dt) {
 }
 
 void Player::Func_Small() {
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && onGround) {
 		Engine::GetInstance().physics->DeletePhysBody(pbody);
-		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, (texH - 50) / 2, bodyType::DYNAMIC);
+		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 50, texW / 2, (texH - 50) / 2, bodyType::DYNAMIC);
 		pbody->SetFixedRotation(true);
 		pbody->listener = this;
 		pbody->ctype = ColliderType::PLAYER;
+		isSmall = true;
 	}
-	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP) {
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP && isSmall && onGround) {
 		Engine::GetInstance().physics->DeletePhysBody(pbody);
-		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, texH - 50, bodyType::DYNAMIC);
+		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() - 25, texW / 2, texH - 50, bodyType::DYNAMIC);
 
 		pbody->SetFixedRotation(true);
 		pbody->listener = this;
 
 		pbody->ctype = ColliderType::PLAYER;
+		isSmall = false;
 	}
 }
 
@@ -818,12 +823,12 @@ void Player::Draw(float dt) {
 	
 	if (facingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 432, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 		
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 432, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 
 	if (effectAnims.HasCurrentAnimationFinished() == true) {

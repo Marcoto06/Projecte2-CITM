@@ -162,6 +162,8 @@ private:
 	PhysBody* syringeBody = nullptr;
 	PhysBody* suckBody = nullptr;
 
+	bool isSmall = false;
+
 	enum class PLAYERSTATE {
 		IDLE,
 		MOVE,
