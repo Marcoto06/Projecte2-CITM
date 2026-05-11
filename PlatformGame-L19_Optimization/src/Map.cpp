@@ -540,7 +540,7 @@ MapLayer* Map::GetNavigationLayer() {
 
                     if (door != nullptr)
                     {
-                        door->position = Vector2D(x, y);
+                        door->position = Vector2D(x + width/2, y - height/2);
                         door->name = name;
                         door->tiledId = tiledId;
                         door->width = width;

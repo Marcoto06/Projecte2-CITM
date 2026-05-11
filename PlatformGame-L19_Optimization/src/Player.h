@@ -65,6 +65,7 @@ private:
 	void Draw(float dt);
 	void Func_BoostMovement();
 	void AutoStepUp();
+	void Func_Small();
 
 	// Methods of Atack
 
@@ -126,7 +127,6 @@ public:
 	bool hasASpeedBoost = false;
 	bool onGround = false;
 	int groundContacts = 0;
-	bool nextToWall = false;
 	bool canMove = true;
 	bool canJump = true;
 	bool canAttack = true;
@@ -135,7 +135,7 @@ public:
 
 	//CHARGES
 	bool hasPowerJump = false;
-	float powerJumpForce = 30.0f;
+	float powerJumpForce = 20.0f;
 	float stepUpTimer = 0.0f;
 	float stepUpCooldown = 120.0f;
 	
@@ -143,7 +143,7 @@ public:
 
 	//PERMANENT UPGRADES
 	bool hasWallJump;
-	bool hasSlide;
+	bool hasCrouch;
 	bool hasAcidResistance;
 	bool hasAscend;
 

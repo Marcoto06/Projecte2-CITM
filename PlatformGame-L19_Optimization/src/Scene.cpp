@@ -877,8 +877,12 @@ void Scene::LoadGame()
 	pugi::xml_node root = loadDoc.child("save_estate");
 	
 	pugi::xml_node playerNode = root.child("player");
-	if (playerNode && player != nullptr) 
+	if (playerNode) 
 	{
+		if (player == nullptr) {
+			player = std::dynamic_pointer_cast<Player>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAYER));
+			player->Start(); //L17: Important to call Start to initialize teh Entity
+		}
 		pugi::xml_node posNode = playerNode.child("position");
 		if (posNode) 
 		{

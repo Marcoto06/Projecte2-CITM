@@ -63,8 +63,9 @@ bool Player::Start() {
 	texW = 96;
 	texH = 168;
 	hasPowerJump = true;
+	hasCrouch = true;
 	//Hitbox
-	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY(), texW / 2, texH -15, bodyType::DYNAMIC);
+	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, texH -50, bodyType::DYNAMIC);
 
 	pbody->SetFixedRotation(true);
 	pbody->listener = this;
@@ -149,6 +150,9 @@ bool Player::Update(float dt)
 		Jump(dt);
 	}
 
+	if (hasCrouch) {
+		Func_Small();
+	}
 	Func_PlayerState();
 	Func_Attacks(dt);
 	Teleport();
@@ -195,11 +199,7 @@ bool Player::TryStepUp()
 		int top = testY - halfHeight + 6;
 		int bottom = testY + halfHeight - 6;
 
-		bool blocked =
-			Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, top) ||
-			Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, top) ||
-			Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, bottom) ||
-			Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, bottom);
+		bool blocked = Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, top) || Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, top) || Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, bottom) || Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, bottom);
 
 		if (!blocked)
 		{
@@ -210,7 +210,6 @@ bool Player::TryStepUp()
 			isJumping = false;
 			isHoldingJump = false;
 			jumpHoldTime = 0.0f;
-			nextToWall = false;
 			isSteppingUp = true;
 			stepUpTimer = stepUpCooldown;
 
@@ -337,9 +336,6 @@ void Player::Move() {
 		velocity.x = normalSpeed;
 		facingRight = true;
 	}
-	if (nextToWall == true && velocity.y != 0.0f) {
-		velocity.x = 0;
-	}
 }
 
 void Player::AutoStepUp()
@@ -421,7 +417,6 @@ void Player::AutoStepUp()
 			isHoldingJump = false;
 			jumpHoldTime = 0.0f;
 			onGround = true;
-			nextToWall = false;
 
 			currentState = PLAYERSTATE::MOVE;
 			anims.SetCurrent("run");
@@ -486,7 +481,6 @@ void Player::Jump(float dt)
 
 		isJumping = true;
 		onGround = false;
-		nextToWall = true;
 
 		isHoldingJump = true;
 		jumpHoldTime = 0.0f;
@@ -752,6 +746,25 @@ void Player::Func_Attacks(float dt) {
 	}
 }
 
+void Player::Func_Small() {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN) {
+		Engine::GetInstance().physics->DeletePhysBody(pbody);
+		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, (texH - 50) / 2, bodyType::DYNAMIC);
+		pbody->SetFixedRotation(true);
+		pbody->listener = this;
+		pbody->ctype = ColliderType::PLAYER;
+	}
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP) {
+		Engine::GetInstance().physics->DeletePhysBody(pbody);
+		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, texH - 50, bodyType::DYNAMIC);
+
+		pbody->SetFixedRotation(true);
+		pbody->listener = this;
+
+		pbody->ctype = ColliderType::PLAYER;
+	}
+}
+
 void Player::ApplyPhysics() {
 	// Preserve vertical speed while jumping
 	if (isJumping == true) {
@@ -859,11 +872,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			groundContacts++;
 			onGround = true;
 			isJumping = false;
-			nextToWall = false;
-		}
-		else
-		{
-			nextToWall = true;
 		}
 
 		break;
@@ -942,8 +950,6 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 				onGround = false;
 			}
 		}
-
-		nextToWall = false;
 		break;
 	case ColliderType::ITEM:
 		LOG("End Collision ITEM");
