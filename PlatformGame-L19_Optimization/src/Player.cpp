@@ -712,7 +712,7 @@ void Player::Func_Attacks(float dt) {
 	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_NORTH) == KEY_UP)
 		controllerSuckState = false;
 
-	if ((Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN || controllerSuckState) && !isAttacking && !isSucking && canAttack) {
+	if ((Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_REPEAT || controllerSuckState) && !isAttacking && !isSucking && canAttack) {
 		currentState = PLAYERSTATE::SUCKING;
 		isSucking = true;
 		anims.SetCurrent("extract");
@@ -729,7 +729,9 @@ void Player::Func_Attacks(float dt) {
 	}
 
 	if (isSucking) {
-		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || !controllerSuckState) {
+
+		
+		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || (!controllerSuckState && Engine::GetInstance().input->controller != NULL)) {
 			currentState = PLAYERSTATE::IDLE;
 			isSucking = false;
 
