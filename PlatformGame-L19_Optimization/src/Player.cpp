@@ -71,11 +71,17 @@ bool Player::Start() {
 	pbody->listener = this;
 
 	pbody->ctype = ColliderType::PLAYER;
-
 	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW/6, (int)position.getY() + 175, ColliderType::SENSOR);
 
+
+
+
+
+	{
+		pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
+	}
 	//Audios
-	std::unordered_map< std::string,Audio> list_audios;
+	/*std::unordered_map< std::string,Audio> list_audios;
 	{
 		audios.LoadFx("Assets/Audio/Fx/01-PASOS-consolidated.wav");
 		list_audios.insert({ "pasos",audios });
@@ -99,7 +105,7 @@ bool Player::Start() {
 		list_audios.insert({ "attack",audios });
 		audios.LoadFx("Assets/Audio/Fx/11-inyectar-consolidated.wav");
 		list_audios.insert({ "inject",audios });
-	}
+	}*/
 	currentState = PLAYERSTATE::IDLE;
 
 	return true;
@@ -336,11 +342,13 @@ void Player::Move() {
 
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 		isMoving = true;
+		Engine::GetInstance().audio->PlayFx(pasosFxId);
 		velocity.x = -normalSpeed;
 		facingRight = false;
 	}
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
 		isMoving = true;
+		Engine::GetInstance().audio->PlayFx(pasosFxId);
 		velocity.x = normalSpeed;
 		facingRight = true;
 	}
@@ -909,9 +917,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		LOG("End Collision ENEMY");
 
-		Enemy* enemyPtr = (Enemy*)physB->listener;
+		Entity* entityPtr = (Entity*)physB->listener;
 
-		if (!isHurt && currentState != PLAYERSTATE::DEATH && !enemyPtr->IsEnemyStunned())
+		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
 			LOG("Current HP: %i", playerCurrentHp);

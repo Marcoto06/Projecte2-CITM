@@ -76,6 +76,11 @@ public:
 
 	};
 
+	virtual bool IsEnemyStunned() {
+		return false;
+	};
+
+
 public:
 
 	std::string name;

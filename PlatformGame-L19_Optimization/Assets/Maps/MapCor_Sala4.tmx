@@ -12286,16 +12286,16 @@
    <properties>
     <property name="Destination" value="MapCor_Sala5"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="1738"/>
+    <property name="playerY" type="float" value="1966"/>
    </properties>
   </object>
-  <object id="4" name="Door" type="Door" x="6" y="4092" width="44" height="144">
+  <object id="4" name="Door" type="Door" x="6" y="4028.36" width="44" height="207.636">
    <properties>
     <property name="Destination" value="MapCor_Sala5"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="1768"/>
+    <property name="playerY" type="float" value="1250"/>
    </properties>
   </object>
  </objectgroup>
