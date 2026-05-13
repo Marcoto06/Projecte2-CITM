@@ -14,6 +14,7 @@
 #include "Physics.h"
 #include "Log.h"
 #include "UIManager.h"
+#include "DialogManager.h"
 #include "tracy/Tracy.hpp"
 
 
@@ -43,6 +44,7 @@ Engine::Engine() {
     map = std::make_shared<Map>();
     entityManager = std::make_shared<EntityManager>();
 	uiManager = std::make_shared<UIManager>(); 
+	dialogManager = std::make_shared<DialogManager>();
 
     // Ordered for awake / Start / Update
     // Reverse order of CleanUp
@@ -57,6 +59,7 @@ Engine::Engine() {
     AddModule(std::static_pointer_cast<Module>(entityManager));
 	// UI Manager on top of the other modules
 	AddModule(std::static_pointer_cast<Module>(uiManager)); 
+	AddModule(std::static_pointer_cast<Module>(dialogManager)); 
 
     // Render last 
     AddModule(std::static_pointer_cast<Module>(render));

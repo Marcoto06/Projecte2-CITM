@@ -2,8 +2,11 @@
 
 #include "Module.h"
 #include "UIElement.h"
+#include "Player.h"
 
 #include <list>
+
+class Player;
 
 class UIManager : public Module
 {
@@ -118,4 +121,8 @@ public:
 	/* GameOver Textures */
 	SDL_Texture* gameOverTryAgainButtonTexture = nullptr;
 	SDL_Texture* gameOverGoToMenuButtonTexture = nullptr;
+
+private:
+
+	std::shared_ptr<Player> player;
 };

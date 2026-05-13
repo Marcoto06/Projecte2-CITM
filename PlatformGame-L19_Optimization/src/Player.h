@@ -131,7 +131,7 @@ public:
 	bool canAttack = true;
 	bool isHurt = false;
 	bool isSteppingUp = false;
-	
+	bool canDialog = false;
 
 	//CHARGES
 	bool hasPowerJump = false;
