@@ -2,6 +2,8 @@
 #include "DialogManager.h"
 #include "Log.h"
 
+
+
 DialogManager::DialogManager() : Module()
 {
 	
@@ -44,4 +46,27 @@ bool DialogManager::CleanUp()
 {
 	
 	return true;
+}
+
+// 
+bool DialogManager::Load(std::string path, std::string fileName)
+{
+	bool ret = false;
+	dialogFileName = fileName;
+	dialogPath = path;
+
+	std::string dialogPathName = dialogPath + dialogFileName;
+
+	pugi::xml_parse_result result = dialogFileXML.load_file(dialogPathName.c_str());
+	
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file %s. pugi error: %s", dialogPathName.c_str(), result.description());
+		ret = false;
+	}
+	else {
+
+	}
+
+	return ret;
 }

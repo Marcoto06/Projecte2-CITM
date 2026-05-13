@@ -222,6 +222,7 @@
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\Dialogos\Database.xml" />
     <Xml Include="config.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
