@@ -140,7 +140,7 @@ bool Player::Update(float dt)
 	isSteppingUp = false;
 
 	if (!isHurt) {
-		if (hasASpeedBoost) {
+		if (isAdrenaline) {
 			Func_BoostMovement();
 		}
 		else {
@@ -432,13 +432,13 @@ void Player::AutoStepUp()
 }
 
 void Player::ActivateSpeedBoost() {
-	hasASpeedBoost = true;
+	isAdrenaline = true;
 	boostTimer_01.Start();
 	LOG("Boost iniciado!");
 }
 
 void Player::Func_BoostMovement() {
-	float durationMS = 5000.0f; // 5 seconds in miliseconds
+	float durationMS = 20000.0f; // 5 seconds in miliseconds
 	isMoving = false; 
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
@@ -454,7 +454,7 @@ void Player::Func_BoostMovement() {
 
 	if (boostTimer_01.ReadMSec() > durationMS)
 	{
-		hasASpeedBoost = false;
+		isAdrenaline = false;
 		LOG("Boost terminado");
 	}
 }
@@ -714,7 +714,7 @@ void Player::Func_Attacks(float dt) {
 	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_NORTH) == KEY_UP)
 		controllerSuckState = false;
 
-	if ((Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN || controllerSuckState) && !isAttacking && !isSucking && canAttack) {
+	if ((Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_REPEAT || controllerSuckState) && !isAttacking && !isSucking && canAttack) {
 		currentState = PLAYERSTATE::SUCKING;
 		isSucking = true;
 		anims.SetCurrent("extract");
@@ -731,7 +731,9 @@ void Player::Func_Attacks(float dt) {
 	}
 
 	if (isSucking) {
-		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || !controllerSuckState) {
+
+		
+		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || (!controllerSuckState && Engine::GetInstance().input->controller != NULL)) {
 			currentState = PLAYERSTATE::IDLE;
 			isSucking = false;
 

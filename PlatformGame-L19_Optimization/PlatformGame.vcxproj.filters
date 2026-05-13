@@ -147,6 +147,9 @@
     <ClCompile Include="src\Door.cpp">
       <Filter>Source Files\Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Plaquetas.cpp">
+      <Filter>Source Files\Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="src\Door.h">
       <Filter>Source Files\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Plaquetas.h">
+      <Filter>Source Files\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

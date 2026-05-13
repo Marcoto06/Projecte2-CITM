@@ -220,11 +220,23 @@ void Eosinofilo::Func_EnemyStates(float dt)
 
 		if (isBeingSucked)
 		{
-			if (suckTimer.ReadMSec() >= 3000.0f)
+			if (!player->isAdrenaline)
 			{
-			
-				currentEState = ENEMYSTATES::DEATH;
-				return;
+				if (suckTimer.ReadMSec() >= 3000.0f)
+				{
+					currentEState = ENEMYSTATES::DEATH;
+					return;
+
+				}
+			}
+			else
+			{
+				if (suckTimer.ReadMSec() >= 1500.0f)
+				{
+					currentEState = ENEMYSTATES::DEATH;
+					return;
+
+				}
 			}
 		}
 		else
