@@ -3,6 +3,7 @@
 #include "Textures.h"
 #include "Animation.h"
 #include "Physics.h"
+#include "Player.h"
 
 class PowerEgg : public Entity
 {
@@ -21,9 +22,12 @@ public:
 public:
 	/*static std::vector<Collectibles*> allCollectibles;*/
 	SDL_Texture* texture = NULL;
-	int w, h;
+	int w = 128;
+	int h = 128;
 	bool picked = false;
 	int assimilate;
+
+	std::shared_ptr<Player> player;
 
 private:
 	AnimationSet anims;

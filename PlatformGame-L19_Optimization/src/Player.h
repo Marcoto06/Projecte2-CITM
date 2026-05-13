@@ -145,7 +145,7 @@ public:
 
 	//PERMANENT UPGRADES
 	bool hasWallJump;
-	bool hasCrouch;
+	bool hasCrouch = false;
 	bool hasAcidResistance;
 	bool hasAscend;
 

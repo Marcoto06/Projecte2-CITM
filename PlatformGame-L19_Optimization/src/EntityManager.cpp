@@ -9,6 +9,7 @@
 #include "Eosinofilo.h"
 #include "Checkpoint.h"
 #include "Door.h"
+#include "PowerEgg.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -95,6 +96,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::DOOR:
 		entity = std::make_shared<Door>();
+		break;
+	case EntityType::POWER_EGG:
+		entity = std::make_shared<PowerEgg>();
 	default:
 		break;
 	}

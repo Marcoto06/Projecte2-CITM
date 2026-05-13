@@ -63,7 +63,6 @@ bool Player::Start() {
 	texW = 96;
 	texH = 168;
 	hasPowerJump = true;
-	hasCrouch = true;
 	//Hitbox
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, texH -50, bodyType::DYNAMIC);
 
@@ -903,6 +902,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			onGround = true;
 			isJumping = false;
 		}
+
+		//if (onGround = false) 
+		//{
+		//
+		//}
 
 		break;
 	}

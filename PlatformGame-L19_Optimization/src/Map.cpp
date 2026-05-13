@@ -8,6 +8,7 @@
 #include "tracy/Tracy.hpp"
 #include "Collectibles.h"
 #include "Door.h"
+#include "PowerEgg.h"
 
 #include <math.h>
 
@@ -569,6 +570,34 @@ MapLayer* Map::GetNavigationLayer() {
 
                         door->Awake();
                         door->Start();
+                    }
+                }
+                else if (entityType == "Egg") 
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::POWER_EGG);
+                    std::shared_ptr<PowerEgg> egg = std::dynamic_pointer_cast<PowerEgg>(e);
+
+                    if (egg != nullptr) 
+                    {
+                        egg->position = Vector2D(x, y);
+                        egg->name = name;
+                        egg->tiledId = tiledId;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "Assimilate")
+                                {
+                                    egg->assimilate = prop.attribute("value").as_int();
+                                }
+                            }
+                        }
+
+                        egg->Awake();
+                        egg->Start();
                     }
                 }
             }

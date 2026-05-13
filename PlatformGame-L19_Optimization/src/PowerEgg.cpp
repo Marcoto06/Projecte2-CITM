@@ -18,9 +18,18 @@ bool PowerEgg::Awake() {
 
 bool PowerEgg::Start() {
 	//Carregar textura i animacions
-	pbody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX(), position.getY(), w, h, bodyType::STATIC);
+	std::unordered_map<int, std::string> aliases;
+	aliases = { {0, "idle"}, {11, "die"} };
+	anims.LoadFromTSX("Assets/Textures/Entities/Atlas_Huevo.tsx", aliases);
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Entities/Atlas_Huevo.png");
+	anims.SetCurrent("idle");
+	anims.Func_SetAnimationLoop("die", false);
+
+	pbody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + w / 2, position.getY() + h / 2, w, h, bodyType::STATIC);
 	pbody->ctype = ColliderType::POWER_EGG;
 	pbody->listener = this;
+
+	player = Engine::GetInstance().scene->player;
 	return true;
 }
 
@@ -32,7 +41,7 @@ bool PowerEgg::Update(float dt)
 		SDL_Rect rect = anims.GetCurrentFrame();
 
 		if (rect.w <= 0 || rect.h <= 0) {
-			rect = { 0, 0, 32, 32 };
+			rect = { 0, 0, 128, 128 };
 		}
 
 		Engine::GetInstance().render->DrawTexture(texture, (int)position.getX(), (int)position.getY(), &rect);
@@ -40,11 +49,6 @@ bool PowerEgg::Update(float dt)
 	else
 	{
 		LOG("ERROR FATAL: La textura del coleccionable es NULL.");
-	}
-
-	if (picked)
-	{
-		Destroy();
 	}
 	return true;
 }
@@ -80,17 +84,23 @@ bool PowerEgg::Destroy()
 
 void PowerEgg::OnCollision(PhysBody* physA, PhysBody* physB)
 {
-	if (picked) return;
-
 	PhysBody* other = (physA == pbody) ? physB : physA;
 
-	if (other->ctype == ColliderType::PLAYER)
+	if (other->ctype == ColliderType::SUCK_ZONE)
 	{
-		Player* player = (Player*)other->listener;
-
-		if (player != nullptr)
-		{
-			picked = true;
+		picked = true;
+		anims.SetCurrent("die");
+		switch (assimilate) {
+		case 1:
+			player->hasWallJump = true;
+			break;
+		case 2:
+			player->hasCrouch = true;
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
 		}
 	}
 }

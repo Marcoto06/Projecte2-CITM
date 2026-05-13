@@ -35,6 +35,7 @@ enum class ColliderType {
     COLLECTIBLES,
     DOOR,
     SENSOR,
+    WALL_SENSOR,
     POWER_EGG,
     UNKNOWN
     // ..
