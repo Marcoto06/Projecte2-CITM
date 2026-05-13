@@ -38,6 +38,9 @@
     <Filter Include="Source Files\Game\Collectibles">
       <UniqueIdentifier>{6351987b-b622-414e-9cb3-826a0787a5f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Dialog System">
+      <UniqueIdentifier>{ef9fd620-1646-4473-86b0-fbbf199ec939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json">
@@ -151,7 +154,10 @@
       <Filter>Source Files\Game\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="src\DialogManager.cpp">
-      <Filter>Source Files\Engine</Filter>
+      <Filter>Source Files\Engine\Dialog System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PowerEgg.cpp">
+      <Filter>Source Files\Game\Collectibles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,16 +263,19 @@
     <ClInclude Include="src\Door.h">
       <Filter>Source Files\Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\DialogManager.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\Plaquetas.h">
       <Filter>Source Files\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PowerEgg.h">
+      <Filter>Source Files\Game\Collectibles</Filter>
+    <ClInclude Include="src\DialogManager.h">
+      <Filter>Source Files\Engine\Dialog System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="config.xml">
       <Filter>Configuration FIles</Filter>
     </Xml>
+    <Xml Include="Assets\Dialogos\Database.xml" />
   </ItemGroup>
 </Project>

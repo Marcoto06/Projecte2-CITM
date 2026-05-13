@@ -26,6 +26,7 @@ public:
 	void OnBoomerangReturned();
 	void OnBoomerangLost();
 	Vector2D GetPosition();
+	bool IsEnemyStunned() override;
 	bool Destroy() override;
 	bool Destroy(Player* player);
 	Player* player = nullptr;
