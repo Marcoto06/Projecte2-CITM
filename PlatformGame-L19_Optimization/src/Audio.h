@@ -38,6 +38,7 @@ public:
     void SetSFXVolume(float volume);   // 0.0f – 1.0f
 
     float GetMusicVolume() const { return music_volume_; }
+	float GetSFXVolume() const { return sfx_volume_; }
 
 private:
 

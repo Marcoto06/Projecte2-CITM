@@ -101,7 +101,8 @@ public:
 	/* Pause menu Textures */
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;
 	SDL_Texture* sliderBoxTexture = nullptr;
-	SDL_Texture* sliderAudioTexture = nullptr;
+	SDL_Texture* sliderMusicTexture = nullptr;
+	SDL_Texture* sliderSFXTexture = nullptr;
 	SDL_Texture* deathScreenMenuTexture = nullptr;
 	SDL_Texture* continuePauseButtonTexture = nullptr;
 	SDL_Texture* optionsPauseButtonTexture = nullptr;

@@ -143,7 +143,8 @@ void UIManager::LoadUITextures() {
 	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/OptionsButton.png");
 	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
-	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
+	sliderMusicTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/MusicIcon.png");
+	sliderSFXTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SFXIcon.png");
 	
 	
 	/* Pause UI*/
@@ -152,8 +153,6 @@ void UIManager::LoadUITextures() {
 	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
 	menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitToMenuButton.png");
 	gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitGameButton.png");
-	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
-	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
 
 	/*Player UI*/
 	heartFullTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
@@ -222,10 +221,10 @@ void UIManager::ShowMainMenuButtons()
 		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderMusicTexture, ((w - sliderMusicTexture->w) / 2) - 200, ((h - sliderMusicTexture->h) / 2) - 65, NULL, 0.0f);
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 100, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 100, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderSFXTexture, ((w - sliderSFXTexture->w) / 2) - 200, ((h - sliderSFXTexture->h) / 2) + 100, NULL, 0.0f);
 
 		firstElement = 4;
 		lastElement = 7;
@@ -284,10 +283,12 @@ void UIManager::LoadOptionsMainMenu()
 	auto musicSlider = std::static_pointer_cast<UISlider>(musicSliderElement);
 	musicSlider->SetTexture(sliderBarTexture);
 	musicSlider->SetKnobTexture(sliderKnobTexture);
+	musicSlider->SetValue((int)(Engine::GetInstance().audio->GetMusicVolume() * 100.0f));
 
 	auto fxSlider = std::static_pointer_cast<UISlider>(fxSliderElement);
 	fxSlider->SetTexture(sliderBarTexture);
 	fxSlider->SetKnobTexture(sliderKnobTexture);
+	fxSlider->SetValue((int)(Engine::GetInstance().audio->GetSFXVolume() * 100.0f));
 
 	SDL_Rect backButtonRect = { (screenWidth - backButtonTexture->w) / 2, 736, 290, 86 };
 
@@ -487,10 +488,10 @@ void UIManager::ShowPauseMenu() {
 	if (currentPauseState == PauseMenuState::OPTIONS)
 	{
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderMusicTexture, ((w - sliderMusicTexture->w) / 2) - 200, ((h - sliderMusicTexture->h) / 2) - 65, NULL, 0.0f);
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 80, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 80, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderSFXTexture, ((w - sliderSFXTexture->w) / 2) - 200, ((h - sliderSFXTexture->h) / 2) + 80, NULL, 0.0f);
 
 		firstElement = 5;
 		lastElement = 8;
