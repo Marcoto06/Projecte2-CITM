@@ -3089,16 +3089,16 @@
    <properties>
     <property name="Destination" value="MapCor_Sala4"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="142.42"/>
+    <property name="playerY" type="float" value="3521.21"/>
    </properties>
   </object>
-  <object id="2" name="Door" type="Door" x="1874" y="1848" width="68" height="210">
+  <object id="2" name="Door" type="Door" x="1874" y="1832" width="68" height="226">
    <properties>
     <property name="Destination" value="MapCor_Sala4"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="145.45"/>
+    <property name="playerY" type="float" value="4166.67"/>
    </properties>
   </object>
  </objectgroup>

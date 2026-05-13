@@ -7375,13 +7375,12 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="109"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="107"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7436,22 +7435,12 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
+   <tile gid="109"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="107"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7485,25 +7474,34 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7533,7 +7531,9 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7562,12 +7562,9 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7591,6 +7588,9 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7625,6 +7625,8 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7644,10 +7646,8 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7687,10 +7687,8 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7705,7 +7703,9 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7749,9 +7749,8 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
@@ -7762,7 +7761,8 @@
    <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="124"/>
+   <tile gid="125"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7811,16 +7811,16 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="123"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
+   <tile gid="124"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="109"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7878,9 +7878,9 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
+   <tile gid="109"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7940,7 +7940,7 @@
    <tile gid="60"/>
    <tile gid="108"/>
    <tile gid="108"/>
-   <tile gid="108"/>
+   <tile gid="109"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -7998,9 +7998,9 @@
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
-   <tile gid="108"/>
    <tile gid="108"/>
    <tile gid="108"/>
+   <tile gid="109"/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -8180,7 +8180,7 @@
    <tile gid="108"/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="60" height="68" visible="0">
+ <layer id="3" name="Collisions" width="60" height="68">
   <data>
    <tile/>
    <tile/>
@@ -12269,8 +12269,8 @@
    <properties>
     <property name="Destination" value="MapCor_Sala4"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="3654.55"/>
+    <property name="playerY" type="float" value="1400"/>
    </properties>
   </object>
   <object id="3" name="Door" type="Door" x="3776.7" y="446.335" width="68" height="196.1">
