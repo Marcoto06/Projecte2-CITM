@@ -334,8 +334,6 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 		player->SetPosition(Vector2D(playerX, playerY));
 		player->position = Vector2D(playerX, playerY);
 	}
-
-	LoadGame();
 }
 
 void Scene::UpdateLevel(float dt) {
