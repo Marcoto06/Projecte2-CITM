@@ -12298,11 +12298,5 @@
     <property name="playerY" type="float" value="1250"/>
    </properties>
   </object>
-  <object id="7" name="Egg" type="Egg" x="1984" y="1408" width="128" height="128">
-   <properties>
-    <property name="Assimilate" type="int" value="2"/>
-    <property name="Type" value="Egg"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>

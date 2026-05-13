@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="48">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="49">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="0" columns="8">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <wangsets>
-   <wangset name="Brick" type="mixed" tile="9"/>
-   <wangset name="Marble" type="mixed" tile="33"/>
-   <wangset name="Sand" type="mixed" tile="14"/>
+   <wangset name="Brick" tile="9"/>
+   <wangset name="Marble" tile="33"/>
+   <wangset name="Sand" tile="14"/>
   </wangsets>
  </tileset>
  <tileset firstgid="1" name="MapMetadata" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2" columns="2">
@@ -11996,6 +11996,12 @@
     <property name="c_num" type="int" value="1"/>
    </properties>
    <point/>
+  </object>
+  <object id="48" name="Egg" type="Egg" x="576" y="960" width="128" height="128">
+   <properties>
+    <property name="Assimilate" type="int" value="2"/>
+    <property name="Type" value="Egg"/>
+   </properties>
   </object>
  </objectgroup>
  <layer id="7" name="Navigation" width="60" height="33">
