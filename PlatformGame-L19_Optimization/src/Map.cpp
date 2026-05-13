@@ -450,7 +450,7 @@ MapLayer* Map::GetNavigationLayer() {
                 // Create entity based on type
                 if (entityType == "Player") {
                     // Create Player entity
-                    if (player == nullptr) {
+                    if (player == nullptr || !player->active || player -> pendingToDelete) {
                         player = std::dynamic_pointer_cast<Player>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAYER));
                         player->position = Vector2D(x, y);
                         player->Start(); //L17: Important to call Start to initialize teh Entity

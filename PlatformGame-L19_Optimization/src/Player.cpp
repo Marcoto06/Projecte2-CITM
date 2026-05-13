@@ -859,7 +859,15 @@ bool Player::CleanUp()
 {
 	LOG("Cleanup player");
 	Engine::GetInstance().textures->UnLoad(texture);
-	Engine::GetInstance().physics->DeletePhysBody(pbody);
+
+	if (pbody != nullptr)
+	{
+		Engine::GetInstance().physics->DeletePhysBody(pbody);
+		Engine::GetInstance().physics->DeletePhysBody(floorSensorBody);
+		floorSensorBody = nullptr;
+		pbody = nullptr;
+	}
+
 	return true;
 }
  
@@ -981,7 +989,12 @@ Vector2D Player::GetPosition() {
 }
 
 void Player::SetPosition(Vector2D pos) {
-	pbody->SetPosition((int)(pos.getX() + texW / 2), (int)(pos.getY() + texH / 2));
+	position = pos;
+
+	if (pbody!= nullptr)
+	{
+		pbody->SetPosition((int)(pos.getX() + texW / 2), (int)(pos.getY() + texH / 2));
+	}
 }
 
 void Player::SetRespawnPosition(Vector2D pos)

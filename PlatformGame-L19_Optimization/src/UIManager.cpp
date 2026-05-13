@@ -581,13 +581,21 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 	case 2: // PAUSE MENU: OPTIONS
 		LoadPauseOptionsMenu();
 		break;
-	case 3: // PAUSE MENU: QUIT
+	case 3: // PAUSE MENU: QUIT TO MENU
 		CleanUp();
 		Engine::GetInstance().entityManager->CleanUp(true);
+		/*Engine::GetInstance().entityManager->ClearNonPlayerEntities();
+
+		if (player != nullptr)
+		{
+			Engine::GetInstance().entityManager->DestroyEntity(player);
+			player.reset();
+		}*/
+
 		Engine::GetInstance().scene->ChangeScene(SceneID::MAIN_MENU);
 		Engine::GetInstance().Func_PauseEngine();
 		break;
-	case 4: // PAUSE MENU: QUIT to Main Menu
+	case 4: // PAUSE MENU: QUIT GAME
 		Engine::GetInstance().quit = true;
 		break;
 	case 5: // PAUSE MENU OPTIONS: Fullscreen Toggle
