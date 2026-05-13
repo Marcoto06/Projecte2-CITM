@@ -70,15 +70,10 @@ bool Player::Start() {
 	pbody->listener = this;
 
 	pbody->ctype = ColliderType::PLAYER;
-	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW/6, (int)position.getY() + 175, ColliderType::SENSOR);
+	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW / 6, (int)position.getY() + 175, ColliderType::SENSOR);
+	floorSensorBody->listener = this;
 
-
-
-
-
-	{
-		pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
-	}
+	pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
 	//Audios
 	/*std::unordered_map< std::string,Audio> list_audios;
 	{
@@ -133,7 +128,23 @@ bool Player::Update(float dt)
 	}
 
 	floorSensorBody->SetPosition((int)position.getX(), (int)position.getY() + 60);
-	floorSensorBody->listener = this;
+
+	if (hasWallJump)
+	{
+		if (wallSensorLeft == nullptr)
+		{
+			wallSensorLeft = Engine::GetInstance().physics->Func_CreateTemporarySensor(10, texH / 3, (int)position.getX() + texW / 6, (int)position.getY(), ColliderType::WALL_SENSOR);
+			wallSensorLeft->listener = this;
+		}
+		if (wallSensorRight == nullptr)
+		{
+			wallSensorRight = Engine::GetInstance().physics->Func_CreateTemporarySensor(10, texH / 3, (int)position.getX() - texW / 6, (int)position.getY(), ColliderType::WALL_SENSOR);
+			wallSensorRight->listener = this;
+		}
+		wallSensorLeft->SetPosition((int)position.getX() - texW / 4, (int)position.getY());
+		wallSensorRight->SetPosition((int)position.getX() + texW / 4, (int)position.getY());
+	}
+
 	GetPhysicsValues();
 
 	if (stepUpTimer > 0.0f)
@@ -482,9 +493,14 @@ void Player::Jump(float dt)
 	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_EAST) == KEY_UP)
 		controllerJumpState = false;
 
-	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && onGround && canJump)
+	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && (onGround && canJump) || (canWallJump && wallJumpsLeft > 0))
 	{
 		currentState = PLAYERSTATE::PREPARE_JUMP;
+
+		if (!onGround) 
+		{
+			wallJumpsLeft -= 1;
+		}
 
 		float forceToUse = jumpForce;
 
@@ -901,12 +917,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			groundContacts++;
 			onGround = true;
 			isJumping = false;
+			wallJumpsLeft = 1;
 		}
 
-		//if (onGround = false) 
-		//{
-		//
-		//}
+		if (onGround == false && physA->ctype == ColliderType::WALL_SENSOR)
+		{
+			canWallJump = true;
+			isJumping = false;
+		}
 
 		break;
 	}
@@ -989,6 +1007,11 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 			}
 
 			onGround = groundContacts > 0 || isSteppingUp;
+		}
+
+		if (physA->ctype == ColliderType::WALL_SENSOR)
+		{
+			canWallJump = false;
 		}
 		break;
 	}

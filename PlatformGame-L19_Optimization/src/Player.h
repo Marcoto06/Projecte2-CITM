@@ -144,10 +144,15 @@ public:
 	bool healing = false;
 
 	//PERMANENT UPGRADES
-	bool hasWallJump;
+	bool hasWallJump = false;
 	bool hasCrouch = false;
 	bool hasAcidResistance;
 	bool hasAscend;
+
+	//Wall Jump
+	bool canWallJump = false;
+	int wallJumpsLeft = 1;
+	float wallJumpForce = 40.0f;
 
 	Timer boostTimer_01;
 	Timer hurtTimer;
@@ -163,6 +168,8 @@ private:
 	PhysBody* syringeBody = nullptr;
 	PhysBody* suckBody = nullptr;
 	PhysBody* floorSensorBody = nullptr;
+	PhysBody* wallSensorLeft = nullptr;
+	PhysBody* wallSensorRight = nullptr;
 
 	bool isSmall = false;
 
