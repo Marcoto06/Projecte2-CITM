@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "Plaquetas.h"
 #include "Player.h"
 #include "Engine.h"
 #include "Textures.h"
@@ -12,23 +12,23 @@
 #include "Map.h"
 #include "tracy/Tracy.hpp"
 
-Enemy::Enemy() : Entity(EntityType::ENEMY)
+Plaquetas::Plaquetas() : Entity(EntityType::ENEMY)
 {
-	name = "Enemy";
+	name = "Plaquetas";
 }
 
-Enemy::~Enemy() {
+Plaquetas::~Plaquetas() {
 
 }
 
-bool Enemy::Awake() {
+bool Plaquetas::Awake() {
 	return true;
 }
 
-bool Enemy::Start() {
+bool Plaquetas::Start() {
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"}};
+	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"} };
 	//anims eosinofilo
 	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", aliases);
@@ -55,7 +55,7 @@ bool Enemy::Start() {
 	//Get the position of the enemy
 	Vector2D pos = GetPosition();
 	//Convert to tile coordinates
-	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY()+1);
+	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY() + 1);
 	//Reset pathfinding
 	pathfinding->ResetPath(tilePos);
 	player = Engine::GetInstance().scene->player.get();
@@ -63,7 +63,7 @@ bool Enemy::Start() {
 	return true;
 }
 
-bool Enemy::Update(float dt)
+bool Plaquetas::Update(float dt)
 {
 	ZoneScoped;
 
@@ -108,7 +108,7 @@ bool Enemy::Update(float dt)
 	return true;
 }
 
-void Enemy::PerformPathfinding()
+void Plaquetas::PerformPathfinding()
 {
 	Map* map = Engine::GetInstance().map.get();
 
@@ -133,27 +133,27 @@ void Enemy::PerformPathfinding()
 	}
 }
 
-void Enemy::GetPhysicsValues() {
+void Plaquetas::GetPhysicsValues() {
 	// Read current velocity
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
-	velocity = { 0, velocity.y }; 
+	velocity = { 0, velocity.y };
 }
 
-void Enemy::Func_EnemyStates(float dt)
+void Plaquetas::Func_EnemyStates(float dt)
 {
 	switch (currentEState)
 	{
-	case Enemy::ENEMYSTATES::WALKING:
+	case Plaquetas::ENEMYSTATES::WALKING:
 		anims.SetCurrent("idle");
 		Move();
 		break;
 
-	case Enemy::ENEMYSTATES::CHASING:
+	case Plaquetas::ENEMYSTATES::CHASING:
 		anims.SetCurrent("walk");
 		Move();
 		break;
 
-	case Enemy::ENEMYSTATES::STUNED:
+	case Plaquetas::ENEMYSTATES::STUNED:
 		anims.SetCurrent("stunned");
 
 		if (isBeingSucked)
@@ -165,6 +165,7 @@ void Enemy::Func_EnemyStates(float dt)
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
+
 				}
 			}
 			else
@@ -174,8 +175,9 @@ void Enemy::Func_EnemyStates(float dt)
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
+
 				}
-			}
+			}	
 		}
 		else
 		{
@@ -187,7 +189,7 @@ void Enemy::Func_EnemyStates(float dt)
 		}
 		break;
 
-	case Enemy::ENEMYSTATES::DEATH:
+	case Plaquetas::ENEMYSTATES::DEATH:
 
 		anims.SetCurrent("death");
 		if (anims.Func_HasCurrentAnimationFinished())
@@ -201,7 +203,7 @@ void Enemy::Func_EnemyStates(float dt)
 	}
 }
 
-void Enemy::Move()
+void Plaquetas::Move()
 {
 	velocity.x = 0.0f;
 
@@ -250,10 +252,10 @@ void Enemy::Move()
 	}
 }
 
-bool Enemy::IsPlayerDetected() const
+bool Plaquetas::IsPlayerDetected() const
 {
 	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
-	Vector2D enemyPosition = const_cast<Enemy*>(this)->GetPosition();
+	Vector2D enemyPosition = const_cast<Plaquetas*>(this)->GetPosition();
 
 	float distanceX = playerPosition.getX() - enemyPosition.getX();
 	float distanceY = playerPosition.getY() - enemyPosition.getY();
@@ -262,7 +264,7 @@ bool Enemy::IsPlayerDetected() const
 	return squaredDistance <= (detectionRange * detectionRange);
 }
 
-Vector2D Enemy::GetNextPathTile() const
+Vector2D Plaquetas::GetNextPathTile() const
 {
 	const std::list<Vector2D>& pathTiles = pathfinding->GetPathTiles();
 
@@ -277,13 +279,13 @@ Vector2D Enemy::GetNextPathTile() const
 	return *nextTileIt;
 }
 
-void Enemy::ApplyPhysics() {
+void Plaquetas::ApplyPhysics() {
 
 	// Apply velocity via helper
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
-void Enemy::Draw(float dt)
+void Plaquetas::Draw(float dt)
 {
 	anims.Update(dt);
 	const SDL_Rect& animFrame = anims.GetCurrentFrame();
@@ -331,7 +333,7 @@ void Enemy::Draw(float dt)
 	}
 }
 
-bool Enemy::CleanUp()
+bool Plaquetas::CleanUp()
 {
 	LOG("Cleanup enemy");
 	Engine::GetInstance().textures->UnLoad(texture);
@@ -339,7 +341,7 @@ bool Enemy::CleanUp()
 	return true;
 }
 
-bool Enemy::Destroy()
+bool Plaquetas::Destroy()
 {
 	LOG("Destroying Enemy");
 	active = false;
@@ -352,28 +354,25 @@ bool Enemy::Destroy()
 	return true;
 }
 
-bool Enemy::Destroy(Player* pplayer) // Good: coincide with the .h
+bool Plaquetas::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	if (player->playerCurrentHp < player->playerMaxHp) {
-		player->playerCurrentHp += 1;
-	}
-	player->healing = true;
+	player->isAdrenaline;
 	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
 
-void Enemy::SetPosition(Vector2D pos) {
+void Plaquetas::SetPosition(Vector2D pos) {
 	pbody->SetPosition((int)(pos.getX()), (int)(pos.getY()));
 }
 
-Vector2D Enemy::GetPosition() {
+Vector2D Plaquetas::GetPosition() {
 	int x, y;
 	pbody->GetPosition(x, y);
 	// Adjust for center
-	return Vector2D((float)x-texW/2,(float)y-texH/2);
+	return Vector2D((float)x - texW / 2, (float)y - texH / 2);
 }
 
-bool Enemy::IsEnemyStunned() {
+bool Plaquetas::IsEnemyStunned() {
 
 	if (currentEState == ENEMYSTATES::STUNED or currentEState == ENEMYSTATES::DEATH)
 	{
@@ -384,13 +383,13 @@ bool Enemy::IsEnemyStunned() {
 
 
 //Define OnCollision function for the enemy. 
-void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Plaquetas::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::SYRINGE:
 		if (!isStunned)
 		{
-			timer_01.Start(); 
+			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
 		}
@@ -406,7 +405,7 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void Enemy::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
+void Plaquetas::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
