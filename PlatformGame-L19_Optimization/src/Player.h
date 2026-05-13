@@ -86,7 +86,7 @@ public:
 	float boostSpeed = 10.0f;      
 
 	int stepHeight = 64;
-	int stepForward = 6;
+	int stepForward = 8;
 	int maxStepHeight = 70;
 	int stepCheckDistance = 8;
 

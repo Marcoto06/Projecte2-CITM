@@ -182,8 +182,7 @@ bool Player::TryStepUp()
 	int direction = facingRight ? 1 : -1;
 
 	int bodyWidth = texW / 2;
-	int bodyHeight = texH - 15;
-
+	int bodyHeight = isSmall ? (texH - 50) / 2 : (texH - 50);
 	int halfWidth = bodyWidth / 2;
 	int halfHeight = bodyHeight / 2;
 
@@ -348,7 +347,7 @@ void Player::Move() {
 
 void Player::AutoStepUp()
 {
-	if (!onGround || !isMoving || isSucking || isAttacking)
+	if (!onGround || !isMoving || isSucking || isAttacking || stepUpTimer > 0.0f)
 	{
 		return;
 	}
@@ -359,8 +358,7 @@ void Player::AutoStepUp()
 	int direction = facingRight ? 1 : -1;
 
 	int bodyWidth = texW / 2;
-	int bodyHeight = texH - 15;
-
+	int bodyHeight = isSmall ? (texH - 50) / 2 : (texH - 50);
 	int halfWidth = bodyWidth / 2;
 	int halfHeight = bodyHeight / 2;
 
@@ -420,11 +418,16 @@ void Player::AutoStepUp()
 		{
 			pbody->SetPosition(testX, testY);
 
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity.x, 0.0f);
+
 			velocity.y = 0.0f;
 			isJumping = false;
 			isHoldingJump = false;
 			jumpHoldTime = 0.0f;
 			onGround = true;
+
+			isSteppingUp = true;
+			stepUpTimer = stepUpCooldown;
 
 			currentState = PLAYERSTATE::MOVE;
 			anims.SetCurrent("run");
@@ -960,12 +963,12 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 
 		if (physA->ctype == ColliderType::SENSOR)
 		{
-			groundContacts = 0;
-
-			if (!isSteppingUp)
+			if (groundContacts > 0)
 			{
-				onGround = false;
+				groundContacts--;
 			}
+
+			onGround = groundContacts > 0 || isSteppingUp;
 		}
 		break;
 	}
