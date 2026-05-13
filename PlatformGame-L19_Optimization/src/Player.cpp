@@ -875,7 +875,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	Enemy* enemy;
 	switch (physB->ctype)
 	{
-	case ColliderType::PLATFORM:
+	case ColliderType::PLATFORM: {
 		LOG("Collision PLATFORM");
 
 		if (isMoving && onGround)
@@ -894,13 +894,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}
 
 		break;
-
-	case ColliderType::ITEM:
+	}
+	case ColliderType::ITEM: {
 		LOG("Collision ITEM");
 		Engine::GetInstance().audio->PlayFx(pickCoinFxId);
 		physB->listener->Destroy();
 		hasWallJump = true;
 		break;
+	}
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
@@ -943,6 +944,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}		
 		break;
 	}
+	case ColliderType::CHECKPOINT: {
+		LOG("Collision CHECKPOINT");
+		canDialog = true;
+		break;
+	}
 	default:
 		break;
 	}
@@ -952,7 +958,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
-	case ColliderType::PLATFORM:
+	case ColliderType::PLATFORM: {
 		LOG("End Collision PLATFORM");
 
 		if (groundContacts > 0)
@@ -970,12 +976,18 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 			}
 		}
 		break;
+	}
 	case ColliderType::ITEM:
 		LOG("End Collision ITEM");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("End Collision UNKNOWN");
 		break;
+	case ColliderType::CHECKPOINT: {
+		LOG("End Collision CHECKPOINT");
+		canDialog = false;
+		break;
+	}
 	default:
 		break;
 	}
