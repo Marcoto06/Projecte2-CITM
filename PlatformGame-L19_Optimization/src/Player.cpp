@@ -72,7 +72,7 @@ bool Player::Start() {
 
 	pbody->ctype = ColliderType::PLAYER;
 
-
+	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW/6, (int)position.getY() + 175, ColliderType::SENSOR);
 
 	//Audios
 	std::unordered_map< std::string,Audio> list_audios;
@@ -126,6 +126,9 @@ bool Player::Update(float dt)
 			isHurt = false;
 		}
 	}
+
+	floorSensorBody->SetPosition((int)position.getX(), (int)position.getY() + 60);
+	floorSensorBody->listener = this;
 	GetPhysicsValues();
 
 	if (stepUpTimer > 0.0f)
@@ -726,8 +729,7 @@ void Player::Func_Attacks(float dt) {
 		float height = 90.0f;
 		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
-		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
-			(int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
+		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor((int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
 	}
 
 	if (isSucking) {
@@ -874,7 +876,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 		}
 
-		if (velocity.y >= -0.1f)
+		if (physA->ctype == ColliderType::SENSOR)
 		{
 			groundContacts++;
 			onGround = true;
@@ -948,7 +950,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 			groundContacts--;
 		}
 
-		if (groundContacts <= 0)
+		if (physA->ctype == ColliderType::SENSOR)
 		{
 			groundContacts = 0;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <save_estate>
 	<player>
-		<position x="362" y="881" />
+		<position x="360" y="910" />
 		<stats currentHp="10" maxHp="10" />
 		<upgrades hasPowerJump="true" />
 	</player>
