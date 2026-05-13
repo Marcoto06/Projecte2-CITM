@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="34" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="4">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="34" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="5">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -3089,7 +3089,7 @@
    <properties>
     <property name="Destination" value="MapCor_Sala6"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
+    <property name="playerX" type="float" value="3690.18"/>
     <property name="playerY" type="float" value="119"/>
    </properties>
   </object>
@@ -3097,16 +3097,16 @@
    <properties>
     <property name="Destination" value="MapCor_Sala6"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="3666.18"/>
+    <property name="playerY" type="float" value="4155.76"/>
    </properties>
   </object>
   <object id="3" name="Door" type="Door" x="790.242" y="-6.72727" width="349.818" height="43.7576">
    <properties>
     <property name="Destination" value="MapCor_Sala8"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="824"/>
-    <property name="playerY" type="float" value="119"/>
+    <property name="playerX" type="float" value="1324.24"/>
+    <property name="playerY" type="float" value="2154.55"/>
    </properties>
   </object>
  </objectgroup>
