@@ -1799,7 +1799,7 @@
    <tile gid="366"/>
    <tile gid="366"/>
    <tile gid="366"/>
-   <tile gid="366"/>
+   <tile gid="367"/>
    <tile gid="318"/>
    <tile gid="318"/>
    <tile gid="724"/>
@@ -1810,7 +1810,7 @@
    <tile gid="318"/>
    <tile gid="318"/>
    <tile gid="318"/>
-   <tile gid="366"/>
+   <tile gid="365"/>
    <tile gid="366"/>
    <tile gid="366"/>
    <tile gid="366"/>
@@ -2725,7 +2725,7 @@
    <tile gid="366"/>
    <tile gid="366"/>
    <tile gid="366"/>
-   <tile gid="366"/>
+   <tile gid="367"/>
    <tile gid="318"/>
    <tile gid="318"/>
    <tile gid="318"/>
@@ -2744,7 +2744,7 @@
    <tile gid="318"/>
    <tile gid="318"/>
    <tile gid="318"/>
-   <tile gid="366"/>
+   <tile gid="365"/>
    <tile gid="366"/>
    <tile gid="366"/>
    <tile gid="366"/>
@@ -4626,8 +4626,8 @@
    <properties>
     <property name="Destination" value="MapCor_Sala4"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1800"/>
-    <property name="playerY" type="float" value="992"/>
+    <property name="playerX" type="float" value="2957.25"/>
+    <property name="playerY" type="float" value="118.29"/>
    </properties>
   </object>
   <object id="4" name="Eosinofilo" type="Enemy" x="1656.73" y="2158.55">
