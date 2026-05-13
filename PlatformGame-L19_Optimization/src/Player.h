@@ -147,7 +147,6 @@ public:
 	bool hasAcidResistance;
 	bool hasAscend;
 
-
 	Timer boostTimer_01;
 	Timer hurtTimer;
 	AnimationSet effectAnims;
@@ -161,6 +160,7 @@ private:
 	//Fixture
 	PhysBody* syringeBody = nullptr;
 	PhysBody* suckBody = nullptr;
+	PhysBody* floorSensorBody = nullptr;
 
 	bool isSmall = false;
 

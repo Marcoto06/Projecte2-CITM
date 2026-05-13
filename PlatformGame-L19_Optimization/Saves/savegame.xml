@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <save_estate>
 	<player>
-		<position x="2295" y="574" />
+		<position x="362" y="881" />
 		<stats currentHp="10" maxHp="10" />
 		<upgrades hasPowerJump="true" />
 	</player>
 	<world>
-		<level name="MapTemplate.tmx">
+		<level name="MapCor_Sala1.tmx">
 			<entities />
-			<active_checkpoint id="34" />
+			<active_checkpoint id="4" />
 		</level>
 	</world>
 </save_estate>

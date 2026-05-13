@@ -34,6 +34,7 @@ enum class ColliderType {
     CHECKPOINT,
     COLLECTIBLES,
     DOOR,
+    SENSOR,
     UNKNOWN
     // ..
 };

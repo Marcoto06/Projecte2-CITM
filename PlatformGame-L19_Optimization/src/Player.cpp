@@ -72,6 +72,8 @@ bool Player::Start() {
 
 	pbody->ctype = ColliderType::PLAYER;
 
+
+
 	//Audios
 	std::unordered_map< std::string,Audio> list_audios;
 	{
