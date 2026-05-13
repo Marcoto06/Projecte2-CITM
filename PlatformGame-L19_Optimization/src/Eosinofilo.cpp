@@ -77,6 +77,7 @@ bool Eosinofilo::Start() {
 	//Get the position of the enemy
 	Vector2D pos = GetPosition();
 	//Convert to tile coordinates
+
 	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY() + 1);
 	player = Engine::GetInstance().scene->player.get();
 
@@ -89,6 +90,15 @@ bool Eosinofilo::Start() {
 	}
 
 	return true;
+}
+
+bool Eosinofilo::IsEnemyStunned() {
+
+	if (currentEState == ENEMYSTATES::STUNED or currentEState == ENEMYSTATES::DEATH)
+	{
+		return true;
+	}
+	else return false;
 }
 
 bool Eosinofilo::Update(float dt)
