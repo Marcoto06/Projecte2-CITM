@@ -12,6 +12,7 @@ enum class EntityType
 	COLLECTIBLES,
 	CHECKPOINT,
 	DOOR,
+	POWER_EGG
 	UNKNOWN
 };
 
