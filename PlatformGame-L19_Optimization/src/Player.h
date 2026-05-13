@@ -124,7 +124,6 @@ public:
 	bool isAttacking = false;
 	bool isSucking = false;
 	bool isMoving = false;
-	bool hasASpeedBoost = false;
 	bool onGround = false;
 	int groundContacts = 0;
 	bool canMove = true;
@@ -139,7 +138,8 @@ public:
 	float powerJumpForce = 20.0f;
 	float stepUpTimer = 0.0f;
 	float stepUpCooldown = 120.0f;
-	
+	bool isAdrenaline = false;
+	Timer AdrenalineTimer;
 	bool healing = false;
 
 	//PERMANENT UPGRADES

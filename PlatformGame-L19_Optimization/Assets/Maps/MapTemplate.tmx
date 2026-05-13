@@ -11953,7 +11953,7 @@
   </data>
  </layer>
  <objectgroup id="8" name="Entities">
-  <object id="21" name="Player" type="Player" x="89.6667" y="1032.67">
+  <object id="21" name="Player" type="Player" x="89.6667" y="920.549">
    <point/>
   </object>
   <object id="28" name="Streptococus" type="Enemy" x="1111.71" y="1925.41">

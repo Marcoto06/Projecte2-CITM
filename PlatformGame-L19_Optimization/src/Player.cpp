@@ -72,7 +72,7 @@ bool Player::Start() {
 
 	pbody->ctype = ColliderType::PLAYER;
 
-
+	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW/6, (int)position.getY() + 175, ColliderType::SENSOR);
 
 	//Audios
 	std::unordered_map< std::string,Audio> list_audios;
@@ -126,6 +126,9 @@ bool Player::Update(float dt)
 			isHurt = false;
 		}
 	}
+
+	floorSensorBody->SetPosition((int)position.getX(), (int)position.getY() + 60);
+	floorSensorBody->listener = this;
 	GetPhysicsValues();
 
 	if (stepUpTimer > 0.0f)
@@ -140,7 +143,7 @@ bool Player::Update(float dt)
 	isSteppingUp = false;
 
 	if (!isHurt) {
-		if (hasASpeedBoost) {
+		if (isAdrenaline) {
 			Func_BoostMovement();
 		}
 		else {
@@ -432,13 +435,13 @@ void Player::AutoStepUp()
 }
 
 void Player::ActivateSpeedBoost() {
-	hasASpeedBoost = true;
+	isAdrenaline = true;
 	boostTimer_01.Start();
 	LOG("Boost iniciado!");
 }
 
 void Player::Func_BoostMovement() {
-	float durationMS = 5000.0f; // 5 seconds in miliseconds
+	float durationMS = 20000.0f; // 5 seconds in miliseconds
 	isMoving = false; 
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
@@ -454,7 +457,7 @@ void Player::Func_BoostMovement() {
 
 	if (boostTimer_01.ReadMSec() > durationMS)
 	{
-		hasASpeedBoost = false;
+		isAdrenaline = false;
 		LOG("Boost terminado");
 	}
 }
@@ -726,8 +729,7 @@ void Player::Func_Attacks(float dt) {
 		float height = 90.0f;
 		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
-		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(
-			(int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
+		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor((int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
 	}
 
 	if (isSucking) {
@@ -876,7 +878,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 		}
 
-		if (velocity.y >= -0.1f)
+		if (physA->ctype == ColliderType::SENSOR)
 		{
 			groundContacts++;
 			onGround = true;
@@ -956,7 +958,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 			groundContacts--;
 		}
 
-		if (groundContacts <= 0)
+		if (physA->ctype == ColliderType::SENSOR)
 		{
 			groundContacts = 0;
 
