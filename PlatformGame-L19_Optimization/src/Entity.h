@@ -12,6 +12,7 @@ enum class EntityType
 	COLLECTIBLES,
 	CHECKPOINT,
 	DOOR,
+	POWER_EGG
 	UNKNOWN
 };
 
@@ -74,6 +75,11 @@ public:
 	virtual void OnCollisionEnd(PhysBody* physA, PhysBody* physB) {
 
 	};
+
+	virtual bool IsEnemyStunned() {
+		return false;
+	};
+
 
 public:
 

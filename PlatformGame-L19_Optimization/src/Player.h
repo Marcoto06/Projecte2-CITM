@@ -97,7 +97,8 @@ public:
 	int texW, texH;
 
 	//Audio fx
-	int pickCoinFxId; //??????
+	int pickCoinFxId;
+	int pasosFxId;
 	
 	PhysBody* pbody;
 
