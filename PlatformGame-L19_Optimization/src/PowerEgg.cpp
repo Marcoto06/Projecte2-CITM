@@ -90,7 +90,6 @@ void PowerEgg::OnCollision(PhysBody* physA, PhysBody* physB)
 
 		if (player != nullptr)
 		{
-			player->list_collectibles.push_back(this->c_num);
 			picked = true;
 		}
 	}

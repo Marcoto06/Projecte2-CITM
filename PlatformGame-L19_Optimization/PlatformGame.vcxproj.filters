@@ -153,6 +153,9 @@
     <ClCompile Include="src\DialogManager.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\PowerEgg.cpp">
+      <Filter>Source Files\Game\Collectibles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="src\Plaquetas.h">
       <Filter>Source Files\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PowerEgg.h">
+      <Filter>Source Files\Game\Collectibles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
