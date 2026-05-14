@@ -66,6 +66,7 @@ private:
 	void Func_BoostMovement();
 	void AutoStepUp();
 	void Func_Small();
+	void Func_Dash();
 
 	// Methods of Atack
 
@@ -148,6 +149,15 @@ public:
 	bool hasCrouch = false;
 	bool hasAcidResistance;
 	bool hasAscend;
+	bool hasDash = true;
+	
+	//Dash
+	int dashLeft = 1;
+	bool dashState = false;
+	bool dashing = false;
+	Vector2D dashPos;
+	Timer dashTimer;
+	float gravityScale;
 
 	//Wall Jump
 	bool canWallJump = false;

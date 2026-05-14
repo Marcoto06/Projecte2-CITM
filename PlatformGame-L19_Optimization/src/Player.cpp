@@ -70,6 +70,8 @@ bool Player::Start() {
 	pbody->listener = this;
 
 	pbody->ctype = ColliderType::PLAYER;
+	gravityScale = b2Body_GetGravityScale(pbody->body);
+
 	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW / 6, (int)position.getY() + 175, ColliderType::SENSOR);
 	floorSensorBody->listener = this;
 
@@ -109,7 +111,18 @@ bool Player::Update(float dt)
 {
 	/*LOG("%f", velocity.x);*/
 	Draw(dt);
-	if (Engine::GetInstance().paused == true) {
+	if (hasDash && dashing == false && dashLeft > 0) {
+		Func_Dash();
+	} 
+	if (dashing == true) {
+		if (dashTimer.ReadMSec() > 250) {
+			dashing = false;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+			velocity.x = 0;
+			velocity.y = 0;
+		}
+	}
+	if (Engine::GetInstance().paused == true || dashState == true) {
 		//Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		return true;
 	}
@@ -348,19 +361,22 @@ void Player::Move() {
 	if (x_axis_norm > -0.2f && x_axis_norm < 0.2f) {
 		x_axis_norm = 0.0f;
 	}
+	if (dashing == false) 
+	{
+		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
+			isMoving = true;
+			Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.x = -normalSpeed;
+			facingRight = false;
+		}
+		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
+			isMoving = true;
+			Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.x = normalSpeed;
+			facingRight = true;
+		}
+	}
 
-	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
-		isMoving = true;
-		Engine::GetInstance().audio->PlayFx(pasosFxId);
-		velocity.x = -normalSpeed;
-		facingRight = false;
-	}
-	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
-		isMoving = true;
-		Engine::GetInstance().audio->PlayFx(pasosFxId);
-		velocity.x = normalSpeed;
-		facingRight = true;
-	}
 }
 
 void Player::AutoStepUp()
@@ -493,13 +509,15 @@ void Player::Jump(float dt)
 	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_EAST) == KEY_UP)
 		controllerJumpState = false;
 
-	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && (onGround && canJump) || (canWallJump && wallJumpsLeft > 0))
+	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && ((onGround && canJump) || (canWallJump)))
 	{
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 
 		if (!onGround) 
 		{
 			wallJumpsLeft -= 1;
+			velocity.y = 0;
+			dashLeft += 1;
 		}
 
 		float forceToUse = jumpForce;
@@ -751,7 +769,7 @@ void Player::Func_Attacks(float dt) {
 		int playerX, playerY;
 		pbody->GetPosition(playerX, playerY);
 
-		float width = 55.0f;  
+		float width = 55.0f;
 		float height = 90.0f;
 		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
@@ -760,7 +778,7 @@ void Player::Func_Attacks(float dt) {
 
 	if (isSucking) {
 
-		
+
 		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || (!controllerSuckState && Engine::GetInstance().input->controller != NULL)) {
 			currentState = PLAYERSTATE::IDLE;
 			isSucking = false;
@@ -802,12 +820,61 @@ void Player::Func_Small() {
 	}
 }
 
+void Player::Func_Dash()
+{
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) && dashState == false)
+	{
+		dashState = true;
+		dashPos = GetPosition();
+	}
+	else if (dashState == true)
+	{
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+		SetPosition(dashPos);
+		bool dash = false;
+		Vector2D dashDir;
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			dashDir = Vector2D(dashDir.getX(), -1);
+			dash = true;
+		}
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) 
+		{
+			dashDir = Vector2D(-1, dashDir.getY());
+			facingRight = false;
+			dash = true;
+		}
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
+		{
+			dashDir = Vector2D(1, dashDir.getY());
+			facingRight = true;
+			dash = true;
+		}
+		if (dash == true) {
+			dashState = false;
+			Vector2D dashForce = Vector2D (dashDir.getX() * 25, dashDir.getY() * 10);
+			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, dashForce.getX(), dashForce.getY());
+			if (dashDir.getY() == 0) 
+			{
+				b2Body_SetGravityScale(pbody->body, 0.0f);
+			}
+			dashing = true;
+			dashLeft -= 1;
+			dashTimer.Start();
+		}
+	}
+}
+
 void Player::ApplyPhysics() {
 	// Preserve vertical speed while jumping
 	if (isJumping == true) {
 		velocity.y = Engine::GetInstance().physics->GetYVelocity(pbody);
 	}
 
+	if (dashing == true) {
+		velocity.y = Engine::GetInstance().physics->GetYVelocity(pbody);
+		velocity.x = Engine::GetInstance().physics->GetXVelocity(pbody);
+	}
 	// Apply velocity via helper
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
@@ -918,14 +985,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			onGround = true;
 			isJumping = false;
 			wallJumpsLeft = 1;
+			dashLeft = 1;
 		}
 
 		if (onGround == false && physA->ctype == ColliderType::WALL_SENSOR)
 		{
 			canWallJump = true;
-			isJumping = false;
+			isJumping = false; 
 		}
-
+	
 		break;
 	}
 	case ColliderType::ITEM: {
