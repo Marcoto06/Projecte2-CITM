@@ -348,6 +348,14 @@ void Scene::UpdateLevel(float dt) {
 
 		}
 	}
+	if (!Engine::GetInstance().paused)
+	{
+		Engine::GetInstance().map->DrawForeground();
+		if (player && player->active)
+		{
+			Engine::GetInstance().uiManager->ShowPlayerUI(dt);
+		}
+	}
 }
 
 void Scene::UnloadLevel() {
@@ -366,15 +374,6 @@ void Scene::UnloadLevel() {
 }
 
 void Scene::PostUpdateLevel() {
-
-	if (!Engine::GetInstance().paused)
-	{
-		Engine::GetInstance().map->DrawForeground();
-		if (player && player->active)
-		{
-			Engine::GetInstance().uiManager->ShowPlayerUI();
-		}
-	}
 
 	//L15 TODO 3: Call the function to load entities from the map
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) 

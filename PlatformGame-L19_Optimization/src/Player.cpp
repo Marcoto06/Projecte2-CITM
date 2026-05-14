@@ -141,7 +141,6 @@ bool Player::Update(float dt)
 	}
 
 	floorSensorBody->SetPosition((int)position.getX(), (int)position.getY() + 60);
-
 	if (hasWallJump)
 	{
 		if (wallSensorLeft == nullptr)
@@ -850,9 +849,14 @@ void Player::Func_Dash()
 			facingRight = true;
 			dash = true;
 		}
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			dashDir = Vector2D(dashDir.getX(), -1);
+			dash = true;
+		}
 		if (dash == true) {
 			dashState = false;
-			Vector2D dashForce = Vector2D (dashDir.getX() * 25, dashDir.getY() * 10);
+			Vector2D dashForce = Vector2D (dashDir.getX() * 30, dashDir.getY() * 10);
 			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, dashForce.getX(), dashForce.getY());
 			if (dashDir.getY() == 0) 
 			{

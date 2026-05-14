@@ -155,10 +155,13 @@ void UIManager::LoadUITextures() {
 	gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitGameButton.png");
 
 	/*Player UI*/
-	heartFullTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
+	/*heartFullTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
 	heartHalfTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
 	heartEmptyTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
-	heartContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Caja_vida.png");
+	heartContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Caja_vida.png");*/
+	std::unordered_map<int, std::string> aliases = { {0, "10"}, {48, "9"}, {96, "8"}, {144, "7"}, {192, "6"}, {240, "5"}, {288, "4"}, {336, "3"}, {384, "2"}, {432, "1"}, {480, "0"} };
+	lifeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_vida.png");
+	life_anims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_vida.tsx", aliases);
 	habilityContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_vacio.png");
 	habilityPowerJumpTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_Salto.png");
 
@@ -651,11 +654,24 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 // *********************************************
 // Player UI
 // *********************************************
-void UIManager::ShowPlayerUI() {
-
+void UIManager::ShowPlayerUI(float dt) {
+	if (player != nullptr){
+		changeLifeAnim(player->playerCurrentHp);
+		life_anims.Update(dt);
+		const SDL_Rect& animFrame = life_anims.GetCurrentFrame();
+		float texW = animFrame.w;
+		float texH = animFrame.h;
+		Engine::GetInstance().render->DrawTexture(lifeTexture, 200, 64, &animFrame, 1.0f, 0.0, texW, texH, SDL_FLIP_NONE, 1.0f);
+	}
+	else {
+		player = Engine::GetInstance().scene->player;
+		lifeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_vida.png");
+	}
+	
 	SDL_Texture* currentHabilityTex = nullptr;
+	
 
-	int playerFullHearts = Engine::GetInstance().scene->player->playerCurrentHp / 2;
+	/*int playerFullHearts = Engine::GetInstance().scene->player->playerCurrentHp / 2;
 	int damagedHearts = 5 - playerFullHearts;
 	int halfHeart = Engine::GetInstance().scene->player->playerCurrentHp % 2;
 
@@ -674,7 +690,7 @@ void UIManager::ShowPlayerUI() {
 
 	for (int i = playerFullHearts + 1; i < 5; ++i) {
 		Engine::GetInstance().render->DrawTexture(heartEmptyTexture, 230 + (i * 70), 74, NULL, 0.0f);
-	}
+	}*/
 
 	if (Engine::GetInstance().scene->player->hasPowerJump == true) {
 		currentHabilityTex = habilityPowerJumpTexture;
@@ -712,4 +728,46 @@ void UIManager::ShowDeathScreen()
 
 	auto goToMenuButton = CreateUIElement(UIElementType::BUTTON, 11, " GO TO MENU ", goToMenuButtonRect, Engine::GetInstance().scene->GetScene());
 	goToMenuButton->SetTexture(gameOverGoToMenuButtonTexture);
+}
+
+void UIManager::changeLifeAnim(int life)
+{
+	std::string anim;
+	switch (life)
+	{
+	case 10:
+		anim = "10";
+		break;
+	case 9:
+		anim = "9";
+		break;
+	case 8:
+		anim = "8";
+		break;
+	case 7:
+		anim = "7";
+		break;
+	case 6:
+		anim = "6";
+		break;
+	case 5:
+		anim = "5";
+		break;
+	case 4:
+		anim = "4";
+		break;
+	case 3:
+		anim = "3";
+		break;
+	case 2:
+		anim = "2";
+		break;
+	case 1:
+		anim = "1";
+		break;
+	case 0:
+		anim = "0";
+		break;
+	}
+	life_anims.SetCurrent(anim);
 }
