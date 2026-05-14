@@ -9,6 +9,7 @@
 #include "Collectibles.h"
 #include "Door.h"
 #include "PowerEgg.h"
+#include "AnimatedTile.h"
 
 #include <math.h>
 
@@ -598,6 +599,34 @@ MapLayer* Map::GetNavigationLayer() {
 
                         egg->Awake();
                         egg->Start();
+                    }
+                }
+                else if (entityType == "anim_tile")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ANIMATED_TILE);
+                    std::shared_ptr<AnimatedTile> tile = std::dynamic_pointer_cast<AnimatedTile>(e);
+
+                    if (tile != nullptr)
+                    {
+                        tile->position = Vector2D(x, y);
+                        tile->name = name;
+                        tile->tiledId = tiledId;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "Texture")
+                                {
+                                    tile->LoadTexture(prop.attribute("value").as_string());
+                                }
+                            }
+                        }
+
+                        tile->Awake();
+                        tile->Start();
                     }
                 }
             }

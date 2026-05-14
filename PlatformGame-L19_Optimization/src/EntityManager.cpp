@@ -10,6 +10,7 @@
 #include "Checkpoint.h"
 #include "Door.h"
 #include "PowerEgg.h"
+#include "AnimatedTile.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -99,6 +100,10 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::POWER_EGG:
 		entity = std::make_shared<PowerEgg>();
+		break;
+	case EntityType::ANIMATED_TILE:
+		entity = std::make_shared<AnimatedTile>();
+		break;
 	default:
 		break;
 	}

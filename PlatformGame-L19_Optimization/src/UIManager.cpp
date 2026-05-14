@@ -665,7 +665,6 @@ void UIManager::ShowPlayerUI(float dt) {
 	}
 	else {
 		player = Engine::GetInstance().scene->player;
-		lifeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_vida.png");
 	}
 	
 	SDL_Texture* currentHabilityTex = nullptr;
