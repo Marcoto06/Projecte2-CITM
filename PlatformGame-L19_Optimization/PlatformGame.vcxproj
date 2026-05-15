@@ -152,6 +152,7 @@
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Boomerang.cpp" />
+    <ClCompile Include="src\Boss1.cpp" />
     <ClCompile Include="src\Checkpoint.cpp" />
     <ClCompile Include="src\Climbable.cpp" />
     <ClCompile Include="src\Collectibles.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\Boomerang.h" />
+    <ClInclude Include="src\Boss1.h" />
     <ClInclude Include="src\Checkpoint.h" />
     <ClInclude Include="src\Climbable.h" />
     <ClInclude Include="src\Collectibles.h" />

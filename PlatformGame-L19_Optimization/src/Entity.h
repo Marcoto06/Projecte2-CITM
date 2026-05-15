@@ -15,6 +15,7 @@ enum class EntityType
 	POWER_EGG,
 	ANIMATED_TILE,
 	CLIMBABLE,
+	BOSS1,
 	UNKNOWN
 };
 

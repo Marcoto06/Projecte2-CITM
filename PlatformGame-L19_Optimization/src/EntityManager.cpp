@@ -11,6 +11,7 @@
 #include "Door.h"
 #include "PowerEgg.h"
 #include "AnimatedTile.h"
+#include "Boss1.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -106,6 +107,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::CLIMBABLE:
 		entity = std::make_shared<Climbable>();
+		break;
+	case EntityType::BOSS1:
+		entity = std::make_shared<Boss1>();
 		break;
 	default:
 		break;

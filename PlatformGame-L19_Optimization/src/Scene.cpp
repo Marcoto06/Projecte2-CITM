@@ -16,6 +16,7 @@
 #include "UIManager.h"
 #include "UISlider.h"
 #include "UICheckBox.h"
+#include "Boss1.h"
 
 Scene::Scene() : Module()
 {
@@ -175,6 +176,12 @@ void Scene::LoadScene(SceneID newScene)
 
 	case SceneID::LEVEL:
 		LoadLevel("MapTemplate");
+		std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
+		std::shared_ptr<Boss1> boss = std::dynamic_pointer_cast<Boss1>(e);
+
+		boss->position = Vector2D(100, 50);
+		boss->Awake();
+		boss->Start();
 		break;
 	}
 }

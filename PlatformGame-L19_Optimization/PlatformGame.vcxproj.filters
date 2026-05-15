@@ -41,6 +41,9 @@
     <Filter Include="Source Files\Engine\Dialog System">
       <UniqueIdentifier>{ef9fd620-1646-4473-86b0-fbbf199ec939}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Enemy\Bosses">
+      <UniqueIdentifier>{45e0830c-abfd-455b-a9c7-e580de396986}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json">
@@ -165,6 +168,9 @@
     <ClCompile Include="src\Climbable.cpp">
       <Filter>Source Files\Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Boss1.cpp">
+      <Filter>Source Files\Game\Enemy\Bosses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -283,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="src\Climbable.h">
       <Filter>Source Files\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Boss1.h">
+      <Filter>Source Files\Game\Enemy\Bosses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
