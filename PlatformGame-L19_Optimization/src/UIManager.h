@@ -118,6 +118,7 @@ public:
 	SDL_Texture* heartContainerTexture = nullptr;*/
 	AnimationSet life_anims;
 	SDL_Texture* lifeTexture = nullptr;
+	int playerHP;
 
 	SDL_Texture* habilityContainerTexture = nullptr;
 	SDL_Texture* habilityPowerJumpTexture = nullptr;

@@ -660,7 +660,7 @@ void UIManager::ShowPlayerUI() {
 		const SDL_Rect& animFrame = life_anims.GetCurrentFrame();
 		float texW = animFrame.w;
 		float texH = animFrame.h;
-		Engine::GetInstance().render->DrawTexture(lifeTexture, 200, 64, &animFrame, 1.0f, 0.0, texW, texH, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(lifeTexture, 200, 64, &animFrame, 0.0f);
 	}
 	else {
 		player = Engine::GetInstance().scene->player;
@@ -668,7 +668,6 @@ void UIManager::ShowPlayerUI() {
 	
 	SDL_Texture* currentHabilityTex = nullptr;
 	
-
 	/*int playerFullHearts = Engine::GetInstance().scene->player->playerCurrentHp / 2;
 	int damagedHearts = 5 - playerFullHearts;
 	int halfHeart = Engine::GetInstance().scene->player->playerCurrentHp % 2;
@@ -733,39 +732,41 @@ void UIManager::changeLifeAnim(int life)
 	std::string anim;
 	switch (life)
 	{
-	case 10:
-		anim = "10";
-		break;
-	case 9:
-		anim = "9";
-		break;
-	case 8:
-		anim = "8";
-		break;
-	case 7:
-		anim = "7";
-		break;
-	case 6:
-		anim = "6";
-		break;
-	case 5:
-		anim = "5";
-		break;
-	case 4:
-		anim = "4";
-		break;
-	case 3:
-		anim = "3";
-		break;
-	case 2:
-		anim = "2";
-		break;
-	case 1:
-		anim = "1";
-		break;
-	case 0:
-		anim = "0";
-		break;
+		case 10:
+			anim = "10";
+			break;
+		case 9:
+			anim = "9";
+			break;
+		case 8:
+			anim = "8";
+			break;
+		case 7:
+			anim = "7";
+			break;
+		case 6:
+			anim = "6";
+			break;
+		case 5:
+			anim = "5";
+			break;
+		case 4:
+			anim = "4";
+			break;
+		case 3:
+			anim = "3";
+			break;
+		case 2:
+			anim = "2";
+			break;
+		case 1:
+			anim = "1";
+			break;
+		case 0:
+			anim = "0";
+			break;
+		default:
+			break;
 	}
 	life_anims.SetCurrent(anim);
 }

@@ -23,7 +23,7 @@ bool Climbable::Start() {
 
 	pbody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX(), position.getY(), width, height, bodyType::STATIC);
 
-	climbPoint = position.getX();
+	climbPoint = position.getX() - width/2 + 10;
 
 	// L08 TODO 7: Assign collider type
 	pbody->ctype = ColliderType::CLIMBABLE;

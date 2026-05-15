@@ -874,16 +874,27 @@ void Player::Func_Climb()
 {
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && dashState == false && nearestClimbable != nullptr)
 	{
-		position.setX(nearestClimbable->climbPoint);
-		b2Body_SetGravityScale(pbody->body, 0.0f);
-		velocity.y = -10;
-		isClimbing = true;
+		if (!isClimbing) 
+		{
+			SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
+			b2Body_SetGravityScale(pbody->body, 0.0f);
+			isClimbing = true;
+		}
+		velocity.y = -7;
 	}
-	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && dashState == false && nearestClimbable != nullptr)
+	{
+		if (!isClimbing)
+		{
+			SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
+			b2Body_SetGravityScale(pbody->body, 0.0f);
+			isClimbing = true;
+		}
+		velocity.y = 7;
+	}
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP && Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_UP)
 	{
 		velocity.y = 0;
-		b2Body_SetGravityScale(pbody->body, gravityScale);
-		isClimbing = false;
 	}
 }
 
@@ -1117,6 +1128,8 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	case ColliderType::CLIMBABLE:
 		LOG("End Collision CLIMBABLE");
 		nearestClimbable = nullptr;
+		/*b2Body_SetGravityScale(pbody->body, gravityScale);
+		isClimbing = false;*/
 		break;
 	default:
 		break;
