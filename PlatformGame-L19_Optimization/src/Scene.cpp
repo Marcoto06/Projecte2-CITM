@@ -58,20 +58,20 @@ bool Scene::Update(float dt)
 {
 	if (isPlayingVideo) {
 		
-		plm_decode(currentVideo->plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
+		plm_decode(currentVideo.plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
 
-		if (currentVideo->texture && currentVideo->buffer) {
-			SDL_UpdateTexture(currentVideo->texture, NULL, currentVideo->buffer, currentVideo->width * 4);
+		if (currentVideo.texture && currentVideo.buffer) {
+			SDL_UpdateTexture(currentVideo.texture, NULL, currentVideo.buffer, currentVideo.width * 4);
 
-			SDL_RenderTexture(Engine::GetInstance().render->renderer, currentVideo->texture, NULL, NULL);
+			SDL_RenderTexture(Engine::GetInstance().render->renderer, currentVideo.texture, NULL, NULL);
 		}
 
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo->plm) && currentScene != SceneID::LEVEL)	// If space is pressed or the video has ended, stop the video and load the main menu
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm) && currentScene != SceneID::LEVEL)	// If space is pressed or the video has ended, stop the video and load the main menu
 		{
 			StopCurrentVideo();
 			ChangeScene(SceneID::LEVEL);
 		}
-		else if (plm_has_ended(currentVideo->plm))
+		else if (plm_has_ended(currentVideo.plm))
 		{
 			StopCurrentVideo();
 		}
@@ -504,7 +504,7 @@ void Scene::PlayVideo(std::string _file)
 	{
 		if (video.file == _file)
 		{
-			currentVideo = &video;
+			currentVideo = video;
 			isPlayingVideo = true;
 			Engine::GetInstance().uiManager->CleanUp();
 		}
@@ -514,13 +514,13 @@ void Scene::PlayVideo(std::string _file)
 void Scene::StopCurrentVideo() {
 	isPlayingVideo = false;
 
-	if (currentVideo->plm) plm_destroy(currentVideo->plm);
-	if (currentVideo->texture) SDL_DestroyTexture(currentVideo->texture);
-	if (currentVideo->buffer) delete[] currentVideo->buffer;
+	if (currentVideo.plm) plm_destroy(currentVideo.plm);
+	if (currentVideo.texture) SDL_DestroyTexture(currentVideo.texture);
+	if (currentVideo.buffer) delete[] currentVideo.buffer;
 
-	currentVideo->plm = nullptr;
-	currentVideo->texture = nullptr;
-	currentVideo->buffer = nullptr;
+	currentVideo.plm = nullptr;
+	currentVideo.texture = nullptr;
+	currentVideo.buffer = nullptr;
 }
 
 // *********************************************

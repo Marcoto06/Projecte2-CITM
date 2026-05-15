@@ -150,7 +150,7 @@ private:
 
 private:
 
-	VideoData* currentVideo;
+	VideoData currentVideo;
 	std::list<VideoData> videos;
 	VideoData introVideo;
 	VideoData loadingVideo;
