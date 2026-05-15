@@ -105,6 +105,10 @@ public:
 	Scene* GetScene() { return this; }
 
 	void PlayVideo(std::string _file);
+
+	//AUdio FX
+	int latidosFXId;
+	int fondoBocaFXId;
 	
 private:
 	struct VideoData {

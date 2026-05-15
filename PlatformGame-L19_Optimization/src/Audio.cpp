@@ -72,28 +72,20 @@ bool Audio::EnsureStreams() {
             return false;
         }
     }
-
-	// Set music volume
-    SDL_SetAudioStreamGain(music_stream_, music_volume_);
-
-    if (!sfx_stream_) {
-        sfx_stream_ = SDL_CreateAudioStream(nullptr, &device_spec_);
-        if (!sfx_stream_) {
-            LOG("Audio: SDL_CreateAudioStream (sfx) failed: %s", SDL_GetError());
-            return false;
-        }
-        if (!SDL_BindAudioStream(device_, sfx_stream_)) {
-            LOG("Audio: SDL_BindAudioStream (sfx) failed: %s", SDL_GetError());
-            SDL_DestroyAudioStream(sfx_stream_);
-            sfx_stream_ = nullptr;
-            return false;
+    // --- NUEVO SISTEMA MULTICANAL PARA FX ---
+    for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
+        if (!sfx_channels_[i]) {
+            sfx_channels_[i] = SDL_CreateAudioStream(nullptr, &device_spec_);
+            if (sfx_channels_[i]) {
+                SDL_BindAudioStream(device_, sfx_channels_[i]);
+                SDL_SetAudioStreamGain(sfx_channels_[i], sfx_volume_);
+            }
+            else {
+                LOG("Audio: SDL_CreateAudioStream (sfx canal %d) failed", i);
+            }
         }
     }
 
-	// Set SFX volume
-    SDL_SetAudioStreamGain(sfx_stream_, sfx_volume_);
-
-    return true;
 }
 
 
@@ -117,7 +109,11 @@ bool Audio::CleanUp() {
     // If audio is inactive or already quit elsewhere, don't touch SDL objects.
     if (!active || !SDL_WasInit(SDL_INIT_AUDIO)) {
         music_stream_ = nullptr;
-        sfx_stream_ = nullptr;
+
+        for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
+            sfx_channels_[i] = nullptr;
+        }
+
         device_ = 0;
         sfx_.clear();
         FreeSound(music_data_);
@@ -136,22 +132,26 @@ bool Audio::CleanUp() {
     }
     FreeSound(music_data_);
 
-    if (sfx_stream_) {
-        SDL_DestroyAudioStream(sfx_stream_);
-        sfx_stream_ = nullptr;
-    }
-    for (auto& s : sfx_) FreeSound(s);
-    sfx_.clear();
+    // Destruir los 30 canales de FX
+    for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
+        if (sfx_channels_[i]) {
+            SDL_DestroyAudioStream(sfx_channels_[i]);
+            sfx_channels_[i] = nullptr;
+        }
 
-    // Close device after streams are gone.
-    if (device_ != 0) {
-        SDL_CloseAudioDevice(device_);
-        device_ = 0;
-    }
+        for (auto& s : sfx_) FreeSound(s);
+        sfx_.clear();
 
-    SDL_QuitSubSystem(SDL_INIT_AUDIO);
-    active = false;
-    return true;
+        // Close device after streams are gone.
+        if (device_ != 0) {
+            SDL_CloseAudioDevice(device_);
+            device_ = 0;
+        }
+
+        SDL_QuitSubSystem(SDL_INIT_AUDIO);
+        active = false;
+        return true;
+    }
 }
 
 bool Audio::PlayMusic(const char* path, float fadeTime) {
@@ -207,15 +207,31 @@ bool Audio::PlayFx(int id, int repeat) {
 
     const SoundData& s = sfx_[static_cast<size_t>(id - 1)];
 
-    // Make sure the SFX stream input format matches this sound
-    if (!SDL_SetAudioStreamFormat(sfx_stream_, &s.spec, &device_spec_)) {
+    // 1. Buscar un canal libre (que no tenga audio en cola)
+    SDL_AudioStream* free_stream = nullptr;
+    for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
+        // SDL_GetAudioStreamQueued devuelve 0 si el canal ya terminó de sonar
+        if (sfx_channels_[i] && SDL_GetAudioStreamQueued(sfx_channels_[i]) == 0) {
+            free_stream = sfx_channels_[i];
+            break;
+        }
+    }
+
+    // 2. Si todos los canales están sonando a la vez, cortamos el primero para hacer sitio
+    if (!free_stream) {
+        free_stream = sfx_channels_[0];
+        SDL_ClearAudioStream(free_stream);
+    }
+
+    // 3. Configurar formato y reproducir
+    if (!SDL_SetAudioStreamFormat(free_stream, &s.spec, &device_spec_)) {
         LOG("Audio: SDL_SetAudioStreamFormat(sfx) failed: %s", SDL_GetError());
         return false;
     }
 
-    // Queue sound 'repeat+1' times
+    // Enviar los datos al canal
     for (int i = 0; i <= repeat; ++i) {
-        if (!SDL_PutAudioStreamData(sfx_stream_, s.buf, s.len)) {
+        if (!SDL_PutAudioStreamData(free_stream, s.buf, s.len)) {
             LOG("Audio: SDL_PutAudioStreamData(sfx) failed: %s", SDL_GetError());
             return false;
         }
@@ -245,7 +261,10 @@ void Audio::SetSFXVolume(float volume)
 
     sfx_volume_ = volume;
 
-    if (sfx_stream_) {
-        SDL_SetAudioStreamGain(sfx_stream_, sfx_volume_);
+    // Aplicar a todos los canales
+    for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
+        if (sfx_channels_[i]) {
+            SDL_SetAudioStreamGain(sfx_channels_[i], sfx_volume_);
+        }
     }
 }

@@ -76,6 +76,7 @@ bool Player::Start() {
 	floorSensorBody->listener = this;
 
 	pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
+
 	//Audios
 	/*std::unordered_map< std::string,Audio> list_audios;
 	{
@@ -371,7 +372,7 @@ void Player::Move() {
 	{
 		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 			isMoving = true;
-			Engine::GetInstance().audio->PlayFx(pasosFxId);
+			Engine::GetInstance().audio->PlayFx(pasosFxId);//
 			velocity.x = -normalSpeed;
 			facingRight = false;
 		}
@@ -382,6 +383,23 @@ void Player::Move() {
 			facingRight = true;
 		}
 	}
+
+	// CONTROL DEL AUDIO
+	//if (isMoving)
+	//{
+	//	if (!pasosSonando)
+	//	{
+	//		Engine::GetInstance().audio->PlayFx(pasosFxId, -1); // loop
+	//		pasosSonando = true;
+	//	}
+	//}
+	//else
+	//{
+	//	if (pasosSonando)
+	//	{
+	//		pasosSonando = false;
+	//	}
+	//}
 
 }
 

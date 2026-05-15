@@ -44,7 +44,14 @@ bool Scene::Start()
 	LoadVideo(&introVideo, "AnimaticaFinal");
 	LoadVideo(&loadingVideo, "LoadingScreen");
 
+	//Audio fx
+	latidosFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/latidos.wav");
+	//fondoBocaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/sonido de fondo 1.wav");
+
 	LoadScene(currentScene); // start in MAIN_MENU
+	Engine::GetInstance().audio->PlayFx(latidosFXId, 50);
+	Engine::GetInstance().audio->PlayMusic("Assets/Audio/Fx/sonido de fondo 1.wav", 50);
+	//Engine::GetInstance().audio->PlayFx(latidosFXId);
 	return true;
 }
 

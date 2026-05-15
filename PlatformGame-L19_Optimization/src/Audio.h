@@ -54,7 +54,8 @@ private:
 
     // Streams
     SDL_AudioStream* music_stream_{ nullptr }; // for background music (single)
-    SDL_AudioStream* sfx_stream_{ nullptr };   // simple shared SFX stream
+    static const int MAX_FX_CHANNELS = 30; // El número máximo de sonidos a la vez
+    SDL_AudioStream* sfx_channels_[MAX_FX_CHANNELS] = { nullptr };
 
     // Loaded sounds
     SoundData music_data_{};
