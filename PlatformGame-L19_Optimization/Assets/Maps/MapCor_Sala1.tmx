@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="35">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="37">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -1863,6 +1863,12 @@
     <property name="Type" value="anim_tile"/>
    </properties>
   </object>
+  <object id="36" name="base_animada_pulmons" type="anim_tile" x="896" y="960" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
   <object id="21" name="base_animada_pulmons" type="anim_tile" x="640" y="960" width="64" height="64">
    <properties>
     <property name="Texture" value="base_animada_pulmons"/>
@@ -1906,6 +1912,12 @@
    </properties>
   </object>
   <object id="19" name="part_superior_animada_pulmons" type="anim_tile" x="704" y="896" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="35" name="part_superior_animada_pulmons" type="anim_tile" x="896" y="896" width="64" height="64">
    <properties>
     <property name="Texture" value="part_superior_animada_pulmons"/>
     <property name="Type" value="anim_tile"/>
