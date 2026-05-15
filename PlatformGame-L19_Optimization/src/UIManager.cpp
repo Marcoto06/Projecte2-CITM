@@ -159,7 +159,7 @@ void UIManager::LoadUITextures() {
 	heartHalfTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
 	heartEmptyTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
 	heartContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Caja_vida.png");*/
-	std::unordered_map<int, std::string> aliases = { {0, "10"}, {48, "9"}, {96, "8"}, {144, "7"}, {192, "6"}, {240, "5"}, {288, "4"}, {336, "3"}, {384, "2"}, {432, "1"}, {480, "0"} };
+	std::unordered_map<int, std::string> aliases = { {0, "10"}, {1, "9"}, {2, "8"}, {3, "7"}, {4, "6"}, {5, "5"}, {6, "4"}, {7, "3"}, {8, "2"}, {9, "1"}, {10, "0"} };
 	lifeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_vida.png");
 	life_anims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_vida.tsx", aliases);
 	habilityContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_vacio.png");

@@ -111,7 +111,7 @@ bool Player::Update(float dt)
 {
 	/*LOG("%f", velocity.x);*/
 	Draw(dt);
-	if (hasDash && dashing == false && dashLeft > 0) {
+	if (hasDash && dashing == false && dashLeft > 0 && !isClimbing) {
 		Func_Dash();
 	} 
 	if (dashing == true) {
@@ -123,13 +123,15 @@ bool Player::Update(float dt)
 		}
 	}
 	if (Engine::GetInstance().paused == true || dashState == true) {
-		//Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		return true;
 	}
 
-	UpdateAttack(dt);
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		Attack();
+	if (!isClimbing) 
+	{
+		UpdateAttack(dt);
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+			Attack();
+		}
 	}
 
 	ZoneScoped;
@@ -171,11 +173,13 @@ bool Player::Update(float dt)
 	isSteppingUp = false;
 
 	if (!isHurt) {
-		if (isAdrenaline) {
-			Func_BoostMovement();
-		}
-		else {
-			Move();
+		if (!isClimbing) {
+			if (isAdrenaline) {
+				Func_BoostMovement();
+			}
+			else {
+				Move();
+			}
 		}
 
 		if (!isSmall) {
@@ -183,7 +187,9 @@ bool Player::Update(float dt)
 
 			Jump(dt);
 
-			Func_Attacks(dt);
+			if (!isClimbing) {
+				Func_Attacks(dt);
+			}
 		}
 	}
 
@@ -509,7 +515,7 @@ void Player::Jump(float dt)
 	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_EAST) == KEY_UP)
 		controllerJumpState = false;
 
-	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && ((onGround && canJump) || (canWallJump)))
+	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && ((onGround && canJump) || isClimbing || canWallJump))
 	{
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 
@@ -518,6 +524,8 @@ void Player::Jump(float dt)
 			wallJumpsLeft -= 1;
 			velocity.y = 0;
 			dashLeft += 1;
+			isClimbing = false;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
 		}
 
 		float forceToUse = jumpForce;
@@ -857,7 +865,8 @@ void Player::Func_Dash()
 		}
 		if (dash == true) {
 			dashState = false;
-			Vector2D dashForce = Vector2D (dashDir.getX() * 30, dashDir.getY() * 10);
+			Vector2D dashForce = Vector2D (dashDir.getX() * 30, dashDir.getY() * 15);
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, dashForce.getX(), dashForce.getY());
 			if (dashDir.getY() == 0) 
 			{
@@ -872,27 +881,35 @@ void Player::Func_Dash()
 
 void Player::Func_Climb()
 {
-	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && dashState == false && nearestClimbable != nullptr)
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
 	{
 		if (!isClimbing) 
 		{
-			SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
+			//SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
 			b2Body_SetGravityScale(pbody->body, 0.0f);
 			isClimbing = true;
 		}
 		velocity.y = -7;
 	}
-	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) && dashState == false && nearestClimbable != nullptr)
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
 	{
-		if (!isClimbing)
-		{
-			SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
-			b2Body_SetGravityScale(pbody->body, 0.0f);
-			isClimbing = true;
+		if (!onGround) {
+			if (!isClimbing && Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
+				//SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
+				b2Body_SetGravityScale(pbody->body, 0.0f);
+				isClimbing = true;
+			}
+			velocity.y = 7;
 		}
-		velocity.y = 7;
+		else {
+			isClimbing = false;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+		}
 	}
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP && Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_UP) && isClimbing == true)
 	{
 		velocity.y = 0;
 	}
@@ -1049,6 +1066,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+			isClimbing = false;
 			LOG("Current HP: %i", playerCurrentHp);
 
 			if (playerCurrentHp > 0)
