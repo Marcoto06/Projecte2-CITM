@@ -14,6 +14,7 @@ enum class EntityType
 	DOOR,
 	POWER_EGG,
 	ANIMATED_TILE,
+	CLIMBABLE,
 	UNKNOWN
 };
 

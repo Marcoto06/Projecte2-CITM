@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "Collectibles.h"
 #include "Audio.h"
+#include "Climbable.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 
@@ -67,6 +68,7 @@ private:
 	void AutoStepUp();
 	void Func_Small();
 	void Func_Dash();
+	void Func_Climb();
 
 	// Methods of Atack
 
@@ -167,6 +169,10 @@ public:
 	Timer boostTimer_01;
 	Timer hurtTimer;
 	AnimationSet effectAnims;
+
+	//Climbing
+	Climbable* nearestClimbable = nullptr;
+	bool isClimbing = false;
 
 	std::vector<int> list_collectibles;
 private:

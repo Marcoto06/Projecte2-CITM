@@ -104,6 +104,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 	case EntityType::ANIMATED_TILE:
 		entity = std::make_shared<AnimatedTile>();
 		break;
+	case EntityType::CLIMBABLE:
+		entity = std::make_shared<Climbable>();
+		break;
 	default:
 		break;
 	}
@@ -145,6 +148,7 @@ bool EntityManager::Update(float dt)
 		}
 		//If the entity is not active, skip it
 		if (entity->active == false) continue;
+		if (entity->type == EntityType::ANIMATED_TILE) continue;
 		if (entity->type == EntityType::PLAYER) 
 		{
 			player = entity;
@@ -195,4 +199,22 @@ std::shared_ptr<Entity> EntityManager::GetEntityByTiledId(int id)
 		}
 	}
 	return nullptr;
+}
+
+bool EntityManager::DrawAnimatedTiles(float dt)
+{
+	bool ret = true;
+
+	std::shared_ptr<Entity> player = nullptr;
+
+	//Iterates over the entities and calls Update
+	for (const auto entity : entities)
+	{
+		if (entity->type == EntityType::ANIMATED_TILE)
+		{
+			ret = entity->Update(dt);
+		}
+	}
+
+	return ret;
 }

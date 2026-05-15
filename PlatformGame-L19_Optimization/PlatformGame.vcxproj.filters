@@ -162,6 +162,9 @@
     <ClCompile Include="src\AnimatedTile.cpp">
       <Filter>Source Files\Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Climbable.cpp">
+      <Filter>Source Files\Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -276,6 +279,9 @@
       <Filter>Source Files\Engine\Dialog System</Filter>
     </ClInclude>
     <ClInclude Include="src\AnimatedTile.h">
+      <Filter>Source Files\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Climbable.h">
       <Filter>Source Files\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

@@ -190,6 +190,7 @@ bool Player::Update(float dt)
 	if (hasCrouch) {
 		Func_Small();
 	}
+	Func_Climb();
 	Func_PlayerState();
 	Teleport();
 	ApplyPhysics();
@@ -869,6 +870,23 @@ void Player::Func_Dash()
 	}
 }
 
+void Player::Func_Climb()
+{
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && dashState == false && nearestClimbable != nullptr)
+	{
+		position.setX(nearestClimbable->climbPoint);
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+		velocity.y = -10;
+		isClimbing = true;
+	}
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		velocity.y = 0;
+		b2Body_SetGravityScale(pbody->body, gravityScale);
+		isClimbing = false;
+	}
+}
+
 void Player::ApplyPhysics() {
 	// Preserve vertical speed while jumping
 	if (isJumping == true) {
@@ -977,7 +995,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	Enemy* enemy;
 	switch (physB->ctype)
 	{
-	case ColliderType::PLATFORM: {
+	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 
 		if (isMoving && onGround)
@@ -1000,23 +1018,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (onGround == false && physA->ctype == ColliderType::WALL_SENSOR)
 		{
 			canWallJump = true;
-			isJumping = false; 
+			isJumping = false;
 		}
-	
 		break;
-	}
-	case ColliderType::ITEM: {
+	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		Engine::GetInstance().audio->PlayFx(pickCoinFxId);
 		physB->listener->Destroy();
 		hasWallJump = true;
 		break;
-	}
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
-	case ColliderType::ENEMY:
-	{
+	case ColliderType::ENEMY:{
 		LOG("End Collision ENEMY");
 
 		Entity* entityPtr = (Entity*)physB->listener;
@@ -1051,14 +1065,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				currentState = PLAYERSTATE::DEATH;
 				anims.SetCurrent("death");
 			}
-		}		
+		}
 		break;
 	}
-	case ColliderType::CHECKPOINT: {
+	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
 		canDialog = true;
 		break;
-	}
 	default:
 		break;
 	}
@@ -1068,7 +1081,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
-	case ColliderType::PLATFORM: {
+	case ColliderType::PLATFORM:
 		LOG("End Collision PLATFORM");
 
 		if (groundContacts > 0)
@@ -1091,18 +1104,20 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 			canWallJump = false;
 		}
 		break;
-	}
 	case ColliderType::ITEM:
 		LOG("End Collision ITEM");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("End Collision UNKNOWN");
 		break;
-	case ColliderType::CHECKPOINT: {
+	case ColliderType::CHECKPOINT:
 		LOG("End Collision CHECKPOINT");
 		canDialog = false;
 		break;
-	}
+	case ColliderType::CLIMBABLE:
+		LOG("End Collision CLIMBABLE");
+		nearestClimbable = nullptr;
+		break;
 	default:
 		break;
 	}
