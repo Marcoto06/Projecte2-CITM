@@ -79,7 +79,7 @@ public:
 	void LoadUITextures();
 
 	/* Player UI */
-	void ShowPlayerUI(float dt);
+	void ShowPlayerUI();
 	void changeLifeAnim(int life);
 
 	/* GameOver UI */

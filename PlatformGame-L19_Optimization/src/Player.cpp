@@ -880,6 +880,11 @@ void Player::ApplyPhysics() {
 		velocity.x = Engine::GetInstance().physics->GetXVelocity(pbody);
 	}
 	// Apply velocity via helper
+
+	if (velocity.y > 0 && velocity.y <= 17.7f) 
+	{
+		velocity.y += 0.3f;
+	}
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 

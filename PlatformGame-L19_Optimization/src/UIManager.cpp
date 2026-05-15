@@ -104,7 +104,7 @@ bool UIManager::Update(float dt)
 		uiElement->CleanUp();
 		UIElementsList.remove(uiElement);
 	}
-
+	life_anims.Update(dt);
 	return true;
 }
 
@@ -379,7 +379,7 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 		std::remove("Saves/savegame.xml");
 
 		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
-		//Engine::GetInstance().scene->PlayIntroVideo();
+		//Engine::GetInstance().scene->PlayVideo("AnimaticaFinal");
 		break;
 	}
 	case 9: // CONTINUE BUTTON
@@ -654,10 +654,9 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 // *********************************************
 // Player UI
 // *********************************************
-void UIManager::ShowPlayerUI(float dt) {
+void UIManager::ShowPlayerUI() {
 	if (player != nullptr){
 		changeLifeAnim(player->playerCurrentHp);
-		life_anims.Update(dt);
 		const SDL_Rect& animFrame = life_anims.GetCurrentFrame();
 		float texW = animFrame.w;
 		float texH = animFrame.h;

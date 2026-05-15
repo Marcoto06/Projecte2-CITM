@@ -99,13 +99,22 @@ public:
 	//void SetPauseState(PauseMenuState state) { currentPauseState = state; };
 
 	bool isGameOver = false;
+	bool isPlayingVideo = false;
 	SceneID GetCurrentScene() { return currentScene; };
 
 	Scene* GetScene() { return this; }
-private:
 
-	void PlayIntroVideo();
-	void StopIntroVideo();
+	void PlayVideo(std::string _file);
+	
+private:
+	struct VideoData {
+		std::string file;
+		plm_t* plm = nullptr;
+		SDL_Texture* texture = nullptr;
+		uint8_t* buffer = nullptr;
+		int width = 0;
+		int height = 0;
+	};
 
 	static void OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user);	//Callback function required by pl_mpeg to return video frames
 
@@ -136,18 +145,15 @@ private:
 
 	void ShowDeathScreen();
 
+	void LoadVideo(VideoData* video, std::string _file);
+	void StopCurrentVideo();
+
 private:
 
-	struct VideoData {
-		SDL_Texture* texture = nullptr;
-		uint8_t* buffer = nullptr;
-		int width = 0;
-		int height = 0;
-	};
-
+	VideoData* currentVideo;
+	std::list<VideoData> videos;
 	VideoData introVideo;
-	plm_t* plm = nullptr;      // Principal pointer to the library
-	bool isPlayingVideo = false;
+	VideoData loadingVideo;
 
 	//L03: TODO 3b: Declare a Player attribute
 	SDL_Texture* mouseTileTex = nullptr;

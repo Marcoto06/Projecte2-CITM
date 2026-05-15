@@ -126,12 +126,14 @@ void EntityManager::AddEntity(std::shared_ptr<Entity> entity)
 
 bool EntityManager::Update(float dt)
 {
-	if (Engine::GetInstance().paused)return true;
+	if (Engine::GetInstance().paused || Engine::GetInstance().scene->isPlayingVideo)return true;
 
 	bool ret = true;
 
 	//List to store entities pending deletion
 	std::list<std::shared_ptr<Entity>> pendingDelete;
+
+	std::shared_ptr<Entity> player = nullptr;
 
 	//Iterates over the entities and calls Update
 	for (const auto entity : entities)
@@ -143,7 +145,17 @@ bool EntityManager::Update(float dt)
 		}
 		//If the entity is not active, skip it
 		if (entity->active == false) continue;
+		if (entity->type == EntityType::PLAYER) 
+		{
+			player = entity;
+			continue;
+		}
 		ret = entity->Update(dt);
+	}
+
+	if (player != nullptr && player->active == true) 
+	{
+		player->Update(dt);
 	}
 
 	//Now iterates over the pendingDelete list and destroys the entities

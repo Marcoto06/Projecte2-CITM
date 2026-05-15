@@ -42,7 +42,7 @@ bool Map::Update(float dt)
 
     bool ret = true;
 
-    if (mapLoaded) {
+    if (mapLoaded && !Engine::GetInstance().scene->isPlayingVideo) {
 
         // L07 TODO 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
         // iterate all tiles in a layer

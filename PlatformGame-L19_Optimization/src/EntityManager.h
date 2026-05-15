@@ -39,5 +39,4 @@ public:
 public:
 
 	std::list<std::shared_ptr<Entity>> entities;
-
 };
