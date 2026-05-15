@@ -70,6 +70,8 @@ bool Player::Start() {
 	pbody->listener = this;
 
 	pbody->ctype = ColliderType::PLAYER;
+	gravityScale = b2Body_GetGravityScale(pbody->body);
+
 	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW / 6, (int)position.getY() + 175, ColliderType::SENSOR);
 	floorSensorBody->listener = this;
 
@@ -109,7 +111,18 @@ bool Player::Update(float dt)
 {
 	/*LOG("%f", velocity.x);*/
 	Draw(dt);
-	if (Engine::GetInstance().paused == true) {
+	if (hasDash && dashing == false && dashLeft > 0) {
+		Func_Dash();
+	} 
+	if (dashing == true) {
+		if (dashTimer.ReadMSec() > 250) {
+			dashing = false;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+			velocity.x = 0;
+			velocity.y = 0;
+		}
+	}
+	if (Engine::GetInstance().paused == true || dashState == true) {
 		//Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		return true;
 	}
@@ -128,7 +141,6 @@ bool Player::Update(float dt)
 	}
 
 	floorSensorBody->SetPosition((int)position.getX(), (int)position.getY() + 60);
-
 	if (hasWallJump)
 	{
 		if (wallSensorLeft == nullptr)
@@ -178,6 +190,7 @@ bool Player::Update(float dt)
 	if (hasCrouch) {
 		Func_Small();
 	}
+	Func_Climb();
 	Func_PlayerState();
 	Teleport();
 	ApplyPhysics();
@@ -348,19 +361,22 @@ void Player::Move() {
 	if (x_axis_norm > -0.2f && x_axis_norm < 0.2f) {
 		x_axis_norm = 0.0f;
 	}
+	if (dashing == false) 
+	{
+		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
+			isMoving = true;
+			Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.x = -normalSpeed;
+			facingRight = false;
+		}
+		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
+			isMoving = true;
+			Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.x = normalSpeed;
+			facingRight = true;
+		}
+	}
 
-	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
-		isMoving = true;
-		Engine::GetInstance().audio->PlayFx(pasosFxId);
-		velocity.x = -normalSpeed;
-		facingRight = false;
-	}
-	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
-		isMoving = true;
-		Engine::GetInstance().audio->PlayFx(pasosFxId);
-		velocity.x = normalSpeed;
-		facingRight = true;
-	}
 }
 
 void Player::AutoStepUp()
@@ -493,13 +509,15 @@ void Player::Jump(float dt)
 	else if (Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_EAST) == KEY_UP)
 		controllerJumpState = false;
 
-	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && (onGround && canJump) || (canWallJump && wallJumpsLeft > 0))
+	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && ((onGround && canJump) || (canWallJump)))
 	{
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 
 		if (!onGround) 
 		{
 			wallJumpsLeft -= 1;
+			velocity.y = 0;
+			dashLeft += 1;
 		}
 
 		float forceToUse = jumpForce;
@@ -751,7 +769,7 @@ void Player::Func_Attacks(float dt) {
 		int playerX, playerY;
 		pbody->GetPosition(playerX, playerY);
 
-		float width = 55.0f;  
+		float width = 55.0f;
 		float height = 90.0f;
 		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
@@ -760,7 +778,7 @@ void Player::Func_Attacks(float dt) {
 
 	if (isSucking) {
 
-		
+
 		if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP || (!controllerSuckState && Engine::GetInstance().input->controller != NULL)) {
 			currentState = PLAYERSTATE::IDLE;
 			isSucking = false;
@@ -802,13 +820,89 @@ void Player::Func_Small() {
 	}
 }
 
+void Player::Func_Dash()
+{
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) && dashState == false)
+	{
+		dashState = true;
+		dashPos = GetPosition();
+	}
+	else if (dashState == true)
+	{
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+		SetPosition(dashPos);
+		bool dash = false;
+		Vector2D dashDir;
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			dashDir = Vector2D(dashDir.getX(), -1);
+			dash = true;
+		}
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) 
+		{
+			dashDir = Vector2D(-1, dashDir.getY());
+			facingRight = false;
+			dash = true;
+		}
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
+		{
+			dashDir = Vector2D(1, dashDir.getY());
+			facingRight = true;
+			dash = true;
+		}
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			dashDir = Vector2D(dashDir.getX(), -1);
+			dash = true;
+		}
+		if (dash == true) {
+			dashState = false;
+			Vector2D dashForce = Vector2D (dashDir.getX() * 30, dashDir.getY() * 10);
+			Engine::GetInstance().physics->ApplyLinearImpulseToCenter(pbody, dashForce.getX(), dashForce.getY());
+			if (dashDir.getY() == 0) 
+			{
+				b2Body_SetGravityScale(pbody->body, 0.0f);
+			}
+			dashing = true;
+			dashLeft -= 1;
+			dashTimer.Start();
+		}
+	}
+}
+
+void Player::Func_Climb()
+{
+	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && dashState == false && nearestClimbable != nullptr)
+	{
+		position.setX(nearestClimbable->climbPoint);
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+		velocity.y = -10;
+		isClimbing = true;
+	}
+	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		velocity.y = 0;
+		b2Body_SetGravityScale(pbody->body, gravityScale);
+		isClimbing = false;
+	}
+}
+
 void Player::ApplyPhysics() {
 	// Preserve vertical speed while jumping
 	if (isJumping == true) {
 		velocity.y = Engine::GetInstance().physics->GetYVelocity(pbody);
 	}
 
+	if (dashing == true) {
+		velocity.y = Engine::GetInstance().physics->GetYVelocity(pbody);
+		velocity.x = Engine::GetInstance().physics->GetXVelocity(pbody);
+	}
 	// Apply velocity via helper
+
+	if (velocity.y > 0 && velocity.y <= 17.7f) 
+	{
+		velocity.y += 0.3f;
+	}
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
@@ -901,7 +995,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	Enemy* enemy;
 	switch (physB->ctype)
 	{
-	case ColliderType::PLATFORM: {
+	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 
 		if (isMoving && onGround)
@@ -918,6 +1012,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			onGround = true;
 			isJumping = false;
 			wallJumpsLeft = 1;
+			dashLeft = 1;
 		}
 
 		if (onGround == false && physA->ctype == ColliderType::WALL_SENSOR)
@@ -925,21 +1020,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			canWallJump = true;
 			isJumping = false;
 		}
-
 		break;
-	}
-	case ColliderType::ITEM: {
+	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		Engine::GetInstance().audio->PlayFx(pickCoinFxId);
 		physB->listener->Destroy();
 		hasWallJump = true;
 		break;
-	}
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
-	case ColliderType::ENEMY:
-	{
+	case ColliderType::ENEMY:{
 		LOG("End Collision ENEMY");
 
 		Entity* entityPtr = (Entity*)physB->listener;
@@ -974,14 +1065,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				currentState = PLAYERSTATE::DEATH;
 				anims.SetCurrent("death");
 			}
-		}		
+		}
 		break;
 	}
-	case ColliderType::CHECKPOINT: {
+	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
 		canDialog = true;
 		break;
-	}
 	default:
 		break;
 	}
@@ -991,7 +1081,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
-	case ColliderType::PLATFORM: {
+	case ColliderType::PLATFORM:
 		LOG("End Collision PLATFORM");
 
 		if (groundContacts > 0)
@@ -1014,18 +1104,20 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 			canWallJump = false;
 		}
 		break;
-	}
 	case ColliderType::ITEM:
 		LOG("End Collision ITEM");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("End Collision UNKNOWN");
 		break;
-	case ColliderType::CHECKPOINT: {
+	case ColliderType::CHECKPOINT:
 		LOG("End Collision CHECKPOINT");
 		canDialog = false;
 		break;
-	}
+	case ColliderType::CLIMBABLE:
+		LOG("End Collision CLIMBABLE");
+		nearestClimbable = nullptr;
+		break;
 	default:
 		break;
 	}

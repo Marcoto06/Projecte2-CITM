@@ -80,6 +80,7 @@ public:
 
 	/* Player UI */
 	void ShowPlayerUI();
+	void changeLifeAnim(int life);
 
 	/* GameOver UI */
 	void ShowDeathScreen();
@@ -101,7 +102,8 @@ public:
 	/* Pause menu Textures */
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;
 	SDL_Texture* sliderBoxTexture = nullptr;
-	SDL_Texture* sliderAudioTexture = nullptr;
+	SDL_Texture* sliderMusicTexture = nullptr;
+	SDL_Texture* sliderSFXTexture = nullptr;
 	SDL_Texture* deathScreenMenuTexture = nullptr;
 	SDL_Texture* continuePauseButtonTexture = nullptr;
 	SDL_Texture* optionsPauseButtonTexture = nullptr;
@@ -110,10 +112,12 @@ public:
 	SDL_Texture* backButtonTexture = nullptr;
 
 	/* Player UI Textures*/
-	SDL_Texture* heartFullTexture = nullptr;
+	/*SDL_Texture* heartFullTexture = nullptr;
 	SDL_Texture* heartHalfTexture = nullptr;
 	SDL_Texture* heartEmptyTexture = nullptr;
-	SDL_Texture* heartContainerTexture = nullptr;
+	SDL_Texture* heartContainerTexture = nullptr;*/
+	AnimationSet life_anims;
+	SDL_Texture* lifeTexture = nullptr;
 
 	SDL_Texture* habilityContainerTexture = nullptr;
 	SDL_Texture* habilityPowerJumpTexture = nullptr;

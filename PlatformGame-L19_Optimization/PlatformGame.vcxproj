@@ -148,10 +148,12 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimatedTile.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Boomerang.cpp" />
     <ClCompile Include="src\Checkpoint.cpp" />
+    <ClCompile Include="src\Climbable.cpp" />
     <ClCompile Include="src\Collectibles.cpp" />
     <ClCompile Include="src\DialogManager.cpp" />
     <ClCompile Include="src\Door.cpp" />
@@ -186,10 +188,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Eosinofilo.h" />
+    <ClInclude Include="src\AnimatedTile.h" />
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\Boomerang.h" />
     <ClInclude Include="src\Checkpoint.h" />
+    <ClInclude Include="src\Climbable.h" />
     <ClInclude Include="src\Collectibles.h" />
     <ClInclude Include="src\DialogManager.h" />
     <ClInclude Include="src\Door.h" />

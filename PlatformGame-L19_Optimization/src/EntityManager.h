@@ -36,8 +36,9 @@ public:
 
 	std::shared_ptr<Entity> GetEntityByTiledId(int id);
 
+	bool DrawAnimatedTiles(float dt);
+
 public:
 
 	std::list<std::shared_ptr<Entity>> entities;
-
 };

@@ -104,7 +104,7 @@ bool UIManager::Update(float dt)
 		uiElement->CleanUp();
 		UIElementsList.remove(uiElement);
 	}
-
+	life_anims.Update(dt);
 	return true;
 }
 
@@ -143,7 +143,8 @@ void UIManager::LoadUITextures() {
 	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/OptionsButton.png");
 	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
-	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
+	sliderMusicTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/MusicIcon.png");
+	sliderSFXTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SFXIcon.png");
 	
 	
 	/* Pause UI*/
@@ -152,14 +153,15 @@ void UIManager::LoadUITextures() {
 	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
 	menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitToMenuButton.png");
 	gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitGameButton.png");
-	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
-	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");
 
 	/*Player UI*/
-	heartFullTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
+	/*heartFullTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
 	heartHalfTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_meitat.png");
 	heartEmptyTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_muerto.png");
-	heartContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Caja_vida.png");
+	heartContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Caja_vida.png");*/
+	std::unordered_map<int, std::string> aliases = { {0, "10"}, {48, "9"}, {96, "8"}, {144, "7"}, {192, "6"}, {240, "5"}, {288, "4"}, {336, "3"}, {384, "2"}, {432, "1"}, {480, "0"} };
+	lifeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_vida.png");
+	life_anims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_vida.tsx", aliases);
 	habilityContainerTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_vacio.png");
 	habilityPowerJumpTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Hueco_habilidades_Salto.png");
 
@@ -222,10 +224,10 @@ void UIManager::ShowMainMenuButtons()
 		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderMusicTexture, ((w - sliderMusicTexture->w) / 2) - 200, ((h - sliderMusicTexture->h) / 2) - 65, NULL, 0.0f);
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 100, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 100, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderSFXTexture, ((w - sliderSFXTexture->w) / 2) - 200, ((h - sliderSFXTexture->h) / 2) + 100, NULL, 0.0f);
 
 		firstElement = 4;
 		lastElement = 7;
@@ -284,10 +286,12 @@ void UIManager::LoadOptionsMainMenu()
 	auto musicSlider = std::static_pointer_cast<UISlider>(musicSliderElement);
 	musicSlider->SetTexture(sliderBarTexture);
 	musicSlider->SetKnobTexture(sliderKnobTexture);
+	musicSlider->SetValue((int)(Engine::GetInstance().audio->GetMusicVolume() * 100.0f));
 
 	auto fxSlider = std::static_pointer_cast<UISlider>(fxSliderElement);
 	fxSlider->SetTexture(sliderBarTexture);
 	fxSlider->SetKnobTexture(sliderKnobTexture);
+	fxSlider->SetValue((int)(Engine::GetInstance().audio->GetSFXVolume() * 100.0f));
 
 	SDL_Rect backButtonRect = { (screenWidth - backButtonTexture->w) / 2, 736, 290, 86 };
 
@@ -375,7 +379,7 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 		std::remove("Saves/savegame.xml");
 
 		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
-		//Engine::GetInstance().scene->PlayIntroVideo();
+		//Engine::GetInstance().scene->PlayVideo("AnimaticaFinal");
 		break;
 	}
 	case 9: // CONTINUE BUTTON
@@ -487,10 +491,10 @@ void UIManager::ShowPauseMenu() {
 	if (currentPauseState == PauseMenuState::OPTIONS)
 	{
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderMusicTexture, ((w - sliderMusicTexture->w) / 2) - 200, ((h - sliderMusicTexture->h) / 2) - 65, NULL, 0.0f);
 
 		Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 80, NULL, 0.0f);
-		Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 80, NULL, 0.0f);
+		Engine::GetInstance().render->DrawTexture(sliderSFXTexture, ((w - sliderSFXTexture->w) / 2) - 200, ((h - sliderSFXTexture->h) / 2) + 80, NULL, 0.0f);
 
 		firstElement = 5;
 		lastElement = 8;
@@ -651,10 +655,21 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 // Player UI
 // *********************************************
 void UIManager::ShowPlayerUI() {
-
+	if (player != nullptr){
+		changeLifeAnim(player->playerCurrentHp);
+		const SDL_Rect& animFrame = life_anims.GetCurrentFrame();
+		float texW = animFrame.w;
+		float texH = animFrame.h;
+		Engine::GetInstance().render->DrawTexture(lifeTexture, 200, 64, &animFrame, 1.0f, 0.0, texW, texH, SDL_FLIP_NONE, 1.0f);
+	}
+	else {
+		player = Engine::GetInstance().scene->player;
+	}
+	
 	SDL_Texture* currentHabilityTex = nullptr;
+	
 
-	int playerFullHearts = Engine::GetInstance().scene->player->playerCurrentHp / 2;
+	/*int playerFullHearts = Engine::GetInstance().scene->player->playerCurrentHp / 2;
 	int damagedHearts = 5 - playerFullHearts;
 	int halfHeart = Engine::GetInstance().scene->player->playerCurrentHp % 2;
 
@@ -673,7 +688,7 @@ void UIManager::ShowPlayerUI() {
 
 	for (int i = playerFullHearts + 1; i < 5; ++i) {
 		Engine::GetInstance().render->DrawTexture(heartEmptyTexture, 230 + (i * 70), 74, NULL, 0.0f);
-	}
+	}*/
 
 	if (Engine::GetInstance().scene->player->hasPowerJump == true) {
 		currentHabilityTex = habilityPowerJumpTexture;
@@ -711,4 +726,46 @@ void UIManager::ShowDeathScreen()
 
 	auto goToMenuButton = CreateUIElement(UIElementType::BUTTON, 11, " GO TO MENU ", goToMenuButtonRect, Engine::GetInstance().scene->GetScene());
 	goToMenuButton->SetTexture(gameOverGoToMenuButtonTexture);
+}
+
+void UIManager::changeLifeAnim(int life)
+{
+	std::string anim;
+	switch (life)
+	{
+	case 10:
+		anim = "10";
+		break;
+	case 9:
+		anim = "9";
+		break;
+	case 8:
+		anim = "8";
+		break;
+	case 7:
+		anim = "7";
+		break;
+	case 6:
+		anim = "6";
+		break;
+	case 5:
+		anim = "5";
+		break;
+	case 4:
+		anim = "4";
+		break;
+	case 3:
+		anim = "3";
+		break;
+	case 2:
+		anim = "2";
+		break;
+	case 1:
+		anim = "1";
+		break;
+	case 0:
+		anim = "0";
+		break;
+	}
+	life_anims.SetCurrent(anim);
 }

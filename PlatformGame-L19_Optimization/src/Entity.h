@@ -13,6 +13,8 @@ enum class EntityType
 	CHECKPOINT,
 	DOOR,
 	POWER_EGG,
+	ANIMATED_TILE,
+	CLIMBABLE,
 	UNKNOWN
 };
 

@@ -10,6 +10,7 @@
 #include "Checkpoint.h"
 #include "Door.h"
 #include "PowerEgg.h"
+#include "AnimatedTile.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -99,6 +100,13 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::POWER_EGG:
 		entity = std::make_shared<PowerEgg>();
+		break;
+	case EntityType::ANIMATED_TILE:
+		entity = std::make_shared<AnimatedTile>();
+		break;
+	case EntityType::CLIMBABLE:
+		entity = std::make_shared<Climbable>();
+		break;
 	default:
 		break;
 	}
@@ -121,12 +129,14 @@ void EntityManager::AddEntity(std::shared_ptr<Entity> entity)
 
 bool EntityManager::Update(float dt)
 {
-	if (Engine::GetInstance().paused)return true;
+	if (Engine::GetInstance().paused || Engine::GetInstance().scene->isPlayingVideo)return true;
 
 	bool ret = true;
 
 	//List to store entities pending deletion
 	std::list<std::shared_ptr<Entity>> pendingDelete;
+
+	std::shared_ptr<Entity> player = nullptr;
 
 	//Iterates over the entities and calls Update
 	for (const auto entity : entities)
@@ -138,7 +148,18 @@ bool EntityManager::Update(float dt)
 		}
 		//If the entity is not active, skip it
 		if (entity->active == false) continue;
+		if (entity->type == EntityType::ANIMATED_TILE) continue;
+		if (entity->type == EntityType::PLAYER) 
+		{
+			player = entity;
+			continue;
+		}
 		ret = entity->Update(dt);
+	}
+
+	if (player != nullptr && player->active == true) 
+	{
+		player->Update(dt);
 	}
 
 	//Now iterates over the pendingDelete list and destroys the entities
@@ -178,4 +199,22 @@ std::shared_ptr<Entity> EntityManager::GetEntityByTiledId(int id)
 		}
 	}
 	return nullptr;
+}
+
+bool EntityManager::DrawAnimatedTiles(float dt)
+{
+	bool ret = true;
+
+	std::shared_ptr<Entity> player = nullptr;
+
+	//Iterates over the entities and calls Update
+	for (const auto entity : entities)
+	{
+		if (entity->type == EntityType::ANIMATED_TILE)
+		{
+			ret = entity->Update(dt);
+		}
+	}
+
+	return ret;
 }

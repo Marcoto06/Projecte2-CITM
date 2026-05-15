@@ -11,10 +11,7 @@ UISlider::UISlider(int id, SDL_Rect bounds, const char* text) : UIElement(UIElem
 
     knobBounds = { bounds.x, bounds.y, bounds.h, bounds.h };
 
-	float currentVolume = Engine::GetInstance().audio->GetMusicVolume();
-	int initialValue = (int)(currentVolume * 100.0f);
-
-    SetValue(initialValue);
+    SetValue(50);
 }
 
 void UISlider::SetValue(int v) {
@@ -62,7 +59,7 @@ bool UISlider::Update(float dt) {
         }
         else if (Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
         {
-            NotifyObserver(); // Notificar al soltar
+            NotifyObserver();
         }
     }    
 

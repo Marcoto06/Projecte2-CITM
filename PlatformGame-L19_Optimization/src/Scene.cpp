@@ -40,6 +40,8 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	Engine::GetInstance().uiManager->LoadUITextures();
+	LoadVideo(&introVideo, "AnimaticaFinal");
+	LoadVideo(&loadingVideo, "LoadingScreen");
 
 	LoadScene(currentScene); // start in MAIN_MENU
 	return true;
@@ -56,18 +58,22 @@ bool Scene::Update(float dt)
 {
 	if (isPlayingVideo) {
 		
-		plm_decode(plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
+		plm_decode(currentVideo.plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
 
-		if (introVideo.texture && introVideo.buffer) {
-			SDL_UpdateTexture(introVideo.texture, NULL, introVideo.buffer, introVideo.width * 4);
+		if (currentVideo.texture && currentVideo.buffer) {
+			SDL_UpdateTexture(currentVideo.texture, NULL, currentVideo.buffer, currentVideo.width * 4);
 
-			SDL_RenderTexture(Engine::GetInstance().render->renderer, introVideo.texture, NULL, NULL);
+			SDL_RenderTexture(Engine::GetInstance().render->renderer, currentVideo.texture, NULL, NULL);
 		}
 
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(plm))	// If space is pressed or the video has ended, stop the video and load the main menu
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm) && currentScene != SceneID::LEVEL)	// If space is pressed or the video has ended, stop the video and load the main menu
 		{
-			StopIntroVideo();
+			StopCurrentVideo();
 			ChangeScene(SceneID::LEVEL);
+		}
+		else if (plm_has_ended(currentVideo.plm))
+		{
+			StopCurrentVideo();
 		}
 
 		return true;
@@ -81,7 +87,10 @@ bool Scene::Update(float dt)
 		UpdateMainMenu(dt);
 		break;
 	case SceneID::LEVEL:
-		UpdateLevel(dt);
+		if (!isPlayingVideo) 
+		{
+			UpdateLevel(dt);
+		}
 		break;
 	}
 
@@ -366,7 +375,7 @@ void Scene::UnloadLevel() {
 }
 
 void Scene::PostUpdateLevel() {
-
+	if (isPlayingVideo) return;
 	if (!Engine::GetInstance().paused)
 	{
 		Engine::GetInstance().map->DrawForeground();
@@ -463,47 +472,55 @@ void Scene::OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user)
 	}
 }
 
-void Scene::PlayIntroVideo() {
+void Scene::LoadVideo(VideoData* video, std::string _file) 
+{
+	std::string path = "Assets/Video/" + _file + ".mpg";
+	const char* charPath = path.c_str();
+	video->plm = plm_create_with_filename(charPath);
 
-	plm = plm_create_with_filename("Assets/Video/AnimaticaFinal.mpg");
-
-	if (!plm) {
+	if (!video->plm && currentScene == SceneID::MAIN_MENU) {
 		LOG("Error: No se pudo cargar el video AnimaticaFinal.mpg");
 		ChangeScene(SceneID::LEVEL); // Fallback: if failed to load video, goes directly to level 1
 		return;
 	}
 
-	plm_set_loop(plm, 0); // 0 = No loop, 1 = Loop indefinitely
-	introVideo.width = plm_get_width(plm);
-	introVideo.height = plm_get_height(plm);
+	video->file = _file;
+	plm_set_loop(video->plm, 0); // 0 = No loop, 1 = Loop indefinitely
+	video->width = plm_get_width(video->plm);
+	video->height = plm_get_height(video->plm);
 
-	introVideo.buffer = new uint8_t[introVideo.width * introVideo.height * 4];
+	video->buffer = new uint8_t[video->width * video->height * 4];
 
 	// We create an SDL texture prepared to receive pixels by streaming
-	introVideo.texture = SDL_CreateTexture(
-		Engine::GetInstance().render->renderer,
-		SDL_PIXELFORMAT_RGBA32,
-		SDL_TEXTUREACCESS_STREAMING,
-		introVideo.width,
-		introVideo.height
-	);
+	video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
 
-	plm_set_video_decode_callback(plm, OnVideoFrame, &introVideo);
-
-	isPlayingVideo = true;
-	Engine::GetInstance().uiManager->CleanUp();
+	plm_set_video_decode_callback(video->plm, OnVideoFrame, &video);
+	videos.push_back(*video);
 }
 
-void Scene::StopIntroVideo() {
+void Scene::PlayVideo(std::string _file)
+{
+	for (auto video : videos)
+	{
+		if (video.file == _file)
+		{
+			currentVideo = video;
+			isPlayingVideo = true;
+			Engine::GetInstance().uiManager->CleanUp();
+		}
+	}
+}
+
+void Scene::StopCurrentVideo() {
 	isPlayingVideo = false;
 
-	if (plm) plm_destroy(plm);
-	if (introVideo.texture) SDL_DestroyTexture(introVideo.texture);
-	if (introVideo.buffer) delete[] introVideo.buffer;
+	if (currentVideo.plm) plm_destroy(currentVideo.plm);
+	if (currentVideo.texture) SDL_DestroyTexture(currentVideo.texture);
+	if (currentVideo.buffer) delete[] currentVideo.buffer;
 
-	plm = nullptr;
-	introVideo.texture = nullptr;
-	introVideo.buffer = nullptr;
+	currentVideo.plm = nullptr;
+	currentVideo.texture = nullptr;
+	currentVideo.buffer = nullptr;
 }
 
 // *********************************************

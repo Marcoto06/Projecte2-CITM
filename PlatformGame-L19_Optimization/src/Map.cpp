@@ -9,6 +9,8 @@
 #include "Collectibles.h"
 #include "Door.h"
 #include "PowerEgg.h"
+#include "AnimatedTile.h"
+#include "Climbable.h"
 
 #include <math.h>
 
@@ -40,8 +42,8 @@ bool Map::Update(float dt)
 	ZoneScoped;
 
     bool ret = true;
-
-    if (mapLoaded) {
+    
+    if (mapLoaded && !Engine::GetInstance().scene->isPlayingVideo) {
 
         // L07 TODO 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
         // iterate all tiles in a layer
@@ -57,6 +59,10 @@ bool Map::Update(float dt)
                 }
                 if (!isForeground)
                 {
+                    if (mapLayer->name == "Solid") 
+                    {
+                        Engine::GetInstance().entityManager->DrawAnimatedTiles(dt);
+                    }
                     for (int i = 0; i < mapData.width; i++) {
                         for (int j = 0; j < mapData.height; j++) {
 
@@ -598,6 +604,54 @@ MapLayer* Map::GetNavigationLayer() {
 
                         egg->Awake();
                         egg->Start();
+                    }
+                }
+                else if (entityType == "anim_tile")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ANIMATED_TILE);
+                    std::shared_ptr<AnimatedTile> tile = std::dynamic_pointer_cast<AnimatedTile>(e);
+
+                    if (tile != nullptr)
+                    {
+                        tile->position = Vector2D(x, y);
+                        tile->name = name;
+                        tile->tiledId = tiledId;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "Texture")
+                                {
+                                    tile->LoadTexture(prop.attribute("value").as_string());
+                                }
+                            }
+                        }
+
+                        tile->Awake();
+                        tile->Start();
+                    }
+                }
+                else if (entityType == "Climbable")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CLIMBABLE);
+                    std::shared_ptr<Climbable> climbable = std::dynamic_pointer_cast<Climbable>(e);
+
+                    float width = objectNode.attribute("width").as_float();
+                    float height = objectNode.attribute("height").as_float();
+
+                    if (climbable != nullptr)
+                    {
+                        climbable->position = Vector2D(x + width / 2, y + height / 2);
+                        climbable->name = name;
+                        climbable->tiledId = tiledId;
+                        climbable->width = width;
+                        climbable->height = height;
+
+                        climbable->Awake();
+                        climbable->Start();
                     }
                 }
             }
