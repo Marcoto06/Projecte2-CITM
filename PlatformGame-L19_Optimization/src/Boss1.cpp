@@ -48,6 +48,31 @@ bool Boss1::Start() {
 		intro_body->animation.push_back(frame);
 	}
 
+	hurt_body = new bossAnimation(16, "hurt", Body_Parts::BODY, false);
+	for (int i = 1; i <= hurt_body->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss1/B.HURT/B.HURT_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		hurt_body->animation.push_back(frame);
+	}
+
+	stun_body = new bossAnimation(28, "stun", Body_Parts::BODY, false);
+	for (int i = 1; i <= stun_body->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss1/STUN/STUN_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		stun_body->animation.push_back(frame);
+	}
+
+	//Create bodies
+	head_body = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 1000, position.getY() + 850, 200, 300, ::STATIC);
+	head_body->ctype = ColliderType::BOSS_HEAD;
+	head_body->listener = this;
+
 	//Set Current Animation as intro
 	currentBodyAnimation = intro_body;
 	frameTimer.Start();
@@ -157,14 +182,15 @@ void Boss1::Draw(float dt)
 			AnimationFinished(currentBodyAnimation);
 		}
 	}
+	MoveBodyToCurrentFrame();
 	Engine::GetInstance().render->DrawTexture(currentBodyAnimation->animation.at(currentBodyFrame - 1), position.getX(), position.getY(), NULL);
 }
 
 bool Boss1::CleanUp()
 {
 	LOG("Cleanup enemy");
-	Engine::GetInstance().textures->UnLoad(texture);
-	Engine::GetInstance().physics->DeletePhysBody(pbody);
+	//Engine::GetInstance().textures->UnLoad(texture);
+	Engine::GetInstance().physics->DeletePhysBody(head_body);
 	return true;
 }
 
@@ -192,14 +218,14 @@ bool Boss1::Destroy(Player* pplayer) // Good: coincide with the .h
 }
 
 void Boss1::SetPosition(Vector2D pos) {
-	pbody->SetPosition((int)(pos.getX()), (int)(pos.getY()));
+	head_body->SetPosition((int)(pos.getX()), (int)(pos.getY()));
 }
 
 Vector2D Boss1::GetPosition() {
 	int x, y;
-	pbody->GetPosition(x, y);
+	head_body->GetPosition(x, y);
 	// Adjust for center
-	return Vector2D((float)x - texW / 2, (float)y - texH / 2);
+	return Vector2D((float)x, (float)y);
 }
 
 bool Boss1::IsEnemyStunned() {
@@ -217,20 +243,16 @@ void Boss1::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::SYRINGE:
-		if (!isStunned)
-		{
-			timer_01.Start();
-			currentState = BOSS_STATES::STUNED;
-			isStunned = true;
+		if (life > 0) {
+			life -= 1;
+			switch (physA->ctype) {
+			case ColliderType::BOSS_HEAD:
+				PlayAnimation(hurt_body);
+				break;
+			}
 		}
 		break;
-	case ColliderType::SUCK_ZONE:
-		if (isStunned && !isBeingSucked) {
-			isBeingSucked = true;
-			suckTimer.Start();
-
-			attackingPlayer = (Player*)physB->listener;
-		}
+	default:
 		break;
 	}
 }
@@ -240,8 +262,6 @@ void Boss1::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 	switch (physB->ctype)
 	{
 	case ColliderType::SUCK_ZONE:
-		// Stop sucking if player releases right click
-		isBeingSucked = false;
 		break;
 	}
 }
@@ -250,6 +270,17 @@ void Boss1::AnimationFinished(bossAnimation* animation)
 {
 	if (animation->name == "intro") {
 		PlayAnimation(idle_body);
+	}
+	else if (animation->name == "hurt") {
+		if (life > 0) {
+			switch (animation->part) {
+			case Body_Parts::BODY:
+				PlayAnimation(idle_body);
+			}
+		}
+		else {
+			PlayAnimation(stun_body);
+		}
 	}
 	return;
 }
@@ -269,4 +300,15 @@ Boss1::bossAnimation::bossAnimation(int frames, std::string name, Body_Parts par
 	this->name = name;
 	this->part = part;
 	this->loop = loop;
+}
+
+void Boss1::MoveBodyToCurrentFrame()
+{
+	for (int j = 0; j < currentBodyAnimation->framePos.size(); ++j)
+	{
+		if (currentBodyFrame == currentBodyAnimation->framePos[j].frame)
+		{
+			head_body->SetPosition(currentBodyAnimation->framePos[j].position.getX(), currentBodyAnimation->framePos[j].position.getY());
+		}
+	}
 }

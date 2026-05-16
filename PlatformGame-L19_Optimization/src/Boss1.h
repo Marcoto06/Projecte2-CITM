@@ -28,6 +28,8 @@ public:
 	bool Destroy(Player* player);
 	Player* player = nullptr;
 
+	int life = 3;
+
 private:
 	enum Body_Parts {
 		BODY,
@@ -37,8 +39,13 @@ private:
 	//Frame Timer
 	Timer frameTimer;
 	//BODY ANIMATIONS
+	struct framePositions {
+		int frame = 0;
+		Vector2D position = Vector2D(0, 0);
+	};
 	struct bossAnimation {
 		std::vector<SDL_Texture* > animation;
+		std::vector<framePositions> framePos;
 		int frames = 0;
 		std::string name = "";
 		Body_Parts part;
@@ -47,6 +54,8 @@ private:
 	};
 	bossAnimation* idle_body;
 	bossAnimation* intro_body;
+	bossAnimation* hurt_body;
+	bossAnimation* stun_body;
 	
 	int currentBodyFrame = 1;
 	int totalBodyAnimFrames = 1;
@@ -62,31 +71,19 @@ private:
 
 	void AnimationFinished(bossAnimation* animation);
 	void PlayAnimation(bossAnimation* animation);
+	void MoveBodyToCurrentFrame();
 
 public: //COSES ANTIGUES DE ENEMY -------------
+	PhysBody* head_body;
+	PhysBody* L_hand_body;
+	PhysBody* R_hand_body;
 
-	//Declare enemy parameters
-	float speed = 2.0f;
-	SDL_Texture* texture = NULL;
-	int texW, texH;
-	PhysBody* pbody;
-
-	float stuntimer = 7.0f;
-	Timer timer_01;
 	Timer suckTimer;
 
 	//bools
 	bool isStunned = false;
-	bool isFacingRight = false;
-	bool isBeingSucked = false;
-
-	Player* attackingPlayer = nullptr;
-
-	int pathfindingFrameCount = 0;
-	const int pathfindingUpdateRate = 30; // frequency in frames
 
 	bool isPlayerDetected = false;
-	float detectionRange = 450.0f;
 
 private:
 	enum class BOSS_STATES
