@@ -29,8 +29,13 @@ public:
 	Player* player = nullptr;
 
 	int life = 3;
+	
 
 private:
+	Vector2D initialHeadPos;
+	Vector2D stunHeadPos;
+
+	Vector2D idleRHandPos;
 	enum Body_Parts {
 		BODY,
 		L_HAND,
@@ -38,20 +43,17 @@ private:
 	};
 	//Frame Timer
 	Timer frameTimer;
+
 	//BODY ANIMATIONS
-	struct framePositions {
-		int frame = 0;
-		Vector2D position = Vector2D(0, 0);
-	};
 	struct bossAnimation {
 		std::vector<SDL_Texture* > animation;
-		std::vector<framePositions> framePos;
 		int frames = 0;
 		std::string name = "";
 		Body_Parts part;
 		bool loop = false;
 		bossAnimation(int frames, std::string name, Body_Parts part, bool loop);
 	};
+	//Body animations
 	bossAnimation* idle_body;
 	bossAnimation* intro_body;
 	bossAnimation* hurt_body;
@@ -60,8 +62,15 @@ private:
 	int currentBodyFrame = 1;
 	int totalBodyAnimFrames = 1;
 
+	//HAND ANIMATIONS
+	bossAnimation* intro_R_hand;
+	bossAnimation* idle_R_hand;
+
+	int currentRHandFrame = 1;
+	int totalRHandAnimFrames = 1;
+
 	bossAnimation* currentBodyAnimation;
-	bossAnimation* currentHandAnimation;
+	bossAnimation* currentRHandAnimation;
 
 private:
 	void GetPhysicsValues();
@@ -71,12 +80,12 @@ private:
 
 	void AnimationFinished(bossAnimation* animation);
 	void PlayAnimation(bossAnimation* animation);
-	void MoveBodyToCurrentFrame();
 
 public: //COSES ANTIGUES DE ENEMY -------------
 	PhysBody* head_body;
 	PhysBody* L_hand_body;
 	PhysBody* R_hand_body;
+	b2Vec2 R_hand_velocity;
 
 	Timer suckTimer;
 
