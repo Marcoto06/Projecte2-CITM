@@ -42,6 +42,17 @@ private:
 		L_HAND,
 		R_HAND
 	};
+	struct Hand {
+		PhysBody* pbody = nullptr;
+		Vector2D position = Vector2D(0, 0);
+		b2Vec2 velocity = b2Vec2_zero;
+		Vector2D idlePos = Vector2D(0, 0);
+		Timer attackTimer;
+		int attackCooldown = 0;
+		float v_speed = 0.25f;
+		bool attacking = false;
+		Hand() {};
+	};
 	//Frame Timer
 	Timer frameTimer;
 
@@ -66,6 +77,7 @@ private:
 	//HAND ANIMATIONS
 	bossAnimation* intro_R_hand;
 	bossAnimation* idle_R_hand;
+	bossAnimation* vertical_R_hand;
 
 	int currentRHandFrame = 1;
 	int totalRHandAnimFrames = 1;
@@ -75,28 +87,18 @@ private:
 
 private:
 	void GetPhysicsValues();
-	void Func_EnemyStates(float dt);
 	void ApplyPhysics();
 	void Draw(float dt);
 
 	void AnimationFinished(bossAnimation* animation);
 	void PlayAnimation(bossAnimation* animation);
 	void MoveHands(float dt);
+	void Attack(Hand* hand);
 
 public:
-	struct Hand {
-		PhysBody* pbody = nullptr;
-		Vector2D position = Vector2D(0,0);
-		b2Vec2 velocity = b2Vec2_zero;
-		Vector2D idlePos = Vector2D(0,0);
-		
-	};
-	Hand R_Hand;
-	Hand L_Hand;
+	Hand* R_Hand;
+	Hand* L_Hand;
 	PhysBody* head_body = nullptr;
-	PhysBody* L_hand_body;
-	//PhysBody* R_hand_body;
-	//b2Vec2 R_hand_velocity = b2Vec2_zero;
 
 	//COSES ANTIGUES DE ENEMY -------------
 	Timer suckTimer;

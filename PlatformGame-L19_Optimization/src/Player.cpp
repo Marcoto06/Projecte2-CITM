@@ -1116,6 +1116,86 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}
 		break;
 	}
+	case ColliderType::BOSS_R_HAND: {
+		LOG("End Collision BOSS_R_HAND");
+
+		Entity* entityPtr = (Entity*)physB->listener;
+
+		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
+		{
+			playerCurrentHp--;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+			isClimbing = false;
+			LOG("Current HP: %i", playerCurrentHp);
+
+			if (playerCurrentHp > 0)
+			{
+				int playerX, playerY;
+				pbody->GetPosition(playerX, playerY);
+
+				int enemyX, enemyY;
+				physB->GetPosition(enemyX, enemyY);
+
+				float knockbackX = (playerX < enemyX) ? -7.0f : 7.0f;
+				float knockbackY = -5.0f;
+
+				Engine::GetInstance().physics->SetLinearVelocity(pbody, { knockbackX, knockbackY });
+
+				isHurt = true;
+				hurtTimer.Start();
+			}
+			else
+			{
+				LOG("Player has died!");
+				canMove = false;
+				canJump = false;
+				canAttack = false;
+				currentState = PLAYERSTATE::DEATH;
+				anims.SetCurrent("death");
+			}
+		}
+		break;
+	}
+	case ColliderType::BOSS_L_HAND: {
+		LOG("End Collision BOSS_L_HAND");
+
+		Entity* entityPtr = (Entity*)physB->listener;
+
+		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
+		{
+			playerCurrentHp--;
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+			isClimbing = false;
+			LOG("Current HP: %i", playerCurrentHp);
+
+			if (playerCurrentHp > 0)
+			{
+				int playerX, playerY;
+				pbody->GetPosition(playerX, playerY);
+
+				int enemyX, enemyY;
+				physB->GetPosition(enemyX, enemyY);
+
+				float knockbackX = (playerX < enemyX) ? -7.0f : 7.0f;
+				float knockbackY = -5.0f;
+
+				Engine::GetInstance().physics->SetLinearVelocity(pbody, { knockbackX, knockbackY });
+
+				isHurt = true;
+				hurtTimer.Start();
+			}
+			else
+			{
+				LOG("Player has died!");
+				canMove = false;
+				canJump = false;
+				canAttack = false;
+				currentState = PLAYERSTATE::DEATH;
+				anims.SetCurrent("death");
+			}
+		}
+		break;
+	}
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
 		canDialog = true;
