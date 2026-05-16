@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="125">
+ <tileset firstgid="1" name="atlas_2.2" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="atlas_2.2.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="257" name="TileMetadata" tilewidth="64" tileheight="64" tilecount="2" columns="2">
+  <image source="TileMetadata.png" width="128" height="64"/>
+ </tileset>
+ <tileset firstgid="259" name="atlas_tiles_1.3" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="atlas_tiles_1.3.png" width="1024" height="1024"/>
+ </tileset>
+ <layer id="1" name="Solid" width="60" height="34">
+  <data encoding="csv">
+179,209,209,209,209,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,209,209,209,209,209,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,209,0,0,0,209,177,178,178,178,178,178,
+179,0,0,0,0,193,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,195,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,209,0,0,0,0,177,178,178,178,178,178,
+179,0,0,0,0,210,193,194,194,194,194,194,194,194,194,194,194,194,194,194,194,194,195,210,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,194,194,194,194,195,209,0,0,0,0,193,194,194,194,194,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,178,178,178,178,178,178,194,194,194,194,194,194,194,195,0,0,0,0,209,209,0,0,0,209,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,194,178,178,178,179,210,210,210,210,210,210,210,210,0,0,0,0,209,209,0,0,0,209,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,0,0,209,0,0,0,209,209,0,0,0,0,209,0,0,0,0,177,
+178,213,213,214,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,0,177,
+178,195,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,0,0,0,0,0,0,0,161,163,0,0,209,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,0,0,0,0,161,162,162,195,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,212,213,213,213,437,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,178,179,0,0,0,0,0,177,178,179,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,193,194,195,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,179,0,0,0,0,0,177,178,195,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,212,213,437,0,0,0,0,0,0,0,0,0,0,0,193,178,162,162,162,162,162,178,195,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,161,162,163,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,194,194,194,194,194,195,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,210,210,210,210,210,210,210,210,210,210,210,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,0,0,0,161,162,162,162,162,178,178,178,162,162,162,162,162,162,422,0,0,0,0,0,0,0,161,162,162,162,162,162,162,162,162,162,162,162,437,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,161,162,162,178,178,194,194,194,194,194,194,194,194,194,194,194,195,210,0,0,0,0,0,0,0,0,193,194,194,178,178,178,178,178,178,194,195,0,0,0,0,0,209,209,209,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,178,194,194,195,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,194,194,194,194,195,210,0,0,0,0,0,0,209,209,209,0,0,0,0,0,0,0,0,177,
+178,213,214,0,0,0,177,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,212,213,213,178,
+179,0,0,0,0,0,177,195,0,0,0,0,0,0,0,212,213,213,213,213,213,213,213,213,213,213,437,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,193,178,
+179,0,0,0,0,0,177,0,0,212,213,213,437,0,0,0,0,193,194,194,194,194,194,194,195,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,0,0,0,193,195,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,161,213,213,163,210,0,209,209,0,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,210,209,209,209,0,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,178,178,179,210,209,209,209,0,0,0,0,0,0,0,0,0,177,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,178,178,162,162,162,162,162,162,162,162,162,162,162,162,162,178,
+179,0,0,0,0,0,177,0,0,212,213,213,437,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,177,0,0,0,193,195,0,0,0,0,212,213,213,437,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,193,194,194,194,194,194,194,194,194,194,194,194,194,194,194,194,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,193,194,194,195,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,209,0,0,0,0,0,0,0,0,0,209,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,161,162,162,162,162,162,162,162,163,210,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,0,0,0,0,0,0,0,0,0,0,
+179,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,161,162,178,178,178,178,178,178,178,178,178,162,162,163,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,0,0,0,0,0,0,0,0,0,0,
+178,162,162,162,162,162,178,162,162,162,162,162,162,162,162,162,162,162,162,162,162,178,178,178,178,178,178,178,178,178,178,178,178,178,178,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162,162
+</data>
+ </layer>
+ <layer id="2" name="Map" width="60" height="34">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,196,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,501,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,501,501,501,501,501,501,501,501,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,501,501,501,501,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,501,501,501,501,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,501,501,501,501,501,501,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="Collisions" width="60" height="34" visible="0">
+  <data encoding="csv">
+258,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,258,0,0,0,0,0,
+258,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,258,0,0,0,0,0,
+258,0,0,0,0,0,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,0,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,258,0,0,0,0,0,258,258,258,258,258,0,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,0,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+0,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,258,0,0,0,0,0,0,0,0,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,258,0,0,0,0,0,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,258,0,0,0,0,0,258,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,0,0,0,0,0,258,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,0,0,0,0,0,0,0,0,0,0,0,258,0,258,258,258,258,258,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,0,0,0,258,258,258,258,258,0,0,0,258,258,258,258,258,258,258,0,0,0,0,0,0,0,258,258,258,258,258,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,258,258,258,0,0,0,0,0,0,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+0,258,258,0,0,0,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,0,
+258,0,0,0,0,0,258,258,0,0,0,0,0,0,0,258,258,258,258,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,
+258,0,0,0,0,0,258,0,0,258,258,258,258,0,0,0,0,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,0,0,0,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,258,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,258,258,258,258,258,258,258,258,258,258,258,258,258,0,
+258,0,0,0,0,0,258,0,0,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+258,0,0,0,0,0,258,0,0,0,258,258,0,0,0,0,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+258,0,0,0,0,0,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,0,0,0,0,0,0,0,0,0,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,258,258,258,258,258,0,258,258,258,258,258,258,258,258,258,258,258,258,258,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258,258
+</data>
+ </layer>
+ <objectgroup id="4" name="Anim_Tiles" visible="0">
+  <object id="1" name="part_superior_animada_pulmons" type="anim_tile" x="64" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="8" name="part_superior_animada_pulmons" type="anim_tile" x="128" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="10" name="part_superior_animada_pulmons" type="anim_tile" x="192" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="12" name="part_superior_animada_pulmons" type="anim_tile" x="256" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="14" name="part_superior_animada_pulmons" type="anim_tile" x="320" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="16" name="part_superior_animada_pulmons" type="anim_tile" x="448" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="18" name="part_superior_animada_pulmons" type="anim_tile" x="512" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="20" name="part_superior_animada_pulmons" type="anim_tile" x="576" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="22" name="part_superior_animada_pulmons" type="anim_tile" x="640" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="24" name="part_superior_animada_pulmons" type="anim_tile" x="704" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="26" name="part_superior_animada_pulmons" type="anim_tile" x="768" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="28" name="part_superior_animada_pulmons" type="anim_tile" x="832" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="30" name="part_superior_animada_pulmons" type="anim_tile" x="896" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="32" name="part_superior_animada_pulmons" type="anim_tile" x="960" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="34" name="part_superior_animada_pulmons" type="anim_tile" x="1024" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="36" name="part_superior_animada_pulmons" type="anim_tile" x="1088" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="38" name="part_superior_animada_pulmons" type="anim_tile" x="1152" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="40" name="part_superior_animada_pulmons" type="anim_tile" x="1216" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="42" name="part_superior_animada_pulmons" type="anim_tile" x="1280" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="44" name="part_superior_animada_pulmons" type="anim_tile" x="1344" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="46" name="part_superior_animada_pulmons" type="anim_tile" x="1408" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="48" name="part_superior_animada_pulmons" type="anim_tile" x="1472" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="50" name="part_superior_animada_pulmons" type="anim_tile" x="1536" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="52" name="part_superior_animada_pulmons" type="anim_tile" x="1600" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="54" name="part_superior_animada_pulmons" type="anim_tile" x="1664" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="56" name="part_superior_animada_pulmons" type="anim_tile" x="1728" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="58" name="part_superior_animada_pulmons" type="anim_tile" x="1792" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="60" name="part_superior_animada_pulmons" type="anim_tile" x="1856" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="62" name="part_superior_animada_pulmons" type="anim_tile" x="1920" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="64" name="part_superior_animada_pulmons" type="anim_tile" x="1984" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="66" name="part_superior_animada_pulmons" type="anim_tile" x="2048" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="68" name="part_superior_animada_pulmons" type="anim_tile" x="2112" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="70" name="part_superior_animada_pulmons" type="anim_tile" x="2176" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="72" name="part_superior_animada_pulmons" type="anim_tile" x="2240" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="74" name="part_superior_animada_pulmons" type="anim_tile" x="2304" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="76" name="part_superior_animada_pulmons" type="anim_tile" x="2368" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="78" name="part_superior_animada_pulmons" type="anim_tile" x="2432" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="80" name="part_superior_animada_pulmons" type="anim_tile" x="2496" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="82" name="part_superior_animada_pulmons" type="anim_tile" x="2560" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="84" name="part_superior_animada_pulmons" type="anim_tile" x="2624" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="86" name="part_superior_animada_pulmons" type="anim_tile" x="2688" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="88" name="part_superior_animada_pulmons" type="anim_tile" x="2752" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="90" name="part_superior_animada_pulmons" type="anim_tile" x="2816" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="92" name="part_superior_animada_pulmons" type="anim_tile" x="2880" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="94" name="part_superior_animada_pulmons" type="anim_tile" x="2944" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="96" name="part_superior_animada_pulmons" type="anim_tile" x="3008" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="98" name="part_superior_animada_pulmons" type="anim_tile" x="3072" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="100" name="part_superior_animada_pulmons" type="anim_tile" x="3136" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="102" name="part_superior_animada_pulmons" type="anim_tile" x="3200" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="104" name="part_superior_animada_pulmons" type="anim_tile" x="3264" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="106" name="part_superior_animada_pulmons" type="anim_tile" x="3328" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="108" name="part_superior_animada_pulmons" type="anim_tile" x="3392" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="110" name="part_superior_animada_pulmons" type="anim_tile" x="3456" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="112" name="part_superior_animada_pulmons" type="anim_tile" x="3520" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="114" name="part_superior_animada_pulmons" type="anim_tile" x="3584" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="116" name="part_superior_animada_pulmons" type="anim_tile" x="3648" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="118" name="part_superior_animada_pulmons" type="anim_tile" x="3712" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="120" name="part_superior_animada_pulmons" type="anim_tile" x="3776" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="2" name="base_animada_pulmons" type="anim_tile" x="64" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="7" name="base_animada_pulmons" type="anim_tile" x="128" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="9" name="base_animada_pulmons" type="anim_tile" x="192" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="11" name="base_animada_pulmons" type="anim_tile" x="256" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="13" name="base_animada_pulmons" type="anim_tile" x="320" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="15" name="base_animada_pulmons" type="anim_tile" x="448" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="17" name="base_animada_pulmons" type="anim_tile" x="512" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="19" name="base_animada_pulmons" type="anim_tile" x="576" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="21" name="base_animada_pulmons" type="anim_tile" x="640" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="23" name="base_animada_pulmons" type="anim_tile" x="704" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="25" name="base_animada_pulmons" type="anim_tile" x="768" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="27" name="base_animada_pulmons" type="anim_tile" x="832" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="29" name="base_animada_pulmons" type="anim_tile" x="896" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="31" name="base_animada_pulmons" type="anim_tile" x="960" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="33" name="base_animada_pulmons" type="anim_tile" x="1024" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="35" name="base_animada_pulmons" type="anim_tile" x="1088" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="37" name="base_animada_pulmons" type="anim_tile" x="1152" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="39" name="base_animada_pulmons" type="anim_tile" x="1216" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="41" name="base_animada_pulmons" type="anim_tile" x="1280" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="43" name="base_animada_pulmons" type="anim_tile" x="1344" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="45" name="base_animada_pulmons" type="anim_tile" x="1408" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="47" name="base_animada_pulmons" type="anim_tile" x="1472" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="49" name="base_animada_pulmons" type="anim_tile" x="1536" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="51" name="base_animada_pulmons" type="anim_tile" x="1600" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="53" name="base_animada_pulmons" type="anim_tile" x="1664" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="55" name="base_animada_pulmons" type="anim_tile" x="1728" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="57" name="base_animada_pulmons" type="anim_tile" x="1792" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="59" name="base_animada_pulmons" type="anim_tile" x="1856" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="61" name="base_animada_pulmons" type="anim_tile" x="1920" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="63" name="base_animada_pulmons" type="anim_tile" x="1984" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="65" name="base_animada_pulmons" type="anim_tile" x="2048" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="67" name="base_animada_pulmons" type="anim_tile" x="2112" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="69" name="base_animada_pulmons" type="anim_tile" x="2176" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="71" name="base_animada_pulmons" type="anim_tile" x="2240" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="73" name="base_animada_pulmons" type="anim_tile" x="2304" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="75" name="base_animada_pulmons" type="anim_tile" x="2368" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="77" name="base_animada_pulmons" type="anim_tile" x="2432" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="79" name="base_animada_pulmons" type="anim_tile" x="2496" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="81" name="base_animada_pulmons" type="anim_tile" x="2560" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="83" name="base_animada_pulmons" type="anim_tile" x="2624" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="85" name="base_animada_pulmons" type="anim_tile" x="2688" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="87" name="base_animada_pulmons" type="anim_tile" x="2752" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="89" name="base_animada_pulmons" type="anim_tile" x="2816" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="91" name="base_animada_pulmons" type="anim_tile" x="2880" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="93" name="base_animada_pulmons" type="anim_tile" x="2944" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="95" name="base_animada_pulmons" type="anim_tile" x="3008" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="97" name="base_animada_pulmons" type="anim_tile" x="3072" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="99" name="base_animada_pulmons" type="anim_tile" x="3136" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="101" name="base_animada_pulmons" type="anim_tile" x="3200" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="103" name="base_animada_pulmons" type="anim_tile" x="3264" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="105" name="base_animada_pulmons" type="anim_tile" x="3328" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="107" name="base_animada_pulmons" type="anim_tile" x="3392" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="109" name="base_animada_pulmons" type="anim_tile" x="3456" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="111" name="base_animada_pulmons" type="anim_tile" x="3520" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="113" name="base_animada_pulmons" type="anim_tile" x="3584" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="115" name="base_animada_pulmons" type="anim_tile" x="3648" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="117" name="base_animada_pulmons" type="anim_tile" x="3712" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="119" name="base_animada_pulmons" type="anim_tile" x="3776" y="2048" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="Entities">
+  <object id="121" name="Door" type="Door" x="3814" y="1914" width="32" height="204">
+   <properties>
+    <property name="Destination" value="MapCor_Sala6"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="3267"/>
+    <property name="playerY" type="float" value="549"/>
+   </properties>
+  </object>
+  <object id="122" name="Door" type="Door" x="3120" y="-14" width="364" height="24">
+   <properties>
+    <property name="Destination" value="MapPulmo_Sala2"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="3267"/>
+    <property name="playerY" type="float" value="549"/>
+   </properties>
+  </object>
+  <object id="123" name="Door" type="Door" x="1510" y="-6" width="364" height="24">
+   <properties>
+    <property name="Destination" value="MapPulmo_Sala2"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="3267"/>
+    <property name="playerY" type="float" value="549"/>
+   </properties>
+  </object>
+  <object id="124" name="Door" type="Door" x="46" y="-6" width="290" height="24">
+   <properties>
+    <property name="Destination" value="MapPulmo_Sala2"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="3267"/>
+    <property name="playerY" type="float" value="549"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
