@@ -6,6 +6,7 @@
 #include "pl_mpeg.h"
 #include <cstdio>
 #include <memory>
+#include "Boss1.h"
 
 struct SDL_Texture;
 class Player;

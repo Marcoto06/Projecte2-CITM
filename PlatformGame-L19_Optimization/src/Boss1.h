@@ -26,16 +26,17 @@ public:
 	bool IsEnemyStunned() override;
 	bool Destroy() override;
 	bool Destroy(Player* player);
+	void Initialize();
 	Player* player = nullptr;
 
 	int life = 3;
+	bool active = false;
 	
 
 private:
 	Vector2D initialHeadPos;
 	Vector2D stunHeadPos;
 
-	Vector2D idleRHandPos;
 	enum Body_Parts {
 		BODY,
 		L_HAND,
@@ -80,13 +81,24 @@ private:
 
 	void AnimationFinished(bossAnimation* animation);
 	void PlayAnimation(bossAnimation* animation);
+	void MoveHands(float dt);
 
-public: //COSES ANTIGUES DE ENEMY -------------
-	PhysBody* head_body;
+public:
+	struct Hand {
+		PhysBody* pbody = nullptr;
+		Vector2D position = Vector2D(0,0);
+		b2Vec2 velocity = b2Vec2_zero;
+		Vector2D idlePos = Vector2D(0,0);
+		
+	};
+	Hand R_Hand;
+	Hand L_Hand;
+	PhysBody* head_body = nullptr;
 	PhysBody* L_hand_body;
-	PhysBody* R_hand_body;
-	b2Vec2 R_hand_velocity;
+	//PhysBody* R_hand_body;
+	//b2Vec2 R_hand_velocity = b2Vec2_zero;
 
+	//COSES ANTIGUES DE ENEMY -------------
 	Timer suckTimer;
 
 	//bools

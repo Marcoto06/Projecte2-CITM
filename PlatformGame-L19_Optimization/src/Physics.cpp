@@ -283,6 +283,7 @@ bool Physics::PostUpdate()
 
     // Process bodies to delete after the world step
     for (PhysBody* physBody : bodiesToDelete) {
+        if (physBody == nullptr) continue;
         b2DestroyBody(physBody->body);
     }
     bodiesToDelete.clear();

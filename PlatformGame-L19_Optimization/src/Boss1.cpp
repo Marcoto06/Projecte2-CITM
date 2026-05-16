@@ -31,9 +31,8 @@ bool Boss1::Start() {
 	stunHeadPos = initialHeadPos + Vector2D(-340, 680);
 
 	//idleRHandPos = initialHeadPos + Vector2D(-200, 200);
-	idleRHandPos = initialHeadPos;
-	R_hand_body = Engine::GetInstance().physics->CreateRectangleSensor(idleRHandPos.getX(), idleRHandPos.getY() + 1000, 100, 100, bodyType::KINEMATIC);
-	b2Body_SetGravityScale(R_hand_body->body, 0.0f);
+	R_Hand.position = initialHeadPos + Vector2D(-400, 1000);
+	R_Hand.pbody = Engine::GetInstance().physics->CreateRectangleSensor(R_Hand.idlePos.getX(), R_Hand.idlePos.getY(), 200, 200, bodyType::STATIC);
 
 	//Load All Animations
 	idle_body = new bossAnimation(32, "idle", Body_Parts::BODY, true);
@@ -95,23 +94,22 @@ bool Boss1::Start() {
 		idle_R_hand->animation.push_back(frame);
 	}
 
-	//Set Current Animation as intro
-	currentBodyAnimation = intro_body;
-	currentRHandAnimation = intro_R_hand;
-	//Engine::GetInstance().physics->ApplyLinearImpulseToCenter(R_hand_body, 0, -10);
-	frameTimer.Start();
-
 	return true;
 }
 
 bool Boss1::Update(float dt)
 {
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && !active) {
+		Initialize();
+	}
+	if (!active) return true;
 	ZoneScoped;
 
 	GetPhysicsValues();
 
 	//Func_EnemyStates(dt);
 	ApplyPhysics();
+	MoveHands(dt);
 	Draw(dt);
 
 	return true;
@@ -186,7 +184,15 @@ void Boss1::GetPhysicsValues() {
 void Boss1::ApplyPhysics() {
 
 	//Apply velocity via helper
-	Engine::GetInstance().physics->SetLinearVelocity(R_hand_body, R_hand_velocity);
+	return;
+}
+
+void Boss1::MoveHands(float dt) {
+	//Move Hands
+	R_Hand.position.setX(R_Hand.position.getX() + (R_Hand.velocity.x * dt));
+	R_Hand.position.setY(R_Hand.position.getY() + (R_Hand.velocity.y * dt));
+	R_Hand.pbody->SetPosition(R_Hand.position.getX(), R_Hand.position.getY());
+	return;
 }
 
 void Boss1::Draw(float dt)
@@ -219,9 +225,7 @@ void Boss1::Draw(float dt)
 		}
 	}
 	Engine::GetInstance().render->DrawTexture(currentBodyAnimation->animation.at(currentBodyFrame - 1), position.getX(), position.getY(), NULL);
-	int r_hand_x, r_hand_y;
-	R_hand_body->GetPosition(r_hand_x, r_hand_y);
-	Engine::GetInstance().render->DrawTexture(currentRHandAnimation->animation.at(currentRHandFrame - 1), r_hand_x, r_hand_y, NULL);
+	Engine::GetInstance().render->DrawTexture(currentRHandAnimation->animation.at(currentRHandFrame - 1), R_Hand.position.getX() - 512, R_Hand.position.getY() - 600, NULL);
 }
 
 bool Boss1::CleanUp()
@@ -306,12 +310,14 @@ void Boss1::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 
 void Boss1::AnimationFinished(bossAnimation* animation)
 {
-	if (animation->name == "intro") {
-		head_body = Engine::GetInstance().physics->CreateRectangleSensor(0, 0, 200, 300, ::STATIC);
+	if (animation->name == "intro" && animation->part == Body_Parts::BODY) {
+		head_body = Engine::GetInstance().physics->CreateRectangleSensor(0, 0, 200, 300, bodyType::STATIC);
 		SetPosition(initialHeadPos);
 		head_body->ctype = ColliderType::BOSS_HEAD;
 		head_body->listener = this;
 		PlayAnimation(idle_body);
+		R_Hand.velocity.y = 0;
+		PlayAnimation(idle_R_hand);
 	}
 	else if (animation->name == "hurt") {
 		if (life > 0) {
@@ -341,6 +347,11 @@ void Boss1::PlayAnimation(bossAnimation* animation)
 		currentBodyFrame = 1;
 		currentBodyAnimation = animation;
 		frameTimer.Start();
+	}else if (animation->part == Body_Parts::R_HAND)
+	{
+		currentRHandFrame = 1;
+		currentRHandAnimation = animation;
+		frameTimer.Start();
 	}
 }
 
@@ -349,4 +360,13 @@ Boss1::bossAnimation::bossAnimation(int frames, std::string name, Body_Parts par
 	this->name = name;
 	this->part = part;
 	this->loop = loop;
+}
+
+void Boss1::Initialize() {
+	//Set Current Animation as intro
+	currentBodyAnimation = intro_body;
+	currentRHandAnimation = intro_R_hand;
+	frameTimer.Start();
+	R_Hand.velocity.y = -0.15f;
+	active = true;
 }

@@ -438,7 +438,7 @@ MapLayer* Map::GetNavigationLayer() {
 	 //Iterate the object groups
      for (pugi::xml_node objectGroupNode = mapFileXML.child("map").child("objectgroup"); objectGroupNode != NULL; objectGroupNode = objectGroupNode.next_sibling("objectgroup")) {
 		 //Check if the object group is "Entities"
-        if (objectGroupNode.attribute("name").as_string() == std::string("Entities")) {
+        if (objectGroupNode.attribute("name").as_string() == std::string("Entities") || objectGroupNode.attribute("name").as_string() == std::string("AnimTiles")) {
             
 			//Iterate the objects
             for (pugi::xml_node objectNode = objectGroupNode.child("object"); objectNode != NULL; objectNode = objectNode.next_sibling("object")) {
