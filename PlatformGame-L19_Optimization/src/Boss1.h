@@ -29,7 +29,7 @@ public:
 	void Initialize();
 	Player* player = nullptr;
 
-	int life = 3;
+	int life = 10;
 	bool active = false;
 	
 
@@ -57,6 +57,8 @@ private:
 	//Frame Timer
 	Timer frameTimer;
 
+	std::vector<std::vector<SDL_Texture*>*> animations;
+
 	//BODY ANIMATIONS
 	struct bossAnimation {
 		std::vector<SDL_Texture* > animation;
@@ -71,6 +73,8 @@ private:
 	bossAnimation* intro_body;
 	bossAnimation* hurt_body;
 	bossAnimation* stun_body;
+	bossAnimation* suck_body;
+	bossAnimation* death_body;
 	
 	int currentBodyFrame = 1;
 	int totalBodyAnimFrames = 1;
@@ -85,8 +89,18 @@ private:
 	int currentRHandFrame = 1;
 	int totalRHandAnimFrames = 1;
 
+	bossAnimation* intro_L_hand;
+	bossAnimation* idle_L_hand;
+	bossAnimation* vertical_L_hand;
+	bossAnimation* horizontal_L_hand;
+	bossAnimation* hurt_L_hand;
+
+	int currentLHandFrame = 1;
+	int totalLHandAnimFrames = 1;
+
 	bossAnimation* currentBodyAnimation;
 	bossAnimation* currentRHandAnimation;
+	bossAnimation* currentLHandAnimation;
 
 private:
 	void GetPhysicsValues();
