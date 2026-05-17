@@ -50,6 +50,7 @@ private:
 		Timer attackTimer;
 		int attackCooldown = 0;
 		float v_speed = 0.25f;
+		float h_speed = 0.5;
 		bool attacking = false;
 		Hand() {};
 	};
@@ -78,6 +79,8 @@ private:
 	bossAnimation* intro_R_hand;
 	bossAnimation* idle_R_hand;
 	bossAnimation* vertical_R_hand;
+	bossAnimation* horizontal_R_hand;
+	bossAnimation* hurt_R_hand;
 
 	int currentRHandFrame = 1;
 	int totalRHandAnimFrames = 1;

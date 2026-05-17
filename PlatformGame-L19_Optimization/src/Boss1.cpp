@@ -106,6 +106,26 @@ bool Boss1::Start() {
 		vertical_R_hand->animation.push_back(frame);
 	}
 
+	horizontal_R_hand = new bossAnimation(18, "horizontal", Body_Parts::R_HAND, false);
+	for (int i = 1; i <= horizontal_R_hand->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss1/RightHand/HorizontalATA/HorizontalATA_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		horizontal_R_hand->animation.push_back(frame);
+	}
+
+	hurt_R_hand = new bossAnimation(12, "hurt", Body_Parts::R_HAND, false);
+	for (int i = 1; i <= hurt_R_hand->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss1/RightHand/Hurt/Hurt_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		hurt_R_hand->animation.push_back(frame);
+	}
+
 	return true;
 }
 
@@ -121,7 +141,7 @@ bool Boss1::Update(float dt)
 
 	//Func_EnemyStates(dt);
 	ApplyPhysics();
-	if (R_Hand->velocity.y == -R_Hand->v_speed && R_Hand->position.getY() < R_Hand->idlePos.getY())
+	if ((R_Hand->velocity.y == -R_Hand->v_speed && R_Hand->position.getY() < R_Hand->idlePos.getY()) || (R_Hand->velocity.x == -R_Hand->h_speed && R_Hand->position.getX() < R_Hand->idlePos.getX()))
 	{
 		R_Hand->velocity = b2Vec2_zero;
 		R_Hand->attackCooldown = SDL_rand(5);
@@ -177,6 +197,7 @@ void Boss1::Draw(float dt)
 		//Get current hand frame
 		if (currentRHandFrame < totalRHandAnimFrames) {
 			currentRHandFrame += 1;
+			if (currentRHandFrame == 13 && currentRHandAnimation == horizontal_R_hand) R_Hand->velocity.x = R_Hand->h_speed;
 		}
 		else if (currentRHandAnimation->loop == true) {
 			currentRHandFrame = 1;
@@ -252,6 +273,9 @@ void Boss1::OnCollision(PhysBody* physA, PhysBody* physB) {
 			case ColliderType::BOSS_HEAD:
 				PlayAnimation(hurt_body);
 				break;
+			case ColliderType::BOSS_R_HAND:
+				PlayAnimation(hurt_R_hand);
+				break;
 			}
 		}
 		break;
@@ -292,6 +316,7 @@ void Boss1::AnimationFinished(bossAnimation* animation)
 				switch (animation->part) {
 				case Body_Parts::BODY:
 					PlayAnimation(idle_body);
+					break;
 				}
 			}
 			else {
@@ -309,10 +334,23 @@ void Boss1::AnimationFinished(bossAnimation* animation)
 	
 	//HAND ANIMATIONS
 	if (animation->part == Body_Parts::R_HAND) {
-		if ((animation->name == "vertical" || animation->name == "horizontal"))
+		if ((animation->name == "vertical" || animation->name == "horizontal" || animation->name == "hurt"))
 		{
-			R_Hand->velocity.y = -R_Hand->v_speed;
-			PlayAnimation(idle_R_hand);
+			if (animation->name == "horizontal" || (int)R_Hand->position.getX() > (int)R_Hand->idlePos.getX()) {
+				R_Hand->velocity.x = -R_Hand->h_speed;
+			}
+			if (animation->name == "vertical" || (int)R_Hand->position.getY() > (int)R_Hand->idlePos.getY()) {
+				R_Hand->velocity.y = -R_Hand->v_speed;
+			}
+			if (life > 0) {
+				PlayAnimation(idle_R_hand);
+			}
+			else {
+				Engine::GetInstance().physics->DeletePhysBody(head_body);
+				PlayAnimation(stun_body);
+				PlayAnimation(intro_R_hand);
+				R_Hand->velocity.y = 0.5;
+			}
 		}
 	}
 	return;
@@ -357,7 +395,7 @@ void Boss1::Attack(Hand* hand) {
 			R_Hand->velocity.y = R_Hand->v_speed;
 		}
 		else {
-			R_Hand->attacking = false;
+			PlayAnimation(horizontal_R_hand);
 		}
 	}
 }
