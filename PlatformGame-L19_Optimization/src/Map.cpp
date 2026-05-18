@@ -11,6 +11,7 @@
 #include "PowerEgg.h"
 #include "AnimatedTile.h"
 #include "Climbable.h"
+#include "DialogTrigger.h"
 
 #include <math.h>
 
@@ -578,6 +579,50 @@ MapLayer* Map::GetNavigationLayer() {
                         door->Start();
                     }
                 }
+               /* else if (entityType == "dialogTrigger")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
+                    std::shared_ptr<DialogTrigger> dialogTrigger = std::dynamic_pointer_cast<DialogTrigger>(e);
+
+                    float width = objectNode.attribute("width").as_float();
+                    float height = objectNode.attribute("height").as_float();
+
+                    if (dialogTrigger != nullptr)
+                    {
+                        dialogTrigger->position = Vector2D(x + width / 2, y + height / 2);
+                        dialogTrigger->name = name;
+                        dialogTrigger->tiledId = tiledId;
+                        dialogTrigger->w = width;
+                        dialogTrigger->h = height;
+
+                        int id = 0;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("id").as_string();
+                                if (propName == "id")
+                                {
+                                    id = prop.attribute("value").as_int();
+                                    dialogTrigger->dialogues_ids.push_back(id);
+                                }
+                                else if (propName == "amount")
+                                {
+                                    for (int i = 1; i <= prop.attribute("value").as_int(); ++i)
+                                    {
+                                        ++id;
+                                        dialogTrigger->dialogues_ids.push_back(id);
+                                    }
+                                }
+                            }
+                        }
+
+                        dialogTrigger->Awake();
+                        dialogTrigger->Start();
+                    }
+                }*/
                 else if (entityType == "Egg") 
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::POWER_EGG);

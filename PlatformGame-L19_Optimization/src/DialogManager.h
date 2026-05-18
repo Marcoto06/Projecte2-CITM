@@ -47,10 +47,11 @@ public:
 	
 	std::string dialogFileName;
 	std::string dialogPath;
+	std::vector<Dialog*> dialogs;
 
 private:
 	SDL_Texture* dialogWindowTexture = NULL;
-	std::vector<Dialog*> dialogs;
+	
 	pugi::xml_document dialogFileXML;
 	
 	Dialog* currentDialog;

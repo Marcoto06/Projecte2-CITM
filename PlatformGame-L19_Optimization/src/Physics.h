@@ -38,6 +38,7 @@ enum class ColliderType {
     WALL_SENSOR,
     POWER_EGG,
     CLIMBABLE,
+    DIALOG_TRIGGER,
     BOSS_HEAD,
     BOSS_L_HAND,
     BOSS_R_HAND,

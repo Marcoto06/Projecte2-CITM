@@ -47,7 +47,6 @@ bool DialogManager::PreUpdate()
 
 bool DialogManager::Update(float dt)
 {
-	ShowDialogWindow(dt);
 	return true;
 }
 

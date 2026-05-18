@@ -12,6 +12,7 @@
 #include "PowerEgg.h"
 #include "AnimatedTile.h"
 #include "Boss1.h"
+#include "DialogTrigger.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -104,6 +105,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ANIMATED_TILE:
 		entity = std::make_shared<AnimatedTile>();
+		break;
+	case EntityType::DIALOG_TRIGGER:
+		entity = std::make_shared<DialogTrigger>();
 		break;
 	case EntityType::CLIMBABLE:
 		entity = std::make_shared<Climbable>();
