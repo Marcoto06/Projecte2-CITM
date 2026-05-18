@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Textures.h"
 #include "Render.h"
+#include <sstream>//Necessary to write multiple lines.
 
 
 
@@ -70,7 +71,7 @@ bool DialogManager::Load(std::string path, std::string fileName)
 	
 	if (result == NULL)
 	{
-		LOG("Could not load map xml file %s. pugi error: %s", dialogPathName.c_str(), result.description());
+		LOG("Could not load dialog xml file %s. pugi error: %s", dialogPathName.c_str(), result.description());
 		ret = false;
 	}
 	else {
@@ -94,10 +95,28 @@ void DialogManager::LoadDialogWindow(int id) {
 
 void DialogManager::ShowDialogWindow(float dt) 
 {
+	//Box pop up
 	if (currentDialogPos.getY() > dialogPos.getY())
 	{
 		currentDialogPos.setY(currentDialogPos.getY() - (dialogVelocity * dt));
 	}
+	//Draw box
 	Engine::GetInstance().render->DrawTexture(dialogWindowTexture, currentDialogPos.getX(), currentDialogPos.getY(), NULL, 0.0f);
-	Engine::GetInstance().render->DrawText(currentDialog->text.c_str(), currentDialogPos.getX(), currentDialogPos.getY(), 500, 500, SDL_Color {0, 0, 0, 255});
+	int nameWidth = currentDialog->name.size() * 25;
+	Engine::GetInstance().render->DrawText(currentDialog->name.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 45, nameWidth, 30, SDL_Color{ 255, 255, 255, 255 });
+	//Draw the actual text, with multiple lines if needed
+	int width = 25 * currentDialog->text.size();
+	std::stringstream ss(currentDialog->text);
+	std::string line;
+
+	int yOffset = 0;
+
+	while (std::getline(ss, line, '\n'))
+	{
+		int width = 25 * line.size();
+
+		Engine::GetInstance().render->DrawText(line.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 30, SDL_Color{ 255,255,255,255 });
+
+		yOffset += 35;
+	}
 }
