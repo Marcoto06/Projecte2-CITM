@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Physics.h"
 #include "Animation.h"
+#include "Timer.h"
 #include <vector>
 
 struct SDL_Texture;
@@ -24,6 +25,14 @@ public:
     static std::vector<Checkpoint*> allCheckpoints;
 
     bool IsActive() const { return isActive; }
+
+    void TriggerDialog(int id);
+
+    int currentDialogId;
+    std::vector<int> dialogues_ids;
+    Timer currentDialogTimer;
+    int currentDialogDuration;
+    bool triggeredDialogue = false;
 
 private:
     PhysBody* pbody;

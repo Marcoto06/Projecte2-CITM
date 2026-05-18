@@ -490,6 +490,8 @@ MapLayer* Map::GetNavigationLayer() {
                     checkpoint->position = Vector2D(x, y);
                     checkpoint->name = name;
 
+                    int id;
+
                     pugi::xml_node properties = objectNode.child("properties");
                     if (properties)
                     {
@@ -500,6 +502,19 @@ MapLayer* Map::GetNavigationLayer() {
                             {
                                 bool active = prop.attribute("value").as_bool();
                                 checkpoint->SetActive(active);
+                            }
+                            else if (propName == "_id")
+                            {
+                                id = prop.attribute("value").as_int();
+                                checkpoint->dialogues_ids.push_back(id);
+                            }
+                            else if (propName == "amount")
+                            {
+                                for (int i = 1; i < prop.attribute("value").as_int(); ++i)
+                                {
+                                    id += 1;
+                                    checkpoint->dialogues_ids.push_back(id);
+                                }
                             }
                         }
                     }

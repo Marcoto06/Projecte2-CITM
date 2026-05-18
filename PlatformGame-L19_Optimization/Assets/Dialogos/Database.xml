@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dialogs>
-	<Dialog id="0" name="Doctora" duration="3" >I'm in Luke, do you copy?</Dialog>
+	<Dialog id="0" name="Doctora" duration="3" >Hey Doc, Luke speaking. There’s 
+no news from the central.
+We are trying to remain calm, 
+but it seems like it’s taking a toll on Theo.
+He is being more unbearable than usual. 
+Also, the patient won’t stop trembling,
+it seems like anesthesia is 
+losing its effect. Hope you’re safe.</Dialog>
 	<Dialog id="1" name="Luke" duration="3">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</Dialog>
 	<Dialog id="2" name="Doctora" duration="3">Poop</Dialog>
 	<Dialog id="3" name="Doctora" duration="3">Poopy</Dialog>

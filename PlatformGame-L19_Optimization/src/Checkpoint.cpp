@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Log.h"
+#include "DialogManager.h"
 #include <algorithm>
 
 std::vector<Checkpoint*> Checkpoint::allCheckpoints;
@@ -67,6 +68,20 @@ bool Checkpoint::Update(float dt)
     {
         const SDL_Rect& rect = anims.GetCurrentFrame();
         Engine::GetInstance().render->DrawTexture(texture, (int)position.getX(), (int)position.getY(), &rect);
+    }
+
+    if (triggeredDialogue)
+    {
+        if (currentDialogDuration >= currentDialogTimer.ReadSec())
+        {
+            Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
+        }
+        else if (currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))
+        {
+            currentDialogId += 1;
+            TriggerDialog(currentDialogId);
+            currentDialogTimer.Start();
+        }
     }
 
     return true;
@@ -146,6 +161,10 @@ void Checkpoint::SetActive(bool active) {
     if (active) {
         isActive = true;
         anims.SetCurrent("active");
+        if (dialogues_ids.size() > 0) {
+            TriggerDialog(dialogues_ids.at(0));
+            triggeredDialogue = true;
+        }
     }
     else {
 
@@ -159,4 +178,12 @@ void Checkpoint::SetActive(bool active) {
             anims.SetCurrent("inactive");
         }
     }
+}
+
+void Checkpoint::TriggerDialog(int id)
+{
+    currentDialogId = id;
+    currentDialogDuration = Engine::GetInstance().dialogManager->dialogs.at(id)->duration;
+    Engine::GetInstance().dialogManager->LoadDialogWindow(currentDialogId);
+    currentDialogTimer.Start();
 }
