@@ -55,7 +55,7 @@ private:
 	
 	Dialog* currentDialog;
 
-	Vector2D dialogPos = Vector2D(960, 1000);
+	Vector2D dialogPos = Vector2D(960, 600);
 	Vector2D currentDialogPos;
 	Vector2D spawnDialogPos = Vector2D(960, 2000);
 	int dialogVelocity = 3;

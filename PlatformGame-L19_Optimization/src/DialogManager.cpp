@@ -32,7 +32,7 @@ bool DialogManager::Start()
 {
 	dialogWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Dialog_box.png");
 	Load("Assets/Dialogos/", "Database.xml");
-	ShowDialogWindow(0);
+	LoadDialogWindow(0);
 	return true;
 }
 
@@ -46,6 +46,7 @@ bool DialogManager::PreUpdate()
 
 bool DialogManager::Update(float dt)
 {
+	ShowDialogWindow(dt);
 	return true;
 }
 
@@ -98,5 +99,5 @@ void DialogManager::ShowDialogWindow(float dt)
 		currentDialogPos.setY(currentDialogPos.getY() - (dialogVelocity * dt));
 	}
 	Engine::GetInstance().render->DrawTexture(dialogWindowTexture, currentDialogPos.getX(), currentDialogPos.getY(), NULL, 0.0f);
-	//Engine::GetInstance().render->DrawText(currentDialog->text.c_str(), currentDialogPos.getX(), currentDialogPos.getY(), 500, 500);
+	Engine::GetInstance().render->DrawText(currentDialog->text.c_str(), currentDialogPos.getX(), currentDialogPos.getY(), 500, 500, SDL_Color {0, 0, 0, 255});
 }
