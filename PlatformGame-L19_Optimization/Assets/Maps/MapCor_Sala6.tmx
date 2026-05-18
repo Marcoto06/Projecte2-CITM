@@ -4097,6 +4097,9 @@
   </data>
  </layer>
  <layer id="1" name="Map" width="60" height="68">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
