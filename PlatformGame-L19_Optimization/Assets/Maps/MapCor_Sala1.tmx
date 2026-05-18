@@ -1843,6 +1843,7 @@
   <object id="4" name="CheckPoint" type="Checkpoint" x="355.101" y="766.516">
    <properties>
     <property name="_id" type="int" value="0"/>
+    <property name="amount" type="int" value="2"/>
     <property name="isActive" type="bool" value="false"/>
    </properties>
    <point/>

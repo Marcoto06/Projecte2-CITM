@@ -12120,13 +12120,6 @@
     <property name="Type" value="anim_tile"/>
    </properties>
   </object>
-  <object id="71" name="dialogTrigger" type="dialogTrigger" x="2240" y="-0.25" width="64" height="832">
-   <properties>
-    <property name="Type" value="dialogTrigger"/>
-    <property name="_id" type="int" value="0"/>
-    <property name="amount" type="int" value="3"/>
-   </properties>
-  </object>
  </objectgroup>
  <layer id="7" name="Navigation" width="60" height="33">
   <properties>
