@@ -4,12 +4,16 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_rect.h>
 #include "Vector2D.h"
+#include <vector>
+using namespace std;
 
 
 struct Dialog {
 	int id;
 	std::string name;
 	std::string text;
+	int duration;
+	Dialog(int _id, std::string _name, std::string _text, int _duration) : id(_id), name(_name), text(_text), duration(_duration) {}
 };
 
 
@@ -31,21 +35,28 @@ public:
 
 	// Called each loop iteration
 	bool PreUpdate();
+	bool Update(float dt);
 
 	// Called before quitting
 	bool CleanUp();
 
 
 	bool Load(std::string path, std::string fileName);
-	void ShowDialogWindow(int id);
+	void LoadDialogWindow(int id);
+	void ShowDialogWindow(float dt);
 	
 	std::string dialogFileName;
 	std::string dialogPath;
 
 private:
 	SDL_Texture* dialogWindowTexture = NULL;
-	int currentDialog;
-	Dialog dialogDatabase[100];
+	std::vector<Dialog*> dialogs;
 	pugi::xml_document dialogFileXML;
+	
+	Dialog* currentDialog;
 
+	Vector2D dialogPos = Vector2D(960, 1000);
+	Vector2D currentDialogPos;
+	Vector2D spawnDialogPos = Vector2D(960, 2000);
+	int dialogVelocity = 3;
 };
