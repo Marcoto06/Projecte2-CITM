@@ -10,6 +10,9 @@
   <image source="atlas_2.4.png" width="1024" height="1024"/>
  </tileset>
  <layer id="2" name="Solid" width="30" height="34">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile gid="180"/>
    <tile gid="180"/>

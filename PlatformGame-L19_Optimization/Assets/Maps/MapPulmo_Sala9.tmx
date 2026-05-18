@@ -4,6 +4,9 @@
   <property name="Draw" type="bool" value="true"/>
  </properties>
  <layer id="1" name="Solid" width="30" height="34">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
