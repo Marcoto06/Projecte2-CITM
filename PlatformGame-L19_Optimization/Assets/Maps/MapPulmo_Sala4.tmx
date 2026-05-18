@@ -3090,7 +3090,7 @@
     <property name="Destination" value="MapPulmo_Sala3"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="744"/>
-    <property name="playerY" type="float" value="224"/>
+    <property name="playerY" type="float" value="1681.89"/>
    </properties>
   </object>
   <object id="2" name="Door" type="Door" x="363.61" y="2147.66" width="1131.91" height="28.9429">
