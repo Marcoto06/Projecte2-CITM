@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dialogs>
-	<Dialog id="0" name="Luke" duration="5" >Hey Doc, Luke speaking.
-There’s no news from the central.
-We are trying to remain calm,
-but it seems like it’s taking a toll on Theo.</Dialog>
-	<Dialog id="1" name="Luke" duration="5" >He is being more unbearable than usual.
-Also, the patient won’t stop trembling,
-it seems like anesthesia is
-losing its effect. Hope you’re safe.</Dialog>
+	<Dialog id="0" name="Luke" duration="3">That’s right. You hear us,
+	Doc?</Dialog>
+	<Dialog id="1" name="Doctor" duration="3">Affirmative.</Dialog>
+	<Dialog id="2" name="Luke" duration="4"> Great, I wasn’t expecting less!</Dialog>
+	<Dialog id="3" name="Luke" duration="3">Aaand everything set and ready to go.</Dialog>
+	<Dialog id="4" name="Doctor" duration="5">Those are Streptococcus Sanguinis,
+right? Seeing them in this size
+is quite intimidating…</Dialog>
+	<Dialog id ="5" name="Luke" duration="4">Understandable, but, still,
+	they shouldn’t be aggressive.</Dialog>
+	<Dialog id="6" name="Doctor" duration="3">Seems I can’t get across yet.</Dialog>
+	<Dialog id="7" name="Luke" duration="5">Maybe try going downwards,
+there should be some cell that
+you can absorb. To gain a
+charge ability, you know?</Dialog>
+	<Dialog id="8" name="Doctor" duration="2">I know, Luke, I know.</Dialog>
+	
+	
+	
+	<Dialog id="10" name="Luke" duration="5">Hey Doc, Luke speaking.
+There’s no news from the
+central.We are trying to 
+remain calm,
+but it seems like it’s 
+taking a toll on Theo.</Dialog>
+	<Dialog id="11" name="Luke" duration="5">He is being more 
+unbearable than usual.
+Also, the patient won’t
+stop trembling, it seems
+like anesthesia is losing
+its effect. 
+Hope you’re safe.</Dialog>
 </Dialogs>

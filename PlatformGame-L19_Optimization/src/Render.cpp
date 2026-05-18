@@ -65,7 +65,7 @@ bool Render::Awake()
 	TTF_Init();
 
 	//load a font into memory
-	font = TTF_OpenFont("Assets/Fonts/arial.ttf", 25);
+	font = TTF_OpenFont("Assets/Fonts/CascadiaMono.ttf", 25);
 
 	SDL_SetRenderLogicalPresentation(renderer, camera.w, camera.h, SDL_LOGICAL_PRESENTATION_STRETCH);
 

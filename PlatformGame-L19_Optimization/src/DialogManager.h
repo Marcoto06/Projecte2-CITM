@@ -51,12 +51,15 @@ public:
 
 private:
 	SDL_Texture* dialogWindowTexture = NULL;
+	SDL_Texture* docTexture = NULL;
+	SDL_Texture* lukeTexture = NULL;
+	SDL_Texture* currentPortrait = NULL;
 	
 	pugi::xml_document dialogFileXML;
 	
 	Dialog* currentDialog;
 
-	Vector2D dialogPos = Vector2D(960, 600);
+	Vector2D dialogPos;
 	Vector2D currentDialogPos;
 	Vector2D spawnDialogPos;
 	int dialogVelocity = 3;

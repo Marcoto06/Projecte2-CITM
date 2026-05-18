@@ -33,8 +33,11 @@ bool DialogManager::Awake()
 bool DialogManager::Start()
 {
 	dialogWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Dialog_box.png");
+	docTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Doc.png");
+	lukeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Luke.png");
 	Load("Assets/Dialogos/", "Database.xml");
 	spawnDialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, 2000);
+	dialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, Engine::GetInstance().window->height - dialogWindowTexture->h);
 	LoadDialogWindow(0);
 	return true;
 }
@@ -90,6 +93,12 @@ void DialogManager::LoadDialogWindow(int id) {
 		if (dialog->id == id) {
 			currentDialog = dialog;
 			currentDialogPos = spawnDialogPos;
+			if (dialog->name == "Doctor") {
+				currentPortrait = docTexture;
+			}
+			else {
+				currentPortrait = lukeTexture;
+			}
 		}
 	}
 }
@@ -103,10 +112,11 @@ void DialogManager::ShowDialogWindow(float dt)
 	}
 	//Draw box
 	Engine::GetInstance().render->DrawTexture(dialogWindowTexture, currentDialogPos.getX(), currentDialogPos.getY(), NULL, 0.0f);
+	Engine::GetInstance().render->DrawTexture(currentPortrait, currentDialogPos.getX() + 15, currentDialogPos.getY() + 7.5f, NULL, 0.0f);
 	int nameWidth = currentDialog->name.size() * 25;
 	Engine::GetInstance().render->DrawText(currentDialog->name.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 45, nameWidth, 30, SDL_Color{ 255, 255, 255, 255 });
 	//Draw the actual text, with multiple lines if needed
-	int width = 25 * currentDialog->text.size();
+	int width = 20 * currentDialog->text.size();
 	std::stringstream ss(currentDialog->text);
 	std::string line;
 
@@ -116,7 +126,7 @@ void DialogManager::ShowDialogWindow(float dt)
 	{
 		int width = 25 * line.size();
 
-		Engine::GetInstance().render->DrawText(line.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 30, SDL_Color{ 255,255,255,255 });
+		Engine::GetInstance().render->DrawText(line.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 25, SDL_Color{ 255,255,255,255 });
 
 		yOffset += 35;
 	}
