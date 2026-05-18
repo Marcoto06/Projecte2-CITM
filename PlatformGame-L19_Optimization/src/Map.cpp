@@ -579,7 +579,7 @@ MapLayer* Map::GetNavigationLayer() {
                         door->Start();
                     }
                 }
-               /* else if (entityType == "dialogTrigger")
+                else if (entityType == "dialogTrigger")
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
                     std::shared_ptr<DialogTrigger> dialogTrigger = std::dynamic_pointer_cast<DialogTrigger>(e);
@@ -602,17 +602,17 @@ MapLayer* Map::GetNavigationLayer() {
                         {
                             for (pugi::xml_node prop : properties.children("property"))
                             {
-                                std::string propName = prop.attribute("id").as_string();
-                                if (propName == "id")
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "_id")
                                 {
                                     id = prop.attribute("value").as_int();
                                     dialogTrigger->dialogues_ids.push_back(id);
                                 }
                                 else if (propName == "amount")
                                 {
-                                    for (int i = 1; i <= prop.attribute("value").as_int(); ++i)
+                                    for (int i = 1; i < prop.attribute("value").as_int(); ++i)
                                     {
-                                        ++id;
+                                        id += 1;
                                         dialogTrigger->dialogues_ids.push_back(id);
                                     }
                                 }
@@ -622,7 +622,7 @@ MapLayer* Map::GetNavigationLayer() {
                         dialogTrigger->Awake();
                         dialogTrigger->Start();
                     }
-                }*/
+                }
                 else if (entityType == "Egg") 
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::POWER_EGG);

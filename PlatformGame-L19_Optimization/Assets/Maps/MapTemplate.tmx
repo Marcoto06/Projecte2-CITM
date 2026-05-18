@@ -12123,8 +12123,8 @@
   <object id="71" name="dialogTrigger" type="dialogTrigger" x="2240" y="-0.25" width="64" height="832">
    <properties>
     <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="0"/>
     <property name="amount" type="int" value="3"/>
-    <property name="id" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

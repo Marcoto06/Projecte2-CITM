@@ -29,14 +29,14 @@ bool DialogTrigger::Update(float dt)
 {
 	if (triggered)
 	{
-		if(currentDialogDuration <= currentDialogTimer.ReadSec())
+		if(currentDialogDuration >= currentDialogTimer.ReadSec())
 		{
 			Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
 		}
 		else if (currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))
 		{
-			currentDialog += 1;
-			TriggerDialog(currentDialog);
+			currentDialogId += 1;
+			TriggerDialog(currentDialogId);
 			currentDialogTimer.Start();
 		}
 	}
@@ -72,8 +72,7 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 
 		if (player != nullptr)
 		{
-			currentDialog = 0;
-			TriggerDialog(dialogues_ids.at(currentDialog));
+			TriggerDialog(dialogues_ids.at(0));
 			triggered = true;
 		}
 	}
@@ -84,4 +83,5 @@ void DialogTrigger::TriggerDialog(int id)
 	currentDialogId = id;
 	currentDialogDuration = Engine::GetInstance().dialogManager->dialogs.at(id)->duration;
 	Engine::GetInstance().dialogManager->LoadDialogWindow(currentDialogId);
+	currentDialogTimer.Start();
 }

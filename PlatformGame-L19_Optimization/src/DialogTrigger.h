@@ -24,7 +24,6 @@ public:
 	int w, h;
 	bool triggered = false;
 	int currentDialogId;
-	int currentDialog;
 	std::vector<int> dialogues_ids;
 	Timer currentDialogTimer;
 	int currentDialogDuration;

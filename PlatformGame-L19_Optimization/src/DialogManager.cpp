@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Textures.h"
 #include "Render.h"
+#include "Window.h"
 #include <sstream>//Necessary to write multiple lines.
 
 
@@ -33,6 +34,7 @@ bool DialogManager::Start()
 {
 	dialogWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Dialog_box.png");
 	Load("Assets/Dialogos/", "Database.xml");
+	spawnDialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, 2000);
 	LoadDialogWindow(0);
 	return true;
 }
