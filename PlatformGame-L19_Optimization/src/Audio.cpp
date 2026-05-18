@@ -72,7 +72,7 @@ bool Audio::EnsureStreams() {
             return false;
         }
     }
-    // --- NUEVO SISTEMA MULTICANAL PARA FX ---
+    
     for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
         if (!sfx_channels_[i]) {
             sfx_channels_[i] = SDL_CreateAudioStream(nullptr, &device_spec_);

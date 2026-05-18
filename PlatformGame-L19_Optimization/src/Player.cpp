@@ -75,7 +75,7 @@ bool Player::Start() {
 	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW / 6, (int)position.getY() + 175, ColliderType::SENSOR);
 	floorSensorBody->listener = this;
 
-	pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
+	pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/prueba pasos.wav");
 
 	//Audios
 	/*std::unordered_map< std::string,Audio> list_audios;
@@ -173,6 +173,11 @@ bool Player::Update(float dt)
 
 	isSteppingUp = false;
 
+	if (timerPasos > 0.0f) {
+		timerPasos -= dt; // for audio
+	}
+
+
 	if (!isHurt) {
 		if (!isClimbing) {
 			if (isAdrenaline) {
@@ -201,6 +206,7 @@ bool Player::Update(float dt)
 	Func_PlayerState();
 	Teleport();
 	ApplyPhysics();
+
 
 	return true;
 }
@@ -359,7 +365,7 @@ void Player::StopAttackHitBox()
 
 void Player::Move() {
 
-	isMoving = false; // Reseteamos cada frame
+	isMoving = false; 
 
 	int x_axis_raw = SDL_GetGamepadAxis(Engine::GetInstance().input->controller, SDL_GAMEPAD_AXIS_LEFTX);
 
@@ -372,34 +378,38 @@ void Player::Move() {
 	{
 		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 			isMoving = true;
-			Engine::GetInstance().audio->PlayFx(pasosFxId);//
+			//Engine::GetInstance().audio->PlayFx(pasosFxId);
 			velocity.x = -normalSpeed;
 			facingRight = false;
 		}
 		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
 			isMoving = true;
-			Engine::GetInstance().audio->PlayFx(pasosFxId);
+			//Engine::GetInstance().audio->PlayFx(pasosFxId);
 			velocity.x = normalSpeed;
 			facingRight = true;
 		}
 	}
 
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ||
+		Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		isMoving = true;
+	}
+	else
+	{
+		isMoving = false;
+	}
+
 	// CONTROL DEL AUDIO
-	//if (isMoving)
-	//{
-	//	if (!pasosSonando)
-	//	{
-	//		Engine::GetInstance().audio->PlayFx(pasosFxId, -1); // loop
-	//		pasosSonando = true;
-	//	}
-	//}
-	//else
-	//{
-	//	if (pasosSonando)
-	//	{
-	//		pasosSonando = false;
-	//	}
-	//}
+	if (isMoving && onGround)
+	{
+		if (timerPasos <= 0.0f)
+		{
+			Engine::GetInstance().audio->PlayFx(pasosFxId, 0); // Suena un paso
+
+			timerPasos = 500.0f;
+		}
+	}
 
 }
 

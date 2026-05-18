@@ -46,11 +46,11 @@ bool Scene::Start()
 
 	//Audio fx
 	latidosFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/latidos.wav");
-	//fondoBocaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/sonido de fondo 1.wav");
+	fondoBocaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/sonido de fondo 1.wav");
 
 	LoadScene(currentScene); // start in MAIN_MENU
 	Engine::GetInstance().audio->PlayFx(latidosFXId, 50);
-	Engine::GetInstance().audio->PlayMusic("Assets/Audio/Fx/sonido de fondo 1.wav", 50);
+	Engine::GetInstance().audio->PlayFx(fondoBocaFXId, 50);
 	//Engine::GetInstance().audio->PlayFx(latidosFXId);
 	return true;
 }

@@ -102,6 +102,7 @@ public:
 	//Audio fx
 	int pickCoinFxId;
 	int pasosFxId;
+	int timerPasos = 0;
 	bool pasosSonando = false;
 	
 	PhysBody* pbody;
