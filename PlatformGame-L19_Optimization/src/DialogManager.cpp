@@ -126,7 +126,7 @@ void DialogManager::ShowDialogWindow(float dt)
 	{
 		int width = 25 * line.size();
 
-		Engine::GetInstance().render->DrawText(line.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 25, SDL_Color{ 255,255,255,255 });
+		Engine::GetInstance().render->DrawText(line.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 30, SDL_Color{ 255,255,255,255 });
 
 		yOffset += 35;
 	}

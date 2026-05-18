@@ -544,6 +544,7 @@ void Player::Jump(float dt)
 			dashLeft += 1;
 			isClimbing = false;
 			b2Body_SetGravityScale(pbody->body, gravityScale);
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		}
 
 		float forceToUse = jumpForce;

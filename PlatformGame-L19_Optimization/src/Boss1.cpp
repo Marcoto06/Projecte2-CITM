@@ -42,7 +42,7 @@ bool Boss1::Start() {
 	L_Hand->h_speed *= -1;
 	L_Hand->position = initialHeadPos + Vector2D(400, 1000);
 	L_Hand->pbody = Engine::GetInstance().physics->CreateRectangleSensor(L_Hand->idlePos.getX(), L_Hand->idlePos.getY(), 200, 300, bodyType::STATIC);
-	L_Hand->pbody->ctype = ColliderType::BOSS_R_HAND;
+	L_Hand->pbody->ctype = ColliderType::BOSS_L_HAND;
 	L_Hand->pbody->listener = this;
 
 	//Load All Animations
