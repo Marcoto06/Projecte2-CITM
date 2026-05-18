@@ -465,6 +465,8 @@ void Boss1::AnimationFinished(bossAnimation* animation)
 			}
 			else {
 				Engine::GetInstance().physics->DeletePhysBody(head_body);
+				R_Hand->velocity.y = 0.5;
+				L_Hand->velocity.y = 0.5;
 				PlayAnimation(stun_body);
 			}
 		}
