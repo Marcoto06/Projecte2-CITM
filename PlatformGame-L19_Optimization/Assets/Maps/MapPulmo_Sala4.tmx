@@ -3112,7 +3112,7 @@
     <property name="playerY" type="float" value="224"/>
    </properties>
   </object>
-  <object id="7" name="Player" type="Player" x="1684.42" y="1954">
+  <object id="7" name="Player" type="Player" x="1684" y="1954">
    <point/>
   </object>
  </objectgroup>
