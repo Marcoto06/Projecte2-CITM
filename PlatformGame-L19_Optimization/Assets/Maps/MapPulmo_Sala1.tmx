@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="134">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="135">
  <tileset firstgid="1" name="atlas_2.2" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="atlas_2.2.png" width="1024" height="1024"/>
  </tileset>
@@ -6158,8 +6158,8 @@
    <properties>
     <property name="Destination" value="MapCor_Sala16.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1"/>
-    <property name="playerY" type="float" value="1"/>
+    <property name="playerX" type="float" value="196"/>
+    <property name="playerY" type="float" value="10688"/>
    </properties>
   </object>
   <object id="122" name="Door" type="Door" x="3120" y="-14" width="364" height="24">
@@ -6215,7 +6215,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Anim_Tiles">
+ <objectgroup id="4" name="Anim_Tiles" visible="0">
   <object id="1" name="part_superior_animada_pulmons" type="anim_tile" x="64" y="1984" width="64" height="64">
    <properties>
     <property name="Texture" value="part_superior_animada_pulmons"/>

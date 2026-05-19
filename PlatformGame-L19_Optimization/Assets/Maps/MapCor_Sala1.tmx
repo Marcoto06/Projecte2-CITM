@@ -2438,8 +2438,8 @@
    <properties>
     <property name="Destination" value="MapPulmo_Sala11.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="139"/>
-    <property name="playerY" type="float" value="190"/>
+    <property name="playerX" type="float" value="4590"/>
+    <property name="playerY" type="float" value="209"/>
    </properties>
   </object>
   <object id="4" name="CheckPoint" type="Checkpoint" x="355.101" y="766.516">
