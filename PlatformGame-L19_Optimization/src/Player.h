@@ -139,6 +139,7 @@ public:
 	bool isHurt = false;
 	bool isSteppingUp = false;
 	bool lock = false;
+	bool canClimb = false;
 
 	//CHARGES
 	bool hasPowerJump = false;
@@ -175,6 +176,7 @@ public:
 
 	//Climbing
 	Climbable* nearestClimbable = nullptr;
+	Climbable* prevClimbable = nullptr;
 	bool isClimbing = false;
 
 	std::vector<int> list_collectibles;
