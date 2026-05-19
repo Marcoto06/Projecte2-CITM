@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.2" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="273" columns="21">
+<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="273" columns="21">
  <image source="Atlas_Doctora.png" width="10752" height="6656"/>
  <tile id="0">
   <animation>
@@ -116,10 +116,10 @@
  </tile>
  <tile id="122">
   <animation>
-   <frame tileid="122" duration="100"/>
-   <frame tileid="123" duration="100"/>
-   <frame tileid="124" duration="100"/>
-   <frame tileid="125" duration="100"/>
+   <frame tileid="122" duration="50"/>
+   <frame tileid="123" duration="50"/>
+   <frame tileid="124" duration="50"/>
+   <frame tileid="125" duration="50"/>
   </animation>
  </tile>
  <tile id="126">

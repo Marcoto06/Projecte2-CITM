@@ -34,6 +34,7 @@ bool Collectibles::Start() {
 		anims.SetCurrent("idle");
 		break;
 	case 1:
+		//Saliva
 		aliases = { {0, "idle"} };
 		anims.LoadFromTSX("Assets/Textures/Collectibles/Saliva_Coleccionable.tsx", aliases);
 		texture = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Saliva_Coleccionable.png");
