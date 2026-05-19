@@ -118,7 +118,11 @@ bool Checkpoint::Destroy()
     active = false;
 
     if (this->tiledId != -1) {
-        Engine::GetInstance().scene->destroyedEntitiesIds.push_back(this->tiledId);
+        auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+        if (std::find(deadList.begin(), deadList.end(), this->tiledId) == deadList.end()) {
+            deadList.push_back(this->tiledId);
+        }
     }
 
     pendingToDelete = true;
@@ -156,12 +160,13 @@ void Checkpoint::OnCollision(PhysBody* physA, PhysBody* physB)
     }
 }
 
-void Checkpoint::SetActive(bool active) {
+void Checkpoint::SetActive(bool active, bool fromLoad) {
 
     if (active) {
         isActive = true;
         anims.SetCurrent("active");
-        if (dialogues_ids.size() > 0) {
+
+        if (!fromLoad && dialogues_ids.size() > 0) {
             TriggerDialog(dialogues_ids.at(0));
             triggeredDialogue = true;
         }

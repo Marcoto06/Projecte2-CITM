@@ -19,7 +19,7 @@ public:
 
     void OnCollision(PhysBody* physA, PhysBody* physB) override;
 
-    void SetActive(bool active);
+    void SetActive(bool active, bool fromLoad = false);
 
 public:
     static std::vector<Checkpoint*> allCheckpoints;

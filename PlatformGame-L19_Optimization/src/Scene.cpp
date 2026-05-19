@@ -173,6 +173,8 @@ Vector2D Scene::GetPlayerPosition()
 
 void Scene::LoadScene(SceneID newScene)
 {
+	bool ret = true;
+
 	auto& engine = Engine::GetInstance();
 
 	switch (newScene)
@@ -182,14 +184,36 @@ void Scene::LoadScene(SceneID newScene)
 		break;
 
 	case SceneID::LEVEL:
-		LoadLevel("MapTemplate");
-		std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
+
+		pugi::xml_document saveFile;
+		pugi::xml_parse_result result = saveFile.load_file("Saves/savegame.xml");
+
+		if (result)
+		{
+			std::string savedMapName = saveFile.child("save_estate").attribute("current_map").as_string();
+
+			if (!savedMapName.empty())
+			{
+				LoadLevel(savedMapName);
+			}
+			else
+			{
+				LoadLevel("MapTemplate.tmx");
+			}
+		}
+		else
+		{
+			LoadLevel("MapTemplate.tmx");
+		}
+		//LoadLevel("MapTemplate");
+
+		/*std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
 		std::shared_ptr<Boss1> boss = std::dynamic_pointer_cast<Boss1>(e);
 
 		boss->position = Vector2D(100, -400);
 		boss->Awake();
 		boss->Start();
-		break;
+		break;*/
 	}
 }
 
@@ -347,7 +371,7 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/level-iv-339695.wav");
 
 	//Call the function to load the map. 
-	std::string map = level + ".tmx";
+	std::string map = level;
 	Engine::GetInstance().map->Load("Assets/Maps/", map);
 
 	//Call the function to load entities from the map
@@ -402,11 +426,10 @@ void Scene::PostUpdateLevel() {
 	//L15 TODO 3: Call the function to load entities from the map
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) 
 	{
-		Engine::GetInstance().entityManager->ClearNonPlayerEntities();
-
-		Engine::GetInstance().map->LoadEntities(player);
-
-		LoadGame();
+		pugi::xml_document saveDoc;
+		saveDoc.load_file("Saves/savegame.xml");
+		pugi::xml_node root = saveDoc.child("save_estate");
+		LoadGame(root);
 	}
 
 	//L15 TODO 4: Call the function to save entities from the map
@@ -414,56 +437,6 @@ void Scene::PostUpdateLevel() {
 	{
 		SaveGame();
 	}
-}
-
-// *********************************************
-// Level 2 functions
-// *********************************************
-
-void Scene::LoadLevel2() {
-
-	Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/that-8-bit-music-322062.wav");
-
-	//Call the function to load the map.
-	Engine::GetInstance().map->Load("Assets/Maps/", "MapTemplateLevel2.tmx");
-
-	//Call the function to load entities from the map
-	Engine::GetInstance().map->LoadEntities(player);
-
-	LoadGame();
-}
-
-void Scene::UpdateLevel2(float dt) {
-
-	HandlePause();
-
-	if (Engine::GetInstance().paused) {
-		int w, h;
-		Engine::GetInstance().window->GetWindowSize(w, h);
-		SDL_Rect fullscreenRect = { 0, 0, w, h };
-
-		Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
-	}
-
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-		ChangeScene(SceneID::LEVEL);
-	}
-}
-
-void Scene::UnloadLevel2() {
-
-	// Clean up UI elements related to the Level2
-	auto& uiManager = Engine::GetInstance().uiManager;
-	uiManager->CleanUp();
-
-	// Reset player reference (sets the shared_ptr to nullptr)
-	player.reset();
-
-	// Clean up map and entities
-	Engine::GetInstance().map->CleanUp();
-	Engine::GetInstance().entityManager->CleanUp(false);
-
-	destroyedEntitiesIds.clear();
 }
 
 void Scene::ActivateGameOver()
@@ -579,7 +552,14 @@ void Scene::SaveGame()
 
 	std::string currentMapName = Engine::GetInstance().map->mapFileName;
 
+	size_t lastDot = currentMapName.find_last_of(".");
+	if (lastDot != std::string::npos)
+	{
+		currentMapName = currentMapName.substr(0, lastDot);
+	}
+
 	pugi::xml_node levelNode = worldNode.find_child_by_attribute("level", "name", currentMapName.c_str());
+
 	if (!levelNode)
 	{
 		levelNode = worldNode.append_child("level");
@@ -614,72 +594,62 @@ void Scene::SaveGame()
 
 	checkpointNode.append_attribute("id").set_value(activeCpId);	
 
+	root.append_attribute("current_map").set_value(currentMapName.c_str());
 	saveDoc.save_file("Saves/savegame.xml");
 	//LOG("Game successfully saved in Saves/savegame.xml");
 }
 
-void Scene::LoadGame() 
+bool Scene::LoadGame(pugi::xml_node& root)
 {
-	//LOG("Loading Game...");
-	pugi::xml_document loadDoc;
-	pugi::xml_parse_result result = loadDoc.load_file("Saves/savegame.xml");
+	if (!root) return false;
 
-	if (!result) {
-		LOG("There is no save or error reading Saves/savegame.xml");
-		return;
-	}
+	std::string savedMapName = root.attribute("current_map").as_string("MapTemplate");
 
-	pugi::xml_node root = loadDoc.child("save_estate");
-	
+	std::string mapFile = savedMapName + ".tmx";
+
+	Engine::GetInstance().entityManager->ClearNonPlayerEntities();
+	Engine::GetInstance().map->CleanUp();
+
+	LoadLevel(mapFile);
+
 	pugi::xml_node playerNode = root.child("player");
-	if (playerNode) 
+	if (playerNode)
 	{
-		if (player == nullptr) {
-			player = std::dynamic_pointer_cast<Player>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAYER));
-			player->Start(); //L17: Important to call Start to initialize teh Entity
-		}
-		pugi::xml_node posNode = playerNode.child("position");
-		if (posNode) 
-		{
-			float x = posNode.attribute("x").as_float();
-			float y = posNode.attribute("y").as_float();
-			player->SetPosition(Vector2D(x, y));
-		}
+		float px = playerNode.child("position").attribute("x").as_float();
+		float py = playerNode.child("position").attribute("y").as_float();
 
-		pugi::xml_node statsNode = playerNode.child("stats");
-		if (statsNode) 
-		{
-			player->playerCurrentHp = statsNode.attribute("currentHp").as_int();
-			player->playerMaxHp = statsNode.attribute("maxHp").as_int();
+		if (player != nullptr) {
+			player->SetPosition(Vector2D(px, py));
+			player->SetRespawnPosition(Vector2D(px, py));
+			player->playerCurrentHp = playerNode.child("stats").attribute("currentHp").as_int();
+			player->playerMaxHp = playerNode.child("stats").attribute("maxHp").as_int();
 		}
 
 		pugi::xml_node upgradesNode = playerNode.child("upgrades");
-		if (upgradesNode) 
+		if (upgradesNode && player != nullptr)
 		{
 			player->hasPowerJump = upgradesNode.attribute("hasPowerJump").as_bool();
 		}
 	}
 
-	std::string currentMapName = Engine::GetInstance().map->mapFileName;
-	pugi::xml_node levelNode = root.child("world").find_child_by_attribute("level", "name", currentMapName.c_str());
-
-	if (levelNode) 
-	{		
+	pugi::xml_node levelNode = root.child("world").find_child_by_attribute("level", "name", savedMapName.c_str());
+	if (levelNode)
+	{
 		destroyedEntitiesIds.clear();
 
 		pugi::xml_node destroyedNode = levelNode.child("entities");
-		for (pugi::xml_node entNode = destroyedNode.child("entity"); entNode; entNode = entNode.next_sibling("entity")) 
+		for (pugi::xml_node entNode = destroyedNode.child("entity"); entNode; entNode = entNode.next_sibling("entity"))
 		{
 			int deadId = entNode.attribute("id").as_int();
-
 			destroyedEntitiesIds.push_back(deadId);
 
 			std::shared_ptr<Entity> entityToKill = Engine::GetInstance().entityManager->GetEntityByTiledId(deadId);
 			if (entityToKill != nullptr)
 			{
-				entityToKill->Destroy();
+				entityToKill->active = false;
+				entityToKill->pendingToDelete = true;
 			}
-		}	
+		}
 
 		pugi::xml_node checkpointNode = levelNode.child("active_checkpoint");
 		if (checkpointNode)
@@ -687,15 +657,26 @@ void Scene::LoadGame()
 			int activeCpId = checkpointNode.attribute("id").as_int(-1);
 			if (activeCpId != -1)
 			{
-				std::shared_ptr<Entity> cpEntity = Engine::GetInstance().entityManager->GetEntityByTiledId(activeCpId);
-
-				if (cpEntity != nullptr && cpEntity->type == EntityType::CHECKPOINT)
+				std::shared_ptr<Entity> cpEnt = Engine::GetInstance().entityManager->GetEntityByTiledId(activeCpId);
+				if (cpEnt != nullptr && cpEnt->type == EntityType::CHECKPOINT)
 				{
-					std::shared_ptr<Checkpoint> cp = std::static_pointer_cast<Checkpoint>(cpEntity);
-					cp->SetActive(true);
+					Checkpoint* cp = static_cast<Checkpoint*>(cpEnt.get());
+
+					for (Checkpoint* otherCp : Checkpoint::allCheckpoints)
+					{
+						if (otherCp != cp && otherCp->IsActive())
+						{
+							otherCp->SetActive(false, true);
+						}
+					}
+
+					cp->SetActive(true, true);
 				}
 			}
 		}
 	}
+
 	//LOG("Game successfully loaded from savegame.xml");
+
+	return true;
 }

@@ -474,11 +474,35 @@ MapLayer* Map::GetNavigationLayer() {
                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
                         enemy->position = Vector2D(x, y);
                         enemy->tiledId = tiledId;
+
+                        if (enemy != nullptr && enemy->tiledId != -1)
+                        {
+                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                            {
+                                enemy->active = false;
+                                enemy->pendingToDelete = true;
+                            }
+                        }
+
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }else if (name == "Eosinofilo") {
                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
                         enemy->position = Vector2D(x, y);
                         enemy->tiledId = tiledId;
+
+                        if (enemy != nullptr && enemy->tiledId != -1)
+                        {
+                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                            {
+                                enemy->active = false;
+                                enemy->pendingToDelete = true;
+                            }
+                        }
+
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }
                 }
@@ -520,6 +544,18 @@ MapLayer* Map::GetNavigationLayer() {
                     }
 
                     checkpoint->tiledId = tiledId;
+
+                    if (checkpoint != nullptr && checkpoint->tiledId != -1)
+                    {
+                        auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                        if (std::find(deadList.begin(), deadList.end(), checkpoint->tiledId) != deadList.end())
+                        {
+                            checkpoint->active = false;
+                            checkpoint->pendingToDelete = true;
+                        }
+                    }
+
                     checkpoint->Awake();
                     checkpoint->Start();
 
@@ -534,6 +570,17 @@ MapLayer* Map::GetNavigationLayer() {
                         collectible->position = Vector2D(x, y);
                         collectible->name = name;
                         collectible->tiledId = tiledId;
+
+                        if (collectible != nullptr && collectible->tiledId != -1)
+                        {
+                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                            if (std::find(deadList.begin(), deadList.end(), collectible->tiledId) != deadList.end())
+                            {
+                                collectible->active = false;
+                                collectible->pendingToDelete = true;
+                            }
+                        }
 
                         pugi::xml_node properties = objectNode.child("properties");
                         if (properties)

@@ -351,7 +351,11 @@ bool Boss1::Destroy()
 	active = false;
 
 	if (this->tiledId != -1) {
-		Engine::GetInstance().scene->destroyedEntitiesIds.push_back(this->tiledId);
+		auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+		if (std::find(deadList.begin(), deadList.end(), this->tiledId) == deadList.end()) {
+			deadList.push_back(this->tiledId);
+		}
 	}
 
 	pendingToDelete = true;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="9">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="9">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -12271,7 +12271,7 @@
  <objectgroup id="2" name="Entities">
   <object id="1" name="Door" type="Door" x="2436" y="-44" width="1012" height="56">
    <properties>
-    <property name="Destination" value="MapCor_Sala3"/>
+    <property name="Destination" value="MapCor_Sala3.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="2436"/>
     <property name="playerY" type="float" value="-44"/>
@@ -12279,7 +12279,7 @@
   </object>
   <object id="2" name="Door" type="Door" x="3774" y="1148" width="76" height="384">
    <properties>
-    <property name="Destination" value="MapCor_Sala6"/>
+    <property name="Destination" value="MapCor_Sala6.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="241.38"/>
     <property name="playerY" type="float" value="1319.88"/>
@@ -12287,7 +12287,7 @@
   </object>
   <object id="3" name="Door" type="Door" x="-14.5428" y="4023.69" width="44" height="217.779">
    <properties>
-    <property name="Destination" value="MapCor_Sala5"/>
+    <property name="Destination" value="MapCor_Sala5.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1738"/>
     <property name="playerY" type="float" value="1966"/>
@@ -12295,7 +12295,7 @@
   </object>
   <object id="4" name="Door" type="Door" x="6" y="3391.53" width="44" height="274.4">
    <properties>
-    <property name="Destination" value="MapCor_Sala5"/>
+    <property name="Destination" value="MapCor_Sala5.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1768"/>
     <property name="playerY" type="float" value="1250"/>

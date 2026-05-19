@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="38">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="38">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -1834,7 +1834,7 @@
  <objectgroup id="2" name="Entities">
   <object id="2" name="Door" type="Door" x="-11.0415" y="296.2" width="25.7642" height="762.654">
    <properties>
-    <property name="Destination" value="MapPulmo_Sala11"/>
+    <property name="Destination" value="MapPulmo_Sala11.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="139"/>
     <property name="playerY" type="float" value="190"/>
@@ -1969,7 +1969,7 @@
   </object>
   <object id="37" name="Door" type="Door" x="1893.18" y="414.127" width="25.7642" height="677.806">
    <properties>
-    <property name="Destination" value="MapCor_Sala2"/>
+    <property name="Destination" value="MapCor_Sala2.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="139"/>
     <property name="playerY" type="float" value="190"/>

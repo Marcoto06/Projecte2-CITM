@@ -3089,7 +3089,7 @@
  <objectgroup id="2" name="Entities">
   <object id="1" name="Door" type="Door" x="-11.859" y="287.828" width="19.8858" height="404">
    <properties>
-    <property name="Destination" value="MapCor_Sala1"/>
+    <property name="Destination" value="MapCor_Sala1.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1800"/>
     <property name="playerY" type="float" value="992"/>
@@ -3097,7 +3097,7 @@
   </object>
   <object id="2" name="Door" type="Door" x="46.0794" y="2160.56" width="404" height="28.4496">
    <properties>
-    <property name="Destination" value="MapCor_Sala3"/>
+    <property name="Destination" value="MapCor_Sala3.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="824"/>
     <property name="playerY" type="float" value="119"/>

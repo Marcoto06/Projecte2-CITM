@@ -91,7 +91,7 @@ public:
 	std::vector<int> destroyedEntitiesIds;
 
 	void SaveGame();
-	void LoadGame();
+	bool LoadGame(pugi::xml_node& root);
 
 	void LoadLevel(std::string level, float playerX = 0, float playerY = 0);
 	void UnloadLevel();

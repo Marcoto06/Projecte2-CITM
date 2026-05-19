@@ -386,7 +386,15 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 	{
 		LOG("CONTINUING GAME");
 		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
-		Engine::GetInstance().scene->LoadGame();
+
+		pugi::xml_document doc;
+		if (doc.load_file("Saves/savegame.xml")) {
+			pugi::xml_node root = doc.child("save_estate");
+			Engine::GetInstance().scene->LoadGame(root);
+		}
+		else {
+			LOG("Failed to load savegame.xml");
+		}
 		break;
 	}
 	default:
