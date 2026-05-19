@@ -105,6 +105,7 @@ bool UIManager::Update(float dt)
 		UIElementsList.remove(uiElement);
 	}
 	life_anims.Update(dt);
+
 	return true;
 }
 
@@ -149,10 +150,16 @@ void UIManager::LoadUITextures() {
 	
 	/* Pause UI*/
 	pauseOptionsMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Fondo_pause_menu.png");
+	inventoryPg1Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InventoryPg1.png");
+	minimapTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/LungsMap.png");
+	powerupsTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PowerUps_Menu.png");
 	continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/ContinueButton.png");
 	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
 	menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitToMenuButton.png");
 	gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitGameButton.png");
+	inventoryTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
+	minimapTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
+	powerUpsTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
 
 	/*Player UI*/
 	/*heartFullTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Corazon_full.png");
@@ -488,6 +495,23 @@ void UIManager::ShowPauseMenu() {
 
 	Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
 
+	if (currentPauseState == PauseMenuState::INVENTORY || currentPauseState == PauseMenuState::MINIMAP || currentPauseState == PauseMenuState::POWERUPS)
+	{
+		SDL_Texture* texToDraw = nullptr;
+
+		if (currentPauseState == PauseMenuState::INVENTORY) texToDraw = inventoryPg1Texture;
+		else if (currentPauseState == PauseMenuState::MINIMAP) texToDraw = minimapTexture;
+		else if (currentPauseState == PauseMenuState::POWERUPS) texToDraw = powerupsTexture;
+
+		if (texToDraw != nullptr) {
+			int texW, texH;
+			Engine::GetInstance().textures->GetSize(texToDraw, texW, texH);
+			Engine::GetInstance().render->DrawTexture(texToDraw, (w / 2) - (texW / 2), (h / 2) - (texH / 2), NULL, 0.0f);
+		}
+
+		return;
+	}
+
 	int imgWidth = 855;
 	int imgHeight = 839;
 
@@ -527,6 +551,51 @@ void UIManager::ShowPauseMenu() {
 		HandleUINavigation(firstElement, lastElement, MenuNavDirection::LEFT);
 	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_RIGHT) == KEY_REPEAT)
 		HandleUINavigation(firstElement, lastElement, MenuNavDirection::RIGHT);
+}
+
+void UIManager::LoadInventoryTab()
+{
+	CleanUp();
+	currentPauseState = PauseMenuState::INVENTORY;
+
+	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 }; 
+	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
+
+	auto mapButton = CreateUIElement(UIElementType::BUTTON, 20, " ", mapButtonBounds, Engine::GetInstance().scene->GetScene());
+	mapButton->SetTexture(minimapTabButtonTexture);
+
+	auto powerUpsButton = CreateUIElement(UIElementType::BUTTON, 21, " ", powerUpsButtonBounds, Engine::GetInstance().scene->GetScene());
+	powerUpsButton->SetTexture(powerUpsTabButtonTexture);
+}
+
+void UIManager::LoadMinimapTab()
+{
+	CleanUp();
+	currentPauseState = PauseMenuState::MINIMAP;
+
+	SDL_Rect inventoryButtonBounds = { 480, 58, 280, 66 };
+	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
+
+	auto invBtn = CreateUIElement(UIElementType::BUTTON, 22, " ", inventoryButtonBounds, Engine::GetInstance().scene->GetScene());
+	invBtn->SetTexture(inventoryTabButtonTexture);
+
+	auto pwrBtn = CreateUIElement(UIElementType::BUTTON, 21, " ", powerUpsButtonBounds, Engine::GetInstance().scene->GetScene());
+	pwrBtn->SetTexture(powerUpsTabButtonTexture);
+}
+
+void UIManager::LoadPowerUpsTab()
+{
+	CleanUp();
+	currentPauseState = PauseMenuState::POWERUPS;
+
+	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 };
+	SDL_Rect inventoryButtonBounds = { 480, 58, 280, 66 };
+
+	auto mapButton = CreateUIElement(UIElementType::BUTTON, 20, " ", mapButtonBounds, Engine::GetInstance().scene->GetScene());
+	mapButton->SetTexture(minimapTabButtonTexture);
+
+	auto invBtn = CreateUIElement(UIElementType::BUTTON, 22, " ", inventoryButtonBounds, Engine::GetInstance().scene->GetScene());
+	invBtn->SetTexture(inventoryTabButtonTexture);
 }
 
 void UIManager::HandleUINavigation(int initialID, int finalID, MenuNavDirection direction) {
@@ -655,6 +724,15 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 		Engine::GetInstance().scene->ChangeScene(SceneID::MAIN_MENU);
 		break;
 	}
+	case 20: // Go to MINIMAP
+		LoadMinimapTab();
+		break;
+	case 21: // Go to POWERUPS
+		LoadPowerUpsTab();
+		break;
+	case 22: // Go to INVENTORY
+		LoadInventoryTab();
+		break;
 	}
 }
 

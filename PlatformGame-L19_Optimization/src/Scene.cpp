@@ -326,26 +326,53 @@ void Scene::UpdateMainMenu(float dt) {
 // *********************************************
 
 void Scene::HandlePause() {
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_START) == KEY_DOWN) {
-		Engine::GetInstance().Func_PauseEngine();
+	if (isGameOver) return;
 
-		if (Engine::GetInstance().paused) {
+	bool escPressed = Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_START) == KEY_DOWN;
+	bool tabPressed = Engine::GetInstance().input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN;
+
+	UIManager::PauseMenuState uiState = Engine::GetInstance().uiManager->currentPauseState;
+	bool inAnyInventoryTab = (uiState == UIManager::PauseMenuState::INVENTORY || uiState == UIManager::PauseMenuState::MINIMAP || uiState == UIManager::PauseMenuState::POWERUPS);
+
+	if (!Engine::GetInstance().paused)
+	{
+		if (escPressed)
+		{
+			Engine::GetInstance().paused = true;
+			currentPauseState = PauseMenuState::MAIN;
+			Engine::GetInstance().uiManager->currentPauseState = UIManager::PauseMenuState::MAIN;
+
 			Engine::GetInstance().uiManager->LoadPauseMenu();
 		}
-		else {
-			UnloadMainMenu();
+		else if (tabPressed)
+		{
+			Engine::GetInstance().paused = true;
+			Engine::GetInstance().uiManager->LoadInventoryTab();
 		}
 	}
-	
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	else
 	{
-		Engine::GetInstance().Func_PauseEngine();
+		if (inAnyInventoryTab)
+		{
+			if (escPressed || tabPressed)
+			{
+				Engine::GetInstance().paused = false;
+				currentPauseState = PauseMenuState::NOTPAUSED;
+				Engine::GetInstance().uiManager->currentPauseState = UIManager::PauseMenuState::NOTPAUSED;
 
-		if (Engine::GetInstance().paused) {
-			LoadInventoryMenu();
+				Engine::GetInstance().uiManager->CleanUp();
+			}
 		}
-		else {
-			UnloadMainMenu();
+		else
+		{
+			if (escPressed)
+			{
+				Engine::GetInstance().paused = false;
+				currentPauseState = PauseMenuState::NOTPAUSED;
+				Engine::GetInstance().uiManager->currentPauseState = UIManager::PauseMenuState::NOTPAUSED;
+
+				Engine::GetInstance().uiManager->CleanUp();
+			}
 		}
 	}
 }

@@ -41,7 +41,9 @@ public:
 		MAIN,
 		OPTIONS,
 		QUIT_CONFIRM,
-		INVENTORY
+		INVENTORY,
+		MINIMAP,
+		POWERUPS
 	};
 
 	enum class MainMenuState
@@ -78,6 +80,10 @@ public:
 	void LoadPauseOptionsMenu();
 	void LoadUITextures();
 
+	void LoadInventoryTab();
+	void LoadMinimapTab();
+	void LoadPowerUpsTab();
+
 	/* Player UI */
 	void ShowPlayerUI();
 	void changeLifeAnim(int life);
@@ -101,6 +107,9 @@ public:
 
 	/* Pause menu Textures */
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;
+	SDL_Texture* inventoryPg1Texture = nullptr;
+	SDL_Texture* minimapTexture = nullptr;
+	SDL_Texture* powerupsTexture = nullptr;
 	SDL_Texture* sliderBoxTexture = nullptr;
 	SDL_Texture* sliderMusicTexture = nullptr;
 	SDL_Texture* sliderSFXTexture = nullptr;
@@ -110,6 +119,10 @@ public:
 	SDL_Texture* menuQuitPauseButtonTexture = nullptr;
 	SDL_Texture* gameQuitButtonTexture = nullptr;
 	SDL_Texture* backButtonTexture = nullptr;
+
+	SDL_Texture* inventoryTabButtonTexture = nullptr;
+	SDL_Texture* minimapTabButtonTexture = nullptr;
+	SDL_Texture* powerUpsTabButtonTexture = nullptr;
 
 	/* Player UI Textures*/
 	/*SDL_Texture* heartFullTexture = nullptr;
