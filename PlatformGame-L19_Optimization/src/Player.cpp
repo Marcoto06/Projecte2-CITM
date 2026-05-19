@@ -128,6 +128,7 @@ bool Player::Update(float dt)
 		return true;
 	}
 
+	if (canClimb && nearestClimbable == nullptr) nearestClimbable = prevClimbable;
 	if (!isClimbing) 
 	{
 		UpdateAttack(dt);
@@ -607,6 +608,8 @@ void Player::Jump(float dt)
 			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
 		}
 
+		prevClimbable = nearestClimbable;
+
 		float forceToUse = jumpForce;
 
 		if (hasPowerJump == true)
@@ -620,6 +623,7 @@ void Player::Jump(float dt)
 
 		isJumping = true;
 		onGround = false;
+		isClimbing = false;
 
 		isHoldingJump = true;
 		jumpHoldTime = 0.0f;
@@ -962,6 +966,7 @@ void Player::Func_Climb()
 {
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
 	{
+		isJumping = false;
 		if (!isClimbing) 
 		{
 			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
@@ -973,6 +978,7 @@ void Player::Func_Climb()
 	}
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
 	{
+		isJumping = false;
 		if (!onGround) {
 			if (!isClimbing && Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 			{
@@ -996,7 +1002,7 @@ void Player::Func_Climb()
 
 void Player::ApplyPhysics() {
 	// Preserve vertical speed while jumping
-	if (isJumping == true) {
+	if (isJumping == true && isClimbing == false) {
 		velocity.y = Engine::GetInstance().physics->GetYVelocity(pbody);
 	}
 
@@ -1010,6 +1016,7 @@ void Player::ApplyPhysics() {
 	{
 		velocity.y += 0.3f;
 	}
+	LOG("%f", &velocity.y);
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
@@ -1091,7 +1098,11 @@ bool Player::CleanUp()
 	{
 		Engine::GetInstance().physics->DeletePhysBody(pbody);
 		Engine::GetInstance().physics->DeletePhysBody(floorSensorBody);
+		Engine::GetInstance().physics->DeletePhysBody(wallSensorLeft);
+		Engine::GetInstance().physics->DeletePhysBody(wallSensorRight);
 		floorSensorBody = nullptr;
+		wallSensorLeft = nullptr;
+		wallSensorRight = nullptr;
 		pbody = nullptr;
 	}
 
@@ -1261,6 +1272,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
 		break;
+	case ColliderType::CLIMBABLE:
+		canClimb = true;
+		break;
 	default:
 		break;
 	}
@@ -1285,7 +1299,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 				groundContacts--;
 			}
 
-			onGround = groundContacts > 0 || isSteppingUp;
+			onGround = false;
 		}
 
 		if (physA->ctype == ColliderType::WALL_SENSOR)
@@ -1304,9 +1318,13 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::CLIMBABLE:
 		LOG("End Collision CLIMBABLE");
-		nearestClimbable = nullptr;
-		/*b2Body_SetGravityScale(pbody->body, gravityScale);
-		isClimbing = false;*/
+		if (isClimbing == false || isJumping) {
+			nearestClimbable = nullptr;
+			canClimb = false;
+		}
+		b2Body_SetGravityScale(pbody->body, gravityScale);
+		isClimbing = false;
+
 		break;
 	default:
 		break;
