@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="39">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="43">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -269,6 +269,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="293"/>
    <tile/>
    <tile/>
    <tile/>
@@ -298,6 +299,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="293"/>
    <tile/>
    <tile/>
    <tile/>
@@ -327,7 +329,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="293"/>
    <tile/>
+   <tile gid="293"/>
    <tile/>
    <tile/>
    <tile/>
@@ -355,13 +359,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="293"/>
+   <tile gid="293"/>
+   <tile gid="293"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2458,119 +2458,6 @@
   </object>
   <object id="7" name="Eosinofilo" type="Enemy" x="1358.15" y="708.482">
    <point/>
-  </object>
-  <object id="18" name="base_animada_pulmons" type="anim_tile" x="704" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="36" name="base_animada_pulmons" type="anim_tile" x="896" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="21" name="base_animada_pulmons" type="anim_tile" x="640" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="23" name="base_animada_pulmons" type="anim_tile" x="576" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="25" name="base_animada_pulmons" type="anim_tile" x="512" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="27" name="base_animada_pulmons" type="anim_tile" x="448" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="29" name="base_animada_pulmons" type="anim_tile" x="384" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="31" name="base_animada_pulmons" type="anim_tile" x="320" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="33" name="base_animada_pulmons" type="anim_tile" x="256" y="960" width="64" height="64">
-   <properties>
-    <property name="Texture" value="base_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="19" name="part_superior_animada_pulmons" type="anim_tile" x="704" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="35" name="part_superior_animada_pulmons" type="anim_tile" x="896" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="20" name="part_superior_animada_pulmons" type="anim_tile" x="640" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="22" name="part_superior_animada_pulmons" type="anim_tile" x="576" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="24" name="part_superior_animada_pulmons" type="anim_tile" x="512" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="26" name="part_superior_animada_pulmons" type="anim_tile" x="448" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="28" name="part_superior_animada_pulmons" type="anim_tile" x="384" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="30" name="part_superior_animada_pulmons" type="anim_tile" x="320" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="32" name="part_superior_animada_pulmons" type="anim_tile" x="256" y="896" width="64" height="64">
-   <properties>
-    <property name="Texture" value="part_superior_animada_pulmons"/>
-    <property name="Type" value="anim_tile"/>
-   </properties>
-  </object>
-  <object id="34" name="Climbable" type="Climbable" x="810" y="320" width="48" height="704">
-   <properties>
-    <property name="Type" value="Climbable"/>
-   </properties>
   </object>
   <object id="37" name="Door" type="Door" x="1893.18" y="414.127" width="25.7642" height="677.806">
    <properties>
