@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Physics.h"
 #include "Scene.h"
+#include "Player.h"
 
 class DialogTrigger : public Entity
 {
@@ -31,5 +32,6 @@ public:
 
 private:
 	PhysBody* pbody;
+	Player* player = nullptr;
 };
 

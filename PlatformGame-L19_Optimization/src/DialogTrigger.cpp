@@ -34,13 +34,13 @@ bool DialogTrigger::Update(float dt)
 			Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
 		}
 		else if (currentDialogId == dialogues_ids.at(dialogues_ids.size() - 1)) {
-			Engine::GetInstance().dialogManager->drawDialog = true;
+			Engine::GetInstance().dialogManager->drawDialog = false;
+			player->lock = false;
 		}
-		if ((currentDialogDuration != 0 && currentDialogDuration >= currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1)) || (currentDialogDuration == 0 && Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN))
+		if ((currentDialogDuration != 0 && currentDialogDuration < currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))|| (currentDialogDuration == 0 && Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN))
 		{
 			currentDialogId += 1;
 			TriggerDialog(currentDialogId);
-			currentDialogTimer.Start();
 		}
 	}
 	return true;
@@ -71,7 +71,7 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 
 	if (other->ctype == ColliderType::PLAYER)
 	{
-		Player* player = (Player*)other->listener;
+		player = (Player*)other->listener;
 
 		if (player != nullptr)
 		{

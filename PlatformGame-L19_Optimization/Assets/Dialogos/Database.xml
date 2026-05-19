@@ -3,8 +3,10 @@
 	<Dialog id="0" name="Luke" duration="0">That’s right. You hear 
 us, Doc?</Dialog>
 	<Dialog id="1" name="Doctor" duration="3">Affirmative.</Dialog>
-	<Dialog id="2" name="Luke" duration="4"> Great, I wasn’t expecting less!</Dialog>
-	<Dialog id="3" name="Luke" duration="3">Aaand everything set and ready to go.</Dialog>
+	<Dialog id="2" name="Luke" duration="3">Great, I wasn’t expecting
+less!</Dialog>
+	<Dialog id="3" name="Luke" duration="3">Aaand everything set
+and ready to go.</Dialog>
 	<Dialog id="4" name="Doctor" duration="5">Those are Streptococcus Sanguinis,
 right? Seeing them in this size
 is quite intimidating…</Dialog>
