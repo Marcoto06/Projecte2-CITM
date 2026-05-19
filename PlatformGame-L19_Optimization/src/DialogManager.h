@@ -36,6 +36,7 @@ public:
 	// Called each loop iteration
 	bool PreUpdate();
 	bool Update(float dt);
+	bool PostUpdate();
 
 	// Called before quitting
 	bool CleanUp();
@@ -44,10 +45,13 @@ public:
 	bool Load(std::string path, std::string fileName);
 	void LoadDialogWindow(int id);
 	void ShowDialogWindow(float dt);
+	void DrawDialogWindow();
 	
 	std::string dialogFileName;
 	std::string dialogPath;
 	std::vector<Dialog*> dialogs;
+
+	bool drawDialog;
 
 private:
 	SDL_Texture* dialogWindowTexture = NULL;

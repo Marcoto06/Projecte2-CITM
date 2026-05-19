@@ -112,6 +112,7 @@ bool Player::Update(float dt)
 {
 	/*LOG("%f", velocity.x);*/
 	Draw(dt);
+	if (lock) return true;
 	if (hasDash && dashing == false && dashLeft > 0 && !isClimbing) {
 		Func_Dash();
 	} 
@@ -1209,7 +1210,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
-		canDialog = true;
 		break;
 	default:
 		break;
@@ -1251,7 +1251,6 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::CHECKPOINT:
 		LOG("End Collision CHECKPOINT");
-		canDialog = false;
 		break;
 	case ColliderType::CLIMBABLE:
 		LOG("End Collision CLIMBABLE");

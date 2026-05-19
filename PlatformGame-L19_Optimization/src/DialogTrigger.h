@@ -23,6 +23,7 @@ public:
 public:
 	int w, h;
 	bool triggered = false;
+	bool lock = false;
 	int currentDialogId;
 	std::vector<int> dialogues_ids;
 	Timer currentDialogTimer;

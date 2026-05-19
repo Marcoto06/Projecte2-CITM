@@ -72,11 +72,11 @@ bool Checkpoint::Update(float dt)
 
     if (triggeredDialogue)
     {
-        if (currentDialogDuration >= currentDialogTimer.ReadSec())
+        if (currentDialogDuration >= currentDialogTimer.ReadSec() || currentDialogDuration == 0)
         {
             Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
         }
-        else if (currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))
+        else if (currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1) || (currentDialogDuration == 0 && Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP))
         {
             currentDialogId += 1;
             TriggerDialog(currentDialogId);

@@ -678,6 +678,10 @@ MapLayer* Map::GetNavigationLayer() {
                                         dialogTrigger->dialogues_ids.push_back(id);
                                     }
                                 }
+                                else if (propName == "lock")
+                                {
+                                    dialogTrigger->lock = prop.attribute("value").as_bool();
+                                }
                             }
                         }
 

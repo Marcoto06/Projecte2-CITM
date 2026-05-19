@@ -390,11 +390,6 @@ void Scene::UpdateLevel(float dt) {
 		Engine::GetInstance().map->DrawForeground();
 		Engine::GetInstance().uiManager->ShowPauseMenu();
 	}
-	else {
-		if (player->canDialog) {
-
-		}
-	}
 }
 
 void Scene::UnloadLevel() {

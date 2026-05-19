@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dialogs>
-	<Dialog id="0" name="Luke" duration="3">That’s right. You hear 
+	<Dialog id="0" name="Luke" duration="0">That’s right. You hear 
 us, Doc?</Dialog>
 	<Dialog id="1" name="Doctor" duration="3">Affirmative.</Dialog>
 	<Dialog id="2" name="Luke" duration="4"> Great, I wasn’t expecting less!</Dialog>

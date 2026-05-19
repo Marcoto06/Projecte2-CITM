@@ -29,11 +29,14 @@ bool DialogTrigger::Update(float dt)
 {
 	if (triggered)
 	{
-		if(currentDialogDuration >= currentDialogTimer.ReadSec())
+		if(currentDialogDuration >= currentDialogTimer.ReadSec() || currentDialogDuration == 0)
 		{
 			Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
 		}
-		else if (currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))
+		else if (currentDialogId == dialogues_ids.at(dialogues_ids.size() - 1)) {
+			Engine::GetInstance().dialogManager->drawDialog = true;
+		}
+		if ((currentDialogDuration != 0 && currentDialogDuration >= currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1)) || (currentDialogDuration == 0 && Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN))
 		{
 			currentDialogId += 1;
 			TriggerDialog(currentDialogId);
@@ -72,6 +75,7 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 
 		if (player != nullptr)
 		{
+			player->lock = lock;
 			TriggerDialog(dialogues_ids.at(0));
 			triggered = true;
 		}
@@ -83,5 +87,6 @@ void DialogTrigger::TriggerDialog(int id)
 	currentDialogId = id;
 	currentDialogDuration = Engine::GetInstance().dialogManager->dialogs.at(id)->duration;
 	Engine::GetInstance().dialogManager->LoadDialogWindow(currentDialogId);
+	Engine::GetInstance().dialogManager->drawDialog = true;
 	currentDialogTimer.Start();
 }

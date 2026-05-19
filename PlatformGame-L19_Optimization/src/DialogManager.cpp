@@ -55,6 +55,13 @@ bool DialogManager::Update(float dt)
 	return true;
 }
 
+bool DialogManager::PostUpdate()
+{
+	if (!drawDialog) return true;
+	DrawDialogWindow();
+	return true;
+}
+
 // Called before quitting
 bool DialogManager::CleanUp()
 {
@@ -110,6 +117,12 @@ void DialogManager::ShowDialogWindow(float dt)
 	{
 		currentDialogPos.setY(currentDialogPos.getY() - (dialogVelocity * dt));
 	}
+	else {
+		currentDialogPos = dialogPos;
+	}
+}
+
+void DialogManager::DrawDialogWindow() {
 	//Draw box
 	Engine::GetInstance().render->DrawTexture(dialogWindowTexture, currentDialogPos.getX(), currentDialogPos.getY(), NULL, 0.0f);
 	Engine::GetInstance().render->DrawTexture(currentPortrait, currentDialogPos.getX() + 15, currentDialogPos.getY() + 7.5f, NULL, 0.0f);
