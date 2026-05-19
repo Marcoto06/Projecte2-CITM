@@ -3,14 +3,6 @@
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
- <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="0" columns="8">
-  <image source="tmw_desert_spacing.png" width="265" height="199"/>
-  <wangsets>
-   <wangset name="Brick" type="mixed" tile="9"/>
-   <wangset name="Marble" type="mixed" tile="33"/>
-   <wangset name="Sand" type="mixed" tile="14"/>
-  </wangsets>
- </tileset>
  <tileset firstgid="1" name="MapMetadata" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2" columns="2">
   <image source="MapMetadata.png" width="67" height="34"/>
  </tileset>
