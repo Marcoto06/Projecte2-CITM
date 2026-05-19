@@ -3092,7 +3092,7 @@
    <properties>
     <property name="Destination" value="MapPulmo_Sala3.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="744"/>
+    <property name="playerX" type="float" value="416"/>
     <property name="playerY" type="float" value="1681.89"/>
    </properties>
   </object>
@@ -3100,16 +3100,16 @@
    <properties>
     <property name="Destination" value="MapPulmo_Sala5.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="744"/>
-    <property name="playerY" type="float" value="224"/>
+    <property name="playerX" type="float" value="933"/>
+    <property name="playerY" type="float" value="278"/>
    </properties>
   </object>
   <object id="3" name="Door" type="Door" x="368.746" y="-1.63219" width="222.886" height="18.6715">
    <properties>
     <property name="Destination" value="MapPulmo_Sala9.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="744"/>
-    <property name="playerY" type="float" value="224"/>
+    <property name="playerX" type="float" value="1"/>
+    <property name="playerY" type="float" value="1"/>
    </properties>
   </object>
   <object id="7" name="Player" type="Player" x="1684" y="1954">
