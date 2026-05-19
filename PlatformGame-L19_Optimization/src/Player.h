@@ -83,6 +83,7 @@ private:
 public:
 
 	void ActivateSpeedBoost();
+	bool IsGodMode() { return godMode; };
 
 	//Speed control
 	float normalSpeed = 7.5f;      	
@@ -190,6 +191,7 @@ private:
 	PhysBody* wallSensorRight = nullptr;
 
 	bool isSmall = false;
+	bool godMode = false;
 
 	enum class PLAYERSTATE {
 		IDLE,

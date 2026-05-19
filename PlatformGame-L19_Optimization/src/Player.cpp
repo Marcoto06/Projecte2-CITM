@@ -179,6 +179,15 @@ bool Player::Update(float dt)
 	}
 
 
+	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		godMode = !godMode;
+		if(godMode)
+			b2Body_SetGravityScale(pbody->body, 0.0f);
+		else
+			b2Body_SetGravityScale(pbody->body, gravityScale);
+
+	}
+
 	if (!isHurt) {
 		if (!isClimbing) {
 			if (isAdrenaline) {
@@ -369,37 +378,77 @@ void Player::Move() {
 	isMoving = false; 
 
 	int x_axis_raw = SDL_GetGamepadAxis(Engine::GetInstance().input->controller, SDL_GAMEPAD_AXIS_LEFTX);
+	int y_axis_raw = SDL_GetGamepadAxis(Engine::GetInstance().input->controller, SDL_GAMEPAD_AXIS_LEFTY);
 
 	float x_axis_norm = x_axis_raw / 32767.0f;
+	float y_axis_norm = y_axis_raw / 32767.0f;
 
 	if (x_axis_norm > -0.2f && x_axis_norm < 0.2f) {
 		x_axis_norm = 0.0f;
 	}
-	if (dashing == false) 
-	{
-		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
-			isMoving = true;
-			//Engine::GetInstance().audio->PlayFx(pasosFxId);
-			velocity.x = -normalSpeed;
-			facingRight = false;
-		}
-		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
-			isMoving = true;
-			//Engine::GetInstance().audio->PlayFx(pasosFxId);
-			velocity.x = normalSpeed;
-			facingRight = true;
-		}
+	if (y_axis_norm > -0.2f && y_axis_norm < 0.2f) {
+		y_axis_norm = 0.0f;
 	}
 
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ||
-		Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		isMoving = true;
+	if (godMode) {
+		velocity = { 0, 0 };
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) {
+			isMoving = true;
+			//Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.x = -normalSpeed * 2;
+			facingRight = false;
+		}
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) {
+			isMoving = true;
+			//Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.x = normalSpeed * 2;
+			facingRight = true;
+		}
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || y_axis_norm <= -0.1) {
+			isMoving = true;
+			//Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.y = -normalSpeed * 2;
+
+		}
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || y_axis_norm >= 0.1) {
+			isMoving = true;
+			//Engine::GetInstance().audio->PlayFx(pasosFxId);
+			velocity.y = normalSpeed * 2;
+
+		}
+		Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 	}
-	else
-	{
-		isMoving = false;
+	else {
+		if (dashing == false)
+		{
+			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
+				isMoving = true;
+				//Engine::GetInstance().audio->PlayFx(pasosFxId);
+				velocity.x = -normalSpeed;
+				facingRight = false;
+			}
+			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
+				isMoving = true;
+				//Engine::GetInstance().audio->PlayFx(pasosFxId);
+				velocity.x = normalSpeed;
+				facingRight = true;
+			}
+		}
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ||
+			Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || 
+			x_axis_norm <= -0.1 || x_axis_norm >= 0.1)
+		{
+			isMoving = true;
+		}
+		else
+		{
+			isMoving = false;
+		}
 	}
+	
 
 	// CONTROL DEL AUDIO
 	if (isMoving && onGround)
@@ -1093,7 +1142,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		Entity* entityPtr = (Entity*)physB->listener;
 
-		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
+		
+		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
 			b2Body_SetGravityScale(pbody->body, gravityScale);
@@ -1133,7 +1183,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		Entity* entityPtr = (Entity*)physB->listener;
 
-		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
+		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
 			b2Body_SetGravityScale(pbody->body, gravityScale);
@@ -1173,7 +1223,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		Entity* entityPtr = (Entity*)physB->listener;
 
-		if (!isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
+		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
 			b2Body_SetGravityScale(pbody->body, gravityScale);

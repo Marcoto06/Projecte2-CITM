@@ -37,7 +37,7 @@ bool DialogTrigger::Update(float dt)
 			Engine::GetInstance().dialogManager->drawDialog = false;
 			player->lock = false;
 		}
-		if ((currentDialogDuration != 0 && currentDialogDuration < currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))|| (currentDialogDuration == 0 && Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN))
+		if ((currentDialogDuration != 0 && currentDialogDuration < currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))|| (currentDialogDuration == 0 && (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_SOUTH) == KEY_DOWN)))
 		{
 			currentDialogId += 1;
 			TriggerDialog(currentDialogId);

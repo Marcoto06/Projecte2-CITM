@@ -252,6 +252,9 @@ void Enemy::Move()
 
 bool Enemy::IsPlayerDetected() const
 {
+	if (Engine::GetInstance().scene->player->IsGodMode())
+		return false;
+
 	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
 	Vector2D enemyPosition = const_cast<Enemy*>(this)->GetPosition();
 

@@ -109,6 +109,7 @@ bool Eosinofilo::Update(float dt)
 
 	if (!isStunned)
 	{
+		
 		isPlayerDetected = IsPlayerDetected();
 
 		switch (currentEState)
@@ -311,6 +312,9 @@ void Eosinofilo::Move()
 
 bool Eosinofilo::IsPlayerDetected() const
 {
+	if (Engine::GetInstance().scene->player->IsGodMode()) 
+		return false;
+
 	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
 	Vector2D enemyPosition = const_cast<Eosinofilo*>(this)->GetPosition();
 
