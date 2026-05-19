@@ -104,6 +104,8 @@ public:
 	SDL_Texture* exitButtonTexture = nullptr;
 	SDL_Texture* sliderBarTexture = nullptr;
 	SDL_Texture* sliderKnobTexture = nullptr;
+	SDL_Texture* titleAnimTexture = nullptr;
+	Animation titleAnim;
 
 	/* Pause menu Textures */
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;

@@ -106,6 +106,11 @@ bool UIManager::Update(float dt)
 	}
 	life_anims.Update(dt);
 
+	if (Engine::GetInstance().scene->GetCurrentScene() == SceneID::MAIN_MENU && currentMenuState == MainMenuState::MAIN_BUTTONS)
+	{
+		titleAnim.Update(dt);
+	}
+
 	return true;
 }
 
@@ -146,6 +151,18 @@ void UIManager::LoadUITextures() {
 	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
 	sliderMusicTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/MusicIcon.png");
 	sliderSFXTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SFXIcon.png");
+
+	titleAnimTexture = Engine::GetInstance().textures->Load("Assets/Textures/Backgrounds/MainMenu/AnimatedTitle.png");
+	for (int i = 0; i < 32; ++i)
+	{
+		int col = i % 16;
+		int row = i / 16;
+
+		SDL_Rect frameRect = { col * 854, row * 142, 854, 142 };
+
+		titleAnim.AddFrame(frameRect, 80);
+	}
+	titleAnim.SetLoop(true);
 	
 	
 	/* Pause UI*/
@@ -256,6 +273,19 @@ void UIManager::ShowMainMenuButtons()
 	else {
 		firstElement = 1;
 		lastElement = 3;
+
+		if (titleAnimTexture != nullptr)
+		{
+			SDL_Rect currentFrame = titleAnim.GetCurrentFrame();
+
+			int w, h;
+			Engine::GetInstance().window->GetWindowSize(w, h);
+
+			int drawX = 117;
+			int drawY = 135;
+
+			Engine::GetInstance().render->DrawTexture(titleAnimTexture, drawX, drawY, &currentFrame, 0.0f);
+		}
 	}
 
 	/* UI CONTROLS */
