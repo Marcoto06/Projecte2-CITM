@@ -31,7 +31,9 @@ enum class PauseMenuState
 	MAIN,
 	OPTIONS,
 	QUIT_CONFIRM,
-	INVENTORY
+	INVENTORY,
+	MINIMAP,
+	POWERUPS
 };
 
 enum class MenuNavDirection
