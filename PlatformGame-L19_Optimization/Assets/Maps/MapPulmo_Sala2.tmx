@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="11">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="136">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -53,20 +53,20 @@
    <tile gid="434"/>
    <tile gid="435"/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile gid="449"/>
    <tile gid="450"/>
    <tile gid="450"/>
    <tile gid="450"/>
    <tile gid="450"/>
    <tile gid="450"/>
+   <tile gid="407"/>
+   <tile gid="408"/>
    <tile gid="450"/>
    <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
+   <tile gid="407"/>
+   <tile gid="408"/>
    <tile gid="450"/>
    <tile gid="450"/>
    <tile gid="450"/>
@@ -113,80 +113,20 @@
    <tile gid="434"/>
    <tile gid="435"/>
    <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -233,6 +173,20 @@
    <tile gid="434"/>
    <tile gid="435"/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
+   <tile/>
+   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -242,11 +196,57 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="435"/>
+   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile/>
+   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -301,12 +301,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -361,12 +361,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -421,12 +421,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -481,12 +481,12 @@
    <tile gid="418"/>
    <tile gid="419"/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -541,12 +541,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -575,7 +575,7 @@
    <tile/>
    <tile/>
    <tile gid="433"/>
-   <tile gid="451"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -601,12 +601,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -629,13 +629,13 @@
    <tile/>
    <tile gid="433"/>
    <tile gid="434"/>
-   <tile gid="435"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="433"/>
-   <tile/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -643,8 +643,8 @@
    <tile/>
    <tile gid="449"/>
    <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
+   <tile gid="407"/>
+   <tile gid="408"/>
    <tile gid="450"/>
    <tile gid="434"/>
    <tile gid="434"/>
@@ -661,42 +661,12 @@
    <tile/>
    <tile/>
    <tile gid="481"/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile gid="481"/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="450"/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -714,160 +684,119 @@
    <tile gid="434"/>
    <tile gid="434"/>
    <tile gid="435"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="433"/>
    <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="450"/>
-   <tile gid="451"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="451"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="434"/>
-   <tile gid="451"/>
-   <tile/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="434"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="449"/>
+   <tile gid="451"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="439"/>
+   <tile gid="440"/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="435"/>
+   <tile gid="481"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="481"/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile gid="481"/>
+   <tile gid="481"/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile gid="481"/>
+   <tile gid="481"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="450"/>
+   <tile gid="450"/>
+   <tile gid="450"/>
+   <tile gid="450"/>
+   <tile gid="451"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="451"/>
+   <tile gid="481"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="481"/>
+   <tile gid="473"/>
+   <tile gid="474"/>
+   <tile gid="481"/>
+   <tile gid="481"/>
+   <tile gid="473"/>
+   <tile gid="474"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="433"/>
    <tile gid="434"/>
    <tile gid="435"/>
    <tile/>
@@ -878,6 +807,58 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="434"/>
+   <tile gid="451"/>
+   <tile/>
+   <tile gid="481"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="481"/>
+   <tile gid="425"/>
+   <tile gid="426"/>
+   <tile gid="481"/>
+   <tile gid="481"/>
+   <tile gid="425"/>
+   <tile gid="426"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -888,6 +869,25 @@
    <tile/>
    <tile gid="449"/>
    <tile gid="434"/>
+   <tile gid="435"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
+   <tile/>
+   <tile gid="449"/>
+   <tile gid="434"/>
    <tile gid="434"/>
    <tile gid="434"/>
    <tile gid="434"/>
@@ -901,12 +901,12 @@
    <tile/>
    <tile/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile gid="481"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -943,8 +943,8 @@
    <tile gid="418"/>
    <tile gid="419"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile gid="433"/>
@@ -961,12 +961,12 @@
    <tile/>
    <tile/>
    <tile gid="481"/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile gid="481"/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1003,8 +1003,8 @@
    <tile gid="451"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile gid="433"/>
@@ -1021,12 +1021,12 @@
    <tile/>
    <tile/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1063,8 +1063,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile gid="433"/>
@@ -1081,12 +1081,12 @@
    <tile/>
    <tile/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
+   <tile gid="471"/>
+   <tile gid="472"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="471"/>
+   <tile gid="472"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1123,8 +1123,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile gid="449"/>
@@ -1183,8 +1183,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1243,8 +1243,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1303,8 +1303,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1363,8 +1363,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1423,8 +1423,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1483,6 +1483,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1494,6 +1496,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="471"/>
+   <tile gid="472"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1502,16 +1506,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="452"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="454"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1543,8 +1543,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile gid="417"/>
@@ -1566,12 +1566,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="417"/>
+   <tile gid="418"/>
+   <tile gid="418"/>
+   <tile gid="418"/>
+   <tile gid="418"/>
+   <tile gid="419"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1603,8 +1603,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1627,9 +1627,69 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="449"/>
+   <tile gid="407"/>
+   <tile gid="408"/>
+   <tile gid="451"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="433"/>
+   <tile gid="435"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1663,6 +1723,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1686,10 +1748,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1723,6 +1783,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1746,10 +1808,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1783,6 +1843,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1806,10 +1868,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1843,68 +1903,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="433"/>
-   <tile gid="435"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1928,8 +1928,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1963,8 +1963,8 @@
    <tile gid="419"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile gid="417"/>
    <tile gid="418"/>
@@ -1988,8 +1988,8 @@
    <tile gid="419"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile gid="417"/>
    <tile gid="418"/>
@@ -2023,8 +2023,8 @@
    <tile gid="435"/>
    <tile gid="481"/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile gid="481"/>
    <tile gid="433"/>
    <tile gid="434"/>
@@ -2048,8 +2048,8 @@
    <tile gid="435"/>
    <tile gid="481"/>
    <tile gid="481"/>
-   <tile gid="481"/>
-   <tile gid="481"/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile gid="481"/>
    <tile gid="433"/>
    <tile gid="434"/>
@@ -2075,6 +2075,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2133,6 +2135,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2191,6 +2195,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2249,6 +2255,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2307,6 +2315,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2365,6 +2375,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2423,20 +2435,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2495,8 +2495,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2555,7 +2555,8 @@
    <tile/>
    <tile/>
    <tile gid="452"/>
-   <tile gid="453"/>
+   <tile gid="471"/>
+   <tile gid="472"/>
    <tile gid="454"/>
    <tile/>
    <tile/>
@@ -2582,6 +2583,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="407"/>
+   <tile gid="408"/>
+   <tile gid="451"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2612,6 +2616,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="418"/>
+   <tile gid="419"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2637,6 +2643,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="439"/>
+   <tile gid="440"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2668,6 +2676,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2693,6 +2703,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2724,6 +2736,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2749,6 +2763,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2780,6 +2796,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2805,6 +2823,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2836,6 +2856,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2861,6 +2883,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2892,32 +2916,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="453"/>
+   <tile gid="434"/>
+   <tile gid="435"/>
    <tile gid="453"/>
    <tile gid="453"/>
    <tile gid="453"/>
@@ -2943,6 +2943,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2975,6 +2977,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="434"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3000,11 +3003,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3063,6 +3063,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3077,6 +3079,412 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
+   <tile/>
+   <tile gid="452"/>
+   <tile gid="453"/>
+   <tile/>
+   <tile/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="425"/>
+   <tile gid="426"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="454"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="441"/>
+   <tile gid="442"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="454"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="457"/>
+   <tile gid="458"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="453"/>
+   <tile gid="454"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="473"/>
+   <tile gid="474"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3133,418 +3541,10 @@
    <tile gid="453"/>
    <tile gid="453"/>
    <tile gid="453"/>
-   <tile gid="454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="453"/>
    <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="454"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="452"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
-   <tile gid="453"/>
    <tile gid="453"/>
    <tile gid="453"/>
    <tile gid="453"/>
@@ -4629,7 +4629,7 @@
    <tile gid="514"/>
    <tile gid="514"/>
    <tile gid="514"/>
-   <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4661,7 +4661,7 @@
    <tile gid="514"/>
    <tile gid="514"/>
    <tile gid="514"/>
-   <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4720,13 +4720,13 @@
    <tile/>
    <tile gid="514"/>
    <tile/>
-   <tile gid="514"/>
    <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="514"/>
-   <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4780,13 +4780,13 @@
    <tile/>
    <tile gid="514"/>
    <tile/>
-   <tile gid="514"/>
    <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="514"/>
-   <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4840,8 +4840,8 @@
    <tile/>
    <tile gid="514"/>
    <tile/>
-   <tile gid="514"/>
    <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4900,8 +4900,8 @@
    <tile/>
    <tile gid="514"/>
    <tile/>
-   <tile gid="514"/>
    <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4960,8 +4960,8 @@
    <tile/>
    <tile gid="514"/>
    <tile/>
-   <tile gid="514"/>
    <tile/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5021,7 +5021,7 @@
    <tile/>
    <tile gid="514"/>
    <tile gid="514"/>
-   <tile gid="514"/>
+   <tile/>
    <tile gid="514"/>
    <tile gid="514"/>
    <tile gid="514"/>
@@ -5657,12 +5657,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="514"/>
+   <tile gid="514"/>
+   <tile gid="514"/>
+   <tile gid="514"/>
+   <tile gid="514"/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -5713,15 +5713,15 @@
    <tile gid="514"/>
    <tile gid="514"/>
    <tile gid="514"/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="514"/>
+   <tile gid="514"/>
+   <tile gid="514"/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6202,6 +6202,750 @@
   <object id="10" name="Player" type="Player" x="284.488" y="1201.17">
    <point/>
   </object>
+  <object id="11" name="Climbable" type="Climbable" x="752" y="2.6665" width="48" height="558.667">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
+  <object id="12" name="Climbable" type="Climbable" x="1704" y="678.667" width="48" height="1506.67">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
+  <object id="13" name="Climbable" type="Climbable" x="2860" y="34.6665" width="48" height="1094.67">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
+  <object id="14" name="Climbable" type="Climbable" x="3104" y="30.6665" width="48" height="1094.67">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
+  <object id="15" name="Climbable" type="Climbable" x="2344" y="-1.8335" width="48" height="256.167">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
+  <object id="16" name="Climbable" type="Climbable" x="3306" y="1714.83" width="48" height="465.5">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
+  <object id="17" name="Climbable" type="Climbable" x="2538.79" y="552.848" width="48" height="1040.12">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="5" name="Anim_Tiles"/>
+ <objectgroup id="5" name="Anim_Tiles">
+  <object id="18" name="part_superior_animada_pulmons" type="anim_tile" x="320" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="19" name="part_superior_animada_pulmons" type="anim_tile" x="384" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="20" name="part_superior_animada_pulmons" type="anim_tile" x="448" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="21" name="base_animada_pulmons" type="anim_tile" x="320" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="22" name="base_animada_pulmons" type="anim_tile" x="384" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="23" name="base_animada_pulmons" type="anim_tile" x="448" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="24" name="part_superior_animada_pulmons" type="anim_tile" x="512" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="25" name="part_superior_animada_pulmons" type="anim_tile" x="576" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="26" name="part_superior_animada_pulmons" type="anim_tile" x="640" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="27" name="base_animada_pulmons" type="anim_tile" x="512" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="28" name="base_animada_pulmons" type="anim_tile" x="576" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="29" name="base_animada_pulmons" type="anim_tile" x="640" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="30" name="part_superior_animada_pulmons" type="anim_tile" x="704" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="31" name="part_superior_animada_pulmons" type="anim_tile" x="768" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="32" name="part_superior_animada_pulmons" type="anim_tile" x="832" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="33" name="base_animada_pulmons" type="anim_tile" x="704" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="34" name="base_animada_pulmons" type="anim_tile" x="768" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="35" name="base_animada_pulmons" type="anim_tile" x="832" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="36" name="part_superior_animada_pulmons" type="anim_tile" x="896" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="37" name="part_superior_animada_pulmons" type="anim_tile" x="960" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="38" name="part_superior_animada_pulmons" type="anim_tile" x="1024" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="39" name="base_animada_pulmons" type="anim_tile" x="896" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="40" name="base_animada_pulmons" type="anim_tile" x="960" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="41" name="base_animada_pulmons" type="anim_tile" x="1024" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="42" name="part_superior_animada_pulmons" type="anim_tile" x="1088" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="43" name="part_superior_animada_pulmons" type="anim_tile" x="1152" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="44" name="part_superior_animada_pulmons" type="anim_tile" x="1216" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="45" name="base_animada_pulmons" type="anim_tile" x="1088" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="46" name="base_animada_pulmons" type="anim_tile" x="1152" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="47" name="base_animada_pulmons" type="anim_tile" x="1216" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="48" name="part_superior_animada_pulmons" type="anim_tile" x="1280" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="49" name="part_superior_animada_pulmons" type="anim_tile" x="1344" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="50" name="part_superior_animada_pulmons" type="anim_tile" x="1408" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="51" name="base_animada_pulmons" type="anim_tile" x="1280" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="52" name="base_animada_pulmons" type="anim_tile" x="1344" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="53" name="base_animada_pulmons" type="anim_tile" x="1408" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="54" name="base_animada_pulmons" type="anim_tile" x="1472" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="55" name="part_superior_animada_pulmons" type="anim_tile" x="1472" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="56" name="base_animada_pulmons" type="anim_tile" x="2752" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="57" name="base_animada_pulmons" type="anim_tile" x="2688" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="58" name="base_animada_pulmons" type="anim_tile" x="2624" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="59" name="base_animada_pulmons" type="anim_tile" x="2560" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="60" name="base_animada_pulmons" type="anim_tile" x="2496" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="61" name="base_animada_pulmons" type="anim_tile" x="2432" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="62" name="base_animada_pulmons" type="anim_tile" x="2368" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="63" name="base_animada_pulmons" type="anim_tile" x="2304" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="64" name="base_animada_pulmons" type="anim_tile" x="2240" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="65" name="base_animada_pulmons" type="anim_tile" x="2176" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="66" name="part_superior_animada_pulmons" type="anim_tile" x="2752" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="67" name="part_superior_animada_pulmons" type="anim_tile" x="2688" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="68" name="part_superior_animada_pulmons" type="anim_tile" x="2624" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="69" name="part_superior_animada_pulmons" type="anim_tile" x="2560" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="70" name="part_superior_animada_pulmons" type="anim_tile" x="2496" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="71" name="part_superior_animada_pulmons" type="anim_tile" x="2432" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="72" name="part_superior_animada_pulmons" type="anim_tile" x="2368" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="73" name="part_superior_animada_pulmons" type="anim_tile" x="2304" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="74" name="part_superior_animada_pulmons" type="anim_tile" x="2240" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="75" name="part_superior_animada_pulmons" type="anim_tile" x="2176" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="76" name="base_animada_pulmons" type="anim_tile" x="2176" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="77" name="base_animada_pulmons" type="anim_tile" x="2240" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="78" name="base_animada_pulmons" type="anim_tile" x="2304" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="79" name="base_animada_pulmons" type="anim_tile" x="2368" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="80" name="base_animada_pulmons" type="anim_tile" x="2432" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="81" name="part_superior_animada_pulmons" type="anim_tile" x="2176" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="82" name="part_superior_animada_pulmons" type="anim_tile" x="2240" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="83" name="part_superior_animada_pulmons" type="anim_tile" x="2304" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="84" name="part_superior_animada_pulmons" type="anim_tile" x="2368" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="85" name="part_superior_animada_pulmons" type="anim_tile" x="2432" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="86" name="base_animada_pulmons" type="anim_tile" x="2176" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="87" name="base_animada_pulmons" type="anim_tile" x="2240" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="88" name="base_animada_pulmons" type="anim_tile" x="2304" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="89" name="base_animada_pulmons" type="anim_tile" x="2368" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="90" name="base_animada_pulmons" type="anim_tile" x="2432" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="91" name="part_superior_animada_pulmons" type="anim_tile" x="2176" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="92" name="part_superior_animada_pulmons" type="anim_tile" x="2240" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="93" name="part_superior_animada_pulmons" type="anim_tile" x="2304" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="94" name="part_superior_animada_pulmons" type="anim_tile" x="2368" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="95" name="part_superior_animada_pulmons" type="anim_tile" x="2432" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="96" name="base_animada_pulmons" type="anim_tile" x="2176" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="97" name="base_animada_pulmons" type="anim_tile" x="2240" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="98" name="base_animada_pulmons" type="anim_tile" x="2304" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="99" name="base_animada_pulmons" type="anim_tile" x="2368" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="100" name="base_animada_pulmons" type="anim_tile" x="2432" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="101" name="part_superior_animada_pulmons" type="anim_tile" x="2176" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="102" name="part_superior_animada_pulmons" type="anim_tile" x="2240" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="103" name="part_superior_animada_pulmons" type="anim_tile" x="2304" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="104" name="part_superior_animada_pulmons" type="anim_tile" x="2368" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="105" name="part_superior_animada_pulmons" type="anim_tile" x="2432" y="1856" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="106" name="base_animada_pulmons" type="anim_tile" x="1856" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="107" name="base_animada_pulmons" type="anim_tile" x="1920" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="108" name="base_animada_pulmons" type="anim_tile" x="1984" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="109" name="base_animada_pulmons" type="anim_tile" x="2048" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="110" name="base_animada_pulmons" type="anim_tile" x="2112" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="111" name="part_superior_animada_pulmons" type="anim_tile" x="1856" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="112" name="part_superior_animada_pulmons" type="anim_tile" x="1920" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="113" name="part_superior_animada_pulmons" type="anim_tile" x="1984" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="114" name="part_superior_animada_pulmons" type="anim_tile" x="2048" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="115" name="part_superior_animada_pulmons" type="anim_tile" x="2112" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="116" name="base_animada_pulmons" type="anim_tile" x="2816" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="117" name="base_animada_pulmons" type="anim_tile" x="2880" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="118" name="base_animada_pulmons" type="anim_tile" x="2944" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="119" name="base_animada_pulmons" type="anim_tile" x="3008" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="120" name="base_animada_pulmons" type="anim_tile" x="3072" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="121" name="part_superior_animada_pulmons" type="anim_tile" x="2816" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="122" name="part_superior_animada_pulmons" type="anim_tile" x="2880" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="123" name="part_superior_animada_pulmons" type="anim_tile" x="2944" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="124" name="part_superior_animada_pulmons" type="anim_tile" x="3008" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="125" name="part_superior_animada_pulmons" type="anim_tile" x="3072" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="126" name="base_animada_pulmons" type="anim_tile" x="3712" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="127" name="base_animada_pulmons" type="anim_tile" x="3648" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="128" name="base_animada_pulmons" type="anim_tile" x="3584" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="129" name="base_animada_pulmons" type="anim_tile" x="3520" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="130" name="base_animada_pulmons" type="anim_tile" x="3456" y="1984" width="64" height="64">
+   <properties>
+    <property name="Texture" value="base_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="131" name="part_superior_animada_pulmons" type="anim_tile" x="3712" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="132" name="part_superior_animada_pulmons" type="anim_tile" x="3648" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="133" name="part_superior_animada_pulmons" type="anim_tile" x="3584" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="134" name="part_superior_animada_pulmons" type="anim_tile" x="3520" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="135" name="part_superior_animada_pulmons" type="anim_tile" x="3456" y="1920" width="64" height="64">
+   <properties>
+    <property name="Texture" value="part_superior_animada_pulmons"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
