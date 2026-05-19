@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="5">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="9">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -1212,8 +1212,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="225"/>
-   <tile gid="225"/>
+   <tile/>
+   <tile/>
    <tile gid="179"/>
    <tile/>
    <tile/>
@@ -1272,8 +1272,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="225"/>
-   <tile gid="225"/>
+   <tile/>
+   <tile/>
    <tile gid="179"/>
    <tile/>
    <tile/>
@@ -1332,8 +1332,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="225"/>
-   <tile gid="225"/>
+   <tile/>
+   <tile/>
    <tile gid="179"/>
    <tile/>
    <tile/>
@@ -1392,8 +1392,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="225"/>
-   <tile gid="225"/>
+   <tile/>
+   <tile/>
    <tile gid="179"/>
    <tile/>
    <tile/>
@@ -1649,7 +1649,7 @@
    <tile gid="162"/>
    <tile gid="162"/>
    <tile gid="163"/>
-   <tile gid="225"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2429,7 +2429,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="210"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -3005,7 +3005,7 @@
    <tile gid="194"/>
    <tile gid="195"/>
    <tile/>
-   <tile gid="209"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

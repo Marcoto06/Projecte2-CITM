@@ -145,7 +145,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="210"/>
+   <tile/>
    <tile gid="193"/>
    <tile gid="194"/>
    <tile gid="194"/>
@@ -296,14 +296,14 @@
    <tile gid="178"/>
    <tile gid="178"/>
    <tile gid="179"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -364,7 +364,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="209"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -950,17 +950,17 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
-   <tile gid="210"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1063,7 +1063,7 @@
    <tile gid="194"/>
    <tile gid="194"/>
    <tile gid="195"/>
-   <tile gid="210"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1141,7 +1141,7 @@
    <tile gid="194"/>
    <tile gid="194"/>
    <tile gid="195"/>
-   <tile gid="210"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4109,7 +4109,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="60" height="34" visible="0">
+ <layer id="3" name="Collisions" width="60" height="34">
   <data>
    <tile gid="258"/>
    <tile/>
@@ -6156,7 +6156,7 @@
  <objectgroup id="5" name="Entities">
   <object id="121" name="Door" type="Door" x="3814" y="1914" width="32" height="204">
    <properties>
-    <property name="Destination" value="MapCor_Sala6.tmx"/>
+    <property name="Destination" value="MapCor_Sala16.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1"/>
     <property name="playerY" type="float" value="1"/>
