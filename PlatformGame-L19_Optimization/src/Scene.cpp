@@ -194,7 +194,7 @@ void Scene::LoadScene(SceneID newScene)
 
 			if (!savedMapName.empty())
 			{
-				LoadLevel(savedMapName);
+				LoadLevel(savedMapName + ".tmx");
 			}
 			else
 			{
@@ -205,6 +205,7 @@ void Scene::LoadScene(SceneID newScene)
 		{
 			LoadLevel("MapTemplate.tmx");
 		}
+		break;
 		//LoadLevel("MapTemplate");
 
 		/*std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
@@ -599,12 +600,22 @@ bool Scene::LoadGame(pugi::xml_node& root)
 	if (!root) return false;
 
 	std::string savedMapName = root.attribute("current_map").as_string("MapTemplate");
-
 	std::string mapFile = savedMapName + ".tmx";
+
+	destroyedEntitiesIds.clear();
+	pugi::xml_node levelNode = root.child("world").find_child_by_attribute("level", "name", savedMapName.c_str());
+	if (levelNode)
+	{
+		pugi::xml_node destroyedNode = levelNode.child("entities");
+		for (pugi::xml_node entNode = destroyedNode.child("entity"); entNode; entNode = entNode.next_sibling("entity"))
+		{
+			int deadId = entNode.attribute("id").as_int();
+			destroyedEntitiesIds.push_back(deadId);
+		}
+	}
 
 	Engine::GetInstance().entityManager->ClearNonPlayerEntities();
 	Engine::GetInstance().map->CleanUp();
-
 	LoadLevel(mapFile);
 
 	pugi::xml_node playerNode = root.child("player");
@@ -627,25 +638,8 @@ bool Scene::LoadGame(pugi::xml_node& root)
 		}
 	}
 
-	pugi::xml_node levelNode = root.child("world").find_child_by_attribute("level", "name", savedMapName.c_str());
 	if (levelNode)
 	{
-		destroyedEntitiesIds.clear();
-
-		pugi::xml_node destroyedNode = levelNode.child("entities");
-		for (pugi::xml_node entNode = destroyedNode.child("entity"); entNode; entNode = entNode.next_sibling("entity"))
-		{
-			int deadId = entNode.attribute("id").as_int();
-			destroyedEntitiesIds.push_back(deadId);
-
-			std::shared_ptr<Entity> entityToKill = Engine::GetInstance().entityManager->GetEntityByTiledId(deadId);
-			if (entityToKill != nullptr)
-			{
-				entityToKill->active = false;
-				entityToKill->pendingToDelete = true;
-			}
-		}
-
 		pugi::xml_node checkpointNode = levelNode.child("active_checkpoint");
 		if (checkpointNode)
 		{
