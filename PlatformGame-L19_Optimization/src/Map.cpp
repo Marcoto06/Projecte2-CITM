@@ -439,7 +439,7 @@ MapLayer* Map::GetNavigationLayer() {
 	 //Iterate the object groups
      for (pugi::xml_node objectGroupNode = mapFileXML.child("map").child("objectgroup"); objectGroupNode != NULL; objectGroupNode = objectGroupNode.next_sibling("objectgroup")) {
 		 //Check if the object group is "Entities"
-        if (objectGroupNode.attribute("name").as_string() == std::string("Entities") || objectGroupNode.attribute("name").as_string() == std::string("AnimTiles")) {
+        if (objectGroupNode.attribute("name").as_string() == std::string("Entities") || objectGroupNode.attribute("name").as_string() == std::string("Anim_Tiles")) {
             
 			//Iterate the objects
             for (pugi::xml_node objectNode = objectGroupNode.child("object"); objectNode != NULL; objectNode = objectNode.next_sibling("object")) {
@@ -525,28 +525,25 @@ MapLayer* Map::GetNavigationLayer() {
 
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }
+                    //else if (name == "Dendríticas") {
+                    //    const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::DENDRITRICAS));
+                    //    enemy->position = Vector2D(x, y);
+                    //    enemy->tiledId = tiledId;
+
+                    //    if (enemy != nullptr && enemy->tiledId != -1)
+                    //    {
+                    //        auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                    //        if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                    //        {
+                    //            enemy->active = false;
+                    //            enemy->pendingToDelete = true;
+                    //        }
+                    //    }
+
+                    //    enemy->Start(); //L17: Important to call Start to initialize the Entity
+                    //}
                 }
-                //else if (entityType == "Plaquetas")
-                //{
-                //    if (name == "Plaquetas") {
-                //        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAQUETA));
-                //        enemy->position = Vector2D(x, y);
-                //        enemy->tiledId = tiledId;
-
-                //        if (enemy != nullptr && enemy->tiledId != -1)
-                //        {
-                //            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
-
-                //            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                //            {
-                //                enemy->active = false;
-                //                enemy->pendingToDelete = true;
-                //            }
-                //        }
-
-                //        enemy->Start(); //L17: Important to call Start to initialize the Entity
-                //    }
-                //}
                 else if (entityType == "Checkpoint")
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CHECKPOINT);
