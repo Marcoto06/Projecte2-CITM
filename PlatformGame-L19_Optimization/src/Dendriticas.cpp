@@ -1,4 +1,4 @@
-#include "Dendríticas.h"
+#include "Dendriticas.h"
 #include "Player.h"
 #include "Engine.h"
 #include "Textures.h"
@@ -12,33 +12,34 @@
 #include "Map.h"
 #include "tracy/Tracy.hpp"
 
-Dendríticas::Dendríticas() : Entity(EntityType::DENDRITICAS)
+Dendriticas::Dendriticas() : Entity(EntityType::DENDRITICAS)
 {
-	name = "Dendríticas";
+	name = "Dendriticas";
 }
 
-Dendríticas::~Dendríticas() {
+Dendriticas::~Dendriticas() {
 
 }
 
-bool Dendríticas::Awake() {
+bool Dendriticas::Awake() {
 	return true;
 }
 
-bool Dendríticas::Start() {
+bool Dendriticas::Start() {
 
 	// load
 	std::unordered_map<int, std::string> aliases = { {0,"idle"}, {25,"walk"}, {50,"hurt"}, {75,"stunned"}, {100,"death"}, {125,"attack"} , {150, "alarmOn"} };
-	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Dendríticas.tsx", aliases);
+	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Dendriticas.tsx", aliases);
 	anims.SetCurrent("walk");
 	anims.Func_SetAnimationLoop("death", false);
+	anims.Func_SetAnimationLoop("attack", false);
 
 	//Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Dendríticas.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Dendriticas.png");
 
 	//Add physics to the enemy - initialize physics body
 	texW = 125;
-	texH = 80;
+	texH = 200;
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX() + texW / 2, ((int)position.getY() + texH / 2), texW, texH, bodyType::DYNAMIC);
 	pbody->SetFixedRotation(true);
 
@@ -61,13 +62,13 @@ bool Dendríticas::Start() {
 	return true;
 }
 
-bool Dendríticas::Update(float dt)
+bool Dendriticas::Update(float dt)
 {
 	ZoneScoped;
 
 	GetPhysicsValues();
 
-	if (!isStunned)
+	if (!isStunned && currentEState != ENEMYSTATES::ATTACK)
 	{
 		isPlayerDetected = IsPlayerDetected();
 
@@ -106,7 +107,7 @@ bool Dendríticas::Update(float dt)
 	return true;
 }
 
-void Dendríticas::PerformPathfinding()
+void Dendriticas::PerformPathfinding()
 {
 	Map* map = Engine::GetInstance().map.get();
 
@@ -131,27 +132,27 @@ void Dendríticas::PerformPathfinding()
 	}
 }
 
-void Dendríticas::GetPhysicsValues() {
+void Dendriticas::GetPhysicsValues() {
 	// Read current velocity
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
 	velocity = { 0, velocity.y };
 }
 
-void Dendríticas::Func_EnemyStates(float dt)
+void Dendriticas::Func_EnemyStates(float dt)
 {
 	switch (currentEState)
 	{
-	case Dendríticas::ENEMYSTATES::WALKING:
+	case Dendriticas::ENEMYSTATES::WALKING:
 		anims.SetCurrent("idle");
 		Move();
 		break;
 
-	case Dendríticas::ENEMYSTATES::CHASING:
+	case Dendriticas::ENEMYSTATES::CHASING:
 		anims.SetCurrent("walk");
 		Move();
 		break;
 
-	case Dendríticas::ENEMYSTATES::STUNED:
+	case Dendriticas::ENEMYSTATES::STUNED:
 		anims.SetCurrent("stunned");
 
 		if (isBeingSucked)
@@ -187,7 +188,7 @@ void Dendríticas::Func_EnemyStates(float dt)
 		}
 		break;
 
-	case Dendríticas::ENEMYSTATES::DEATH:
+	case Dendriticas::ENEMYSTATES::DEATH:
 
 		anims.SetCurrent("death");
 		if (anims.Func_HasCurrentAnimationFinished())
@@ -196,12 +197,20 @@ void Dendríticas::Func_EnemyStates(float dt)
 			return;
 		}
 		break;
+	case Dendriticas::ENEMYSTATES::ATTACK:
+		anims.SetCurrent("attack");
+		
+		if (anims.Func_HasCurrentAnimationFinished())
+		{
+			currentEState = ENEMYSTATES::WALKING;
+		}
+		break;
 	default:
 		break;
 	}
 }
 
-void Dendríticas::Move()
+void Dendriticas::Move()
 {
 	velocity.x = 0.0f;
 
@@ -250,13 +259,13 @@ void Dendríticas::Move()
 	}
 }
 
-bool Dendríticas::IsPlayerDetected() const
+bool Dendriticas::IsPlayerDetected() const
 {
 	if (Engine::GetInstance().scene->player->IsGodMode())
 		return false;
 
 	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
-	Vector2D enemyPosition = const_cast<Dendríticas*>(this)->GetPosition();
+	Vector2D enemyPosition = const_cast<Dendriticas*>(this)->GetPosition();
 
 	float distanceX = playerPosition.getX() - enemyPosition.getX();
 	float distanceY = playerPosition.getY() - enemyPosition.getY();
@@ -265,7 +274,7 @@ bool Dendríticas::IsPlayerDetected() const
 	return squaredDistance <= (detectionRange * detectionRange);
 }
 
-Vector2D Dendríticas::GetNextPathTile() const
+Vector2D Dendriticas::GetNextPathTile() const
 {
 	const std::list<Vector2D>& pathTiles = pathfinding->GetPathTiles();
 
@@ -280,13 +289,13 @@ Vector2D Dendríticas::GetNextPathTile() const
 	return *nextTileIt;
 }
 
-void Dendríticas::ApplyPhysics() {
+void Dendriticas::ApplyPhysics() {
 
 	// Apply velocity via helper
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
-void Dendríticas::Draw(float dt)
+void Dendriticas::Draw(float dt)
 {
 	anims.Update(dt);
 	const SDL_Rect& animFrame = anims.GetCurrentFrame();
@@ -334,7 +343,7 @@ void Dendríticas::Draw(float dt)
 	}
 }
 
-bool Dendríticas::CleanUp()
+bool Dendriticas::CleanUp()
 {
 	LOG("Cleanup enemy");
 	Engine::GetInstance().textures->UnLoad(texture);
@@ -342,7 +351,7 @@ bool Dendríticas::CleanUp()
 	return true;
 }
 
-bool Dendríticas::Destroy()
+bool Dendriticas::Destroy()
 {
 	LOG("Destroying Enemy");
 	active = false;
@@ -359,25 +368,25 @@ bool Dendríticas::Destroy()
 	return true;
 }
 
-bool Dendríticas::Destroy(Player* pplayer) // Good: coincide with the .h
+bool Dendriticas::Destroy(Player* pplayer) // Good: coincide with the .h
 {
 	player->isAdrenaline;
 	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
 
-void Dendríticas::SetPosition(Vector2D pos) {
+void Dendriticas::SetPosition(Vector2D pos) {
 	pbody->SetPosition((int)(pos.getX()), (int)(pos.getY()));
 }
 
-Vector2D Dendríticas::GetPosition() {
+Vector2D Dendriticas::GetPosition() {
 	int x, y;
 	pbody->GetPosition(x, y);
 	// Adjust for center
 	return Vector2D((float)x - texW / 2, (float)y - texH / 2);
 }
 
-bool Dendríticas::IsEnemyStunned() {
+bool Dendriticas::IsEnemyStunned() {
 
 	if (currentEState == ENEMYSTATES::STUNED or currentEState == ENEMYSTATES::DEATH)
 	{
@@ -388,7 +397,7 @@ bool Dendríticas::IsEnemyStunned() {
 
 
 //Define OnCollision function for the enemy. 
-void Dendríticas::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Dendriticas::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::SYRINGE:
@@ -407,10 +416,17 @@ void Dendríticas::OnCollision(PhysBody* physA, PhysBody* physB) {
 			attackingPlayer = (Player*)physB->listener;
 		}
 		break;
+	case ColliderType::PLAYER:
+		if (currentEState != ENEMYSTATES::DEATH && currentEState != ENEMYSTATES::STUNED)
+		{
+			currentEState = ENEMYSTATES::ATTACK;
+			attackingPlayer = (Player*)physB->listener;
+		}
+		break;
 	}
 }
 
-void Dendríticas::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
+void Dendriticas::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{

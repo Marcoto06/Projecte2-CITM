@@ -92,26 +92,26 @@
  </tile>
  <tile id="125">
   <animation>
-   <frame tileid="125" duration="100"/>
-   <frame tileid="126" duration="100"/>
-   <frame tileid="127" duration="100"/>
-   <frame tileid="128" duration="100"/>
-   <frame tileid="129" duration="100"/>
-   <frame tileid="130" duration="100"/>
-   <frame tileid="131" duration="100"/>
-   <frame tileid="132" duration="100"/>
-   <frame tileid="133" duration="100"/>
-   <frame tileid="134" duration="100"/>
-   <frame tileid="135" duration="100"/>
+   <frame tileid="125" duration="25"/>
+   <frame tileid="126" duration="25"/>
+   <frame tileid="127" duration="25"/>
+   <frame tileid="128" duration="25"/>
+   <frame tileid="129" duration="25"/>
+   <frame tileid="130" duration="25"/>
+   <frame tileid="131" duration="25"/>
+   <frame tileid="132" duration="25"/>
+   <frame tileid="133" duration="25"/>
+   <frame tileid="134" duration="25"/>
+   <frame tileid="135" duration="25"/>
    <frame tileid="136" duration="100"/>
    <frame tileid="137" duration="100"/>
    <frame tileid="138" duration="100"/>
    <frame tileid="139" duration="100"/>
    <frame tileid="140" duration="100"/>
    <frame tileid="141" duration="100"/>
-   <frame tileid="142" duration="100"/>
-   <frame tileid="143" duration="100"/>
-   <frame tileid="144" duration="100"/>
+   <frame tileid="142" duration="25"/>
+   <frame tileid="143" duration="25"/>
+   <frame tileid="144" duration="25"/>
   </animation>
  </tile>
  <tile id="150">

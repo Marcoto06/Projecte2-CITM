@@ -11,12 +11,12 @@
 struct SDL_Texture;
 class Player;
 
-class Dendríticas : public Entity
+class Dendriticas : public Entity
 {
 public:
 
-	Dendríticas();
-	virtual ~Dendríticas();
+	Dendriticas();
+	virtual ~Dendriticas();
 	bool Awake();
 	bool Start();
 	bool Update(float dt);
@@ -75,6 +75,7 @@ private:
 		WALKING,
 		CHASING, //idk if we're going to use this
 		STUNED,
+		ATTACK,
 		DEATH
 	};
 

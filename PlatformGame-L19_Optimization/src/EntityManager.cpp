@@ -14,7 +14,7 @@
 #include "Boss1.h"
 #include "DialogTrigger.h"
 #include "Plaquetas.h"
-#include "Dendríticas.h"
+#include "Dendriticas.h"
 #include "Acid.h"
 
 EntityManager::EntityManager() : Module()
@@ -98,7 +98,7 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		entity = std::make_shared<Plaquetas>();
 		break;
 	case EntityType::DENDRITICAS:
-		entity = std::make_shared<Dendríticas>();
+		entity = std::make_shared<Dendriticas>();
 		break;
 	case EntityType::CHECKPOINT:
 		entity = std::make_shared<Checkpoint>();

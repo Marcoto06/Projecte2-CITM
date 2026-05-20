@@ -174,7 +174,7 @@
     <ClCompile Include="src\DialogTrigger.cpp">
       <Filter>Source Files\Engine\Dialog System</Filter>
     </ClCompile>
-    <ClCompile Include="src\Dendríticas.cpp">
+    <ClCompile Include="src\Dendriticas.cpp">
       <Filter>Source Files\Game\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="src\Acid.cpp">
@@ -305,7 +305,7 @@
     <ClInclude Include="src\DialogTrigger.h">
       <Filter>Source Files\Engine\Dialog System</Filter>
     </ClInclude>
-    <ClInclude Include="src\Dendríticas.h">
+    <ClInclude Include="src\Dendriticas.h">
       <Filter>Source Files\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="src\Acid.h">
