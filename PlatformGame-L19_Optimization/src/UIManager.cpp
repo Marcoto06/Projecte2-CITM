@@ -208,13 +208,15 @@ void UIManager::LoadMainMenuButtons() {
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
+	int bigButtonWidth = 385;
+	int bigButtonHeight = 115;
 	int buttonWidth = 290;
 	int buttonHeight = 86;
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect playButtonRect = { 146 , 412 , buttonWidth, buttonHeight };
-	SDL_Rect optionsButtonRect = { 149 , 578 , buttonWidth, buttonHeight };
-	SDL_Rect exitButtonRect = { 148 , 759 , buttonWidth, buttonHeight };
+	SDL_Rect playButtonRect = { 146 , 421 , bigButtonWidth, bigButtonHeight };
+	SDL_Rect optionsButtonRect = { 149 , 628 , buttonWidth, buttonHeight };
+	SDL_Rect exitButtonRect = { 148 , 809 , buttonWidth, buttonHeight };
 
 	auto playButton = CreateUIElement(UIElementType::BUTTON, 1, " ", playButtonRect, Engine::GetInstance().scene->GetScene());
 	playButton->SetTexture(playButtonTexture);
