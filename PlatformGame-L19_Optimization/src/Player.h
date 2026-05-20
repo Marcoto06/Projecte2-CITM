@@ -90,9 +90,9 @@ public:
 	float boostSpeed = 10.0f;      
 
 	int stepHeight = 64;
-	int stepForward = 8;
-	int maxStepHeight = 70;
-	int stepCheckDistance = 8;
+	int stepForward = 14;
+	int maxStepHeight = 72;
+	int stepCheckDistance = 10;
 
 	SDL_Texture* texture = NULL;
 
@@ -165,6 +165,17 @@ public:
 	bool hasAcidResistance = false;
 	bool hasAscend = false;
 	bool hasDash = true;
+
+	//"step up" 
+	bool isStepUpSmoothing = false;
+	float stepUpSmoothTimer = 0.0f;
+	float stepUpSmoothDuration = 80.0f;
+
+	int stepUpStartX = 0;
+	int stepUpStartY = 0;
+	int stepUpTargetX = 0;
+	int stepUpTargetY = 0;
+
 	
 	//Dash
 	int dashLeft = 1;
@@ -203,6 +214,8 @@ private:
 
 	bool isSmall = false;
 	bool godMode = false;
+
+	bool FindStepUpTarget(int& targetX, int& targetY);
 
 	enum class PLAYERSTATE {
 		IDLE,
