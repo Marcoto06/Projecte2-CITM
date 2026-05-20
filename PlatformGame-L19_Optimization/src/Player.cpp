@@ -756,7 +756,7 @@ void Player::Func_PlayerState() {
 			isJumping = false;
 			if (isMoving) {
 				currentState = PLAYERSTATE::MOVE;
-				anims.SetCurrent("run"); 
+				anims.SetCurrent("run");
 			}
 			else {
 				currentState = PLAYERSTATE::IDLE;
@@ -767,7 +767,7 @@ void Player::Func_PlayerState() {
 	case Player::PLAYERSTATE::IDLE:
 		if (onGround && isMoving) {
 			currentState = Player::PLAYERSTATE::MOVE;
-			anims.SetCurrent("run"); 
+			anims.SetCurrent("run");
 		}
 		else
 		{
@@ -782,6 +782,11 @@ void Player::Func_PlayerState() {
 		}
 		break;
 
+	case Player::PLAYERSTATE::CLIMB:
+
+		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr){
+			anims.SetCurrent("climb");
+	}
 	default:
 		break;
 	}
@@ -1006,7 +1011,7 @@ void Player::Func_Dash()
 		}
 	}
 }
-
+//
 void Player::Func_Climb()
 {
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
@@ -1018,6 +1023,7 @@ void Player::Func_Climb()
 			//SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
 			b2Body_SetGravityScale(pbody->body, 0.0f);
 			isClimbing = true;
+			currentState = PLAYERSTATE::CLIMB;
 		}
 		velocity.y = -7;
 	}
@@ -1041,6 +1047,7 @@ void Player::Func_Climb()
 	}
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_UP) && isClimbing == true)
 	{
+
 		velocity.y = 0;
 	}
 }
