@@ -633,8 +633,14 @@ void Player::ActivateSpeedBoost() {
 	LOG("Boost iniciado!");
 }
 
+void Player::ActivateBerserker() {
+	isBerserker = true;
+	BerserkerTimer.Start();
+}
+
 void Player::Func_BoostMovement() {
-	float durationMS = 20000.0f; // 5 seconds in miliseconds
+	float durationMS = 20000.0f;
+	float durationBerserker = 18000.0f; // 18 seconds in miliseconds
 	isMoving = false; 
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
@@ -652,6 +658,11 @@ void Player::Func_BoostMovement() {
 	{
 		isAdrenaline = false;
 		LOG("Boost terminado");
+	}
+
+	if (BerserkerTimer.ReadMSec() > durationBerserker)
+	{
+		isBerserker = false;
 	}
 }
 
@@ -1260,7 +1271,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		
 		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
-			playerCurrentHp--;
+			if (isBerserker)
+			{
+				playerCurrentHp = playerCurrentHp - 0.5;
+			}
+			else
+			{
+				playerCurrentHp--;
+			}
 			Engine::GetInstance().audio->PlayFx(hurtFxId);
 			b2Body_SetGravityScale(pbody->body, gravityScale);
 			isClimbing = false;

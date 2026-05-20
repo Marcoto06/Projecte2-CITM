@@ -83,6 +83,8 @@ private:
 public:
 
 	void ActivateSpeedBoost();
+	void ActivateBerserker();
+
 	bool IsGodMode() { return godMode; };
 
 	//Speed control
@@ -157,6 +159,8 @@ public:
 	float stepUpCooldown = 120.0f;
 	bool isAdrenaline = false;
 	Timer AdrenalineTimer;
+	bool isBerserker = false;
+	Timer BerserkerTimer;
 	bool healing = false;
 
 	//PERMANENT UPGRADES
