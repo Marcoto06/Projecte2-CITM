@@ -370,7 +370,7 @@ bool Dendriticas::Destroy()
 
 bool Dendriticas::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	player->isAdrenaline;
+	player->isCamouflage;
 	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }

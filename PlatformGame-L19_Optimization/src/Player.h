@@ -84,6 +84,7 @@ public:
 
 	void ActivateSpeedBoost();
 	void ActivateBerserker();
+	void ActivateCamouflage();
 
 	bool IsGodMode() { return godMode; };
 
@@ -162,7 +163,9 @@ public:
 	bool isBerserker = false;
 	Timer BerserkerTimer;
 	bool healing = false;
-
+	bool isCamouflage = false;
+	Timer camouflageTimer;
+	
 	//PERMANENT UPGRADES
 	bool hasWallJump = false;
 	bool hasCrouch = false;

@@ -133,9 +133,15 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	/*LOG("%f", velocity.x);*/
 	Draw(dt);
 	if (lock) return true;
+
+	if (isCamouflage) {
+		if (camouflageTimer.ReadMSec() > 20000.0f) {
+			isCamouflage = false;
+		}
+	}
+
 	if (hasDash && dashing == false && dashLeft > 0 && !isClimbing) {
 		Func_Dash();
 	} 
@@ -636,6 +642,11 @@ void Player::ActivateSpeedBoost() {
 void Player::ActivateBerserker() {
 	isBerserker = true;
 	BerserkerTimer.Start();
+}
+
+void Player::ActivateCamouflage() {
+	isCamouflage = true;
+	camouflageTimer.Start();
 }
 
 void Player::Func_BoostMovement() {
