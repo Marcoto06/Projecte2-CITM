@@ -13807,8 +13807,8 @@
    <properties>
     <property name="Destination" value="MapEstomac_Sala3.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1"/>
-    <property name="playerY" type="float" value="1"/>
+    <property name="playerX" type="float" value="244"/>
+    <property name="playerY" type="float" value="260"/>
    </properties>
   </object>
  </objectgroup>
