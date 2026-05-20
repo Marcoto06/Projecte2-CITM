@@ -123,8 +123,15 @@ public:
 	SDL_Texture* backButtonTexture = nullptr;
 
 	SDL_Texture* inventoryTabButtonTexture = nullptr;
+	SDL_Texture* itemAmigdalaTex = nullptr;
+	Animation itemAmigdalaAnim;
+	SDL_Texture* itemSalivaTex = nullptr;
+	Animation itemSalivaAnim;
+
 	SDL_Texture* minimapTabButtonTexture = nullptr;
 	SDL_Texture* powerUpsTabButtonTexture = nullptr;
+
+
 
 	/* Player UI Textures*/
 	/*SDL_Texture* heartFullTexture = nullptr;

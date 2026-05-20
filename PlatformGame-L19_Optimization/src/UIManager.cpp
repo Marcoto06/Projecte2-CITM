@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Log.h"
 #include "EntityManager.h"
+#include "Player.h"
 
 UIManager::UIManager() :Module()
 {
@@ -111,6 +112,12 @@ bool UIManager::Update(float dt)
 		titleAnim.Update(dt);
 	}
 
+	if (currentPauseState == PauseMenuState::INVENTORY)
+	{
+		itemAmigdalaAnim.Update(dt);
+		itemSalivaAnim.Update(dt);
+	}
+
 	return true;
 }
 
@@ -174,7 +181,21 @@ void UIManager::LoadUITextures() {
 	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
 	menuQuitPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitToMenuButton.png");
 	gameQuitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/QuitGameButton.png");
+
 	inventoryTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
+	itemAmigdalaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Amigdala_Coleccionable.png");
+	itemSalivaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Saliva_Coleccionable.png");
+
+	for (int i = 0; i < 11; ++i) {
+		itemAmigdalaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemAmigdalaAnim.SetLoop(true);
+
+	for (int i = 0; i < 11; ++i) {
+		itemSalivaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemSalivaAnim.SetLoop(true);
+
 	minimapTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
 	powerUpsTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
 
@@ -526,6 +547,7 @@ void UIManager::ShowPauseMenu() {
 	{
 		SDL_Texture* texToDraw = nullptr;
 
+		
 		if (currentPauseState == PauseMenuState::INVENTORY) texToDraw = inventoryPg1Texture;
 		else if (currentPauseState == PauseMenuState::MINIMAP) texToDraw = minimapTexture;
 		else if (currentPauseState == PauseMenuState::POWERUPS) texToDraw = powerupsTexture;
@@ -534,6 +556,42 @@ void UIManager::ShowPauseMenu() {
 			int texW, texH;
 			Engine::GetInstance().textures->GetSize(texToDraw, texW, texH);
 			Engine::GetInstance().render->DrawTexture(texToDraw, (w / 2) - (texW / 2), (h / 2) - (texH / 2), NULL, 0.0f);
+		}
+
+		if (currentPauseState == PauseMenuState::INVENTORY)
+		{
+
+			auto player = Engine::GetInstance().scene->player;
+			if (player != nullptr)
+			{
+				int startX = 172;
+				int startY = 148;
+				int offsetX = 93;
+
+				for (size_t i = 0; i < player->list_collectibles.size(); i++)
+				{
+					int c_num = player->list_collectibles[i];
+
+					SDL_Texture* animTexToDraw = nullptr;
+					SDL_Rect currentFrame;
+
+					if (c_num == 0)
+					{
+						animTexToDraw = itemAmigdalaTex;
+						currentFrame = itemAmigdalaAnim.GetCurrentFrame();
+					}
+					else if (c_num == 1)
+					{
+						animTexToDraw = itemSalivaTex;
+						currentFrame = itemSalivaAnim.GetCurrentFrame();
+					}
+
+					if (animTexToDraw != nullptr)
+					{						
+						Engine::GetInstance().render->DrawTexture(animTexToDraw, startX + (i * offsetX), startY, &currentFrame, 0.0f, 0.0, 0, 0, SDL_FLIP_NONE, 2.0f);
+					}
+				}
+			}
 		}
 
 		return;
