@@ -77,9 +77,11 @@ bool Player::Start() {
 
 	texW = 96;
 	texH = 168;
-	hasPowerJump = true;
 	//Hitbox
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, texH -50, bodyType::DYNAMIC);
+
+	hasAcidResistance = true;
+	hasAscend = true;
 
 	pbody->SetFixedRotation(true);
 	pbody->listener = this;
@@ -1339,8 +1341,21 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
 		break;
-	case ColliderType::CLIMBABLE:
+	case ColliderType::CLIMBABLE: {
+		Climbable* climbablePtr = (Climbable*)physB->listener;
+		if (climbablePtr->isWaterfall && !hasAscend) break;
 		canClimb = true;
+		break;
+	}
+	case ColliderType::ACID:
+		if (hasAcidResistance) break;
+		Engine::GetInstance().audio->PlayFx(deathFxId);
+		LOG("Player has died!");
+		canMove = false;
+		canJump = false;
+		canAttack = false;
+		currentState = PLAYERSTATE::DEATH;
+		anims.SetCurrent("death");
 		break;
 	default:
 		break;

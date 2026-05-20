@@ -18,6 +18,7 @@ enum class EntityType
 	ANIMATED_TILE,
 	DIALOG_TRIGGER,
 	CLIMBABLE,
+	ACID,
 	BOSS1,
 	UNKNOWN
 };

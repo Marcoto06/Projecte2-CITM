@@ -148,6 +148,7 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Acid.cpp" />
     <ClCompile Include="src\AnimatedTile.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Audio.cpp" />
@@ -191,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Eosinofilo.h" />
+    <ClInclude Include="src\Acid.h" />
     <ClInclude Include="src\AnimatedTile.h" />
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\Audio.h" />

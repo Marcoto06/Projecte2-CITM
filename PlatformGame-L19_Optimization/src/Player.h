@@ -162,8 +162,8 @@ public:
 	//PERMANENT UPGRADES
 	bool hasWallJump = false;
 	bool hasCrouch = false;
-	bool hasAcidResistance;
-	bool hasAscend;
+	bool hasAcidResistance = false;
+	bool hasAscend = false;
 	bool hasDash = true;
 	
 	//Dash

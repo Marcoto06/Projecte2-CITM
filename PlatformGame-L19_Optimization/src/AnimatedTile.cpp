@@ -39,6 +39,7 @@ bool AnimatedTile::Update(float dt)
 
 bool AnimatedTile::CleanUp()
 {
+	Engine::GetInstance().textures->UnLoad(texture);
 	return true;
 }
 

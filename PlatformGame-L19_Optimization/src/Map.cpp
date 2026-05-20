@@ -12,6 +12,7 @@
 #include "AnimatedTile.h"
 #include "Climbable.h"
 #include "DialogTrigger.h"
+#include "Acid.h"
 
 #include <math.h>
 
@@ -679,6 +680,26 @@ MapLayer* Map::GetNavigationLayer() {
                         door->Start();
                     }
                 }
+                else if (entityType == "Acid")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ACID);
+                    std::shared_ptr<Acid> acid = std::dynamic_pointer_cast<Acid>(e);
+
+                    float width = objectNode.attribute("width").as_float();
+                    float height = objectNode.attribute("height").as_float();
+
+                    if (acid != nullptr)
+                    {
+                        acid->position = Vector2D(x + width / 2, y + height / 2);
+                        acid->name = name;
+                        acid->tiledId = tiledId;
+                        acid->width = width;
+                        acid->height = height;
+
+                        acid->Awake();
+                        acid->Start();
+                    }
+                }
                 else if (entityType == "dialogTrigger")
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
@@ -798,6 +819,19 @@ MapLayer* Map::GetNavigationLayer() {
                         climbable->tiledId = tiledId;
                         climbable->width = width;
                         climbable->height = height;
+
+                        pugi::xml_node properties = objectNode.child("properties");
+                        if (properties)
+                        {
+                            for (pugi::xml_node prop : properties.children("property"))
+                            {
+                                std::string propName = prop.attribute("name").as_string();
+                                if (propName == "isWaterfall")
+                                {
+                                    climbable->isWaterfall = prop.attribute("value").as_bool();
+                                }
+                            }
+                        }
 
                         climbable->Awake();
                         climbable->Start();

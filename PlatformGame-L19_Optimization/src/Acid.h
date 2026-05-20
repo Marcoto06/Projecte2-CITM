@@ -1,16 +1,17 @@
 #pragma once
 
 #include "Entity.h"
+#include "Animation.h"
 #include <SDL3/SDL.h>
 
 struct SDL_Texture;
 
-class Climbable : public Entity
+class Acid : public Entity
 {
 public:
 
-	Climbable();
-	virtual ~Climbable();
+	Acid();
+	virtual ~Acid();
 
 	bool Awake();
 
@@ -22,14 +23,7 @@ public:
 
 	bool Destroy();
 
-	void OnCollision(PhysBody* physA, PhysBody* physB);
-
 	int width, height;
 
-	float climbPoint;
-
-	bool isWaterfall = false;
-
-private:
 	PhysBody* pbody;
 };

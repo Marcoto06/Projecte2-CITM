@@ -177,6 +177,9 @@
     <ClCompile Include="src\Dendríticas.cpp">
       <Filter>Source Files\Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="src\Acid.cpp">
+      <Filter>Source Files\Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="src\Dendríticas.h">
       <Filter>Source Files\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Acid.h">
+      <Filter>Source Files\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
