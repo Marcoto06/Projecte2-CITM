@@ -212,8 +212,8 @@ void Scene::LoadScene(SceneID newScene)
 
 		boss->position = Vector2D(100, -400);
 		boss->Awake();
-		boss->Start();
-		break;*/
+		boss->Start();*/
+		break;
 		//LoadLevel("MapTemplate");
 		
 	}

@@ -8351,7 +8351,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8411,7 +8410,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8471,7 +8469,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8531,7 +8528,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8591,7 +8587,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8651,7 +8651,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8711,7 +8710,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8771,7 +8771,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8831,7 +8831,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8891,7 +8891,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6033"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -8951,7 +8951,7 @@
    <tile gid="8"/>
    <tile gid="9"/>
    <tile gid="9"/>
-   <tile gid="6033"/>
+   <tile gid="9"/>
    <tile gid="9"/>
    <tile gid="9"/>
    <tile gid="9"/>
@@ -11998,11 +11998,6 @@
     <property name="_id" type="int" value="0"/>
     <property name="amount" type="int" value="4"/>
     <property name="lock" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="73" name="Climbable" type="Climbable" x="650" y="394" width="40" height="696">
-   <properties>
-    <property name="Type" value="Climbable"/>
    </properties>
   </object>
  </objectgroup>
