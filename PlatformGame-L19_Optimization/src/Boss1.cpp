@@ -26,13 +26,8 @@ bool Boss1::Awake() {
 }
 
 bool Boss1::Start() {
-
-	initialHeadPos = Vector2D(position.getX() + 1000, position.getY() + 850);
-	stunHeadPos = initialHeadPos + Vector2D(-340, 680);
-
 	R_Hand = new Hand();
 	R_Hand->attacking = false;
-	R_Hand->position = initialHeadPos + Vector2D(-400, 1000);
 	R_Hand->pbody = Engine::GetInstance().physics->CreateRectangleSensor(R_Hand->idlePos.getX(), R_Hand->idlePos.getY(), 200, 300, bodyType::STATIC);
 	R_Hand->pbody->ctype = ColliderType::BOSS_R_HAND;
 	R_Hand->pbody->listener = this;
@@ -40,7 +35,6 @@ bool Boss1::Start() {
 	L_Hand = new Hand();
 	L_Hand->attacking = false;
 	L_Hand->h_speed *= -1;
-	L_Hand->position = initialHeadPos + Vector2D(400, 1000);
 	L_Hand->pbody = Engine::GetInstance().physics->CreateRectangleSensor(L_Hand->idlePos.getX(), L_Hand->idlePos.getY(), 200, 300, bodyType::STATIC);
 	L_Hand->pbody->ctype = ColliderType::BOSS_L_HAND;
 	L_Hand->pbody->listener = this;
@@ -215,6 +209,10 @@ bool Boss1::Start() {
 		hurt_L_hand->animation.push_back(frame);
 	}
 	animations.push_back(&hurt_L_hand->animation);
+
+	triggerBody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 960, position.getY() + 960, 1920, 1920, bodyType::STATIC);
+	triggerBody->ctype = ColliderType::SENSOR;
+	triggerBody->listener = this;
 
 	return true;
 }
@@ -397,6 +395,12 @@ bool Boss1::IsEnemyStunned() {
 void Boss1::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
+	case ColliderType::PLAYER:
+		if (physA == triggerBody && position != Vector2D(0,0)) {
+			Initialize();
+			Engine::GetInstance().physics->DeletePhysBody(triggerBody);
+		}
+		break;
 	case ColliderType::SYRINGE:
 		if (life > 0) {
 			life -= 1;
@@ -551,6 +555,11 @@ Boss1::bossAnimation::bossAnimation(int frames, std::string name, Body_Parts par
 }
 
 void Boss1::Initialize() {
+	triggerBody->SetPosition(position.getX() + 960, position.getY() + 960);
+	initialHeadPos = Vector2D(position.getX() + 1000, position.getY() + 850);
+	stunHeadPos = initialHeadPos + Vector2D(-340, 680);
+	R_Hand->position = initialHeadPos + Vector2D(-400, 1000);
+	L_Hand->position = initialHeadPos + Vector2D(400, 1000);
 	//Set Current Animation as intro
 	currentBodyAnimation = intro_body;
 	currentRHandAnimation = intro_R_hand;

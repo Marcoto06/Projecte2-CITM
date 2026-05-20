@@ -66,7 +66,7 @@ bool EntityManager::CleanUp(bool total)
 	for (const auto entity : entities)
 	{
 		if (entity->active == false) continue;
-		if (total == false && entity->type == EntityType::PLAYER) {
+		if (total == false && (entity->type == EntityType::PLAYER || entity->type == EntityType::BOSS1)) {
 			return ret;
 		}
 		ret = entity->Destroy();
@@ -197,7 +197,7 @@ void EntityManager::ClearNonPlayerEntities()
 
 	for (const auto entity : entities)
 	{
-		if (entity->type != EntityType::PLAYER)
+		if (entity->type != EntityType::PLAYER && entity->type != EntityType::BOSS1)
 		{
 			pendingDelete.push_back(entity);
 		}

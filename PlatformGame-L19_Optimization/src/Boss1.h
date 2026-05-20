@@ -34,6 +34,8 @@ public:
 	
 
 private:
+	PhysBody* triggerBody;
+
 	Vector2D initialHeadPos;
 	Vector2D stunHeadPos;
 

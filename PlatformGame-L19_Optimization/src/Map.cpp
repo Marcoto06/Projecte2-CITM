@@ -837,6 +837,17 @@ MapLayer* Map::GetNavigationLayer() {
                         climbable->Start();
                     }
                 }
+                else if (entityType == "Boss")
+                {
+                    if (Engine::GetInstance().scene->boss != nullptr) {
+                        Engine::GetInstance().scene->boss->position = Vector2D(x, y);
+                        Engine::GetInstance().scene->boss->Initialize();
+                        LOG("BOSS IN POSITION");
+                    }
+                    else {
+                        LOG("THE BOSS IS NOT LOADED");
+                    }
+                }
             }
         }
     }
