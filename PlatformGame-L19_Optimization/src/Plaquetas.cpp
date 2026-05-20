@@ -12,7 +12,7 @@
 #include "Map.h"
 #include "tracy/Tracy.hpp"
 
-Plaquetas::Plaquetas() : Entity(EntityType::ENEMY)
+Plaquetas::Plaquetas() : Entity(EntityType::PLAQUETA)
 {
 	name = "Plaquetas";
 }
@@ -28,19 +28,17 @@ bool Plaquetas::Awake() {
 bool Plaquetas::Start() {
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"} };
-	//anims eosinofilo
-	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
-	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", aliases);
+	std::unordered_map<int, std::string> aliases = { {0,"idle"}, {16,"walk"}, {32,"hurt"}, {48,"stunned"}, {64,"death"}, {80,"attack"}};
+	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Plaquetas.tsx", aliases);
 	anims.SetCurrent("walk");
 	anims.Func_SetAnimationLoop("death", false);
 
 	//Initialize Player parameters
-	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
+	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Plaquetas.png");
 
 	//Add physics to the enemy - initialize physics body
 	texW = 125;
-	texH = 60;
+	texH = 80;
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX() + texW / 2, ((int)position.getY() + texH / 2), texW, texH, bodyType::DYNAMIC);
 	pbody->SetFixedRotation(true);
 
