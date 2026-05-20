@@ -12,6 +12,21 @@
 #include "Map.h"
 #include "tracy/Tracy.hpp"
 
+/* ----------------------- CONTROLS (Keyboard/Gamepad) ----------------------- 
+	-- Player --
+	Movement: A/D | Left Analog
+	Jump: Space | B
+	Stun attack: Left Click | X
+	Suck attack: Right Click | Y
+	Dash: E
+	Crouch: Left Shift
+	
+	-- Menus -- 
+	Move Up/Down: W/S | Dpad Up/Down
+	Slider Left/Right: W/S | Dpad Left/Right
+	Accept: E | A
+*/
+
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name = "Player";
@@ -1046,7 +1061,7 @@ void Player::ApplyPhysics() {
 	{
 		velocity.y += 0.3f;
 	}
-	LOG("%f", &velocity.y);
+	//LOG("%f", &velocity.y);
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
