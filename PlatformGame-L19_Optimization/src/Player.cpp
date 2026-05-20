@@ -322,7 +322,6 @@ void Player::GetPhysicsValues() {
 	if (!isHurt) {
 		velocity = { 0, velocity.y };
 	}
-
 }
 
 void Player::Attack()
