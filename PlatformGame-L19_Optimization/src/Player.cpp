@@ -506,13 +506,62 @@ void Player::Move() {
 
 }
 
-void Player::AutoStepUp()
+void Player::AutoStepUp() // STEP UP SMOOTHING ("TRYING TO AVOID THE "STAIR PROBLEM")
 {
-	if (!onGround || !isMoving || isSucking || isAttacking || stepUpTimer > 0.0f)
+	if (isStepUpSmoothing)
 	{
+		float dt = Engine::GetInstance().GetDt();
+		stepUpSmoothTimer += dt;
+
+		float t = stepUpSmoothTimer / stepUpSmoothDuration;
+		if (t > 1.0f) t = 1.0f;
+
+		int newX = (int)(stepUpStartX + (stepUpTargetX - stepUpStartX) * t);
+		int newY = (int)(stepUpStartY + (stepUpTargetY - stepUpStartY) * t);
+
+		pbody->SetPosition(newX, newY);
+		Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity.x, 0.0f);
+
+		if (t >= 1.0f)
+		{
+			isStepUpSmoothing = false;
+			isSteppingUp = true;
+			stepUpTimer = stepUpCooldown;
+			onGround = true;
+			isJumping = false;
+			velocity.y = 0.0f;
+		}
+
 		return;
 	}
 
+	if (!onGround || !isMoving || isSucking || isAttacking || stepUpTimer > 0.0f)
+		return;
+
+	int targetX = 0;
+	int targetY = 0;
+
+	if (!FindStepUpTarget(targetX, targetY))
+		return;
+
+	int playerX, playerY;
+	pbody->GetPosition(playerX, playerY);
+
+	stepUpStartX = playerX;
+	stepUpStartY = playerY;
+	stepUpTargetX = targetX;
+	stepUpTargetY = targetY;
+
+	stepUpSmoothTimer = 0.0f;
+	isStepUpSmoothing = true;
+
+	velocity.y = 0.0f;
+	currentState = PLAYERSTATE::MOVE;
+	anims.SetCurrent("run");
+}
+
+bool Player::FindStepUpTarget(int& targetX, int& targetY) // CHECK IF THERE'S A STEP AND GET THE TARGET POSITION TO STEP UP ("TRYING TO AVOID THE "STAIR PROBLEM")
+{
 	int playerX, playerY;
 	pbody->GetPosition(playerX, playerY);
 
@@ -520,82 +569,62 @@ void Player::AutoStepUp()
 
 	int bodyWidth = texW / 2;
 	int bodyHeight = isSmall ? (texH - 50) / 2 : (texH - 50);
+
 	int halfWidth = bodyWidth / 2;
 	int halfHeight = bodyHeight / 2;
 
+	int tileW = Engine::GetInstance().map->GetTileWidth();
+	int tileH = Engine::GetInstance().map->GetTileHeight();
+
 	int frontX = playerX + direction * (halfWidth + stepCheckDistance);
+	int feetY = playerY + halfHeight - 4;
 
-	int lowerCheckY = playerY + halfHeight - 18;
-	int upperCheckY = playerY + halfHeight - maxStepHeight;
+	bool foundWall = false;
+	int wallY = feetY;
 
-	bool obstacleInFront = false;
-
-	for (int y = lowerCheckY; y >= upperCheckY; y -= 8)
+	for (int y = feetY; y >= feetY - maxStepHeight; y -= 4)
 	{
 		if (Engine::GetInstance().map->IsCollisionTileAtWorldPos(frontX, y))
 		{
-			obstacleInFront = true;
+			foundWall = true;
+			wallY = y;
 			break;
 		}
 	}
 
-	if (!obstacleInFront)
-	{
-		return;
-	}
+	if (!foundWall)
+		return false;
 
-	auto IsAreaFree = [&](int centerX, int centerY) -> bool
-		{
-			int left = centerX - halfWidth + 4;
-			int right = centerX + halfWidth - 4;
-			int top = centerY - halfHeight + 6;
-			int bottom = centerY + halfHeight - 8;
+	Vector2D tile = Engine::GetInstance().map->WorldToMap(frontX, wallY);
+	Vector2D tileWorld = Engine::GetInstance().map->MapToWorld((int)tile.getX(), (int)tile.getY());
 
-			for (int y = top; y <= bottom; y += 12)
-			{
-				if (Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, y)) return false;
-				if (Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, y)) return false;
-			}
+	int tileTopY = (int)tileWorld.getY();
 
-			return true;
-		};
+	targetY = tileTopY - halfHeight;
 
-	auto HasGroundBelow = [&](int centerX, int centerY) -> bool
-		{
-			int leftFootX = centerX - halfWidth + 8;
-			int rightFootX = centerX + halfWidth - 8;
-			int footY = centerY + halfHeight + 2;
+	// Empuja el centro un poco hacia dentro del tile para que no siga chocando con la pared.
+	targetX = playerX + direction * 14;
 
-			return Engine::GetInstance().map->IsCollisionTileAtWorldPos(leftFootX, footY) ||
-				Engine::GetInstance().map->IsCollisionTileAtWorldPos(rightFootX, footY);
-		};
+	int left = targetX - halfWidth + 4;
+	int right = targetX + halfWidth - 4;
+	int top = targetY - halfHeight + 4;
+	int bottom = targetY + halfHeight - 4;
 
-	for (int step = 2; step <= maxStepHeight; step += 2)
-	{
-		int testX = playerX + direction * 3;
-		int testY = playerY - step;
+	bool blocked =
+		Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, top) ||
+		Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, top) ||
+		Engine::GetInstance().map->IsCollisionTileAtWorldPos(left, bottom) ||
+		Engine::GetInstance().map->IsCollisionTileAtWorldPos(right, bottom);
 
-		if (IsAreaFree(testX, testY) && HasGroundBelow(testX, testY))
-		{
-			pbody->SetPosition(testX, testY);
+	if (blocked)
+		return false;
 
-			Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity.x, 0.0f);
+	int stepAmount = playerY - targetY;
 
-			velocity.y = 0.0f;
-			isJumping = false;
-			isHoldingJump = false;
-			jumpHoldTime = 0.0f;
-			onGround = true;
+	if (stepAmount <= 0 || stepAmount > maxStepHeight)
+		return false;
 
-			isSteppingUp = true;
-			stepUpTimer = stepUpCooldown;
-
-			currentState = PLAYERSTATE::MOVE;
-			anims.SetCurrent("run");
-
-			return;
-		}
-	}
+	return true;
 }
 
 void Player::ActivateSpeedBoost() {
@@ -1184,13 +1213,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLATFORM:
 		//LOG("Collision PLATFORM");
 
-		if (isMoving && onGround)
-		{
-			if (TryStepUp())
-			{
-				break;
-			}
-		}
+		//if (isMoving && onGround)
+		//{
+		//	if (TryStepUp())
+		//	{
+		//		break;
+		//	}
+		//}
 
 		if (physA->ctype == ColliderType::SENSOR)
 		{
@@ -1394,7 +1423,7 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 				groundContacts--;
 			}
 
-			onGround = false;
+			onGround = groundContacts > 0 || isSteppingUp;
 		}
 
 		if (physA->ctype == ColliderType::WALL_SENSOR)
