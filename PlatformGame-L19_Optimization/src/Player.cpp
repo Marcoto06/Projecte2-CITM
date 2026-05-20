@@ -787,7 +787,20 @@ void Player::Func_PlayerState() {
 
 		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr){
 			anims.SetCurrent("climb");
-	}
+	    }
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_DOWN ||
+			Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			// Al pulsar A, miramos a la izquierda
+			facingRight = false;
+		}
+		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_DOWN ||
+			Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			// Al pulsar D, miramos a la derecha
+			facingRight = true;
+		}
 	default:
 		break;
 	}
