@@ -174,7 +174,7 @@ bool Engine::CleanUp() {
             break;
         }
     }
-
+    //scene->boss->CleanUp();
     // L2: TODO 3: Log the result of the timer
 	LOG("Timer App CleanUp(): %f", timer.ReadMSec());
 

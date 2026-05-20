@@ -112,6 +112,8 @@ public:
 	//AUdio FX
 	int latidosFXId;
 	int fondoBocaFXId;
+
+	std::shared_ptr<Boss1> boss = nullptr;
 	
 private:
 	struct VideoData {

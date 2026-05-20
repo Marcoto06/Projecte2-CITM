@@ -154,6 +154,7 @@ bool Scene::OnUIMouseClickEvent(UIElement* uiElement)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	if (boss != nullptr) boss->CleanUp();
 	UnloadCurrentScene();
 	return true;
 }
@@ -208,12 +209,12 @@ void Scene::LoadScene(SceneID newScene)
 		}
 		//Create boss when booting up to avoid lagging afterwards.
 		/*std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
-		std::shared_ptr<Boss1> boss = std::dynamic_pointer_cast<Boss1>(e);
+		boss = std::dynamic_pointer_cast<Boss1>(e);
 
 		boss->position = Vector2D(100, -400);
 		boss->Awake();
-		boss->Start();*/
-		break;
+		boss->Start();
+		break;*/
 		//LoadLevel("MapTemplate");
 		
 	}
