@@ -307,7 +307,6 @@ void Player::GetPhysicsValues() {
 	if (!isHurt) {
 		velocity = { 0, velocity.y };
 	}
-
 }
 
 void Player::Attack()
@@ -766,7 +765,6 @@ void Player::Func_PlayerState() {
 			anims.SetCurrent("idle");
 		}
 		break;
-
 	default:
 		break;
 	}

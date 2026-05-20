@@ -214,7 +214,7 @@ private:
 		JUMPING2,
 		FALLING_JUMP,
 		END_JUMP,
-		DEATH
+		DEATH,
 	};
 
 	PLAYERSTATE currentState = PLAYERSTATE::IDLE;
