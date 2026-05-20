@@ -783,7 +783,7 @@ void Player::Func_PlayerState() {
 
 	case Player::PLAYERSTATE::CLIMB:
 
-		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr){
+		if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr){
 			anims.SetCurrent("climb");
 	}
 	default:
@@ -1040,13 +1040,13 @@ void Player::Func_Climb()
 			velocity.y = 7;
 		}
 		else {
+			currentState = PLAYERSTATE::IDLE;
 			isClimbing = false;
 			b2Body_SetGravityScale(pbody->body, gravityScale);
 		}
 	}
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_UP || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_UP) && isClimbing == true)
 	{
-
 		velocity.y = 0;
 	}
 }
@@ -1071,7 +1071,10 @@ void Player::ApplyPhysics() {
 }
 
 void Player::Draw(float dt) {
-	anims.Update(dt);
+	if ((isClimbing && ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W)) == KEY_DOWN || (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) || isClimbing == false )
+	{
+		anims.Update(dt);
+	}
 	const SDL_Rect& animFrame = anims.GetCurrentFrame();
 
 	// Update render position using your PhysBody helper
@@ -1203,6 +1206,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		canClimb = false;
 		nearestClimbable = nullptr;
 		b2Body_SetGravityScale(pbody->body, gravityScale);
+		anims.SetCurrent("idle");
 		break;
 	case ColliderType::ENEMY:{
 		LOG("End Collision ENEMY");
