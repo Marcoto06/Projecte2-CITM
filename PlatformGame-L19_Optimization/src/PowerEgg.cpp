@@ -98,8 +98,11 @@ void PowerEgg::OnCollision(PhysBody* physA, PhysBody* physB)
 			player->hasCrouch = true;
 			break;
 		case 3:
+			player->hasAcidResistance = true;
+			player->hasAscend = true;
 			break;
 		case 4:
+			player->hasDash = true;
 			break;
 		}
 	}
