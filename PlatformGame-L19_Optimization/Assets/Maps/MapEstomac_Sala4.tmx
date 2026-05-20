@@ -13,6 +13,9 @@
   <image source="TileMetadata.png" width="128" height="64"/>
  </tileset>
  <layer id="1" name="Solid" width="290" height="68">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
