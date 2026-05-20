@@ -13,6 +13,7 @@
 #include "AnimatedTile.h"
 #include "Boss1.h"
 #include "DialogTrigger.h"
+#include "Plaquetas.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -90,6 +91,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::EOSINOFILO:
 		entity = std::make_shared<Eosinofilo>();
+		break;
+	case EntityType::PLAQUETA:
+		entity = std::make_shared<Plaquetas>();
 		break;
 	case EntityType::CHECKPOINT:
 		entity = std::make_shared<Checkpoint>();

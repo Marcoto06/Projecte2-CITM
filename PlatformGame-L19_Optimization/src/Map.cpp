@@ -487,7 +487,8 @@ MapLayer* Map::GetNavigationLayer() {
                         }
 
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
-                    }else if (name == "Eosinofilo") {
+                    }
+                    else if (name == "Eosinofilo") {
                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
                         enemy->position = Vector2D(x, y);
                         enemy->tiledId = tiledId;
@@ -505,7 +506,47 @@ MapLayer* Map::GetNavigationLayer() {
 
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }
+                    else if (name == "Plaquetas") {
+                        LOG("PLAQUETA CREADA");
+                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAQUETA));
+                        enemy->position = Vector2D(x, y);
+                        enemy->tiledId = tiledId;
+
+                        if (enemy != nullptr && enemy->tiledId != -1)
+                        {
+                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                            {
+                                enemy->active = false;
+                                enemy->pendingToDelete = true;
+                            }
+                        }
+
+                        enemy->Start(); //L17: Important to call Start to initialize the Entity
+                    }
                 }
+                //else if (entityType == "Plaquetas")
+                //{
+                //    if (name == "Plaquetas") {
+                //        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAQUETA));
+                //        enemy->position = Vector2D(x, y);
+                //        enemy->tiledId = tiledId;
+
+                //        if (enemy != nullptr && enemy->tiledId != -1)
+                //        {
+                //            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+
+                //            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                //            {
+                //                enemy->active = false;
+                //                enemy->pendingToDelete = true;
+                //            }
+                //        }
+
+                //        enemy->Start(); //L17: Important to call Start to initialize the Entity
+                //    }
+                //}
                 else if (entityType == "Checkpoint")
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CHECKPOINT);
