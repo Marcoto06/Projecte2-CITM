@@ -48,6 +48,7 @@ bool DialogTrigger::Update(float dt)
 
 bool DialogTrigger::CleanUp()
 {
+	Engine::GetInstance().physics->DeletePhysBody(pbody);
 	return true;
 }
 

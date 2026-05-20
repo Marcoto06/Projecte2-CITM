@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="74">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="74">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -11980,10 +11980,10 @@
   </object>
   <object id="38" name="Door" type="Door" x="2754.4" y="2114.57" width="704.03" height="32.5763">
    <properties>
-    <property name="Destination" value="MapCor_Sala1.tmx"/>
+    <property name="Destination" value="MapPulmo_Sala16.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="355.1"/>
-    <property name="playerY" type="float" value="766.52"/>
+    <property name="playerX" type="float" value="533.33"/>
+    <property name="playerY" type="float" value="10563.64"/>
    </properties>
   </object>
   <object id="41" name="Collectibles" type="Collectibles" x="3720.67" y="659.333">

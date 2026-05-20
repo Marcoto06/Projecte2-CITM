@@ -52,6 +52,7 @@ bool Scene::Start()
 	Engine::GetInstance().audio->PlayFx(latidosFXId, 50);
 	Engine::GetInstance().audio->PlayFx(fondoBocaFXId, 50);
 	//Engine::GetInstance().audio->PlayFx(latidosFXId);
+
 	return true;
 }
 
@@ -205,16 +206,16 @@ void Scene::LoadScene(SceneID newScene)
 		{
 			LoadLevel("MapTemplate.tmx");
 		}
-		break;
-		//LoadLevel("MapTemplate");
-
-		/*std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
+		//Create boss when booting up to avoid lagging afterwards.
+		std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
 		std::shared_ptr<Boss1> boss = std::dynamic_pointer_cast<Boss1>(e);
 
 		boss->position = Vector2D(100, -400);
 		boss->Awake();
 		boss->Start();
-		break;*/
+		break;
+		//LoadLevel("MapTemplate");
+		
 	}
 }
 
