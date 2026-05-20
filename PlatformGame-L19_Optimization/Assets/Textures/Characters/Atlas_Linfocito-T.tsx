@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Linfocito-T" tilewidth="512" tileheight="512" tilecount="200" columns="25">
+<tileset version="1.10" tiledversion="1.11.2" name="Atlas_Linfocito-T" tilewidth="512" tileheight="512" tilecount="200" columns="25">
  <image source="Atlas_Linfocito-T.png" width="12800" height="4096"/>
  <tile id="0">
   <animation>
@@ -92,11 +92,6 @@
    <frame tileid="89" duration="100"/>
    <frame tileid="90" duration="100"/>
    <frame tileid="91" duration="100"/>
-   <frame tileid="92" duration="100"/>
-  </animation>
- </tile>
- <tile id="93">
-  <animation>
    <frame tileid="92" duration="100"/>
    <frame tileid="93" duration="100"/>
    <frame tileid="94" duration="100"/>
