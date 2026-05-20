@@ -75,7 +75,13 @@ bool Player::Start() {
 	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW / 6, (int)position.getY() + 175, ColliderType::SENSOR);
 	floorSensorBody->listener = this;
 
-	pasosFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/prueba pasos.wav");
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/walk_doc.wav");
+	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/hurt_doc.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/death_doc.wav");
+	stunAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stun_attack.wav");
+	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/jump_doc.wav");
+	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stun_attack_doc.wav");
+	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/suck_attack.wav");
 
 	//Audios
 	/*std::unordered_map< std::string,Audio> list_audios;
@@ -177,6 +183,10 @@ bool Player::Update(float dt)
 
 	if (timerPasos > 0.0f) {
 		timerPasos -= dt; // for audio
+	}
+
+	if (timerSuck > 0.0f) {
+		timerSuck -= dt;
 	}
 
 
@@ -456,10 +466,26 @@ void Player::Move() {
 	{
 		if (timerPasos <= 0.0f)
 		{
-			Engine::GetInstance().audio->PlayFx(pasosFxId, 0); // Suena un paso
+			Engine::GetInstance().audio->PlayFx(walkFxId); 
 
 			timerPasos = 500.0f;
 		}
+	}
+
+	if (isSucking)
+	{
+		if (timerSuck <= 0.0f)
+		{
+			Engine::GetInstance().audio->PlayFx(suckAttackFxId);
+
+			
+			timerSuck = 500.0f;
+		}
+	}
+	else
+	{
+		
+		timerSuck = 0.0f;
 	}
 
 }
@@ -596,6 +622,7 @@ void Player::Jump(float dt)
 
 	if ((spaceState == KEY_DOWN || controllerJumpState) && !isJumping && !isSucking && ((onGround && canJump) || isClimbing || canWallJump))
 	{
+		Engine::GetInstance().audio->PlayFx(jumpFxId);
 		currentState = PLAYERSTATE::PREPARE_JUMP;
 
 		if (!onGround) 
@@ -751,6 +778,9 @@ void Player::Func_Attacks(float dt) {
 	bool wantsToAttack = Engine::GetInstance().input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_WEST) == KEY_DOWN;
 	if (wantsToAttack && !isAttacking && !isSucking && canAttack)
 	{
+		Engine::GetInstance().audio->PlayFx(stunAttackFxId);
+		Engine::GetInstance().audio->PlayFx(stunAttackDocFxId);
+
 		currentState = PLAYERSTATE::ATTACK;
 		isAttacking = true;
 
@@ -1157,6 +1187,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
+			Engine::GetInstance().audio->PlayFx(hurtFxId);
 			b2Body_SetGravityScale(pbody->body, gravityScale);
 			isClimbing = false;
 			LOG("Current HP: %i", playerCurrentHp);
@@ -1179,6 +1210,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			else
 			{
+				Engine::GetInstance().audio->PlayFx(deathFxId);
 				LOG("Player has died!");
 				canMove = false;
 				canJump = false;
@@ -1197,12 +1229,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
+			Engine::GetInstance().audio->PlayFx(hurtFxId);
 			b2Body_SetGravityScale(pbody->body, gravityScale);
 			isClimbing = false;
 			LOG("Current HP: %i", playerCurrentHp);
 
 			if (playerCurrentHp > 0)
 			{
+				Engine::GetInstance().audio->PlayFx(hurtFxId);
 				int playerX, playerY;
 				pbody->GetPosition(playerX, playerY);
 
@@ -1219,6 +1253,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			else
 			{
+				Engine::GetInstance().audio->PlayFx(deathFxId);
 				LOG("Player has died!");
 				canMove = false;
 				canJump = false;
@@ -1237,6 +1272,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			playerCurrentHp--;
+			Engine::GetInstance().audio->PlayFx(hurtFxId);
 			b2Body_SetGravityScale(pbody->body, gravityScale);
 			isClimbing = false;
 			LOG("Current HP: %i", playerCurrentHp);
@@ -1259,6 +1295,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			else
 			{
+				Engine::GetInstance().audio->PlayFx(deathFxId);
 				LOG("Player has died!");
 				canMove = false;
 				canJump = false;

@@ -102,9 +102,18 @@ public:
 
 	//Audio fx
 	int pickCoinFxId;
-	int pasosFxId;
+	int walkFxId;
 	int timerPasos = 0;
 	bool pasosSonando = false;
+
+	int jumpFxId;
+	int hurtFxId;
+	int deathFxId;
+	int stunAttackFxId;
+	int stunAttackDocFxId;
+	int suckAttackFxId;
+	float timerSuck = 0.0f;
+
 	
 	PhysBody* pbody;
 
