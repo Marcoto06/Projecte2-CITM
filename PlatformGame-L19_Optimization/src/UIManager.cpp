@@ -208,13 +208,15 @@ void UIManager::LoadMainMenuButtons() {
 	int screenWidth, screenHeight;
 	Engine::GetInstance().window->GetWindowSize(screenWidth, screenHeight);
 
+	int bigButtonWidth = 385;
+	int bigButtonHeight = 115;
 	int buttonWidth = 290;
 	int buttonHeight = 86;
 
 	// Instantiate a UIButton in the Scene
-	SDL_Rect playButtonRect = { 146 , 412 , buttonWidth, buttonHeight };
-	SDL_Rect optionsButtonRect = { 149 , 578 , buttonWidth, buttonHeight };
-	SDL_Rect exitButtonRect = { 148 , 759 , buttonWidth, buttonHeight };
+	SDL_Rect playButtonRect = { 146 , 421 , bigButtonWidth, bigButtonHeight };
+	SDL_Rect optionsButtonRect = { 149 , 628 , buttonWidth, buttonHeight };
+	SDL_Rect exitButtonRect = { 148 , 809 , buttonWidth, buttonHeight };
 
 	auto playButton = CreateUIElement(UIElementType::BUTTON, 1, " ", playButtonRect, Engine::GetInstance().scene->GetScene());
 	playButton->SetTexture(playButtonTexture);
@@ -812,6 +814,33 @@ void UIManager::ShowPlayerUI() {
 		currentHabilityTex = habilityContainerTexture;
 	}
 	Engine::GetInstance().render->DrawTexture(currentHabilityTex, 0, 0, NULL, 0.0f);
+	
+	//Chuleta
+	if (player->IsGodMode()) {
+		int letter_size = 14;
+		std::string line1 = "--------- Controls ---------";
+		std::string line2 = "Movement: A / D | Left Analog";
+		std::string line3 = "Jump : Space | B";
+		std::string line4 = "Stun attack : Left Click | X";
+		std::string line5 = "Suck attack : Right Click | Y";
+		std::string line6 = "Dash : E";
+		std::string line7 = "Crouch : Left Shift";
+
+		Engine::GetInstance().render->DrawText(line1.c_str(), 200, 200, line1.size() * letter_size, 30, SDL_Color{ 255,255,0,255});
+		Engine::GetInstance().render->DrawText(line2.c_str(), 200, 225, line2.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
+		Engine::GetInstance().render->DrawText(line3.c_str(), 200, 250, line3.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
+		Engine::GetInstance().render->DrawText(line4.c_str(), 200, 275, line4.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
+		Engine::GetInstance().render->DrawText(line5.c_str(), 200, 300, line5.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
+		Engine::GetInstance().render->DrawText(line6.c_str(), 200, 325, line6.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
+		Engine::GetInstance().render->DrawText(line7.c_str(), 200, 350, line7.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
+
+			
+			
+			
+			
+			
+	}
+
 }
 
 

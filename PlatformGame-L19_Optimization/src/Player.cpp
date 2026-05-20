@@ -12,6 +12,21 @@
 #include "Map.h"
 #include "tracy/Tracy.hpp"
 
+/* ----------------------- CONTROLS (Keyboard/Gamepad) ----------------------- 
+	-- Player --
+	Movement: A/D | Left Analog
+	Jump: Space | B
+	Stun attack: Left Click | X
+	Suck attack: Right Click | Y
+	Dash: E
+	Crouch: Left Shift
+	
+	-- Menus -- 
+	Move Up/Down: W/S | Dpad Up/Down
+	Slider Left/Right: W/S | Dpad Left/Right
+	Accept: E | A
+*/
+
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name = "Player";
@@ -96,9 +111,9 @@ bool Player::Start() {
 		list_audios.insert({ "aterrizar" ,audios });
 		audios.LoadFx("Assets/Audio/Fx/05-barrido-consolidated.wav");
 		list_audios.insert({ "barrido",audios });
-		audios.LoadFx("Assets/Audio/Fx/06-recibir daño doctora-consolidated.wav");
+		audios.LoadFx("Assets/Audio/Fx/06-recibir daï¿½o doctora-consolidated.wav");
 		list_audios.insert({ "hit",audios });
-		audios.LoadFx("Assets/Audio/Fx/07-recibir daño doctora 2-consolidated.wav");
+		audios.LoadFx("Assets/Audio/Fx/07-recibir daï¿½o doctora 2-consolidated.wav");
 		list_audios.insert({ "hit2" ,audios });
 		audios.LoadFx("Assets/Audio/Fx/08-salto doctora-consolidated.wav");
 		list_audios.insert({"salto2" ,audios });
