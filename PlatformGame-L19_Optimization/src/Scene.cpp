@@ -697,6 +697,13 @@ void Scene::SaveGame()
 
 		pugi::xml_node upgradesNode = playerNode.append_child("upgrades");	
 		upgradesNode.append_attribute("hasPowerJump").set_value(player->hasPowerJump);
+
+		pugi::xml_node collectiblesNode = playerNode.append_child("collectibles");
+		for (int c_num : player->list_collectibles)
+		{
+			pugi::xml_node itemNode = collectiblesNode.append_child("item");
+			itemNode.append_attribute("c_num").set_value(c_num);
+		}
 	}
 
 	pugi::xml_node worldNode = root.child("world");
@@ -791,6 +798,21 @@ bool Scene::LoadGame(pugi::xml_node& root)
 		if (upgradesNode && player != nullptr)
 		{
 			player->hasPowerJump = upgradesNode.attribute("hasPowerJump").as_bool();
+		}
+
+		if (player != nullptr)
+		{
+			player->list_collectibles.clear();
+
+			pugi::xml_node collectiblesNode = playerNode.child("collectibles");
+			if (collectiblesNode)
+			{
+				for (pugi::xml_node itemNode = collectiblesNode.child("item"); itemNode; itemNode = itemNode.next_sibling("item")) 
+				{
+					int c_num = itemNode.attribute("c_num").as_int();
+					player->list_collectibles.push_back(c_num);
+				}
+			}
 		}
 	}
 
