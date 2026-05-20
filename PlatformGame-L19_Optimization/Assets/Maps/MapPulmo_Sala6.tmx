@@ -4583,7 +4583,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="30" height="76" visible="0">
+ <layer id="3" name="Collisions" width="30" height="76">
   <data>
    <tile gid="258"/>
    <tile gid="258"/>
@@ -6892,7 +6892,7 @@
     <property name="playerY" type="float" value="3616"/>
    </properties>
   </object>
-  <object id="5" name="Player" type="Player" x="528.696" y="653.913">
+  <object id="5" name="Player" type="Player" x="783.241" y="4638.76">
    <point/>
   </object>
  </objectgroup>
