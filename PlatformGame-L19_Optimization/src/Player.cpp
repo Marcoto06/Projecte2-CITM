@@ -1046,7 +1046,6 @@ void Player::ApplyPhysics() {
 	{
 		velocity.y += 0.3f;
 	}
-	LOG("%f", &velocity.y);
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
@@ -1177,6 +1176,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
+		break;
+	case ColliderType::DOOR:
+		isClimbing = false;
+		canClimb = false;
+		nearestClimbable = nullptr;
+		b2Body_SetGravityScale(pbody->body, gravityScale);
 		break;
 	case ColliderType::ENEMY:{
 		LOG("End Collision ENEMY");
