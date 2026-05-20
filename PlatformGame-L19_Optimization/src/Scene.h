@@ -44,6 +44,13 @@ enum class MenuNavDirection
 	RIGHT
 };
 
+enum class FadeState
+{
+	NONE,
+	FADE_IN,
+	FADE_OUT
+};
+
 class Scene : public Module
 {
 public:
@@ -98,6 +105,8 @@ public:
 	void LoadLevel(std::string level, float playerX = 0, float playerY = 0);
 	void UnloadLevel();
 
+	bool isContinuing = false;
+
 	//PauseMenuState GetPauseState() { return currentPauseState; };
 	//void SetPauseState(PauseMenuState state) { currentPauseState = state; };
 
@@ -114,6 +123,24 @@ public:
 	int fondoBocaFXId;
 
 	std::shared_ptr<Boss1> boss = nullptr;
+
+	//FADE TRANSITIONS
+	FadeState fadeState = FadeState::NONE;
+	float fadeAlpha = 0.0f;
+	float fadeDuration = 0.5f;
+
+	bool pendingMapChange = false;
+	std::string nextMapName = "";
+
+	bool pendingSceneChange = false;
+	SceneID nextSceneId = SceneID::MAIN_MENU;
+
+	void StartFadeToMap(std::string mapName, float targetX = -1.0f, float targetY = -1.0f, float duration = 0.5f);
+	void StartFadeToScene(SceneID sceneId, float duration = 0.5f);
+
+	float nextPlayerX = 0.0f;
+	float nextPlayerY = 0.0f;
+	bool shouldMovePlayer = false;
 	
 private:
 	struct VideoData {

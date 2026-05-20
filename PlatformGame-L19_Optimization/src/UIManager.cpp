@@ -415,25 +415,20 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 	case 8: // NEW GAME BUTTON
 	{
 		LOG("STARTING NEW GAME");
-		std::remove("Saves/savegame.xml");
 
-		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
+		Engine::GetInstance().scene->isContinuing = false;
+		Engine::GetInstance().scene->StartFadeToScene(SceneID::LEVEL, 0.5f);
+
 		//Engine::GetInstance().scene->PlayVideo("AnimaticaFinal");
 		break;
 	}
 	case 9: // CONTINUE BUTTON
 	{
-		LOG("CONTINUING GAME");
-		Engine::GetInstance().scene->ChangeScene(SceneID::LEVEL);
+		LOG("CONTINUING GAME");		
 
-		pugi::xml_document doc;
-		if (doc.load_file("Saves/savegame.xml")) {
-			pugi::xml_node root = doc.child("save_estate");
-			Engine::GetInstance().scene->LoadGame(root);
-		}
-		else {
-			LOG("Failed to load savegame.xml");
-		}
+		Engine::GetInstance().scene->isContinuing = true;
+		Engine::GetInstance().scene->StartFadeToScene(SceneID::LEVEL, 0.5f);
+
 		break;
 	}
 	default:

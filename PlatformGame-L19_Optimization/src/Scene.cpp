@@ -123,8 +123,80 @@ bool Scene::PostUpdate()
 		break;
 	}
 
-	/*if(Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;*/
+	if (fadeState != FadeState::NONE)
+	{
+		float dt = Engine::GetInstance().GetDt();
+
+		float fadeSpeed = (255.0f / (fadeDuration * 1000.0f)) * dt;
+
+		if (fadeState != FadeState::NONE)
+		{
+			float dt = Engine::GetInstance().GetDt();
+			float fadeSpeed = (255.0f / (fadeDuration * 1000.0f)) * dt;
+
+			if (fadeState == FadeState::FADE_OUT)
+			{
+				fadeAlpha += fadeSpeed;
+				if (fadeAlpha >= 255.0f)
+				{
+					fadeAlpha = 255.0f;
+					fadeState = FadeState::FADE_IN;
+
+					if (pendingMapChange) {
+
+						std::string mapFile = nextMapName;
+						if (mapFile.find(".tmx") == std::string::npos) {
+							mapFile += ".tmx";
+						}
+
+						Engine::GetInstance().entityManager->ClearNonPlayerEntities();
+						Engine::GetInstance().map->CleanUp();
+
+						LoadLevel(mapFile);
+
+						if (shouldMovePlayer && player != nullptr) {
+							player->SetPosition(Vector2D(nextPlayerX, nextPlayerY));
+							player->SetRespawnPosition(Vector2D(nextPlayerX, nextPlayerY));
+						}
+
+						pendingMapChange = false;
+					}
+					else if (pendingSceneChange) {
+						ChangeScene(nextSceneId);
+
+						if (isContinuing)
+						{
+							pugi::xml_document saveDoc;
+							if (saveDoc.load_file("Saves/savegame.xml"))
+							{
+								pugi::xml_node root = saveDoc.child("save_estate");
+								LoadGame(root);
+							}
+
+						}
+						pendingSceneChange = false;
+					}
+				}
+			}
+			else if (fadeState == FadeState::FADE_IN)
+			{
+				fadeAlpha -= fadeSpeed;
+				if (fadeAlpha <= 0.0f)
+				{
+					fadeAlpha = 0.0f;
+					fadeState = FadeState::NONE;
+
+					Engine::GetInstance().paused = false;
+				}
+			}
+
+			int w, h;
+			Engine::GetInstance().window->GetWindowSize(w, h);
+			SDL_Rect screenRect = { 0, 0, w, h };
+
+			Engine::GetInstance().render->DrawRectangle(screenRect, 0, 0, 0, (Uint8)fadeAlpha, true, false);
+		}
+	}
 
 	if (Engine::GetInstance().quit == true)
 		ret = false;
@@ -187,16 +259,23 @@ void Scene::LoadScene(SceneID newScene)
 
 	case SceneID::LEVEL:
 
-		pugi::xml_document saveFile;
-		pugi::xml_parse_result result = saveFile.load_file("Saves/savegame.xml");
-
-		if (result)
+		if (isContinuing)
 		{
-			std::string savedMapName = saveFile.child("save_estate").attribute("current_map").as_string();
+			pugi::xml_document saveFile;
+			pugi::xml_parse_result result = saveFile.load_file("Saves/savegame.xml");
 
-			if (!savedMapName.empty())
+			if (result)
 			{
-				LoadLevel(savedMapName + ".tmx");
+				std::string savedMapName = saveFile.child("save_estate").attribute("current_map").as_string();
+
+				if (!savedMapName.empty())
+				{
+					LoadLevel(savedMapName + ".tmx");
+				}
+				else
+				{
+					LoadLevel("MapTemplate.tmx");
+				}
 			}
 			else
 			{
@@ -206,7 +285,8 @@ void Scene::LoadScene(SceneID newScene)
 		else
 		{
 			LoadLevel("MapTemplate.tmx");
-		}
+		}		
+
 		//Create boss when booting up to avoid lagging afterwards.
 		/*std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
 		boss = std::dynamic_pointer_cast<Boss1>(e);
@@ -214,9 +294,9 @@ void Scene::LoadScene(SceneID newScene)
 		boss->position = Vector2D(100, -400);
 		boss->Awake();
 		boss->Start();
-		break;*/
-		//LoadLevel("MapTemplate");
-		
+		*/
+
+		break;		
 	}
 }
 
@@ -330,6 +410,8 @@ void Scene::UpdateMainMenu(float dt) {
 void Scene::HandlePause() {
 	if (isGameOver) return;
 
+	if (fadeState != FadeState::NONE) return;
+
 	bool escPressed = Engine::GetInstance().input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_START) == KEY_DOWN;
 	bool tabPressed = Engine::GetInstance().input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN;
 
@@ -416,9 +498,13 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 void Scene::UpdateLevel(float dt) {
 
 	HandlePause();
-	if (Engine::GetInstance().paused) {
+	if (Engine::GetInstance().paused && fadeState == FadeState::NONE) {
 		Engine::GetInstance().map->DrawForeground();
 		Engine::GetInstance().uiManager->ShowPauseMenu();
+	}
+	else if (Engine::GetInstance().paused && fadeState != FadeState::NONE)
+	{
+		Engine::GetInstance().map->DrawForeground();
 	}
 }
 
@@ -533,6 +619,47 @@ void Scene::StopCurrentVideo() {
 	currentVideo.plm = nullptr;
 	currentVideo.texture = nullptr;
 	currentVideo.buffer = nullptr;
+}
+
+// *********************************************
+// Fade transition functions
+// *********************************************
+
+void Scene::StartFadeToMap(std::string mapName, float targetX, float targetY, float duration)
+{
+	if (fadeState == FadeState::NONE)
+	{
+		fadeState = FadeState::FADE_OUT;
+		fadeAlpha = 0.0f;
+		fadeDuration = duration;
+		pendingMapChange = true;
+		nextMapName = mapName;
+
+		Engine::GetInstance().paused = true;
+
+		if (targetX != -1.0f && targetY != -1.0f) {
+			nextPlayerX = targetX;
+			nextPlayerY = targetY;
+			shouldMovePlayer = true;
+		}
+		else {
+			shouldMovePlayer = false;
+		}
+	}
+}
+
+void Scene::StartFadeToScene(SceneID sceneId, float duration)
+{
+	if (fadeState == FadeState::NONE)
+	{
+		fadeState = FadeState::FADE_OUT;
+		fadeAlpha = 0.0f;
+		fadeDuration = duration;
+		pendingSceneChange = true;
+		nextSceneId = sceneId;
+
+		Engine::GetInstance().paused = true;
+	}
 }
 
 // *********************************************

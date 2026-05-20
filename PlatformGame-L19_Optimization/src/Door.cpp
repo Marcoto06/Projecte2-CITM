@@ -51,10 +51,13 @@ bool Door::Destroy()
 }
 
 void Door::OnCollision(PhysBody* physA, PhysBody* physB) {
-	switch (physB->ctype)
+
+	PhysBody* other = (physA == pbody) ? physB : physA;
+
+	if (other->ctype == ColliderType::PLAYER)
 	{
-	case ColliderType::PLAYER:
-		Engine::GetInstance().scene->UnloadLevel();
-		Engine::GetInstance().scene->LoadLevel(destination, playerX, playerY);
+		//Engine::GetInstance().scene->UnloadLevel();
+
+		Engine::GetInstance().scene->StartFadeToMap(destination, playerX, playerY, 0.5f);
 	}
 }
