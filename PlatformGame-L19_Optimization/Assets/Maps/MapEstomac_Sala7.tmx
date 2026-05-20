@@ -4,6 +4,9 @@
   <property name="Draw" type="bool" value="true"/>
  </properties>
  <layer id="1" name="Solid" width="45" height="24">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
