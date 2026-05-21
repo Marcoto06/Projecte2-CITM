@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="8">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="8">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -13,25 +13,13 @@
  <tileset firstgid="817" name="Background Pulmón1" tilewidth="64" tileheight="64" tilecount="558" columns="31">
   <image source="../Textures/Backgrounds/Pulmones/Background Pulmón1.png" width="2020" height="1180"/>
  </tileset>
- <tileset firstgid="1375" name="Middleground_Pulmon" tilewidth="2160" tileheight="1920" tilecount="5" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
-  <tile id="0" x="100" y="0" width="2060" height="1916">
-   <image source="../Textures/Backgrounds/Pulmones/Abeoles2.png" width="2160" height="1920"/>
-  </tile>
-  <tile id="1" x="90" y="0" width="362" height="413">
-   <image source="../Textures/Backgrounds/Pulmones/Arbustos.png" width="452" height="413"/>
-  </tile>
-  <tile id="2" x="65" y="0" width="217" height="263">
-   <image source="../Textures/Backgrounds/Pulmones/Arbustos2.png" width="317" height="263"/>
-  </tile>
-  <tile id="3">
-   <image source="../Textures/Backgrounds/Pulmones/Abeoles1.png" width="2160" height="1920"/>
-  </tile>
-  <tile id="4">
-   <image source="../Textures/Backgrounds/Pulmones/Abeoles3.png" width="2160" height="1920"/>
-  </tile>
+ <tileset firstgid="1375" name="Middleground_Pulmon" tilewidth="1920" tileheight="2176" tilecount="1" columns="1">
+  <image source="../Textures/Backgrounds/Pulmones/Middleground_Sala9.png" width="1920" height="2176"/>
  </tileset>
- <layer id="6" name="Background" width="30" height="34">
+ <tileset firstgid="1376" name="Middleground_Pulmon" tilewidth="2276" tileheight="2233" tilecount="1" columns="1">
+  <image source="../Textures/Backgrounds/Pulmones/Middleground_Sala8.png" width="2276" height="2233"/>
+ </tileset>
+ <layer id="6" name="Background" width="30" height="34" parallaxx="1.1" parallaxy="1.1">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -72,7 +60,7 @@
 1282,1283,1284,1285,1286,1287,1288,1289,1290,1291,1292,1293,1294,1295,1296,1297,1298,1299,1300,1301,1302,1303,1304,1305,1306,1307,1308,1309,1310,1311
 </data>
  </layer>
- <layer id="7" name="Middleground" width="30" height="34">
+ <layer id="8" name="Middleground" width="30" height="34" parallaxx="1.2" parallaxy="1.2">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -88,7 +76,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,1376,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -99,7 +86,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1376,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1376,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -110,7 +96,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,1379,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1376,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <layer id="1" name="Solid" width="30" height="34">

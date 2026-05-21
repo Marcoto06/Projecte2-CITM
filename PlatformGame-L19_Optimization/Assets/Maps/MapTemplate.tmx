@@ -11978,7 +11978,7 @@
    </properties>
    <point/>
   </object>
-  <object id="38" name="Door" type="Door" x="2746" y="2074" width="704.03" height="32.5763">
+  <object id="38" name="Door" type="Door" x="2761.15" y="2049.76" width="704.03" height="32.5763">
    <properties>
     <property name="Destination" value="MapPulmo_Sala16.tmx"/>
     <property name="Type" value="Door"/>
@@ -12008,7 +12008,7 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="80" name="LinfocitoT" type="Enemy" x="694" y="980">
+  <object id="80" name="LinfocitoT" type="Enemy" x="684.909" y="570.909">
    <point/>
   </object>
  </objectgroup>

@@ -37,7 +37,7 @@ bool LinfocitoT::Start() {
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Linfocito-T.png");
 
 	//Add physics to the enemy - initialize physics body
-	texW = 125;
+	texW = 100;
 	texH = 80;
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX() + texW / 2, ((int)position.getY() + texH / 2), texW, texH, bodyType::DYNAMIC);
 	pbody->SetFixedRotation(true);
@@ -304,7 +304,7 @@ void LinfocitoT::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 80;
+	int drawY = y - (frameH / 2)- 200;
 
 	if (isFacingRight)
 	{
@@ -409,6 +409,7 @@ void LinfocitoT::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			else
 			{
+				LOG("resta armadura");
 				armadura--;
 			}
 
