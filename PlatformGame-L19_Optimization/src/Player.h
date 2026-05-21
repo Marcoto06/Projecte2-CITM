@@ -171,7 +171,7 @@ public:
 	bool hasCrouch = false;
 	bool hasAcidResistance = false;
 	bool hasAscend = false;
-	bool hasDash = true;
+	bool hasDash = false;
 
 	//"step up" 
 	bool isStepUpSmoothing = false;

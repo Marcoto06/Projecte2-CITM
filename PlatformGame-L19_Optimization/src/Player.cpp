@@ -80,9 +80,6 @@ bool Player::Start() {
 	//Hitbox
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 25, texW / 2, texH -50, bodyType::DYNAMIC);
 
-	hasAcidResistance = true;
-	hasAscend = true;
-
 	pbody->SetFixedRotation(true);
 	pbody->listener = this;
 
