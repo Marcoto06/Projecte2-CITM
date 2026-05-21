@@ -16387,7 +16387,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="60" height="68" visible="0">
+ <layer id="3" name="Collisions" width="60" height="68">
   <data>
    <tile/>
    <tile/>
@@ -19420,8 +19420,6 @@
    <tile gid="258"/>
    <tile/>
    <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
    <tile/>
    <tile/>
    <tile/>
@@ -19435,8 +19433,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -20446,10 +20446,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
@@ -20490,7 +20490,7 @@
   </object>
   <object id="4" name="Door" type="Door" x="3766.42" y="3948.89" width="68" height="314.221">
    <properties>
-    <property name="Destination" value=".tmxMapCor_Sala7.tmx"/>
+    <property name="Destination" value="MapCor_Sala7.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="356"/>
     <property name="playerY" type="float" value="1678"/>
