@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Entity.h"
 #include "Animation.h"
 #include "Timer.h"
@@ -7,16 +6,15 @@
 #include <SDL3/SDL.h>
 #include "Pathfinding.h"
 
-
 struct SDL_Texture;
 class Player;
 
-class Dendríticas : public Entity
+class LinfocitoT : public Entity
 {
 public:
 
-	Dendríticas();
-	virtual ~Dendríticas();
+	LinfocitoT();
+	virtual ~LinfocitoT();
 	bool Awake();
 	bool Start();
 	bool Update(float dt);
@@ -43,7 +41,7 @@ private:
 public:
 
 	//Declare enemy parameters
-	float speed = 2.0f;
+	float speed = 1.0f;
 	SDL_Texture* texture = NULL;
 	int texW, texH;
 	PhysBody* pbody;
@@ -59,6 +57,8 @@ public:
 
 	Player* attackingPlayer = nullptr;
 
+	int attackPhase = 0;
+	int syringeHits = 0;
 	int pathfindingFrameCount = 0;
 	const int pathfindingUpdateRate = 30; // frequency in frames
 
@@ -75,10 +75,11 @@ private:
 		WALKING,
 		CHASING, //idk if we're going to use this
 		STUNED,
+		ATTACK,
 		DEATH
 	};
 
 	ENEMYSTATES currentEState = ENEMYSTATES::WALKING;
+	
 };
-
 

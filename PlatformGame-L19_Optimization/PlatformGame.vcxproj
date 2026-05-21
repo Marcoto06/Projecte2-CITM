@@ -157,7 +157,7 @@
     <ClCompile Include="src\Checkpoint.cpp" />
     <ClCompile Include="src\Climbable.cpp" />
     <ClCompile Include="src\Collectibles.cpp" />
-    <ClCompile Include="src\Dendríticas.cpp" />
+    <ClCompile Include="src\Dendriticas.cpp" />
     <ClCompile Include="src\DialogManager.cpp" />
     <ClCompile Include="src\DialogTrigger.cpp" />
     <ClCompile Include="src\Door.cpp" />
@@ -167,7 +167,7 @@
     <ClCompile Include="src\Eosinofilo.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Item.cpp" />
-    <ClCompile Include="src\LinfocitoTNK.cpp" />
+    <ClCompile Include="src\LinfocitoT.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Pathfinding.cpp" />
@@ -202,7 +202,7 @@
     <ClInclude Include="src\Checkpoint.h" />
     <ClInclude Include="src\Climbable.h" />
     <ClInclude Include="src\Collectibles.h" />
-    <ClInclude Include="src\Dendríticas.h" />
+    <ClInclude Include="src\Dendriticas.h" />
     <ClInclude Include="src\DialogManager.h" />
     <ClInclude Include="src\DialogTrigger.h" />
     <ClInclude Include="src\Door.h" />
@@ -213,7 +213,7 @@
     <ClInclude Include="src\Eosinofilo.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Item.h" />
-    <ClInclude Include="src\LinfocitoTNK.h" />
+    <ClInclude Include="src\LinfocitoT.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Module.h" />

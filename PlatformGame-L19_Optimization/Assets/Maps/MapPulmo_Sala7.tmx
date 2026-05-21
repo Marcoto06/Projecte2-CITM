@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="7">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="7">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -13,25 +13,10 @@
  <tileset firstgid="817" name="Background Pulmón1" tilewidth="64" tileheight="64" tilecount="558" columns="31">
   <image source="../Textures/Backgrounds/Pulmones/Background Pulmón1.png" width="2020" height="1180"/>
  </tileset>
- <tileset firstgid="1375" name="Middleground_Pulmon" tilewidth="2160" tileheight="1920" tilecount="5" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
-  <tile id="0">
-   <image source="../Textures/Backgrounds/Pulmones/Arbustos.png" width="452" height="413"/>
-  </tile>
-  <tile id="1">
-   <image source="../Textures/Backgrounds/Pulmones/Arbustos2.png" width="317" height="263"/>
-  </tile>
-  <tile id="2">
-   <image source="../Textures/Backgrounds/Pulmones/Abeoles1.png" width="2160" height="1920"/>
-  </tile>
-  <tile id="3">
-   <image source="../Textures/Backgrounds/Pulmones/Abeoles3.png" width="2160" height="1920"/>
-  </tile>
-  <tile id="4">
-   <image source="../Textures/Backgrounds/Pulmones/Abeoles2.png" width="2160" height="1920"/>
-  </tile>
+ <tileset firstgid="1375" name="Middleground_Pulmon" tilewidth="2123" tileheight="2225" tilecount="1" columns="1">
+  <image source="../Textures/Backgrounds/Pulmones/Middleground_Sala7.png" width="2123" height="2225"/>
  </tileset>
- <layer id="6" name="Background" width="30" height="34">
+ <layer id="6" name="Background" width="30" height="34" parallaxx="1.1" parallaxy="1.1">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -1058,7 +1043,7 @@
    <tile gid="1311"/>
   </data>
  </layer>
- <layer id="7" name="Middleground" width="30" height="34" offsetx="-202.249" offsety="48.7346">
+ <layer id="8" name="Middleground" width="30" height="34" offsetx="-207.122" offsety="38.9877" parallaxx="1.2" parallaxy="1.2">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -1746,7 +1731,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1376"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2053,7 +2037,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1377"/>
+   <tile/>
+   <tile gid="1375"/>
    <tile/>
    <tile/>
    <tile/>

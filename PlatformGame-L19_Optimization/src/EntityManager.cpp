@@ -14,7 +14,9 @@
 #include "Boss1.h"
 #include "DialogTrigger.h"
 #include "Plaquetas.h"
-#include "Dendríticas.h"
+#include "Dendriticas.h"
+#include "LinfocitoT.h"
+#include "DendrÃ­ticas.h"
 #include "LinfocitoTNK.h"
 #include "Acid.h"
 
@@ -99,7 +101,10 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		entity = std::make_shared<Plaquetas>();
 		break;
 	case EntityType::DENDRITICAS:
-		entity = std::make_shared<Dendríticas>();
+		entity = std::make_shared<Dendriticas>();
+		break;
+	case EntityType::LINFOCITOT:
+		entity = std::make_shared<LinfocitoT>();
 		break;
 	case EntityType::CHECKPOINT:
 		entity = std::make_shared<Checkpoint>();

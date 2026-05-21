@@ -133,9 +133,15 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	/*LOG("%f", velocity.x);*/
 	Draw(dt);
 	if (lock) return true;
+
+	if (isCamouflage) {
+		if (camouflageTimer.ReadMSec() > 20000.0f) {
+			isCamouflage = false;
+		}
+	}
+
 	if (hasDash && dashing == false && dashLeft > 0 && !isClimbing) {
 		Func_Dash();
 	} 
@@ -633,8 +639,19 @@ void Player::ActivateSpeedBoost() {
 	LOG("Boost iniciado!");
 }
 
+void Player::ActivateBerserker() {
+	isBerserker = true;
+	BerserkerTimer.Start();
+}
+
+void Player::ActivateCamouflage() {
+	isCamouflage = true;
+	camouflageTimer.Start();
+}
+
 void Player::Func_BoostMovement() {
-	float durationMS = 20000.0f; // 5 seconds in miliseconds
+	float durationMS = 20000.0f;
+	float durationBerserker = 18000.0f; // 18 seconds in miliseconds
 	isMoving = false; 
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
@@ -652,6 +669,11 @@ void Player::Func_BoostMovement() {
 	{
 		isAdrenaline = false;
 		LOG("Boost terminado");
+	}
+
+	if (BerserkerTimer.ReadMSec() > durationBerserker)
+	{
+		isBerserker = false;
 	}
 }
 
@@ -958,6 +980,8 @@ void Player::Func_Attacks(float dt) {
 		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor((int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
+
+		suckBody->listener = this;
 	}
 
 	if (isSucking) {
@@ -1158,6 +1182,13 @@ void Player::Draw(float dt) {
 	float texW = animFrame.w;
 	float texH = animFrame.h;
 	
+	if (isCamouflage) {
+		SDL_SetTextureAlphaMod(texture, 128); 
+	}
+	else {
+		SDL_SetTextureAlphaMod(texture, 255);
+	}
+
 	if (facingRight)
 	{
 		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
@@ -1167,6 +1198,8 @@ void Player::Draw(float dt) {
 	{
 		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
+	
+	SDL_SetTextureAlphaMod(texture, 255);
 
 	if (effectAnims.HasCurrentAnimationFinished() == true) {
 		healing = false;
@@ -1251,7 +1284,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		
 		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
-			playerCurrentHp--;
+			if (isBerserker)
+			{
+				playerCurrentHp = playerCurrentHp - 0.5;
+			}
+			else
+			{
+				playerCurrentHp--;
+			}
 			Engine::GetInstance().audio->PlayFx(hurtFxId);
 			b2Body_SetGravityScale(pbody->body, gravityScale);
 			isClimbing = false;

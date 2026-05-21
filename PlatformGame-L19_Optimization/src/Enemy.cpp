@@ -29,8 +29,7 @@ bool Enemy::Start() {
 
 	// load
 	std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"idle"}, {60,"hurt"}, {90,"stunned"}, {120,"death"}};
-	//anims eosinofilo
-	//std::unordered_map<int, std::string> aliases = { {0,"walk"}, {30,"tentaclesIn"}, {60,"idleBoomerang"}, {90,"tentaclesOut"}, {120,"boomerangOut"}, {150,"idleEmpty"}, {180,"boomerangIn"} };
+	
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", aliases);
 	anims.SetCurrent("walk");
 	anims.Func_SetAnimationLoop("death", false);

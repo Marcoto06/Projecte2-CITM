@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Render.h"
 #include "Scene.h"
+#include "Player.h"
 #include "tracy/Tracy.hpp"
 
 Pathfinding::Pathfinding() {
@@ -408,6 +409,10 @@ int Pathfinding::Find(std::list<Vector2D> vector, Vector2D elem)
 
 bool Pathfinding::CanPropagateAStar(const Vector2D& destinationTile) const
 {
+    if (Engine::GetInstance().scene->player->isCamouflage) {
+        return false;
+    }
+
     return !frontierAStar.empty()
         && IsWalkable((int)destinationTile.getX(), (int)destinationTile.getY())
         && pathTiles.empty();
