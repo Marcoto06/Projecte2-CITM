@@ -507,9 +507,9 @@ MapLayer* Map::GetNavigationLayer() {
 
                         enemy->Start(); //L17: Important to call Start to initialize the Entity
                     }
-                    else if (name == "Plaquetas") {
-                        LOG("PLAQUETA CREADA");
-                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAQUETA));
+                    else if (name == "LinfocitoTNK") {
+                        LOG("LINFOCITO TNK CREADO");
+                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::LINFOCITO_TNK));
                         enemy->position = Vector2D(x, y);
                         enemy->tiledId = tiledId;
 

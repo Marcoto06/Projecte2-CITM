@@ -1211,15 +1211,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
-		//LOG("Collision PLATFORM");
-
-		//if (isMoving && onGround)
-		//{
-		//	if (TryStepUp())
-		//	{
-		//		break;
-		//	}
-		//}
 
 		if (physA->ctype == ColliderType::SENSOR)
 		{
