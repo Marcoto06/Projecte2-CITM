@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="45" height="51" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="1">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="45" height="51" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="1">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -387,9 +387,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="221"/>
    <tile gid="222"/>
-   <tile gid="222"/>
-   <tile gid="222"/>
+   <tile gid="223"/>
    <tile/>
    <tile/>
    <tile/>
@@ -432,9 +432,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="253"/>
    <tile gid="254"/>
-   <tile gid="254"/>
-   <tile gid="254"/>
+   <tile gid="255"/>
    <tile/>
    <tile/>
    <tile/>
@@ -705,10 +705,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="221"/>
    <tile gid="222"/>
    <tile gid="222"/>
    <tile gid="222"/>
@@ -716,8 +713,11 @@
    <tile gid="222"/>
    <tile gid="222"/>
    <tile gid="222"/>
-   <tile gid="249"/>
-   <tile gid="250"/>
+   <tile gid="222"/>
+   <tile gid="222"/>
+   <tile gid="222"/>
+   <tile gid="245"/>
+   <tile gid="246"/>
    <tile gid="239"/>
    <tile/>
    <tile/>
@@ -750,10 +750,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="253"/>
+   <tile gid="254"/>
+   <tile gid="254"/>
+   <tile gid="254"/>
    <tile gid="254"/>
    <tile gid="254"/>
    <tile gid="254"/>
@@ -2639,19 +2639,19 @@
    <tile/>
    <tile/>
    <tile gid="205"/>
+   <tile gid="207"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="205"/>
    <tile gid="206"/>
+   <tile gid="207"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="206"/>
-   <tile gid="206"/>
-   <tile gid="206"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="206"/>
+   <tile gid="205"/>
    <tile gid="206"/>
    <tile gid="207"/>
    <tile/>
@@ -2962,10 +2962,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="205"/>
+   <tile gid="206"/>
+   <tile gid="206"/>
+   <tile gid="206"/>
    <tile gid="206"/>
    <tile gid="206"/>
    <tile gid="206"/>
@@ -3449,19 +3449,19 @@
    <tile/>
    <tile/>
    <tile gid="205"/>
+   <tile gid="207"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="205"/>
    <tile gid="206"/>
+   <tile gid="207"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="206"/>
-   <tile gid="206"/>
-   <tile gid="206"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="206"/>
+   <tile gid="205"/>
    <tile gid="206"/>
    <tile gid="207"/>
    <tile/>
@@ -4613,7 +4613,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="45" height="51">
+ <layer id="3" name="Collisions" width="45" height="51" visible="0">
   <data>
    <tile/>
    <tile/>
