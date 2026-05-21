@@ -552,6 +552,9 @@ void Scene::PostUpdateLevel() {
 void Scene::ActivateGameOver()
 {
 	Engine::GetInstance().uiManager->ShowDeathScreen();
+	Engine::GetInstance().entityManager->CleanUp(true);
+
+	destroyedEntitiesIds.clear();
 }
 
 // *********************************************

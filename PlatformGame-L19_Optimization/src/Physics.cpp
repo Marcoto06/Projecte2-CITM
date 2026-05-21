@@ -315,7 +315,7 @@ void Physics::BeginContact(b2ShapeId shapeA, b2ShapeId shapeB)
 
     PhysBody* physA = BodyToPhys(bodyA);
     PhysBody* physB = BodyToPhys(bodyB);
-    if (!physA || !physB) return;                  // user data cleared
+    if (!physA || !physB) return;
 
     if (physA->listener && !IsPendingToDelete(physA)) physA->listener->OnCollision(physA, physB);
     if (physB->listener && !IsPendingToDelete(physB)) physB->listener->OnCollision(physB, physA);

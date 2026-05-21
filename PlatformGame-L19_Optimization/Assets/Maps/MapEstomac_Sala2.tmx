@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="135" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="6">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="135" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="7">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -13822,6 +13822,11 @@
     <property name="Type" value="Player"/>
    </properties>
    <point/>
+  </object>
+  <object id="6" name="Acid" type="Acid" x="3528.67" y="1776.67" width="1766.67" height="70.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

@@ -239,4 +239,7 @@ private:
 	};
 
 	PLAYERSTATE currentState = PLAYERSTATE::IDLE;
+
+	Timer deathTimer;
+	bool dead = false;
 };

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="136" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="6">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="136" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="12">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -12292,6 +12292,36 @@
     <property name="Type" value="Player"/>
    </properties>
    <point/>
+  </object>
+  <object id="6" name="Acid" type="Acid" x="324.666" y="2672.67" width="186.667" height="70.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="7" name="Acid" type="Acid" x="774.667" y="4344.67" width="314.667" height="82.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="8" name="Acid" type="Acid" x="778.667" y="5426.67" width="414.667" height="94.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="9" name="Acid" type="Acid" x="1148.67" y="6196.67" width="258.667" height="74.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="10" name="Acid" type="Acid" x="782.667" y="7026.67" width="422.667" height="82.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="11" name="Acid" type="Acid" x="844.667" y="8110.67" width="238.667" height="74.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

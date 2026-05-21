@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="290" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="8">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="290" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="10">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -59236,6 +59236,16 @@
    <properties>
     <property name="Assimilate" type="int" value="4"/>
     <property name="Type" value="Egg"/>
+   </properties>
+  </object>
+  <object id="8" name="Acid" type="Acid" x="12.5081" y="3895.32" width="18158.7" height="459.758">
+   <properties>
+    <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="9" name="Acid" type="Acid" x="12667.5" y="1452.61" width="695.394" height="82.6667">
+   <properties>
+    <property name="Type" value="Acid"/>
    </properties>
   </object>
  </objectgroup>

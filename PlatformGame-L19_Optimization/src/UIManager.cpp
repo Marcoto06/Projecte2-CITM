@@ -687,7 +687,7 @@ void UIManager::HandleUINavigation(int initialID, int finalID, MenuNavDirection 
 	/* MENU NAVIGATION WITH KEYS */
 
 	auto selectedUI = GetElement(selectedUIID);
-
+	if (!selectedUI) return;
 	switch (direction) {
 	case MenuNavDirection::UP:
 	{
@@ -795,10 +795,10 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 	}
 	case 10: //	DEATH SCREEN: Try Again Button
 	{
-		Engine::GetInstance().scene->isGameOver = false;
+		/*Engine::GetInstance().scene->isGameOver = false;
 		Engine::GetInstance().paused = false;
 		CleanUp();
-		Engine::GetInstance().scene->ChangeScene(Engine::GetInstance().scene->GetCurrentScene());
+		Engine::GetInstance().scene->ChangeScene(Engine::GetInstance().scene->GetCurrentScene());*/
 		break;
 	}
 	case 11: //	DEATH SCREEN: Go To Menu Button

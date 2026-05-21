@@ -12008,9 +12008,6 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="80" name="LinfocitoT" type="Enemy" x="684.909" y="570.909">
-   <point/>
-  </object>
  </objectgroup>
  <layer id="7" name="Navigation" width="60" height="33">
   <properties>

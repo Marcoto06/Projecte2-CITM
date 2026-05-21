@@ -124,6 +124,7 @@ bool Player::Start() {
 		list_audios.insert({ "inject",audios });
 	}*/
 	currentState = PLAYERSTATE::IDLE;
+	onGround = true;
 
 	return true;
 }
@@ -131,6 +132,7 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 	Draw(dt);
+	if (playerCurrentHp <= 0) currentState = PLAYERSTATE::DEATH;
 	if (lock) return true;
 
 	if (isCamouflage) {
@@ -738,9 +740,10 @@ void Player::Jump(float dt)
 void Player::Func_PlayerState() {
 	
 	if (currentState == PLAYERSTATE::DEATH) {
-		if (anims.HasCurrentAnimationFinished()) 
+		if (anims.HasCurrentAnimationFinished() || (deathTimer.ReadMSec() > 700 && !dead)) 
 		{
 			//Destroy();
+			dead = true;
 			Engine::GetInstance().scene->ActivateGameOver();
 		}
 		return;
@@ -1319,6 +1322,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				canAttack = false;
 				currentState = PLAYERSTATE::DEATH;
 				anims.SetCurrent("death");
+				deathTimer.Start();
 			}
 		}
 		break;
@@ -1424,6 +1428,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		canMove = false;
 		canJump = false;
 		canAttack = false;
+		playerCurrentHp = 0;
 		currentState = PLAYERSTATE::DEATH;
 		anims.SetCurrent("death");
 		break;

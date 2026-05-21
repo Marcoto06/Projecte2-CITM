@@ -18390,10 +18390,10 @@
  <objectgroup id="4" name="Entities">
   <object id="1" name="Door" type="Door" x="274.762" y="4319.4" width="390.476" height="49.204">
    <properties>
-    <property name="Destination" value="MapPulmo_Sala1.tmx"/>
+    <property name="Destination" value="MapCor_Sala9.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="987.95"/>
-    <property name="playerY" type="float" value="200.29"/>
+    <property name="playerX" type="float" value="992.52"/>
+    <property name="playerY" type="float" value="170.59"/>
    </properties>
   </object>
   <object id="3" name="Player" type="Player" x="820" y="4224">

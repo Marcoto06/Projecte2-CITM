@@ -564,7 +564,7 @@ void Boss1::Initialize() {
 	initialHeadPos = Vector2D(position.getX() + 1000, position.getY() + 850);
 	stunHeadPos = initialHeadPos + Vector2D(-340, 680);
 	R_Hand->position = initialHeadPos + Vector2D(-400, 950);
-	L_Hand->position = initialHeadPos + Vector2D(400, 9500);
+	L_Hand->position = initialHeadPos + Vector2D(400, 950);
 	//Set Current Animation as intro
 	currentBodyAnimation = intro_body;
 	currentRHandAnimation = intro_R_hand;
