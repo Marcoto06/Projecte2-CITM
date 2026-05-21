@@ -59191,7 +59191,7 @@
   </data>
  </layer>
  <objectgroup id="4" name="Entities">
-  <object id="1" name="Boss" type="Boss" x="8512" y="1920" width="1920" height="1920">
+  <object id="1" name="Boss" type="Boss" x="8512" y="1984" width="1920" height="1920">
    <properties>
     <property name="Type" value="Boss"/>
    </properties>

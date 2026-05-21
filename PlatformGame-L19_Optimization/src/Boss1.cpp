@@ -229,6 +229,10 @@ bool Boss1::Update(float dt)
 
 	//Func_EnemyStates(dt);
 	ApplyPhysics();
+	if (currentBodyAnimation == stun_body) {
+		R_Hand->velocity.y = 0.5;
+		L_Hand->velocity.y = 0.5;
+	}
 	//RIGHT HAND
 	if ((R_Hand->velocity.y == -R_Hand->v_speed && R_Hand->position.getY() < R_Hand->idlePos.getY()) || (R_Hand->velocity.x == -R_Hand->h_speed && R_Hand->position.getX() < R_Hand->idlePos.getX()))
 	{
@@ -559,8 +563,8 @@ Boss1::bossAnimation::bossAnimation(int frames, std::string name, Body_Parts par
 void Boss1::Initialize() {
 	initialHeadPos = Vector2D(position.getX() + 1000, position.getY() + 850);
 	stunHeadPos = initialHeadPos + Vector2D(-340, 680);
-	R_Hand->position = initialHeadPos + Vector2D(-400, 1000);
-	L_Hand->position = initialHeadPos + Vector2D(400, 1000);
+	R_Hand->position = initialHeadPos + Vector2D(-400, 950);
+	L_Hand->position = initialHeadPos + Vector2D(400, 9500);
 	//Set Current Animation as intro
 	currentBodyAnimation = intro_body;
 	currentRHandAnimation = intro_R_hand;
