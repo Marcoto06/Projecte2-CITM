@@ -10262,8 +10262,8 @@
    <properties>
     <property name="Destination" value="MapCor_Sala16.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="196"/>
-    <property name="playerY" type="float" value="10688"/>
+    <property name="playerX" type="float" value="272"/>
+    <property name="playerY" type="float" value="10720"/>
    </properties>
   </object>
   <object id="122" name="Door" type="Door" x="3120" y="-14" width="364" height="24">

@@ -39466,7 +39466,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="290" height="68" visible="0">
+ <layer id="3" name="Collisions" width="290" height="68">
   <data>
    <tile gid="514"/>
    <tile/>
@@ -59191,7 +59191,7 @@
   </data>
  </layer>
  <objectgroup id="4" name="Entities">
-  <object id="1" name="Boss" type="Boss" x="8512" y="1856" width="1920" height="1920">
+  <object id="1" name="Boss" type="Boss" x="8512" y="1920" width="1920" height="1920">
    <properties>
     <property name="Type" value="Boss"/>
    </properties>

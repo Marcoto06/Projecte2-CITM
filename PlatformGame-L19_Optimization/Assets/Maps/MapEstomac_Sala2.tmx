@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="135" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="4">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="135" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="6">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -6300,7 +6300,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="203"/>
    <tile gid="204"/>
    <tile gid="204"/>
    <tile gid="204"/>
@@ -11144,7 +11144,7 @@
    <tile/>
    <tile/>
    <tile gid="258"/>
-   <tile/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
@@ -11155,7 +11155,7 @@
    <tile/>
    <tile/>
    <tile gid="258"/>
-   <tile/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
@@ -11166,7 +11166,7 @@
    <tile/>
    <tile/>
    <tile gid="258"/>
-   <tile/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
@@ -11177,22 +11177,6 @@
    <tile/>
    <tile/>
    <tile gid="258"/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
@@ -11209,35 +11193,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -11261,22 +11218,15 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="258"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="258"/>
    <tile/>
    <tile/>
    <tile gid="258"/>
@@ -11290,7 +11240,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -11313,6 +11268,51 @@
    <tile/>
    <tile/>
    <tile gid="258"/>
+   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -13810,6 +13810,12 @@
     <property name="playerX" type="float" value="244"/>
     <property name="playerY" type="float" value="260"/>
    </properties>
+  </object>
+  <object id="4" name="Player" type="Player" x="597.822" y="421.416">
+   <properties>
+    <property name="Type" value="Player"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

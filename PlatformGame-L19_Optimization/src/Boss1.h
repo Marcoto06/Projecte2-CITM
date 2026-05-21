@@ -31,10 +31,10 @@ public:
 
 	int life = 10;
 	bool active = false;
+	PhysBody* triggerBody;
 	
 
 private:
-	PhysBody* triggerBody;
 
 	Vector2D initialHeadPos;
 	Vector2D stunHeadPos;
