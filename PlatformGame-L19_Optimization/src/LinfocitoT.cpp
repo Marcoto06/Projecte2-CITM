@@ -32,6 +32,9 @@ bool LinfocitoT::Start() {
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Linfocito-T.tsx", aliases);
 	anims.SetCurrent("walk");
 	anims.Func_SetAnimationLoop("death", false);
+	anims.Func_SetAnimationLoop("cargar", false);
+	anims.Func_SetAnimationLoop("chocar", false);
+	//anims.Func_SetAnimationLoop("rodar", false);
 
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Linfocito-T.png");
@@ -67,13 +70,33 @@ bool LinfocitoT::Update(float dt)
 
 	GetPhysicsValues();
 
-	if (!isStunned)
+	if (!isStunned && currentEState != ENEMYSTATES::ATTACK && currentEState != ENEMYSTATES::DEATH)
 	{
 		isPlayerDetected = IsPlayerDetected();
 
 		if (isPlayerDetected)
 		{
-			currentEState = ENEMYSTATES::CHASING;
+			
+			Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
+			Vector2D enemyPosition = GetPosition();
+			float distanceX = playerPosition.getX() - enemyPosition.getX();
+			float distanceY = playerPosition.getY() - enemyPosition.getY();
+			float squaredDistance = (distanceX * distanceX) + (distanceY * distanceY);
+
+			//distancia ataque
+			float attackRange = 200.0f;
+
+			if (squaredDistance <= (attackRange * attackRange))
+			{
+				currentEState = ENEMYSTATES::ATTACK;
+				attackPhase = 0; //CARGAR
+				anims.SetCurrent("cargar");
+				velocity.x = 0.0f; // cargar
+			}
+			else
+			{
+				currentEState = ENEMYSTATES::CHASING;
+			}
 		}
 		else
 		{
@@ -152,11 +175,11 @@ void LinfocitoT::Func_EnemyStates(float dt)
 		break;
 
 	case LinfocitoT::ENEMYSTATES::STUNED:
-		anims.SetCurrent("stunned");
+		anims.SetCurrent("stun");
 
 		if (isBeingSucked)
 		{
-			if (!player->isAdrenaline)//tocar
+			if (!player->isAdrenaline)
 			{
 				if (suckTimer.ReadMSec() >= 5000.0f)
 				{
@@ -183,13 +206,45 @@ void LinfocitoT::Func_EnemyStates(float dt)
 			{
 				currentEState = ENEMYSTATES::WALKING;
 				isStunned = false;
+				syringeHits = 0;
 			}
 		}
 		break;
 
 	case LinfocitoT::ENEMYSTATES::ATTACK:
 
-		//TOCAR
+		if (attackPhase == 0) //Cargar
+		{
+			velocity.x = 0.0f; 
+			if (anims.Func_HasCurrentAnimationFinished())
+			{
+				attackPhase = 1; //RODAR
+				anims.SetCurrent("rodar");
+				timer_01.Start(); 
+			}
+		}
+		else if (attackPhase == 1) //Rodar
+		{
+			
+			float dashSpeed = speed * 2.5f;
+			velocity.x = isFacingRight ? dashSpeed : -dashSpeed;
+
+			
+			if (timer_01.ReadMSec() > 2000.0f)
+			{
+				currentEState = ENEMYSTATES::CHASING;
+			}
+		}
+		else if (attackPhase == 2) //Chocar
+		{
+			velocity.x = 0.0f; 
+			if (anims.Func_HasCurrentAnimationFinished())
+			{
+				currentEState = ENEMYSTATES::CHASING; 
+			}
+		}
+		break;
+	
 
 	case LinfocitoT::ENEMYSTATES::DEATH:
 
@@ -394,36 +449,40 @@ bool LinfocitoT::IsEnemyStunned() {
 //Define OnCollision function for the enemy. 
 void LinfocitoT::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	int armadura = 3;
-	switch (physB->ctype)
-	{
-	case ColliderType::SYRINGE:
-		if (!isStunned)
+		switch (physB->ctype)
 		{
-			if (armadura <=0)
+		case ColliderType::SYRINGE:
+			if (!isStunned)
 			{
-				timer_01.Start();
-				currentEState = ENEMYSTATES::STUNED;
-				isStunned = true;
+				syringeHits++;
 
+				if (syringeHits >= 3) // Si ya le hemos dado 3 veces
+				{
+					timer_01.Start();
+					currentEState = ENEMYSTATES::STUNED;
+					isStunned = true;
+					syringeHits = 0;
+				}
 			}
-			else
+			break;
+		case ColliderType::SUCK_ZONE:
+			if (isStunned && !isBeingSucked) {
+				isBeingSucked = true;
+				suckTimer.Start();
+
+				attackingPlayer = (Player*)physB->listener;
+			}
+			break;
+		case ColliderType::PLAYER:
+			if (currentEState != ENEMYSTATES::DEATH && currentEState != ENEMYSTATES::STUNED)
 			{
-				LOG("resta armadura");
-				armadura--;
+				currentEState = ENEMYSTATES::ATTACK;
+				attackPhase = 2; //Chocar
+				anims.SetCurrent("chocar");
+				attackingPlayer = (Player*)physB->listener;
 			}
-
+			break;
 		}
-		break;
-	case ColliderType::SUCK_ZONE:
-		if (isStunned && !isBeingSucked) {
-			isBeingSucked = true;
-			suckTimer.Start();
-
-			attackingPlayer = (Player*)physB->listener;
-		}
-		break;
-	}
 }
 
 void LinfocitoT::OnCollisionEnd(PhysBody* physA, PhysBody* physB)

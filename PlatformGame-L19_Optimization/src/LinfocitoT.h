@@ -57,6 +57,8 @@ public:
 
 	Player* attackingPlayer = nullptr;
 
+	int attackPhase = 0;
+	int syringeHits = 0;
 	int pathfindingFrameCount = 0;
 	const int pathfindingUpdateRate = 30; // frequency in frames
 
