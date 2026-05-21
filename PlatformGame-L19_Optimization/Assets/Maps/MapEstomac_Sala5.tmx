@@ -1993,7 +1993,7 @@
    <tile gid="254"/>
    <tile gid="254"/>
    <tile gid="254"/>
-   <tile gid="238"/>
+   <tile gid="254"/>
    <tile gid="254"/>
    <tile gid="254"/>
    <tile gid="254"/>
@@ -4613,7 +4613,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="45" height="51" visible="0">
+ <layer id="3" name="Collisions" width="45" height="51">
   <data>
    <tile/>
    <tile/>
