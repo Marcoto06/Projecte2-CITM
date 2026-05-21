@@ -860,7 +860,7 @@ MapLayer* Map::GetNavigationLayer() {
                 {
                     if (Engine::GetInstance().scene->boss != nullptr) {
                         Engine::GetInstance().scene->boss->position = Vector2D(x, y);
-                        Engine::GetInstance().scene->boss->Initialize();
+                        Engine::GetInstance().scene->boss->triggerBody->SetPosition(Engine::GetInstance().scene->boss->position.getX() + 960, Engine::GetInstance().scene->boss->position.getY() + 960);
                         LOG("BOSS IN POSITION");
                     }
                     else {

@@ -11978,7 +11978,7 @@
    </properties>
    <point/>
   </object>
-  <object id="38" name="Door" type="Door" x="2761.15" y="2049.76" width="704.03" height="32.5763">
+  <object id="38" name="Door" type="Door" x="2736.12" y="2066.79" width="704.03" height="32.5763">
    <properties>
     <property name="Destination" value="MapPulmo_Sala16.tmx"/>
     <property name="Type" value="Door"/>
@@ -11986,9 +11986,9 @@
     <property name="playerY" type="float" value="10563.64"/>
    </properties>
   </object>
-  <object id="78" name="Door" type="Door" x="1828" y="2036" width="704.03" height="32.5763">
+  <object id="78" name="Door" type="Door" x="1870.18" y="2025.76" width="704.03" height="32.5763">
    <properties>
-    <property name="Destination" value="MapCor_Sala2.tmx"/>
+    <property name="Destination" value="MapEstomac_Sala4.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="7875.76"/>
     <property name="playerY" type="float" value="3203.03"/>
