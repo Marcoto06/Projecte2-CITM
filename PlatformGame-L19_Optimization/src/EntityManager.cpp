@@ -16,7 +16,7 @@
 #include "Plaquetas.h"
 #include "Dendriticas.h"
 #include "LinfocitoT.h"
-#include "Dendríticas.h"
+#include "Dendriticas.h"
 #include "LinfocitoTNK.h"
 #include "Acid.h"
 

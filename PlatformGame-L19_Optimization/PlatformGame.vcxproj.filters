@@ -183,6 +183,9 @@
     <ClCompile Include="src\LinfocitoT.cpp">
       <Filter>Source Files\Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="src\LinfocitoTNK.cpp">
+      <Filter>Source Files\Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -315,6 +318,9 @@
       <Filter>Source Files\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\LinfocitoT.h">
+      <Filter>Source Files\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LinfocitoTNK.h">
       <Filter>Source Files\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

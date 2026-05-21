@@ -168,6 +168,7 @@
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\LinfocitoT.cpp" />
+    <ClCompile Include="src\LinfocitoTNK.cpp" />
     <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Pathfinding.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\LinfocitoT.h" />
+    <ClInclude Include="src\LinfocitoTNK.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Module.h" />
