@@ -16367,7 +16367,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="60" height="68" visible="0">
+ <layer id="3" name="Collisions" width="60" height="68">
   <data>
    <tile/>
    <tile gid="258"/>
@@ -18517,7 +18517,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
