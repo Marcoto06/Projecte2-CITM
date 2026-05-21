@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="51" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="10">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="51" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="11">
  <tileset firstgid="1" source="Atlas_2.3.tsx"/>
  <tileset firstgid="257" name="TileMetadata" tilewidth="64" tileheight="64" tilecount="2" columns="2">
   <image source="TileMetadata.png" width="128" height="64"/>
@@ -7721,11 +7721,6 @@
   </data>
  </layer>
  <objectgroup id="3" name="Entities">
-  <object id="1" name="Door" type="Door" x="763.258" y="-33.3075" width="390.216" height="55.8449">
-   <properties>
-    <property name="Type" value="Door"/>
-   </properties>
-  </object>
   <object id="3" name="Door" type="Door" x="432.425" y="3236.03" width="1076.96" height="55.8449">
    <properties>
     <property name="Destination" value="MapCor_Sala4.tmx"/>
@@ -7748,6 +7743,14 @@
   </object>
   <object id="9" name="Player" type="Player" x="956.735" y="940.878">
    <point/>
+  </object>
+  <object id="10" name="Door" type="Door" x="742" y="5.7752" width="428" height="28.4496">
+   <properties>
+    <property name="Destination" value="MapCor_Sala2.tmx"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="572"/>
+    <property name="playerY" type="float" value="1624"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
