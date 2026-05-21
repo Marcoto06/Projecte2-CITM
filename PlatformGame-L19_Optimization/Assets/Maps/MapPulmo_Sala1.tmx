@@ -10260,7 +10260,7 @@
  <objectgroup id="5" name="Entities">
   <object id="121" name="Door" type="Door" x="3814" y="1914" width="32" height="204">
    <properties>
-    <property name="Destination" value="MapCor_Sala16.tmx"/>
+    <property name="Destination" value="MapPulmo_Sala16.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="272"/>
     <property name="playerY" type="float" value="10720"/>
