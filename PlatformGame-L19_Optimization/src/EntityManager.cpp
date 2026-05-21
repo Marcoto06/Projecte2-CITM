@@ -16,6 +16,8 @@
 #include "Plaquetas.h"
 #include "Dendriticas.h"
 #include "LinfocitoT.h"
+#include "Dendríticas.h"
+#include "LinfocitoTNK.h"
 #include "Acid.h"
 
 EntityManager::EntityManager() : Module()
@@ -124,6 +126,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::CLIMBABLE:
 		entity = std::make_shared<Climbable>();
+		break;
+	case EntityType::LINFOCITO_TNK:
+		entity = std::make_shared<LinfocitoTNK>();
 		break;
 	case EntityType::ACID:
 		entity = std::make_shared<Acid>();
