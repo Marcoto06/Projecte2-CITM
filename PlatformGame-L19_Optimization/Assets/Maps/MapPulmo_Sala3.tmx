@@ -8207,7 +8207,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="60" height="34" visible="0">
+ <layer id="3" name="Collisions" width="60" height="34">
   <data>
    <tile gid="258"/>
    <tile gid="258"/>
@@ -10310,7 +10310,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Anim_Tiles" visible="0">
+ <objectgroup id="5" name="Anim_Tiles">
   <object id="15" name="part_superior_animada_pulmons" type="anim_tile" x="1856" y="1984" width="64" height="64">
    <properties>
     <property name="Texture" value="part_superior_animada_pulmons"/>

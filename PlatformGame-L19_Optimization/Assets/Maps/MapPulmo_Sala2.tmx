@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="137">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="138">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -10280,8 +10280,8 @@
    <properties>
     <property name="Destination" value="MapPulmo_Sala3.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1064"/>
-    <property name="playerY" type="float" value="1988"/>
+    <property name="playerX" type="float" value="1080"/>
+    <property name="playerY" type="float" value="1968"/>
    </properties>
   </object>
   <object id="7" name="Door" type="Door" x="2205" y="4" width="250" height="24">
