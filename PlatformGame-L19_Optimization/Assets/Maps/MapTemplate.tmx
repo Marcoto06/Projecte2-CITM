@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="80">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="82">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -2015,7 +2015,7 @@
    <tile gid="2796"/>
   </data>
  </layer>
- <layer id="24" name="MiddleGround" width="60" height="33">
+ <layer id="24" name="MiddleGround                     " width="60" height="33">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -11978,7 +11978,7 @@
    </properties>
    <point/>
   </object>
-  <object id="38" name="Door" type="Door" x="1984" y="2048" width="704.03" height="32.5763">
+  <object id="38" name="Door" type="Door" x="2773.7" y="2083.27" width="704.03" height="32.5763">
    <properties>
     <property name="Destination" value="MapPulmo_Sala16.tmx"/>
     <property name="Type" value="Door"/>
@@ -11986,9 +11986,9 @@
     <property name="playerY" type="float" value="10563.64"/>
    </properties>
   </object>
-  <object id="78" name="Door" type="Door" x="2752" y="2112" width="704.03" height="32.5763">
+  <object id="78" name="Door" type="Door" x="1907.52" y="2039.27" width="704.03" height="32.5763">
    <properties>
-    <property name="Destination" value="MapEstomac_Sala4.tmx"/>
+    <property name="Destination" value="MapCor_Sala2.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="7875.76"/>
     <property name="playerY" type="float" value="3203.03"/>

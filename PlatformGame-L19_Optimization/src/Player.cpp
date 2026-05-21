@@ -980,6 +980,8 @@ void Player::Func_Attacks(float dt) {
 		float pivotLocalX = facingRight ? 52.5f : -52.5f;
 
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor((int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
+
+		suckBody->listener = this;
 	}
 
 	if (isSucking) {
@@ -1180,6 +1182,13 @@ void Player::Draw(float dt) {
 	float texW = animFrame.w;
 	float texH = animFrame.h;
 	
+	if (isCamouflage) {
+		SDL_SetTextureAlphaMod(texture, 128); 
+	}
+	else {
+		SDL_SetTextureAlphaMod(texture, 255);
+	}
+
 	if (facingRight)
 	{
 		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
@@ -1189,6 +1198,8 @@ void Player::Draw(float dt) {
 	{
 		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
+	
+	SDL_SetTextureAlphaMod(texture, 255);
 
 	if (effectAnims.HasCurrentAnimationFinished() == true) {
 		healing = false;

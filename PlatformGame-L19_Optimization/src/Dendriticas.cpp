@@ -193,7 +193,7 @@ void Dendriticas::Func_EnemyStates(float dt)
 		anims.SetCurrent("death");
 		if (anims.Func_HasCurrentAnimationFinished())
 		{
-			Destroy(attackingPlayer);
+			Destroy(player);
 			return;
 		}
 		break;
@@ -368,10 +368,13 @@ bool Dendriticas::Destroy()
 	return true;
 }
 
-bool Dendriticas::Destroy(Player* pplayer) // Good: coincide with the .h
+bool Dendriticas::Destroy(Player* pplayer)
 {
-	player->isCamouflage;
-	player->effectAnims.SetCurrent("lifeUp");
+	if (pplayer != nullptr)
+	{
+		pplayer->ActivateCamouflage();
+		pplayer->effectAnims.SetCurrent("lifeUp");
+	}
 	return Destroy();
 }
 
