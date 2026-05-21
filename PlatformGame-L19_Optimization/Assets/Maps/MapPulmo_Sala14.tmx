@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="61" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="4">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="61" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="6">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -21,6 +21,9 @@
  </tileset>
  <tileset firstgid="1377" name="Middleground_Pulmon" tilewidth="2276" tileheight="2233" tilecount="1" columns="1">
   <image source="../Textures/Backgrounds/Pulmones/Middleground_Sala8.png" width="2276" height="2233"/>
+ </tileset>
+ <tileset firstgid="1378" name="atñas_2.6" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="atñas_2.6.png" width="1024" height="1024"/>
  </tileset>
  <layer id="6" name="Background" width="61" height="34" parallaxx="1.1" parallaxy="1.1">
   <properties>
@@ -7093,56 +7096,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="196"/>
-   <tile gid="197"/>
-   <tile gid="197"/>
-   <tile gid="197"/>
-   <tile gid="198"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1528"/>
+   <tile gid="1529"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7202,6 +7157,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1546"/>
+   <tile gid="1547"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7222,6 +7179,11 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="196"/>
+   <tile gid="197"/>
+   <tile gid="197"/>
+   <tile gid="197"/>
+   <tile gid="198"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7256,6 +7218,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1562"/>
+   <tile gid="1563"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7315,6 +7279,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1578"/>
+   <tile gid="1579"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7374,6 +7340,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1594"/>
+   <tile gid="1595"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7433,6 +7401,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1546"/>
+   <tile gid="1547"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7461,6 +7431,39 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1562"/>
+   <tile gid="1563"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7520,8 +7523,8 @@
    <tile gid="198"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1578"/>
+   <tile gid="1579"/>
    <tile/>
    <tile gid="196"/>
    <tile gid="197"/>
@@ -7581,6 +7584,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1594"/>
+   <tile gid="1595"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7640,6 +7645,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1546"/>
+   <tile gid="1547"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7699,6 +7706,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1562"/>
+   <tile gid="1563"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7758,6 +7767,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1578"/>
+   <tile gid="1579"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7817,16 +7828,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1594"/>
+   <tile gid="1595"/>
    <tile/>
    <tile/>
    <tile/>
@@ -8346,7 +8349,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="61" height="34">
+ <layer id="3" name="Collisions" width="61" height="34" visible="0">
   <data>
    <tile/>
    <tile/>
@@ -10435,6 +10438,11 @@
   </object>
   <object id="3" name="Player" type="Player" x="2309.35" y="1188.17">
    <point/>
+  </object>
+  <object id="5" name="Climbable" type="Climbable" x="1957.82" y="881.635" width="48" height="779.155">
+   <properties>
+    <property name="Type" value="Climbable"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>
