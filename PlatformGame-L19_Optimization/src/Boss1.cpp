@@ -403,15 +403,17 @@ void Boss1::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::SYRINGE:
 		if (life > 0) {
-			life -= 1;
 			switch (physA->ctype) {
 			case ColliderType::BOSS_HEAD:
+				life -= 1;
 				PlayAnimation(hurt_body);
 				break;
 			case ColliderType::BOSS_R_HAND:
+				life -= 1;
 				PlayAnimation(hurt_R_hand);
 				break;
 			case ColliderType::BOSS_L_HAND:
+				life -= 1;
 				PlayAnimation(hurt_L_hand);
 				break;
 			}
@@ -519,8 +521,8 @@ void Boss1::AnimationFinished(bossAnimation* animation)
 			if (life <= 0) {
 				Engine::GetInstance().physics->DeletePhysBody(head_body);
 				PlayAnimation(stun_body);
-				PlayAnimation(intro_R_hand);
-				PlayAnimation(intro_L_hand);
+				PlayAnimation(idle_R_hand);
+				PlayAnimation(idle_L_hand);
 				R_Hand->velocity.y = 0.5;
 				L_Hand->velocity.y = 0.5;
 			}
@@ -555,7 +557,6 @@ Boss1::bossAnimation::bossAnimation(int frames, std::string name, Body_Parts par
 }
 
 void Boss1::Initialize() {
-	triggerBody->SetPosition(position.getX() + 960, position.getY() + 960);
 	initialHeadPos = Vector2D(position.getX() + 1000, position.getY() + 850);
 	stunHeadPos = initialHeadPos + Vector2D(-340, 680);
 	R_Hand->position = initialHeadPos + Vector2D(-400, 1000);
