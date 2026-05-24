@@ -84,6 +84,7 @@ public:
 
 	void ActivateSpeedBoost();
 	void ActivateBerserker();
+	void RestoreHealthB();
 	void ActivateCamouflage();
 
 	bool IsGodMode() { return godMode; };
@@ -130,8 +131,8 @@ public:
 
 	int kill_counter = 0;
 
-	int playerMaxHp = 10;
-	int playerCurrentHp;
+	float playerMaxHp = 10.0f;
+	float playerCurrentHp;
 
 	Vector2D respawnPosition;
 

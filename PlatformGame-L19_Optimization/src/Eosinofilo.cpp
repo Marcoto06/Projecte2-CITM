@@ -542,6 +542,10 @@ void Eosinofilo::OnCollision(PhysBody* physA, PhysBody* physB) {
 			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
+			if (player->isBerserker)
+			{
+				player->RestoreHealthB();
+			}
 		}
 		break;
 	case ColliderType::SUCK_ZONE:

@@ -643,6 +643,15 @@ void Player::ActivateBerserker() {
 	BerserkerTimer.Start();
 }
 
+void Player::RestoreHealthB()
+{
+	playerCurrentHp++;
+	if (playerCurrentHp > playerMaxHp)
+	{
+		playerCurrentHp = playerMaxHp;
+	}	
+}
+
 void Player::ActivateCamouflage() {
 	isCamouflage = true;
 	camouflageTimer.Start();
@@ -670,9 +679,12 @@ void Player::Func_BoostMovement() {
 		LOG("Boost terminado");
 	}
 
-	if (BerserkerTimer.ReadMSec() > durationBerserker)
+	if (isBerserker)
 	{
-		isBerserker = false;
+		if (BerserkerTimer.ReadMSec() > durationBerserker)
+		{
+			isBerserker = false;
+		}
 	}
 }
 
@@ -1287,10 +1299,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			if (isBerserker)
 			{
 				playerCurrentHp = playerCurrentHp - 0.5;
+				LOG("Current HP: %f", playerCurrentHp);
 			}
 			else
 			{
 				playerCurrentHp--;
+				LOG("Current HP: %f", playerCurrentHp);
 			}
 			Engine::GetInstance().audio->PlayFx(hurtFxId);
 			b2Body_SetGravityScale(pbody->body, gravityScale);

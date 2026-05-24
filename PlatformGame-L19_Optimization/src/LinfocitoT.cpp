@@ -420,7 +420,7 @@ bool LinfocitoT::Destroy()
 
 bool LinfocitoT::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	player->isAdrenaline; //tocar
+	player->ActivateBerserker(); 
 	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
@@ -462,7 +462,13 @@ void LinfocitoT::OnCollision(PhysBody* physA, PhysBody* physB) {
 					currentEState = ENEMYSTATES::STUNED;
 					isStunned = true;
 					syringeHits = 0;
+
+					if (player->isBerserker) //BerserkerEffect
+					{
+						player->RestoreHealthB();
+					}
 				}
+
 			}
 			break;
 		case ColliderType::SUCK_ZONE:

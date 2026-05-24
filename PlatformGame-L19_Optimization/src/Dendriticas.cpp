@@ -180,7 +180,7 @@ void Dendriticas::Func_EnemyStates(float dt)
 		}
 		else
 		{
-			if (timer_01.ReadMSec() > 7000.0f)
+			if (timer_01.ReadMSec() > 10000.0f)
 			{
 				currentEState = ENEMYSTATES::WALKING;
 				isStunned = false;
@@ -409,6 +409,10 @@ void Dendriticas::OnCollision(PhysBody* physA, PhysBody* physB) {
 			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
+			if (player->isBerserker)
+			{
+				player->RestoreHealthB();
+			}
 		}
 		break;
 	case ColliderType::SUCK_ZONE:
