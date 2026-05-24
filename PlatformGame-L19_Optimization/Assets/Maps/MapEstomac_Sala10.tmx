@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="2">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="3">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -373,7 +373,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="239"/>
+   <tile gid="251"/>
    <tile gid="240"/>
    <tile/>
    <tile/>
@@ -403,7 +403,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="239"/>
+   <tile/>
    <tile gid="256"/>
    <tile/>
    <tile/>
@@ -433,7 +433,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="239"/>
+   <tile/>
    <tile gid="240"/>
    <tile/>
    <tile/>
@@ -463,7 +463,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="239"/>
+   <tile/>
    <tile gid="256"/>
    <tile/>
    <tile/>
@@ -493,7 +493,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="239"/>
+   <tile/>
    <tile gid="249"/>
    <tile gid="223"/>
    <tile gid="222"/>
@@ -516,14 +516,14 @@
    <tile gid="249"/>
    <tile gid="220"/>
    <tile gid="220"/>
-   <tile gid="221"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="219"/>
    <tile gid="220"/>
-   <tile gid="248"/>
+   <tile gid="220"/>
+   <tile gid="220"/>
+   <tile gid="220"/>
+   <tile gid="220"/>
+   <tile gid="220"/>
+   <tile gid="220"/>
+   <tile gid="220"/>
   </data>
  </layer>
  <layer id="2" name="Map" width="30" height="17">
@@ -1003,14 +1003,14 @@
    <tile/>
    <tile gid="208"/>
    <tile gid="204"/>
-   <tile gid="205"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="203"/>
    <tile gid="204"/>
-   <tile/>
+   <tile gid="204"/>
+   <tile gid="204"/>
+   <tile gid="204"/>
+   <tile gid="204"/>
+   <tile gid="204"/>
+   <tile gid="204"/>
+   <tile gid="204"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1434,37 +1434,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
@@ -1477,56 +1447,6 @@
    <tile/>
    <tile gid="258"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="258"/>
-   <tile/>
-   <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
@@ -1546,15 +1466,95 @@
    <tile/>
    <tile/>
    <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
   </data>
  </layer>
  <objectgroup id="4" name="Entities">
@@ -1563,6 +1563,14 @@
     <property name="Type" value="Player"/>
    </properties>
    <point/>
+  </object>
+  <object id="2" name="Door" type="Door" x="1889.42" y="767.864" width="31.95" height="267.733">
+   <properties>
+    <property name="Destination" value="MapEstomac_Sala6.tmx"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="138"/>
+    <property name="playerY" type="float" value="190"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>
