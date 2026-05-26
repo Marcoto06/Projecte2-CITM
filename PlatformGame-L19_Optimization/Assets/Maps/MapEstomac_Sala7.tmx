@@ -1914,7 +1914,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="268"/>
    <tile gid="269"/>
    <tile gid="269"/>
    <tile gid="269"/>
@@ -3295,8 +3295,8 @@
    <properties>
     <property name="Destination" value="MapEstomac_Sala8.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1"/>
-    <property name="playerY" type="float" value="1"/>
+    <property name="playerX" type="float" value="4884"/>
+    <property name="playerY" type="float" value="1724"/>
    </properties>
   </object>
   <object id="6" name="Acid" type="Acid" x="12.4906" y="1193.06" width="2864.02" height="349.055">

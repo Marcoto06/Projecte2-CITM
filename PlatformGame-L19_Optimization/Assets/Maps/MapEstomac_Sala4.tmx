@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="290" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="12">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="290" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="14">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -58,8 +58,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="491"/>
+   <tile gid="493"/>
    <tile/>
    <tile/>
    <tile/>
@@ -348,8 +348,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="491"/>
+   <tile gid="493"/>
    <tile/>
    <tile/>
    <tile/>
@@ -638,8 +638,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="491"/>
+   <tile gid="493"/>
    <tile/>
    <tile/>
    <tile/>
@@ -928,8 +928,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="507"/>
+   <tile gid="509"/>
    <tile/>
    <tile/>
    <tile/>
@@ -39509,8 +39509,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="514"/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -39799,8 +39799,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="514"/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -40089,8 +40089,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="514"/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -40379,8 +40379,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="514"/>
+   <tile gid="514"/>
    <tile/>
    <tile/>
    <tile/>
@@ -59248,12 +59248,20 @@
     <property name="Type" value="Acid"/>
    </properties>
   </object>
-  <object id="11" name="Door" type="Door" x="61.025" y="8.1335" width="9029.95" height="55.733">
+  <object id="11" name="Door" type="Door" x="61.025" y="8.1335" width="2185.95" height="55.733">
    <properties>
     <property name="Destination" value="MapEstomac_Sala6.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1450"/>
     <property name="playerY" type="float" value="7964"/>
+   </properties>
+  </object>
+  <object id="12" name="Door" type="Door" x="2359.03" y="8.1335" width="6733.95" height="55.733">
+   <properties>
+    <property name="Destination" value="MapEstomac_Sala9.tmx"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="1344"/>
+    <property name="playerY" type="float" value="3540"/>
    </properties>
   </object>
  </objectgroup>

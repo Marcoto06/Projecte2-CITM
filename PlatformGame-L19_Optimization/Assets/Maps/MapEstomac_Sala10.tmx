@@ -17,12 +17,12 @@
    <tile gid="236"/>
    <tile gid="252"/>
    <tile gid="252"/>
-   <tile gid="253"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="251"/>
+   <tile gid="252"/>
+   <tile gid="252"/>
+   <tile gid="252"/>
+   <tile gid="252"/>
+   <tile gid="252"/>
+   <tile gid="252"/>
    <tile gid="252"/>
    <tile gid="252"/>
    <tile gid="252"/>
@@ -1049,10 +1049,10 @@
    <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile gid="258"/>
