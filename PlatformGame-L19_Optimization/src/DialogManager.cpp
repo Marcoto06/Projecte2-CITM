@@ -134,13 +134,18 @@ void DialogManager::DrawDialogWindow() {
 	std::string line;
 
 	int yOffset = 0;
+	int nLines = 1 + (width / 621);
+	if (nLines > 1)
+		width = 600;
 
-	while (std::getline(ss, line, '\n'))
+	Engine::GetInstance().render->DrawText(currentDialog->text.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 30*nLines, SDL_Color{ 255,255,255,255 });
+
+	/*while (std::getline(ss, line, '\n'))
 	{
 		int width = 25 * line.size();
 
 		Engine::GetInstance().render->DrawText(line.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 30, SDL_Color{ 255,255,255,255 });
 
 		yOffset += 35;
-	}
+	}*/
 }

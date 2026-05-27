@@ -51,7 +51,7 @@ public:
 	std::string dialogPath;
 	std::vector<Dialog*> dialogs;
 
-	bool drawDialog;
+	bool drawDialog = false;
 
 private:
 	SDL_Texture* dialogWindowTexture = NULL;

@@ -1,46 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dialogs>
-	<Dialog id="0" name="Luke" duration="0">That’s right. You hear 
-us, Doc?</Dialog>
+
+  <!-- ###### DIALOGOS BOCA ######-->
+
+  <Dialog id="0" name="Luke" duration="0">That's right. You hear us, Doc?</Dialog>
 	<Dialog id="1" name="Doctor" duration="3">Affirmative.</Dialog>
-	<Dialog id="2" name="Luke" duration="3">Great, I wasn’t expecting
-less!</Dialog>
-	<Dialog id="3" name="Luke" duration="3">Aaand everything set
-and ready to go.</Dialog>
-	<Dialog id="4" name="Doctor" duration="5">Those are Streptococcus Sanguinis,
-right? Seeing them in this size
-is quite intimidating…</Dialog>
-	<Dialog id ="5" name="Luke" duration="4">Understandable, but, still,
-	they shouldn’t be aggressive.</Dialog>
-	<Dialog id="6" name="Doctor" duration="3">Seems I can’t get across yet.</Dialog>
-	<Dialog id="7" name="Luke" duration="5">Maybe try going downwards,
-there should be some cell that
-you can absorb. To gain a
-charge ability, you know?</Dialog>
+	<Dialog id="2" name="Luke" duration="3">Great, I wasn't expecting less!</Dialog>
+	<Dialog id="3" name="Luke" duration="3">Aaand everything set and ready to go.</Dialog>
+	<Dialog id="4" name="Doctor" duration="5">Those are Streptococcus Sanguinis, right? Seeing them in this size is quite intimidating…</Dialog>
+	<Dialog id ="5" name="Luke" duration="4">Understandable, but, still, they shouldn't be aggressive.</Dialog>
+  
+  <!-- Intento de salto fallido -->
+  <Dialog id="6" name="Doctor" duration="3">Seems I can't get across yet.</Dialog>
+	<Dialog id="7" name="Luke" duration="5">Maybe try going downwards, there should be some cell that you can absorb. To gain a charge ability, you know?</Dialog>
 	<Dialog id="8" name="Doctor" duration="2">I know, Luke, I know.</Dialog>
-	<Dialog id="9" name="Luke" duration="5">Don’t worry about the
-Eosinophil; the MHK suit
-will keep you safe.</Dialog>
-	<Dialog id="10" name="Doctor" duration="2">You don’t say!</Dialog>
+	<Dialog id="9" name="Luke" duration="5">Don't worry about the Eosinophil; the MHK suit will keep you safe.</Dialog>
+	<Dialog id="10" name="Doctor" duration="2">You don't say!</Dialog>
+  
+  <!-- La doctora mata al eosinofilo, obtiene el charge -->
 	<Dialog id="11" name="Luke" duration="3">Feel any different?</Dialog>
-	<Dialog id="12" name="Doctor" duration="3">I feel… lighter.
-Getting across should be
-a walk in the park.</Dialog>
-	
-	
-	
-	
-	<Dialog id="20" name="Luke" duration="5">Hey Doc, Luke speaking.
-There’s no news from the
-central.We are trying to 
-remain calm,
-but it seems like it’s 
-taking a toll on Theo.</Dialog>
-	<Dialog id="21" name="Luke" duration="5">He is being more 
-unbearable than usual.
-Also, the patient won’t
-stop trembling, it seems
-like anesthesia is losing
-its effect. 
-Hope you’re safe.</Dialog>
+	<Dialog id="12" name="Doctor" duration="3">I feel… lighter. Getting across should be a walk in the park.</Dialog>
+  <Dialog id="13" name="Luke" duration="3">Don't you mean jump, Doc?</Dialog>
+  <Dialog id="14" name="Doctor" duration="2">...</Dialog>
+  <Dialog id="15" name="Luke" duration="3">Do make sure to get that sample first, please.</Dialog>
+  <Dialog id="16" name="Doctor" duration="3">Those things there don't seem so friendly.</Dialog>
+  <Dialog id="17" name="Doctor" duration="2">One less to go.</Dialog>
+  <Dialog id="18" name="Luke" duration="3">Wow Doc, you're on a streak today!</Dialog>
+  <Dialog id="19" name="Doctor" duration="3">What are you acting so surprised for?</Dialog>
+
+  <Dialog id="20" name="Luke" duration="5">Hey Doc, Luke speaking. There's no news from the central.We are trying to remain calm, but it seems like it's taking a toll on Theo.</Dialog>
+	<Dialog id="21" name="Luke" duration="5">He is being more unbearable than usual. Also, the patient won't stop trembling, it seems like anesthesia is losing its effect. Hope you're safe.</Dialog>
 </Dialogs>
