@@ -10278,8 +10278,8 @@
    <properties>
     <property name="Destination" value="MapPulmo_Sala2.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1457"/>
-    <property name="playerY" type="float" value="1984"/>
+    <property name="playerX" type="float" value="1255.08"/>
+    <property name="playerY" type="float" value="1864.17"/>
    </properties>
   </object>
   <object id="124" name="Door" type="Door" x="46" y="-6" width="290" height="24">
