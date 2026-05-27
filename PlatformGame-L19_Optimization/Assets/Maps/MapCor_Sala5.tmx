@@ -2928,7 +2928,7 @@
    <tile/>
    <tile/>
    <tile gid="60"/>
-   <tile gid="123"/>
+   <tile/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -2958,7 +2958,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="123"/>
+   <tile/>
    <tile gid="60"/>
    <tile gid="60"/>
    <tile gid="60"/>
@@ -4147,7 +4147,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="30" height="34" visible="0">
+ <layer id="3" name="Collisions" width="30" height="34">
   <data>
    <tile/>
    <tile/>
