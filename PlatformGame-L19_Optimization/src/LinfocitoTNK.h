@@ -89,6 +89,9 @@ public:
 	Player* touchingPlayer = nullptr;
 	Player* attackingPlayer = nullptr;
 
+	int attackType = 0;   // 0 none, 1 roll, 2 jump
+	int attackPhase = 0;  
+	int syringeHits = 0;
 	int pathfindingFrameCount = 0;
 	const int pathfindingUpdateRate = 30; // frequency in frames
 
@@ -104,16 +107,7 @@ private:
 	{
 		WALKING,
 		CHASING,
-
-		ROLL_CHARGE,
-		ROLL_ATTACK,
-		ROLL_CRASH,
-
-		JUMP_CHARGE,
-		JUMP_UP,
-		JUMP_DOWN,
-		JUMP_LAND,
-
+		ATTACK,
 		STUNED,
 		DEATH
 	};

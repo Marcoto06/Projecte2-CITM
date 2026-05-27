@@ -28,7 +28,6 @@ bool LinfocitoTNK::Awake() {
 
 bool LinfocitoTNK::Start() {
 
-	// load
 	std::unordered_map<int, std::string> aliases = {
 	{0, "idle"},
 	{26, "walk"},
@@ -60,28 +59,26 @@ bool LinfocitoTNK::Start() {
 	anims.Func_SetAnimationLoop("topSalto", false);
 	anims.Func_SetAnimationLoop("bajadaSalto", false);
 
-	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Linfocito-T-NK.png");
 
-	//Add physics to the enemy - initialize physics body
 	texW = 188;
-	texH = 120;
-	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX() + texW / 2, ((int)position.getY() + texH / 2), texW, texH, bodyType::DYNAMIC);
+	texH = 150;
+	pbody = Engine::GetInstance().physics->CreateRectangle(
+		(int)position.getX() + texW / 2,
+		(int)position.getY() + texH / 2,
+		texW,
+		texH,
+		bodyType::DYNAMIC
+	);
 	pbody->SetFixedRotation(true);
 
-	//Assign enemy class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
 
-	//ssign collider type
 	pbody->ctype = ColliderType::ENEMY;
 
-	// Initialize pathfinding
 	pathfinding = std::make_shared<Pathfinding>();
-	//Get the position of the enemy
 	Vector2D pos = GetPosition();
-	//Convert to tile coordinates
 	Vector2D tilePos = Engine::GetInstance().map->WorldToMap((int)pos.getX(), (int)pos.getY() + 1);
-	//Reset pathfinding
 	pathfinding->ResetPath(tilePos);
 	player = Engine::GetInstance().scene->player.get();
 
@@ -116,20 +113,19 @@ bool LinfocitoTNK::Update(float dt)
 	}
 
 	if (!isStunned &&
-		currentEState != ENEMYSTATES::ROLL_CHARGE &&
-		currentEState != ENEMYSTATES::ROLL_ATTACK &&
-		currentEState != ENEMYSTATES::ROLL_CRASH &&
-		currentEState != ENEMYSTATES::JUMP_CHARGE &&
-		currentEState != ENEMYSTATES::JUMP_UP &&
-		currentEState != ENEMYSTATES::JUMP_DOWN &&
-		currentEState != ENEMYSTATES::JUMP_LAND)
+		currentEState != ENEMYSTATES::ATTACK &&
+		currentEState != ENEMYSTATES::DEATH)
 	{
 		isPlayerDetected = IsPlayerDetected();
 
 		if (isPlayerDetected)
+		{
 			currentEState = ENEMYSTATES::CHASING;
+		}
 		else
+		{
 			currentEState = ENEMYSTATES::WALKING;
+		}
 	}
 
 	Vector2D currentPos = GetPosition();
@@ -183,7 +179,6 @@ void LinfocitoTNK::PerformPathfinding()
 }
 
 void LinfocitoTNK::GetPhysicsValues() {
-	// Read current velocity
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
 	velocity = { 0, velocity.y };
 }
@@ -208,24 +203,18 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 		if (std::abs(dx) < 230.0f && std::abs(dy) < 90.0f)
 		{
 			isFacingRight = dx > 0.0f;
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::ROLL_CHARGE;
+			attackType = 1; 
+			attackPhase = 0;
+			anims.SetCurrent("cargarRodar");
+			currentEState = ENEMYSTATES::ATTACK;
 		}
 		else if (std::abs(dx) < 340.0f && std::abs(dy) < 140.0f)
 		{
 			isFacingRight = dx > 0.0f;
-
-			int x, y;
-			pbody->GetPosition(x, y);
-
-			jumpStartX = x;
-			jumpStartY = y;
-
-			jumpTargetX = (int)(playerPos.getX() + texW / 2);
-			jumpTargetY = y;
-
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::JUMP_CHARGE;
+			attackType = 2; 
+			attackPhase = 0;
+			anims.SetCurrent("cargarSalto");
+			currentEState = ENEMYSTATES::ATTACK;
 		}
 		else
 		{
@@ -235,125 +224,92 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 
 		break;
 	}
-	case ENEMYSTATES::ROLL_CHARGE:
+
+	case ENEMYSTATES::ATTACK:
 	{
-		velocity.x = 0.0f;
-		anims.SetCurrent("cargarRodar");
-
-		if (attackTimer.ReadMSec() >= rollChargeTime)
+		if (attackType == 1) 
 		{
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::ROLL_ATTACK;
-		}
+			if (attackPhase == 0) 
+			{
+				velocity.x = 0.0f;
+				anims.SetCurrent("cargarRodar");
 
-		break;
+				if (anims.Func_HasCurrentAnimationFinished())
+				{
+					attackPhase = 1;
+					anims.SetCurrent("rodar");
+					attackTimer.Start();
+				}
+			}
+			else if (attackPhase == 1) 
+			{
+				velocity.x = isFacingRight ? rollSpeed : -rollSpeed;
+
+				if (attackTimer.ReadMSec() >= rollAttackTime)
+				{
+					attackPhase = 2;
+					velocity.x = 0.0f;
+					anims.SetCurrent("chocar1");
+				}
+			}
+			else if (attackPhase == 2) 
+			{
+				velocity.x = 0.0f;
+
+				if (anims.Func_HasCurrentAnimationFinished())
+				{
+					attackType = 0;
+					attackPhase = 0;
+					currentEState = ENEMYSTATES::CHASING;
+				}
+			}
+		}
+		else if (attackType == 2)
+		{
+			if (attackPhase == 0)
+			{
+				velocity.x = 0.0f;
+				anims.SetCurrent("cargarSalto");
+
+				if (anims.Func_HasCurrentAnimationFinished())
+				{
+					attackPhase = 1;
+					anims.SetCurrent("salto");
+					attackTimer.Start();
+				}
+			}
+			else if (attackPhase == 1)
+			{
+				velocity.x = isFacingRight ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				anims.SetCurrent("salto");
+
+				if (attackTimer.ReadMSec() >= jumpUpTime)
+				{
+					attackPhase = 2;
+					anims.SetCurrent("topSalto");
+					attackTimer.Start();
+				}
+			}
+			else if (attackPhase == 2)
+			{
+				velocity.x = isFacingRight ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				anims.SetCurrent("bajadaSalto");
+
+				if (attackTimer.ReadMSec() >= jumpDownTime)
+				{
+					attackType = 0;
+					attackPhase = 0;
+					velocity.x = 0.0f;
+					currentEState = ENEMYSTATES::CHASING;
+				}
+			}
+		}
 	}
 
-	case ENEMYSTATES::ROLL_ATTACK:
-	{
-		anims.SetCurrent("rodar");
-		velocity.x = isFacingRight ? rollSpeed : -rollSpeed;
-
-		if (attackTimer.ReadMSec() >= rollAttackTime)
-		{
-			velocity.x = 0.0f;
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::ROLL_CRASH;
-		}
-
 		break;
-	}
-
-	case ENEMYSTATES::ROLL_CRASH:
-	{
-		velocity.x = 0.0f;
-		anims.SetCurrent("chocar1");
-
-		if (attackTimer.ReadMSec() >= rollCrashTime)
-		{
-			currentEState = ENEMYSTATES::CHASING;
-		}
-
-		break;
-	}
-
-	case ENEMYSTATES::JUMP_CHARGE:
-	{
-		velocity.x = 0.0f;
-		velocity.y = 0.0f;
-		anims.SetCurrent("cargarSalto");
-
-		if (attackTimer.ReadMSec() >= jumpChargeTime)
-		{
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::JUMP_UP;
-		}
-
-		break;
-	}
-
-	case ENEMYSTATES::JUMP_UP:
-	{
-		anims.SetCurrent("salto");
-
-		float t = attackTimer.ReadMSec() / jumpUpTime;
-		if (t > 1.0f) t = 1.0f;
-
-		int newX = (int)(jumpStartX + (jumpTargetX - jumpStartX) * t);
-		int newY = (int)(jumpStartY - jumpArcHeight * t);
-
-		pbody->SetPosition(newX, newY);
-		velocity.x = 0.0f;
-		velocity.y = 0.0f;
-
-		if (t >= 1.0f)
-		{
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::JUMP_DOWN;
-		}
-
-		break;
-	}
-
-	case ENEMYSTATES::JUMP_DOWN:
-	{
-		anims.SetCurrent("bajadaSalto");
-
-		float t = attackTimer.ReadMSec() / jumpDownTime;
-		if (t > 1.0f) t = 1.0f;
-
-		int newX = (int)(jumpStartX + (jumpTargetX - jumpStartX) * t);
-		int newY = (int)((jumpStartY - jumpArcHeight) + jumpArcHeight * t);
-
-		pbody->SetPosition(newX, newY);
-		velocity.x = 0.0f;
-		velocity.y = 0.0f;
-
-		if (t >= 1.0f)
-		{
-			attackTimer.Start();
-			currentEState = ENEMYSTATES::JUMP_LAND;
-		}
-
-		break;
-	}
-
-	case ENEMYSTATES::JUMP_LAND:
-	{
-		velocity.x = 0.0f;
-		velocity.y = 0.0f;
-		anims.SetCurrent("bajadaSalto");
-
-		if (attackTimer.ReadMSec() >= jumpLandTime)
-		{
-			currentEState = ENEMYSTATES::CHASING;
-		}
-
-		break;
-	}
 
 	case LinfocitoTNK::ENEMYSTATES::STUNED:
-		anims.SetCurrent("stunned");
+		anims.SetCurrent("stun");
 
 		if (isBeingSucked)
 		{
@@ -477,14 +433,12 @@ Vector2D LinfocitoTNK::GetNextPathTile() const
 	}
 
 	auto nextTileIt = pathTiles.rbegin();
-	++nextTileIt; // first reverse element is the current/origin tile, second is the next tile to follow
-
+	++nextTileIt; 
 	return *nextTileIt;
 }
 
 void LinfocitoTNK::ApplyPhysics() {
 
-	// Apply velocity via helper
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
@@ -502,7 +456,7 @@ void LinfocitoTNK::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 80;
+	int drawY = y - (frameH / 2) - 150;
 
 	if (isFacingRight)
 	{
@@ -561,7 +515,7 @@ bool LinfocitoTNK::Destroy()
 	return true;
 }
 
-bool LinfocitoTNK::Destroy(Player* pplayer) // Good: coincide with the .h
+bool LinfocitoTNK::Destroy(Player* pplayer) 
 {
 	player->isAdrenaline;
 	player->effectAnims.SetCurrent("lifeUp");
@@ -575,7 +529,7 @@ void LinfocitoTNK::SetPosition(Vector2D pos) {
 Vector2D LinfocitoTNK::GetPosition() {
 	int x, y;
 	pbody->GetPosition(x, y);
-	// Adjust for center
+	
 	return Vector2D((float)x - texW / 2, (float)y - texH / 2);
 }
 
@@ -588,8 +542,6 @@ bool LinfocitoTNK::IsEnemyStunned() {
 	else return false;
 }
 
-
-//Define OnCollision function for the enemy. 
 void LinfocitoTNK::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
