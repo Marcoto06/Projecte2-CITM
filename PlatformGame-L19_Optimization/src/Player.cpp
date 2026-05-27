@@ -1431,8 +1431,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::CLIMBABLE: {
 		Climbable* climbablePtr = (Climbable*)physB->listener;
-		if (climbablePtr->isWaterfall && !hasAscend) break;
-		canClimb = true;
+		if (climbablePtr->isWaterfall && !hasAscend) {
+			canClimb = false;
+			nearestClimbable = nullptr;
+			break;
+		}
+		else {
+			canClimb = true;
+			nearestClimbable = climbablePtr;
+		}
 		break;
 	}
 	case ColliderType::ACID:
