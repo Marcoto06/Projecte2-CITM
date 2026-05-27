@@ -340,7 +340,9 @@ void Scene::LoadMainMenu() {
 	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
 	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
 	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");*/
-	
+	if (boss != nullptr) {
+		boss->CleanUp();
+	}
 	Engine::GetInstance().uiManager->LoadMainMenuButtons();
 }
 

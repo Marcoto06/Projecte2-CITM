@@ -21,6 +21,7 @@ enum class EntityType
 	DIALOG_TRIGGER,
 	CLIMBABLE,
 	ACID,
+	ELECTRIC,
 	BOSS1,
 	UNKNOWN
 };

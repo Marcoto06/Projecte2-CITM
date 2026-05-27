@@ -39,6 +39,7 @@ enum class ColliderType {
     POWER_EGG,
     CLIMBABLE,
     ACID,
+    ELECTRIC,
     DIALOG_TRIGGER,
     BOSS_HEAD,
     BOSS_L_HAND,

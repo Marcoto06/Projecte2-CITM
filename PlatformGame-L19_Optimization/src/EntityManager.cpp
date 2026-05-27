@@ -19,6 +19,7 @@
 #include "Dendriticas.h"
 #include "LinfocitoTNK.h"
 #include "Acid.h"
+#include "Electric.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -132,6 +133,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ACID:
 		entity = std::make_shared<Acid>();
+		break;
+	case EntityType::ELECTRIC:
+		entity = std::make_shared<Electric>();
 		break;
 	case EntityType::BOSS1:
 		entity = std::make_shared<Boss1>();

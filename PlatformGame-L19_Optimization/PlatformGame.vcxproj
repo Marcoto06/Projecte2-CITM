@@ -161,6 +161,7 @@
     <ClCompile Include="src\DialogManager.cpp" />
     <ClCompile Include="src\DialogTrigger.cpp" />
     <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\Electric.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="src\DialogManager.h" />
     <ClInclude Include="src\DialogTrigger.h" />
     <ClInclude Include="src\Door.h" />
+    <ClInclude Include="src\Electric.h" />
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Entity.h" />

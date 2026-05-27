@@ -336,14 +336,24 @@ void Boss1::Draw(float dt)
 bool Boss1::CleanUp()
 {
 	LOG("Cleanup enemy");
+	pendingToDelete = true;
 	for (int i = 0; i < animations.size(); ++i) {
 		for (int j = 0; j < animations.at(i)->size(); ++j) {
 			Engine::GetInstance().textures->UnLoad(animations.at(i)->at(j));
 		}
 	}
-	Engine::GetInstance().physics->DeletePhysBody(head_body);
-	Engine::GetInstance().physics->DeletePhysBody(R_Hand->pbody);
-	Engine::GetInstance().physics->DeletePhysBody(L_Hand->pbody);
+	if (head_body != nullptr) 
+	{
+		Engine::GetInstance().physics->DeletePhysBody(head_body);
+	}
+	if (R_Hand->pbody != nullptr)
+	{
+		Engine::GetInstance().physics->DeletePhysBody(R_Hand->pbody);
+	}
+	if (L_Hand->pbody != nullptr)
+	{
+		Engine::GetInstance().physics->DeletePhysBody(L_Hand->pbody);
+	}
 	return true;
 }
 

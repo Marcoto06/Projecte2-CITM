@@ -13,6 +13,7 @@
 #include "Climbable.h"
 #include "DialogTrigger.h"
 #include "Acid.h"
+#include "Electric.h"
 
 #include <math.h>
 
@@ -719,6 +720,26 @@ MapLayer* Map::GetNavigationLayer() {
                         acid->Start();
                     }
                 }
+                else if (entityType == "Electric")
+                {
+                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ELECTRIC);
+                    std::shared_ptr<Electric> electric = std::dynamic_pointer_cast<Electric>(e);
+
+                    float width = objectNode.attribute("width").as_float();
+                    float height = objectNode.attribute("height").as_float();
+
+                    if (electric != nullptr)
+                    {
+                        electric->position = Vector2D(x + width / 2, y + height / 2);
+                        electric->name = name;
+                        electric->tiledId = tiledId;
+                        electric->width = width;
+                        electric->height = height;
+
+                        electric->Awake();
+                        electric->Start();
+                    }
+                    }
                 else if (entityType == "dialogTrigger")
                 {
                     std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
