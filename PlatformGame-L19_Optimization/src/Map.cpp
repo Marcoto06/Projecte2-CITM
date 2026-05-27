@@ -651,6 +651,15 @@ MapLayer* Map::GetNavigationLayer() {
                                 {
                                     collectible->c_num = prop.attribute("value").as_int();
                                 }
+                                else if (propName == "destMap") {
+                                    collectible->destMap = prop.attribute("value").as_string();
+                                }
+                                else if (propName == "destX") {
+                                    collectible->destX = prop.attribute("value").as_float();
+                                }
+                                else if (propName == "destY") {
+                                    collectible->destY = prop.attribute("value").as_float();
+                                }
                             }
                         }
 

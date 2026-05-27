@@ -118,6 +118,8 @@ public:
 
 	void PlayVideo(std::string _file);
 
+	void TriggerFallingVideo(std::string mapName, float destX, float destY);
+
 	//AUdio FX
 	int latidosFXId;
 	int fondoBocaFXId;
@@ -190,6 +192,12 @@ private:
 	std::list<VideoData> videos;
 	VideoData introVideo;
 	VideoData loadingVideo;
+	VideoData fallingVideo;
+
+	bool transitionAfterVideo = false;
+	std::string videoNextMap = "";
+	float videoNextX = 0.0f;
+	float videoNextY = 0.0f;
 
 	//L03: TODO 3b: Declare a Player attribute
 	SDL_Texture* mouseTileTex = nullptr;

@@ -26,6 +26,10 @@ public:
 	bool picked = false;
 	int c_num = 0;
 
+	std::string destMap = "";
+	float destX = 0.0f;
+	float destY = 0.0f;
+
 private:
 	AnimationSet anims;
 	PhysBody* pbody;

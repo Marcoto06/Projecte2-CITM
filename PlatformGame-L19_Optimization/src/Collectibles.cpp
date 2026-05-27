@@ -126,6 +126,11 @@ void Collectibles::OnCollision(PhysBody* physA, PhysBody* physB)
 		{
 			player->list_collectibles.push_back(this->c_num);
 			picked = true;
+
+			if (c_num == 1)
+			{
+				Engine::GetInstance().scene->TriggerFallingVideo(destMap, destX, destY);
+			}
 		}
 	}
 }

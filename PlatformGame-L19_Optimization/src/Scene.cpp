@@ -43,6 +43,7 @@ bool Scene::Start()
 	Engine::GetInstance().uiManager->LoadUITextures();
 	LoadVideo(&introVideo, "AnimaticaFinal");
 	LoadVideo(&loadingVideo, "LoadingScreen");
+	LoadVideo(&fallingVideo, "AnimCaida");
 
 	//Audio fx
 	latidosFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/latidos.wav");
@@ -66,7 +67,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	if (isPlayingVideo) {
-		
+		LOG("Video dt: %f", dt);
 		plm_decode(currentVideo.plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
 
 		if (currentVideo.texture && currentVideo.buffer) {
@@ -75,15 +76,25 @@ bool Scene::Update(float dt)
 			SDL_RenderTexture(Engine::GetInstance().render->renderer, currentVideo.texture, NULL, NULL);
 		}
 
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm) && currentScene != SceneID::LEVEL)	// If space is pressed or the video has ended, stop the video and load the main menu
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm))
 		{
-			StopCurrentVideo();
-			ChangeScene(SceneID::LEVEL);
-		}
-		else if (plm_has_ended(currentVideo.plm))
-		{
-			StopCurrentVideo();
-		}
+			if (transitionAfterVideo)
+			{
+				transitionAfterVideo = false;
+				if (player != nullptr) player->lock = false;
+
+				StopCurrentVideo();
+				StartFadeToMap(videoNextMap, videoNextX, videoNextY);
+			}
+			else
+			{
+				StopCurrentVideo();
+				if (currentScene == SceneID::INTRO_SCREEN)
+				{
+					ChangeScene(SceneID::LEVEL);
+				}
+			}
+		}	
 
 		return true;
 	}
@@ -569,7 +580,7 @@ void Scene::OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user)
 
 	if (vd->buffer) 
 	{
-	
+		LOG("Decoding video frame");
 		plm_frame_to_rgba(frame, vd->buffer, vd->width * 4);
 	}
 }
@@ -580,23 +591,35 @@ void Scene::LoadVideo(VideoData* video, std::string _file)
 	const char* charPath = path.c_str();
 	video->plm = plm_create_with_filename(charPath);
 
-	if (!video->plm && currentScene == SceneID::MAIN_MENU) {
-		LOG("Error: No se pudo cargar el video AnimaticaFinal.mpg");
-		ChangeScene(SceneID::LEVEL); // Fallback: if failed to load video, goes directly to level 1
+	if (!video->plm) 
+	{
+		LOG("ERROR: Could not find or open video file: %s", charPath);
+		isPlayingVideo = false;
 		return;
 	}
 
-	video->file = _file;
-	plm_set_loop(video->plm, 0); // 0 = No loop, 1 = Loop indefinitely
 	video->width = plm_get_width(video->plm);
 	video->height = plm_get_height(video->plm);
 
-	video->buffer = new uint8_t[video->width * video->height * 4];
+	if (video->width == 0 || video->height == 0) 
+	{
+		LOG("ERROR: File %s is not a valid MPEG video.", charPath);
+		plm_destroy(video->plm);
+		video->plm = nullptr;
+		isPlayingVideo = false;
+		return;
+	}
 
-	// We create an SDL texture prepared to receive pixels by streaming
+	LOG("Video loaded successfully: %s", charPath);
+
+	plm_set_audio_enabled(video->plm, 0);
+	video->file = _file;
+	plm_set_loop(video->plm, 0);
+
+	video->buffer = new uint8_t[video->width * video->height * 4];
 	video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
 
-	plm_set_video_decode_callback(video->plm, OnVideoFrame, &video);
+	plm_set_video_decode_callback(video->plm, OnVideoFrame, video);
 	videos.push_back(*video);
 }
 
@@ -623,6 +646,36 @@ void Scene::StopCurrentVideo() {
 	currentVideo.plm = nullptr;
 	currentVideo.texture = nullptr;
 	currentVideo.buffer = nullptr;
+
+	if (currentVideo.file == "AnimCaida") fallingVideo = currentVideo;
+	else if (currentVideo.file == "AnimaticaFinal") introVideo = currentVideo;
+	else if (currentVideo.file == "LoadingScreen") loadingVideo = currentVideo;
+}
+
+void Scene::TriggerFallingVideo(std::string mapName, float destX, float destY)
+{
+	if (fallingVideo.plm == nullptr)
+	{
+		LoadVideo(&fallingVideo, "AnimCaida");
+	}
+
+	if (fallingVideo.plm == nullptr) {
+		StartFadeToMap(mapName, destX, destY);
+		return;
+	}
+
+	if (player != nullptr)
+	{
+		player->lock = true;
+	}
+
+	currentVideo = fallingVideo;
+	isPlayingVideo = true; 
+	transitionAfterVideo = true;
+
+	videoNextMap = mapName;
+	videoNextX = destX;
+	videoNextY = destY;
 }
 
 // *********************************************
