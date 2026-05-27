@@ -452,6 +452,35 @@ void Player::Move() {
 		}
 		Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 	}
+	else if (isVulnerable)
+	{
+		if (dashing == false)
+		{
+			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
+				isMoving = true;
+				//Engine::GetInstance().audio->PlayFx(pasosFxId);
+				velocity.x = -vulnerableSpeed;
+				facingRight = false;
+			}
+			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
+				isMoving = true;
+				//Engine::GetInstance().audio->PlayFx(pasosFxId);
+				velocity.x = vulnerableSpeed;
+				facingRight = true;
+			}
+		}
+
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ||
+			Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT ||
+			x_axis_norm <= -0.1 || x_axis_norm >= 0.1)
+		{
+			isMoving = true;
+		}
+		else
+		{
+			isMoving = false;
+		}
+	}
 	else {
 		if (dashing == false)
 		{
@@ -643,6 +672,11 @@ void Player::ActivateBerserker() {
 	BerserkerTimer.Start();
 }
 
+void Player::ActivateAdrenaline() {
+	isAdrenaline = true;
+	AdrenalineTimer.Start();
+}
+
 void Player::RestoreHealthB()
 {
 	playerCurrentHp++;
@@ -659,7 +693,6 @@ void Player::ActivateCamouflage() {
 
 void Player::Func_BoostMovement() {
 	float durationMS = 20000.0f;
-	float durationBerserker = 18000.0f; // 18 seconds in miliseconds
 	isMoving = false; 
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {
@@ -677,14 +710,6 @@ void Player::Func_BoostMovement() {
 	{
 		isAdrenaline = false;
 		LOG("Boost terminado");
-	}
-
-	if (isBerserker)
-	{
-		if (BerserkerTimer.ReadMSec() > durationBerserker)
-		{
-			isBerserker = false;
-		}
 	}
 }
 
@@ -866,6 +891,25 @@ void Player::Func_PlayerState() {
 		}
 	default:
 		break;
+	}
+
+	float durationBerserker = 18000.0f; 
+	float durationVulnerable = 5000.0f; 
+
+	if (isBerserker)
+	{
+		if (BerserkerTimer.ReadMSec() > durationBerserker)
+		{
+			isBerserker = false;
+		}
+	}
+
+	if (isVulnerable)
+	{
+		if (vulnerableTimer.ReadMSec() > durationVulnerable)
+		{
+			isVulnerable = false;
+		}
 	}
 }
 
@@ -1299,6 +1343,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			if (isBerserker)
 			{
 				playerCurrentHp = playerCurrentHp - 0.5;
+				LOG("Current HP: %f", playerCurrentHp);
+			}
+			else if (isVulnerable)
+			{
+				playerCurrentHp = playerCurrentHp - 2;
 				LOG("Current HP: %f", playerCurrentHp);
 			}
 			else

@@ -116,10 +116,10 @@
  </tile>
  <tile id="122">
   <animation>
-   <frame tileid="122" duration="50"/>
-   <frame tileid="123" duration="50"/>
-   <frame tileid="124" duration="50"/>
-   <frame tileid="125" duration="50"/>
+   <frame tileid="122" duration="10"/>
+   <frame tileid="123" duration="10"/>
+   <frame tileid="124" duration="10"/>
+   <frame tileid="125" duration="10"/>
   </animation>
  </tile>
  <tile id="126">
