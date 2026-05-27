@@ -336,7 +336,6 @@ void Boss1::Draw(float dt)
 bool Boss1::CleanUp()
 {
 	LOG("Cleanup enemy");
-	pendingToDelete = true;
 	for (int i = 0; i < animations.size(); ++i) {
 		for (int j = 0; j < animations.at(i)->size(); ++j) {
 			Engine::GetInstance().textures->UnLoad(animations.at(i)->at(j));
