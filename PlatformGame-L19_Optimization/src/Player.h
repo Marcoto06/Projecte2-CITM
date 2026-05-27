@@ -86,12 +86,14 @@ public:
 	void ActivateBerserker();
 	void RestoreHealthB();
 	void ActivateCamouflage();
+	void ActivateAdrenaline();
 
 	bool IsGodMode() { return godMode; };
 
 	//Speed control
 	float normalSpeed = 7.5f;      	
-	float boostSpeed = 10.0f;      
+	float boostSpeed = 10.0f;
+	float vulnerableSpeed = 3.75f;
 
 	int stepHeight = 64;
 	int stepForward = 14;
@@ -166,7 +168,9 @@ public:
 	bool healing = false;
 	bool isCamouflage = false;
 	Timer camouflageTimer;
-	
+	bool isVulnerable = true;
+	Timer vulnerableTimer;
+
 	//PERMANENT UPGRADES
 	bool hasWallJump = false;
 	bool hasCrouch = false;
