@@ -203,7 +203,7 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 		if (std::abs(dx) < 230.0f && std::abs(dy) < 90.0f)
 		{
 			isFacingRight = dx > 0.0f;
-			attackType = 1; 
+			attackType = 1;
 			attackPhase = 0;
 			anims.SetCurrent("cargarRodar");
 			currentEState = ENEMYSTATES::ATTACK;
@@ -211,9 +211,14 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 		else if (std::abs(dx) < 340.0f && std::abs(dy) < 140.0f)
 		{
 			isFacingRight = dx > 0.0f;
-			attackType = 2; 
+			attackType = 2;
 			attackPhase = 0;
-			anims.SetCurrent("cargarSalto");
+
+			if (previousAttackType == 1)
+				anims.SetCurrent("cargarSalto2");
+			else
+				anims.SetCurrent("cargarSalto");
+
 			currentEState = ENEMYSTATES::ATTACK;
 		}
 		else
@@ -249,7 +254,10 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 				{
 					attackPhase = 2;
 					velocity.x = 0.0f;
-					anims.SetCurrent("chocar1");
+					if (previousAttackType == 2)
+						anims.SetCurrent("chocar2");
+					else
+						anims.SetCurrent("chocar1");
 				}
 			}
 			else if (attackPhase == 2) 
@@ -258,6 +266,7 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 
 				if (anims.Func_HasCurrentAnimationFinished())
 				{
+					previousAttackType = 1;
 					attackType = 0;
 					attackPhase = 0;
 					currentEState = ENEMYSTATES::CHASING;
@@ -269,8 +278,10 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			if (attackPhase == 0)
 			{
 				velocity.x = 0.0f;
-				anims.SetCurrent("cargarSalto");
-
+if (previousAttackType == 1)
+	anims.SetCurrent("cargarSalto2");
+else
+	anims.SetCurrent("cargarSalto");
 				if (anims.Func_HasCurrentAnimationFinished())
 				{
 					attackPhase = 1;
@@ -297,6 +308,7 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 
 				if (attackTimer.ReadMSec() >= jumpDownTime)
 				{
+					previousAttackType = 2;
 					attackType = 0;
 					attackPhase = 0;
 					velocity.x = 0.0f;
@@ -456,7 +468,7 @@ void LinfocitoTNK::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 150;
+	int drawY = y - (frameH / 2) - 150; // Adjusted the enemy 's vertical position to align with the sprite
 
 	if (isFacingRight)
 	{
