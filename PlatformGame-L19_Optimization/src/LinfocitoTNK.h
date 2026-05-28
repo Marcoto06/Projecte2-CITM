@@ -91,6 +91,7 @@ public:
 
 	int attackType = 0;   // 0 none, 1 roll, 2 jump
 	int attackPhase = 0;  
+	int previousAttackType = 0; 
 	int syringeHits = 0;
 	int pathfindingFrameCount = 0;
 	const int pathfindingUpdateRate = 30; // frequency in frames
