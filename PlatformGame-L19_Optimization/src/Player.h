@@ -123,7 +123,7 @@ public:
 	
 	PhysBody* pbody;
 
-	float jumpForce = 17.5f;
+	float jumpForce = 13.0f;
 
 	float jumpHoldTime = 0.0f;
 	float maxJumpHoldTime = 150.0f;
