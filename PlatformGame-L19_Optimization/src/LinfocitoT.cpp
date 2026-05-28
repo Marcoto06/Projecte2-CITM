@@ -425,8 +425,8 @@ bool LinfocitoT::Destroy()
 
 bool LinfocitoT::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	player->ActivateBerserker(); 
-	player->effectAnims.SetCurrent("lifeUp");
+	pplayer->ActivateBerserker(); 
+	pplayer->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
 
@@ -457,11 +457,11 @@ void LinfocitoT::OnCollision(PhysBody* physA, PhysBody* physB) {
 		switch (physB->ctype)
 		{
 		case ColliderType::SYRINGE:
-			if (!isStunned && canBeHit) // Añadimos la comprobación canBeHit
+			if (!isStunned && canBeHit) 
 			{
 				syringeHits++;
-				canBeHit = false;        // El enemigo se vuelve invulnerable
-				hitCooldownTimer.Start(); // Empezamos a contar el tiempo
+				canBeHit = false;        
+				hitCooldownTimer.Start(); 
 
 				if (syringeHits >= 3)
 				{

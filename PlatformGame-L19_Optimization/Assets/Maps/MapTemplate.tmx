@@ -12005,7 +12005,7 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="81" name="LinfocitoTNK" type="Enemy" x="842.271" y="859.2">
+  <object id="81" name="Plaquetas" type="Enemy" x="842.271" y="859.2">
    <point/>
   </object>
   <object id="83" name="Electric" type="Electric" x="9.64593" y="1393.45" width="192" height="894">

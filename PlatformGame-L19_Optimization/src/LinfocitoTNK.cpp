@@ -89,7 +89,7 @@ bool LinfocitoTNK::Update(float dt)
 {
 	ZoneScoped;
 
-	if (!canBeHit && hitCooldownTimer.ReadMSec() > 500.0f) // 500 ms de invulnerabilidad
+	if (!canBeHit && hitCooldownTimer.ReadMSec() > 500.0f) 
 	{
 		canBeHit = true;
 	}
@@ -323,7 +323,9 @@ else
 				else
 				{
 					velocity.x = 0.0f;
-				}				anims.SetCurrent("salto");
+				}				
+				anims.SetCurrent("salto");
+				velocity.y = -6.0f;
 
 				if (attackTimer.ReadMSec() >= jumpUpTime)
 				{
@@ -346,7 +348,9 @@ else
 				else
 				{
 					velocity.x = 0.0f;
-				}				anims.SetCurrent("bajadaSalto");
+				}				
+				anims.SetCurrent("bajadaSalto");
+				velocity.y = 6.0f;
 
 				if (attackTimer.ReadMSec() >= jumpDownTime)
 				{
@@ -525,7 +529,7 @@ void LinfocitoTNK::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_HORIZONTAL,
+			SDL_FLIP_NONE,
 			1.0f
 		);
 	}
@@ -540,7 +544,7 @@ void LinfocitoTNK::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_NONE,
+			SDL_FLIP_HORIZONTAL,
 			1.0f
 		);
 	}
@@ -609,11 +613,11 @@ void LinfocitoTNK::OnCollision(PhysBody* physA, PhysBody* physB) {
 	
 	}
 	case ColliderType::SYRINGE:
-		if (!isStunned && canBeHit) // Añadimos la comprobación canBeHit
+		if (!isStunned && canBeHit) 
 		{
 			syringeHits++;
-			canBeHit = false;        // El enemigo se vuelve invulnerable
-			hitCooldownTimer.Start(); // Empezamos a contar el tiempo
+			canBeHit = false;        
+			hitCooldownTimer.Start(); 
 
 			if (syringeHits >= 5)
 			{
