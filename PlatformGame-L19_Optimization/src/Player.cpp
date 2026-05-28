@@ -675,6 +675,7 @@ void Player::ActivateBerserker() {
 void Player::ActivateAdrenaline() {
 	isAdrenaline = true;
 	AdrenalineTimer.Start();
+	LOG("adrenalina iniciadsa");
 }
 
 void Player::RestoreHealthB()

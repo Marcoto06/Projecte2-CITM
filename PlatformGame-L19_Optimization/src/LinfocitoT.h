@@ -28,6 +28,9 @@ public:
 	bool Destroy(Player* player);
 	Player* player = nullptr;
 
+	Timer hitCooldownTimer; 
+	bool canBeHit = true;   
+
 private:
 	void PerformPathfinding();
 	void GetPhysicsValues();

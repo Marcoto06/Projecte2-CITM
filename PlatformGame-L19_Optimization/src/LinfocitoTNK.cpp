@@ -89,11 +89,21 @@ bool LinfocitoTNK::Update(float dt)
 {
 	ZoneScoped;
 
+	if (!canBeHit && hitCooldownTimer.ReadMSec() > 500.0f) 
+	{
+		canBeHit = true;
+	}
+
 	GetPhysicsValues();
 
 	if (!canDamagePlayer && damageTimer.ReadMSec() >= damageCooldown * 1000.0f)
 	{
 		canDamagePlayer = true;
+	}
+
+	if (!canStartAttack && attackCooldownTimer.ReadMSec() >= attackCooldownTime)
+	{
+		canStartAttack = true;
 	}
 
 	if (isTouchingPlayer && touchingPlayer != nullptr && canDamagePlayer)
@@ -200,10 +210,17 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 		float dx = playerPos.getX() - myPos.getX();
 		float dy = playerPos.getY() - myPos.getY();
 
+		if (!canStartAttack)
+		{
+			anims.SetCurrent("walk");
+			Move();
+			break;
+		}
+
 		if (std::abs(dx) < 230.0f && std::abs(dy) < 90.0f)
 		{
 			isFacingRight = dx > 0.0f;
-			attackType = 1; 
+			attackType = 1;
 			attackPhase = 0;
 			anims.SetCurrent("cargarRodar");
 			currentEState = ENEMYSTATES::ATTACK;
@@ -211,9 +228,15 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 		else if (std::abs(dx) < 340.0f && std::abs(dy) < 140.0f)
 		{
 			isFacingRight = dx > 0.0f;
-			attackType = 2; 
+			attackType = 2;
 			attackPhase = 0;
-			anims.SetCurrent("cargarSalto");
+			jumpTargetX = (int)(playerPos.getX() + texW / 2);
+
+			if (previousAttackType == 1)
+				anims.SetCurrent("cargarSalto2");
+			else
+				anims.SetCurrent("cargarSalto");
+
 			currentEState = ENEMYSTATES::ATTACK;
 		}
 		else
@@ -249,7 +272,10 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 				{
 					attackPhase = 2;
 					velocity.x = 0.0f;
-					anims.SetCurrent("chocar1");
+					if (previousAttackType == 2)
+						anims.SetCurrent("chocar2");
+					else
+						anims.SetCurrent("chocar1");
 				}
 			}
 			else if (attackPhase == 2) 
@@ -258,8 +284,11 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 
 				if (anims.Func_HasCurrentAnimationFinished())
 				{
+					previousAttackType = 1;
 					attackType = 0;
 					attackPhase = 0;
+					canStartAttack = false;
+					attackCooldownTimer.Start();
 					currentEState = ENEMYSTATES::CHASING;
 				}
 			}
@@ -269,8 +298,10 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			if (attackPhase == 0)
 			{
 				velocity.x = 0.0f;
-				anims.SetCurrent("cargarSalto");
-
+if (previousAttackType == 1)
+	anims.SetCurrent("cargarSalto2");
+else
+	anims.SetCurrent("cargarSalto");
 				if (anims.Func_HasCurrentAnimationFinished())
 				{
 					attackPhase = 1;
@@ -280,8 +311,21 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			}
 			else if (attackPhase == 1)
 			{
-				velocity.x = isFacingRight ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				int x, y;
+				pbody->GetPosition(x, y);
+
+				float diffX = (float)jumpTargetX - (float)x;
+
+				if (std::abs(diffX) > 8.0f)
+				{
+					velocity.x = diffX > 0.0f ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				}
+				else
+				{
+					velocity.x = 0.0f;
+				}				
 				anims.SetCurrent("salto");
+				velocity.y = -6.0f;
 
 				if (attackTimer.ReadMSec() >= jumpUpTime)
 				{
@@ -292,14 +336,30 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			}
 			else if (attackPhase == 2)
 			{
-				velocity.x = isFacingRight ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				int x, y;
+				pbody->GetPosition(x, y);
+
+				float diffX = (float)jumpTargetX - (float)x;
+
+				if (std::abs(diffX) > 8.0f)
+				{
+					velocity.x = diffX > 0.0f ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				}
+				else
+				{
+					velocity.x = 0.0f;
+				}				
 				anims.SetCurrent("bajadaSalto");
+				velocity.y = 6.0f;
 
 				if (attackTimer.ReadMSec() >= jumpDownTime)
 				{
+					previousAttackType = 2;
 					attackType = 0;
 					attackPhase = 0;
 					velocity.x = 0.0f;
+					canStartAttack = false;
+					attackCooldownTimer.Start();
 					currentEState = ENEMYSTATES::CHASING;
 				}
 			}
@@ -456,7 +516,7 @@ void LinfocitoTNK::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - (frameW / 2);
-	int drawY = y - (frameH / 2) - 150;
+	int drawY = y - (frameH / 2) - 150; // Adjusted the enemy 's vertical position to align with the sprite
 
 	if (isFacingRight)
 	{
@@ -469,7 +529,7 @@ void LinfocitoTNK::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_HORIZONTAL,
+			SDL_FLIP_NONE,
 			1.0f
 		);
 	}
@@ -484,7 +544,7 @@ void LinfocitoTNK::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_NONE,
+			SDL_FLIP_HORIZONTAL,
 			1.0f
 		);
 	}
@@ -553,14 +613,23 @@ void LinfocitoTNK::OnCollision(PhysBody* physA, PhysBody* physB) {
 	
 	}
 	case ColliderType::SYRINGE:
-		if (!isStunned)
+		if (!isStunned && canBeHit) 
 		{
-			timer_01.Start();
-			currentEState = ENEMYSTATES::STUNED;
-			isStunned = true;
-			if (player->isBerserker)
+			syringeHits++;
+			canBeHit = false;        
+			hitCooldownTimer.Start(); 
+
+			if (syringeHits >= 5)
 			{
-				player->RestoreHealthB();
+				timer_01.Start();
+				currentEState = ENEMYSTATES::STUNED;
+				isStunned = true;
+				syringeHits = 0;
+
+				if (player->isBerserker)
+				{
+					player->RestoreHealthB();
+				}
 			}
 		}
 		break;

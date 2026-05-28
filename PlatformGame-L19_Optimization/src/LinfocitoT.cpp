@@ -68,6 +68,11 @@ bool LinfocitoT::Update(float dt)
 {
 	ZoneScoped;
 
+	if (!canBeHit && hitCooldownTimer.ReadMSec() > 500.0f) // 500 ms de invulnerabilidad
+	{
+		canBeHit = true;
+	}
+
 	GetPhysicsValues();
 
 	if (!isStunned && currentEState != ENEMYSTATES::ATTACK && currentEState != ENEMYSTATES::DEATH)
@@ -420,8 +425,8 @@ bool LinfocitoT::Destroy()
 
 bool LinfocitoT::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	player->ActivateBerserker(); 
-	player->effectAnims.SetCurrent("lifeUp");
+	pplayer->ActivateBerserker(); 
+	pplayer->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
 
@@ -452,23 +457,24 @@ void LinfocitoT::OnCollision(PhysBody* physA, PhysBody* physB) {
 		switch (physB->ctype)
 		{
 		case ColliderType::SYRINGE:
-			if (!isStunned)
+			if (!isStunned && canBeHit) 
 			{
 				syringeHits++;
+				canBeHit = false;        
+				hitCooldownTimer.Start(); 
 
-				if (syringeHits >= 3) // Si ya le hemos dado 3 veces
+				if (syringeHits >= 3)
 				{
 					timer_01.Start();
 					currentEState = ENEMYSTATES::STUNED;
 					isStunned = true;
 					syringeHits = 0;
 
-					if (player->isBerserker) //BerserkerEffect
+					if (player->isBerserker)
 					{
 						player->RestoreHealthB();
 					}
 				}
-
 			}
 			break;
 		case ColliderType::SUCK_ZONE:

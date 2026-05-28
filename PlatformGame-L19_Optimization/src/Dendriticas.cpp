@@ -39,7 +39,7 @@ bool Dendriticas::Start() {
 
 	//Add physics to the enemy - initialize physics body
 	texW = 125;
-	texH = 200;
+	texH = 100;
 	pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX() + texW / 2, ((int)position.getY() + texH / 2), texW, texH, bodyType::DYNAMIC);
 	pbody->SetFixedRotation(true);
 
@@ -322,7 +322,7 @@ void Dendriticas::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_HORIZONTAL,
+			SDL_FLIP_NONE,
 			1.0f
 		);
 	}
@@ -337,7 +337,7 @@ void Dendriticas::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_NONE,
+			SDL_FLIP_HORIZONTAL,
 			1.0f
 		);
 	}

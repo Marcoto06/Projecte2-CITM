@@ -29,6 +29,9 @@ public:
 	bool Destroy(Player* player);
 	Player* player = nullptr;
 
+	Timer hitCooldownTimer;
+	bool canBeHit = true;
+
 private:
 	void PerformPathfinding();
 	void GetPhysicsValues();
@@ -71,6 +74,9 @@ public:
 	Timer suckTimer;
 	Timer attackTimer;
 	Timer damageTimer;
+	Timer attackCooldownTimer;
+	bool canStartAttack = true;
+	float attackCooldownTime = 1200.0f;
 
 	int jumpStartX = 0;
 	int jumpStartY = 0;
@@ -91,6 +97,7 @@ public:
 
 	int attackType = 0;   // 0 none, 1 roll, 2 jump
 	int attackPhase = 0;  
+	int previousAttackType = 0; 
 	int syringeHits = 0;
 	int pathfindingFrameCount = 0;
 	const int pathfindingUpdateRate = 30; // frequency in frames
