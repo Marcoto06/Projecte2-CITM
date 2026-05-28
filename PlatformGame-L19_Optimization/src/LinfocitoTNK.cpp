@@ -89,6 +89,11 @@ bool LinfocitoTNK::Update(float dt)
 {
 	ZoneScoped;
 
+	if (!canBeHit && hitCooldownTimer.ReadMSec() > 500.0f) // 500 ms de invulnerabilidad
+	{
+		canBeHit = true;
+	}
+
 	GetPhysicsValues();
 
 	if (!canDamagePlayer && damageTimer.ReadMSec() >= damageCooldown * 1000.0f)
@@ -604,14 +609,23 @@ void LinfocitoTNK::OnCollision(PhysBody* physA, PhysBody* physB) {
 	
 	}
 	case ColliderType::SYRINGE:
-		if (!isStunned)
+		if (!isStunned && canBeHit) // Añadimos la comprobación canBeHit
 		{
-			timer_01.Start();
-			currentEState = ENEMYSTATES::STUNED;
-			isStunned = true;
-			if (player->isBerserker)
+			syringeHits++;
+			canBeHit = false;        // El enemigo se vuelve invulnerable
+			hitCooldownTimer.Start(); // Empezamos a contar el tiempo
+
+			if (syringeHits >= 5)
 			{
-				player->RestoreHealthB();
+				timer_01.Start();
+				currentEState = ENEMYSTATES::STUNED;
+				isStunned = true;
+				syringeHits = 0;
+
+				if (player->isBerserker)
+				{
+					player->RestoreHealthB();
+				}
 			}
 		}
 		break;
