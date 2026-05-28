@@ -693,6 +693,7 @@ void Player::ActivateCamouflage() {
 
 void Player::Func_BoostMovement() {
 	float durationMS = 20000.0f;
+	boostTimer_01.Start();
 	isMoving = false; 
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isSucking && canMove) {

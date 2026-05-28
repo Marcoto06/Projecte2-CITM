@@ -517,7 +517,7 @@ bool LinfocitoTNK::Destroy()
 
 bool LinfocitoTNK::Destroy(Player* pplayer) 
 {
-	player->isAdrenaline;
+	player->isAdrenaline = true;
 	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }

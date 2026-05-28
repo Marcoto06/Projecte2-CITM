@@ -361,7 +361,7 @@ bool Plaquetas::Destroy()
 
 bool Plaquetas::Destroy(Player* pplayer) // Good: coincide with the .h
 {
-	player->isAdrenaline;
+	player->isAdrenaline = true;
 	player->effectAnims.SetCurrent("lifeUp");
 	return Destroy();
 }
