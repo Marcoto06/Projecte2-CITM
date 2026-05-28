@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dialogs>
 
-  <!-- ###### DIALOGOS BOCA ######-->
+  <!-- ###### DIALOGOS BOCA START ######-->
 
   <Dialog id="0" name="Luke" duration="0">That's right. You hear us, Doc?</Dialog>
 	<Dialog id="1" name="Doctor" duration="3">Affirmative.</Dialog>
 	<Dialog id="2" name="Luke" duration="3">Great, I wasn't expecting less!</Dialog>
 	<Dialog id="3" name="Luke" duration="3">Aaand everything set and ready to go.</Dialog>
 	<Dialog id="4" name="Doctor" duration="5">Those are Streptococcus Sanguinis, right? Seeing them in this size is quite intimidating…</Dialog>
-	<Dialog id ="5" name="Luke" duration="4">Understandable, but, still, they shouldn't be aggressive.</Dialog>
+	<Dialog id="5" name="Luke" duration="4">Understandable, but, still, they shouldn't be aggressive.</Dialog>
   
   <!-- Intento de salto fallido -->
   <Dialog id="6" name="Doctor" duration="3">Seems I can't get across yet.</Dialog>
 	<Dialog id="7" name="Luke" duration="5">Maybe try going downwards, there should be some cell that you can absorb. To gain a charge ability, you know?</Dialog>
 	<Dialog id="8" name="Doctor" duration="2">I know, Luke, I know.</Dialog>
+  
+  <!-- La doctora baja hacia las plataformas inferiores del nivel -->
+
 	<Dialog id="9" name="Luke" duration="5">Don't worry about the Eosinophil; the MHK suit will keep you safe.</Dialog>
 	<Dialog id="10" name="Doctor" duration="2">You don't say!</Dialog>
   
@@ -24,10 +27,90 @@
   <Dialog id="14" name="Doctor" duration="2">...</Dialog>
   <Dialog id="15" name="Luke" duration="3">Do make sure to get that sample first, please.</Dialog>
   <Dialog id="16" name="Doctor" duration="3">Those things there don't seem so friendly.</Dialog>
+
+  <!-- Derrota del SS parasitado y recoge la 2a muestra -->
   <Dialog id="17" name="Doctor" duration="2">One less to go.</Dialog>
   <Dialog id="18" name="Luke" duration="3">Wow Doc, you're on a streak today!</Dialog>
   <Dialog id="19" name="Doctor" duration="3">What are you acting so surprised for?</Dialog>
 
-  <Dialog id="20" name="Luke" duration="5">Hey Doc, Luke speaking. There's no news from the central.We are trying to remain calm, but it seems like it's taking a toll on Theo.</Dialog>
-	<Dialog id="21" name="Luke" duration="5">He is being more unbearable than usual. Also, the patient won't stop trembling, it seems like anesthesia is losing its effect. Hope you're safe.</Dialog>
+  <!-- Derrota al segundo SS parasitado y llega a la última plataforma -->
+  <Dialog id="20" name="Doctor" duration="3">So, downwards it is, no?</Dialog>
+
+  <!-- Se empieza a sacudir el paciente -->
+  <Dialog id="21" name="Luke" duration="3">HOLD ON! QUICK, STEADY HIM!</Dialog>
+  <Dialog id="22" name="Doctor" duration="3">What are you-?</Dialog>
+  
+  <!-- Se sacude violentamente y la doctora cae tráquea abajo -->
+  
+  <!-- ###### DIALOGOS BOCA END ######-->
+
+  <!-- Mensajes pre grabados en los puntos de control a partir de ese momento, debido a la falta de conexión.-->
+  
+  <!-- ###### DIALOGOS PULMON START ######-->
+
+  <!-- Mensaje 1 -->
+  <Dialog id="23" name="Luke" duration="3">Hey, Doc. It seems like all connection was lost when you fell down the trachea. Uhm…the patient…he…started convulsing violently.</Dialog>
+  <Dialog id="24" name="Luke" duration="3">As soon as his vitals are stabilized, we'll try to get you out. In the meantime, take care, please.</Dialog>
+  
+  <!-- Mensaje 2 -->
+  <Dialog id="25" name="Luke" duration="3">How is it going down there, Doc? Out here it's taking longer than we expected, the patient is not getting any better.</Dialog>
+  <Dialog id="26" name="Luke" duration="3">We are trying to stabilize him with further medicines. Theo is a bit iffy about it, but there's nothing else we can do.</Dialog>
+  
+  <!-- Mensaje 3 -->
+  <Dialog id="27" name="Luke" duration="3">Hi Doc, it's Luke… again… The patient is not showing any signs of improvement, in fact, he is getting even worse.</Dialog>
+  <Dialog id="28" name="Luke" duration="3">We've tried getting in touch with the central, but no one answered, which is weird. Rest assured, I'm sure they'll soon reach out. Be safe, we'll keep in contact.</Dialog>
+
+  <!-- Mensaje coleccionables -->
+  <Dialog id="29" name="Doctor" duration="3">The virus is deteriorating the patient's body bit by bit, and its vital functions seem to be changing.</Dialog>
+  <Dialog id="30" name="Doctor" duration="3">Some living cells were also infected and transformed into…monstrous versions of themselves.</Dialog>
+
+  <!-- ###### DIALOGOS PULMON END ######-->
+
+  <!-- ###### DIALOGOS CORAZON START ######-->
+
+  <!-- Mensaje 1 -->
+  <Dialog id="31" name="Luke" duration="5">Hey Doc, Luke speaking. There's no news from the central.We are trying to remain calm, but it seems like it's taking a toll on Theo.</Dialog>
+	<Dialog id="32" name="Luke" duration="5">He is being more unbearable than usual. Also, the patient won't stop trembling, it seems like anesthesia is losing its effect. Hope you're safe.</Dialog>
+
+  <!-- Mensaje 2 -->
+  <Dialog id="33" name="Luke" duration="5">Hey, well… we had to double the patient's sedative dosis, but it seems that this is just the calm before the storm. I don't know why, but Theo lashed out.</Dialog>
+  <Dialog id="34" name="Luke" duration="5">Right now Morgan is trying to cool him down. Also, we still haven't heard from the central. Something is definitely off.</Dialog>
+
+  <!-- Mensaje 3 -->
+  <Dialog id="35" name="Luke" duration="5">So…Theo went off the rails and he…jumped Morgan. He injured Morgan to the point of bleeding. We had to tie him up to prevent any other possible attacks.</Dialog>
+  <Dialog id="36" name="Luke" duration="5">This couldn't get any worse, could it? Watch your back.</Dialog>
+
+  <!-- Mensaje coleccionables -->
+  <Dialog id="37" name="Doctor" duration="5">The patient's heart has been infected by the virus, I've never seen such a thing. It seems as if like the virus is modifying the patient's genetic material.</Dialog>
+  <Dialog id="38" name="Doctor" duration="5">I'm afraid it will get to a point of symbiosis.</Dialog>
+  
+  <!-- ###### DIALOGOS CORAZON END ######-->
+
+  <!-- ###### DIALOGOS ESTOMAGO START ######-->
+
+  <!-- Mensaje 1 -->
+  <Dialog id="39" name="Luke" duration="5">Hi. We've spotted a wound on Theo's arm, we have an inkling the illness might spread via physical injuries, which means…Morgan's life is on the line too.</Dialog>
+  <Dialog id="40" name="Luke" duration="5">We are so screwed.</Dialog>
+
+  <!-- Mensaje 2 -->
+  <Dialog id="41" name="Luke" duration="5">Morgan is helping out in every way that he can, but there's nothing much we can do out here. He knows…his time is almost up.</Dialog>
+  <Dialog id="42" name="Luke" duration="5">All entrance and exit doors were blocked, we are locked shut in this stupid room. No one is coming to the rescue, and frankly, I think we were set up.</Dialog>
+  <Dialog id="43" name="Luke" duration="5">I'm sure it must be hard down there as well, but, I need you to push through, please.</Dialog>
+
+  <!-- Mensaje 3 -->
+  <Dialog id="44" name="Luke" duration="5">Doc, Morgan…he…killed himself. It was the hardest thing we ever had to agree upon, but, he…wanted to go before the illness took over him.</Dialog>
+  <Dialog id="45" name="Luke" duration="5">I'll have to…do something about Theo. I'm unsure if I can.</Dialog>
+
+  <!-- Mensaje coleccionables -->
+  <Dialog id="46" name="Doctor" duration="5">You all wouldn't believe how critical the situation has become unless you'd see it with your own eyes.</Dialog>
+  <Dialog id="47" name="Doctor" duration="5">It seems like the virus is exerting some sort of control over the body's living organisms.</Dialog>
+  <Dialog id="48" name="Doctor" duration="5">I must make haste, otherwise I'm not sure I'll make it out alive.</Dialog>
+
+  <!-- ###### DIALOGOS ESTOMAGO END ######-->
+
+  <!-- ###### DIALOGOS CEREBRO START ######-->
+
+  <!-- ###### DIALOGOS CEREBRO END ######-->
+
+
 </Dialogs>
