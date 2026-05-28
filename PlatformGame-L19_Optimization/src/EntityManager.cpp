@@ -20,6 +20,7 @@
 #include "LinfocitoTNK.h"
 #include "Acid.h"
 #include "Electric.h"
+#include "VirusBasico.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -130,6 +131,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::LINFOCITO_TNK:
 		entity = std::make_shared<LinfocitoTNK>();
+		break;
+	case EntityType::VIRUS_BASICO:
+		entity = std::make_shared<VirusBasico>();
 		break;
 	case EntityType::ACID:
 		entity = std::make_shared<Acid>();

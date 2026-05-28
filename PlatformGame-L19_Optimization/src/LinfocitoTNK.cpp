@@ -96,6 +96,11 @@ bool LinfocitoTNK::Update(float dt)
 		canDamagePlayer = true;
 	}
 
+	if (!canStartAttack && attackCooldownTimer.ReadMSec() >= attackCooldownTime)
+	{
+		canStartAttack = true;
+	}
+
 	if (isTouchingPlayer && touchingPlayer != nullptr && canDamagePlayer)
 	{
 		if (!touchingPlayer->IsGodMode())
@@ -200,6 +205,13 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 		float dx = playerPos.getX() - myPos.getX();
 		float dy = playerPos.getY() - myPos.getY();
 
+		if (!canStartAttack)
+		{
+			anims.SetCurrent("walk");
+			Move();
+			break;
+		}
+
 		if (std::abs(dx) < 230.0f && std::abs(dy) < 90.0f)
 		{
 			isFacingRight = dx > 0.0f;
@@ -213,6 +225,7 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			isFacingRight = dx > 0.0f;
 			attackType = 2;
 			attackPhase = 0;
+			jumpTargetX = (int)(playerPos.getX() + texW / 2);
 
 			if (previousAttackType == 1)
 				anims.SetCurrent("cargarSalto2");
@@ -269,6 +282,8 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 					previousAttackType = 1;
 					attackType = 0;
 					attackPhase = 0;
+					canStartAttack = false;
+					attackCooldownTimer.Start();
 					currentEState = ENEMYSTATES::CHASING;
 				}
 			}
@@ -291,8 +306,19 @@ else
 			}
 			else if (attackPhase == 1)
 			{
-				velocity.x = isFacingRight ? jumpAttackSpeedX : -jumpAttackSpeedX;
-				anims.SetCurrent("salto");
+				int x, y;
+				pbody->GetPosition(x, y);
+
+				float diffX = (float)jumpTargetX - (float)x;
+
+				if (std::abs(diffX) > 8.0f)
+				{
+					velocity.x = diffX > 0.0f ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				}
+				else
+				{
+					velocity.x = 0.0f;
+				}				anims.SetCurrent("salto");
 
 				if (attackTimer.ReadMSec() >= jumpUpTime)
 				{
@@ -303,8 +329,19 @@ else
 			}
 			else if (attackPhase == 2)
 			{
-				velocity.x = isFacingRight ? jumpAttackSpeedX : -jumpAttackSpeedX;
-				anims.SetCurrent("bajadaSalto");
+				int x, y;
+				pbody->GetPosition(x, y);
+
+				float diffX = (float)jumpTargetX - (float)x;
+
+				if (std::abs(diffX) > 8.0f)
+				{
+					velocity.x = diffX > 0.0f ? jumpAttackSpeedX : -jumpAttackSpeedX;
+				}
+				else
+				{
+					velocity.x = 0.0f;
+				}				anims.SetCurrent("bajadaSalto");
 
 				if (attackTimer.ReadMSec() >= jumpDownTime)
 				{
@@ -312,6 +349,8 @@ else
 					attackType = 0;
 					attackPhase = 0;
 					velocity.x = 0.0f;
+					canStartAttack = false;
+					attackCooldownTimer.Start();
 					currentEState = ENEMYSTATES::CHASING;
 				}
 			}

@@ -71,6 +71,9 @@ public:
 	Timer suckTimer;
 	Timer attackTimer;
 	Timer damageTimer;
+	Timer attackCooldownTimer;
+	bool canStartAttack = true;
+	float attackCooldownTime = 1200.0f;
 
 	int jumpStartX = 0;
 	int jumpStartY = 0;
