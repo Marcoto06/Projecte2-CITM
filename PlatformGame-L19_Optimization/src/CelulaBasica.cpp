@@ -37,16 +37,13 @@ bool CelulaBasica::Start()
 	);
 
 	pbody->listener = this;
-	pbody->ctype = ColliderType::UNKNOWN;
+	pbody->ctype = ColliderType::CELL;
 	pbody->SetFixedRotation(true);
 
 	player = Engine::GetInstance().scene->player.get();
 
 	moveTimer.Start();
 	idleTimer.Start();
-
-	// TEMPORAL TEST (UnCOMMENT TO TEST PARASITE INTERACTION)
-	// Parasitize();
 
 	return true;
 }
@@ -95,6 +92,23 @@ bool CelulaBasica::Update(float dt)
 	if (!canDamagePlayer && damageTimer.ReadMSec() >= damageCooldownMs)
 	{
 		canDamagePlayer = true;
+	}
+
+	if (isParasitized && isTouchingPlayer && touchingPlayer != nullptr && canDamagePlayer)
+	{
+		if (!touchingPlayer->IsGodMode())
+		{
+			touchingPlayer->playerCurrentHp -= contactDamage;
+
+			if (touchingPlayer->playerCurrentHp < 0)
+				touchingPlayer->playerCurrentHp = 0;
+
+			isAttacking = true;
+			parasitizedAnims.SetCurrent("pAttack");
+
+			canDamagePlayer = false;
+			damageTimer.Start();
+		}
 	}
 
 	Func_CellStates(dt);
@@ -154,8 +168,21 @@ void CelulaBasica::Func_CellStates(float dt)
 		break;
 
 	case CELL_STATE::PARASITIZED_CHASING:
-		parasitizedAnims.SetCurrent("pWalk");
-		MoveParasitized();
+		if (isAttacking)
+		{
+			parasitizedAnims.SetCurrent("pAttack");
+			velocity.x = 0.0f;
+
+			if (parasitizedAnims.Func_HasCurrentAnimationFinished())
+			{
+				isAttacking = false;
+			}
+		}
+		else
+		{
+			parasitizedAnims.SetCurrent("pWalk");
+			MoveParasitized();
+		}
 		break;
 
 	case CELL_STATE::STUNED:
@@ -170,11 +197,29 @@ void CelulaBasica::Func_CellStates(float dt)
 			normalAnims.SetCurrent("stun");
 		}
 
-		if (stunTimer.ReadMSec() >= 5000.0f)
+		if (isHurt)
 		{
-			isStunned = false;
-			currentState = isParasitized ? CELL_STATE::PARASITIZED_CHASING : CELL_STATE::IDLE;
+			if (hurtTimer.ReadMSec() >= hurtDurationMs)
+			{
+				isHurt = false;
+
+				currentState = isParasitized
+					? CELL_STATE::PARASITIZED_CHASING
+					: CELL_STATE::IDLE;
+			}
 		}
+		else
+		{
+			if (stunTimer.ReadMSec() >= 5000.0f)
+			{
+				isStunned = false;
+
+				currentState = isParasitized
+					? CELL_STATE::PARASITIZED_CHASING
+					: CELL_STATE::IDLE;
+			}
+		}
+
 		break;
 
 	case CELL_STATE::DEATH:
@@ -293,6 +338,7 @@ void CelulaBasica::Parasitize()
 		return;
 
 	isParasitized = true;
+	currentHp = maxHp;
 
 	if (pbody != nullptr)
 	{
@@ -359,6 +405,31 @@ bool CelulaBasica::IsEnemyStunned()
 	return currentState == CELL_STATE::STUNED || currentState == CELL_STATE::DEATH;
 }
 
+void CelulaBasica::TakeDamage(int amount)
+{
+	if (currentState == CELL_STATE::DEATH)
+		return;
+
+	currentHp -= amount;
+
+	if (currentHp <= 0)
+	{
+		currentHp = 0;
+		currentState = CELL_STATE::DEATH;
+		return;
+	}
+
+	isHurt = true;
+	hurtTimer.Start();
+
+	currentState = CELL_STATE::STUNED;
+}
+
+bool CelulaBasica::IsParasitized() const
+{
+	return isParasitized;
+}
+
 void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
@@ -373,10 +444,12 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 
 	case ColliderType::PLAYER:
-		if (!isParasitized)
+		if (isParasitized)
 		{
-			break;
+			isTouchingPlayer = true;
+			touchingPlayer = (Player*)physB->listener;
 		}
+		break;
 
 		if (canDamagePlayer)
 		{
@@ -399,4 +472,11 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void CelulaBasica::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		isTouchingPlayer = false;
+		touchingPlayer = nullptr;
+		break;
+	}
 }

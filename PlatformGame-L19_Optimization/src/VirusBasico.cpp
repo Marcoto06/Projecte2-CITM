@@ -8,6 +8,8 @@
 #include "Log.h"
 #include "tracy/Tracy.hpp"
 #include "EntityManager.h"
+#include <cstdlib>
+#include "CelulaBasica.h"
 #include <cmath>
 
 VirusBasico::VirusBasico() : Entity(EntityType::VIRUS_BASICO)
@@ -95,7 +97,38 @@ bool VirusBasico::Update(float dt)
 		)
 	{
 		isPlayerDetected = IsPlayerDetected();
+		CelulaBasica* nearbyCell = FindNearestCell(550.0f);
 
+		if (nearbyCell != nullptr && canAttack)
+		{
+			Vector2D cellPos = nearbyCell->GetPosition();
+
+			currentAttackTarget = Vector2D(
+				cellPos.getX() + 128.0f,
+				cellPos.getY() + 128.0f
+			);
+
+			int roll = std::rand() % 100;
+
+			attackingCell = true;
+			currentState = VIRUS_STATE::ATTACKING;
+			hasSpawnedProjectile = false;
+			canAttack = false;
+			attackTimer.Start();
+
+			if (roll < 30)
+			{
+				currentAttack = 3;
+				anims.SetCurrent("parasite");
+			}
+			else
+			{
+				currentAttack = 2;
+				anims.SetCurrent("attack2");
+			}
+
+			return true;
+		}
 		if (isPlayerDetected)
 		{
 			Vector2D playerPos = Engine::GetInstance().scene->GetPlayerPosition();
@@ -190,14 +223,22 @@ void VirusBasico::Func_EnemyStates(float dt)
 			{
 				SpawnWaveProjectiles();
 			}
-			else
+			else if (currentAttack == 2)
 			{
-				SpawnBigProjectile();
+				if (attackingCell)
+					SpawnBigProjectileToTarget(currentAttackTarget);
+				else
+					SpawnBigProjectile();
+			}
+			else if (currentAttack == 3)
+			{
+				SpawnParasiteProjectileToTarget(currentAttackTarget);
 			}
 		}
 
 		if (anims.Func_HasCurrentAnimationFinished())
 		{
+			attackingCell = false;
 			attackCooldownTimer.Start();
 			currentState = VIRUS_STATE::MOVING;
 		}
@@ -403,6 +444,44 @@ bool VirusBasico::IsEnemyStunned()
 	return currentState == VIRUS_STATE::STUNED || currentState == VIRUS_STATE::TEMP_DEATH;
 }
 
+CelulaBasica* VirusBasico::FindNearestCell(float range)
+{
+	CelulaBasica* nearestCell = nullptr;
+	float bestDistanceSq = range * range;
+
+	Vector2D myPos = GetPosition();
+	float myCenterX = myPos.getX() + texW * 0.5f;
+	float myCenterY = myPos.getY() + texH * 0.5f;
+
+	for (const auto& entity : Engine::GetInstance().entityManager->entities)
+	{
+		if (entity == nullptr || !entity->active)
+			continue;
+
+		if (entity->type != EntityType::CELULA_BASICA)
+			continue;
+
+		CelulaBasica* cell = dynamic_cast<CelulaBasica*>(entity.get());
+
+		if (cell == nullptr || cell->IsParasitized())
+			continue;
+
+		Vector2D cellPos = cell->GetPosition();
+
+		float dx = cellPos.getX() - myCenterX;
+		float dy = cellPos.getY() - myCenterY;
+		float distSq = dx * dx + dy * dy;
+
+		if (distSq < bestDistanceSq)
+		{
+			bestDistanceSq = distSq;
+			nearestCell = cell;
+		}
+	}
+
+	return nearestCell;
+}
+
 void VirusBasico::SpawnBigProjectile()
 {
 
@@ -424,6 +503,84 @@ void VirusBasico::SpawnBigProjectile()
 	);
 
 	projectile->SetProjectileType(2);
+	projectile->SetSpawnPosition(spawnPos);
+	projectile->SetDirection(direction);
+	projectile->Start();
+
+	Engine::GetInstance().entityManager->AddEntity(projectile);
+}
+
+void VirusBasico::SpawnBigProjectileToTarget(Vector2D targetPos)
+{
+	std::shared_ptr<ProyectilesVirusBasico> projectile = std::make_shared<ProyectilesVirusBasico>();
+
+	Vector2D virusPos = GetPosition();
+
+	float spawnOffsetX = isFacingRight ? 90.0f : -90.0f;
+
+	Vector2D spawnPos(
+		virusPos.getX() + texW / 2 + spawnOffsetX,
+		virusPos.getY() + texH / 2
+	);
+
+	Vector2D direction(
+		targetPos.getX() - spawnPos.getX(),
+		targetPos.getY() - spawnPos.getY()
+	);
+
+	projectile->SetProjectileType(2);
+	projectile->SetSpawnPosition(spawnPos);
+	projectile->SetDirection(direction);
+	projectile->Start();
+
+	Engine::GetInstance().entityManager->AddEntity(projectile);
+}
+
+void VirusBasico::SpawnParasiteProjectileToTarget(Vector2D targetPos)
+{
+	std::shared_ptr<ProyectilesVirusBasico> projectile = std::make_shared<ProyectilesVirusBasico>();
+
+	Vector2D virusPos = GetPosition();
+
+	float spawnOffsetX = isFacingRight ? 90.0f : -90.0f;
+
+	Vector2D spawnPos(
+		virusPos.getX() + texW / 2 + spawnOffsetX,
+		virusPos.getY() + texH / 2
+	);
+
+	Vector2D direction(
+		targetPos.getX() - spawnPos.getX(),
+		targetPos.getY() - spawnPos.getY()
+	);
+
+	projectile->SetProjectileType(3);
+	projectile->SetSpawnPosition(spawnPos);
+	projectile->SetDirection(direction);
+	projectile->Start();
+
+	Engine::GetInstance().entityManager->AddEntity(projectile);
+}
+
+void VirusBasico::SpawnParasiteProjectile()
+{
+	std::shared_ptr<ProyectilesVirusBasico> projectile = std::make_shared<ProyectilesVirusBasico>();
+
+	Vector2D virusPos = GetPosition();
+
+	float spawnOffsetX = isFacingRight ? 90.0f : -90.0f;
+
+	Vector2D spawnPos(
+		virusPos.getX() + texW / 2 + spawnOffsetX,
+		virusPos.getY() + texH / 2
+	);
+
+	Vector2D direction(
+		isFacingRight ? 1.0f : -1.0f,
+		0.0f
+	);
+
+	projectile->SetProjectileType(3);
 	projectile->SetSpawnPosition(spawnPos);
 	projectile->SetDirection(direction);
 	projectile->Start();

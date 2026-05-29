@@ -29,6 +29,7 @@ enum class ColliderType {
     ITEM,
     PLATFORM,
     ENEMY,
+    CELL,
     SYRINGE,
     SUCK_ZONE,
     CHECKPOINT,

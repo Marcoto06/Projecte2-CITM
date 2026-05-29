@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Physics.h"
 #include "Log.h"
+#include "CelulaBasica.h"
 #include <cmath>
 
 ProyectilesVirusBasico::ProyectilesVirusBasico() : Entity(EntityType::PROJECTILE_VIRUS_BASICO)
@@ -197,6 +198,42 @@ void ProyectilesVirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
+	case ColliderType::UNKNOWN:
+	{
+		if (projectileType == 3)
+		{
+			CelulaBasica* cell = dynamic_cast<CelulaBasica*>(physB->listener);
+
+			if (cell != nullptr)
+			{
+				cell->Parasitize();
+				Destroy();
+			}
+		}
+		break;
+	}
+
+	case ColliderType::CELL:
+	{
+		CelulaBasica* cell = dynamic_cast<CelulaBasica*>(physB->listener);
+
+		if (cell != nullptr)
+		{
+			if (projectileType == 3)
+			{
+				cell->Parasitize();
+			}
+			else
+			{
+				cell->TakeDamage(damage);
+			}
+
+			Destroy();
+		}
+
+		break;
+	}
+
 	case ColliderType::PLAYER:
 	{
 		Player* player = dynamic_cast<Player*>(physB->listener);

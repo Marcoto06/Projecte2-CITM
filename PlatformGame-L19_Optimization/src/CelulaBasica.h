@@ -68,20 +68,31 @@ public:
 	bool isParasitized = false;
 	bool isStunned = false;
 	bool isFacingRight = false;
+	bool isAttacking = false;
+	bool isHurt = false;
+	bool canDamagePlayer = true;
+	bool isTouchingPlayer = false;
+	Player* touchingPlayer = nullptr;
 
 	float normalMoveSpeed = 1.0f;
 	float parasitizedMoveSpeed = 2.0f;
 	float detectionRange = 450.0f;
+	float hurtDurationMs = 500.0f;
+	float damageCooldownMs = 1500.0f;
 
 	int contactDamage = 1;
+
+	int maxHp = 6;
+	int currentHp = 6;
+
+	void TakeDamage(int amount);
+	bool IsParasitized() const;
 
 	Timer moveTimer;
 	Timer idleTimer;
 	Timer stunTimer;
 	Timer damageTimer;
-
-	bool canDamagePlayer = true;
-	float damageCooldownMs = 1500.0f;
+	Timer hurtTimer;
 
 private:
 	b2Vec2 velocity;

@@ -6,6 +6,7 @@
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 #include "ProyectilesVirusBasico.h"
+#include "CelulaBasica.h"
 
 struct SDL_Texture;
 class Player;
@@ -38,6 +39,10 @@ private:
 	bool IsPlayerDetected() const;
 	void SpawnBigProjectile();
 	void SpawnWaveProjectiles();
+	void SpawnParasiteProjectile();
+	CelulaBasica* FindNearestCell(float range);
+	void SpawnBigProjectileToTarget(Vector2D targetPos);
+	void SpawnParasiteProjectileToTarget(Vector2D targetPos);
 
 public:
 	Player* player = nullptr;
@@ -48,6 +53,8 @@ public:
 	int damageWave = 1;       
 	int damageSpikes = 1;     
 	int damageProjectile = 3; 
+	int currentAttack = 0;
+
 
 	float stuntimer = 10.0f;
 	float reviveTime = 20.0f;
@@ -68,9 +75,9 @@ public:
 	bool hasLandedStunned = false;
 	bool hasSpawnedProjectile = false;
 	bool canAttack = true;
+	bool attackingCell = false;
 
-	int currentAttack = 0;
-
+	Vector2D currentAttackTarget = Vector2D(0, 0);
 
 	float detectionRange = 800.0f;
 
