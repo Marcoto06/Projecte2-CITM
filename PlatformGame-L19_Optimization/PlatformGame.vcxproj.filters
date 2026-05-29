@@ -195,6 +195,9 @@
     <ClCompile Include="src\ProyectilesVirusBasico.cpp">
       <Filter>Source Files\Game\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="src\CelulaBasica.cpp">
+      <Filter>Source Files\Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -340,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="src\ProyectilesVirusBasico.h">
       <Filter>Source Files\Game\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CelulaBasica.h">
+      <Filter>Source Files\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

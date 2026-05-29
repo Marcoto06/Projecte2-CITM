@@ -21,6 +21,7 @@
 #include "Acid.h"
 #include "Electric.h"
 #include "VirusBasico.h"
+#include "CelulaBasica.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -134,6 +135,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::VIRUS_BASICO:
 		entity = std::make_shared<VirusBasico>();
+		break;
+	case EntityType::CELULA_BASICA:
+		entity = std::make_shared<CelulaBasica>();
 		break;
 	case EntityType::ACID:
 		entity = std::make_shared<Acid>();

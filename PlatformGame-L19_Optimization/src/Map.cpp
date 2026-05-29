@@ -14,6 +14,7 @@
 #include "DialogTrigger.h"
 #include "Acid.h"
 #include "Electric.h"
+#include "CelulaBasica.h"
 
 #include <math.h>
 
@@ -441,513 +442,533 @@ MapLayer* Map::GetNavigationLayer() {
 	 //Iterate the object groups
      for (pugi::xml_node objectGroupNode = mapFileXML.child("map").child("objectgroup"); objectGroupNode != NULL; objectGroupNode = objectGroupNode.next_sibling("objectgroup")) {
 		 //Check if the object group is "Entities"
-        if (objectGroupNode.attribute("name").as_string() == std::string("Entities") || objectGroupNode.attribute("name").as_string() == std::string("Anim_Tiles")) {
-            
-			//Iterate the objects
-            for (pugi::xml_node objectNode = objectGroupNode.child("object"); objectNode != NULL; objectNode = objectNode.next_sibling("object")) {
+         if (objectGroupNode.attribute("name").as_string() == std::string("Entities") || objectGroupNode.attribute("name").as_string() == std::string("Anim_Tiles")) {
 
-				//Get the entity type and position
-                std::string entityType = objectNode.attribute("type").as_string();
-                if (entityType.empty() || entityType == "") {
-                    entityType = objectNode.attribute("class").as_string();
-                }
-                std::string name = objectNode.attribute("name").as_string();
-                float x = objectNode.attribute("x").as_float();
-                float y = objectNode.attribute("y").as_float();
-                
-                int tiledId = objectNode.attribute("id").as_int();
+             //Iterate the objects
+             for (pugi::xml_node objectNode = objectGroupNode.child("object"); objectNode != NULL; objectNode = objectNode.next_sibling("object")) {
 
-                // Create entity based on type
-                if (entityType == "Player") {
-                    // Create Player entity
-                    if (player == nullptr || !player->active || player -> pendingToDelete) {
-                        player = std::dynamic_pointer_cast<Player>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAYER));
-                        player->position = Vector2D(x, y);
-                        player->Start(); //L17: Important to call Start to initialize teh Entity
-                    }
-					//If the player already exists, just set its position
-                    else {
-                        player->SetPosition(Vector2D(x, y));
-                    }
-                }
-                else if (entityType == "Enemy") {
-                    // Create Enemy entity
-                    if (name == "Streptococus") {
-                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
-                        enemy->position = Vector2D(x, y);
-                        enemy->tiledId = tiledId;
+                 //Get the entity type and position
+                 std::string entityType = objectNode.attribute("type").as_string();
+                 if (entityType.empty() || entityType == "") {
+                     entityType = objectNode.attribute("class").as_string();
+                 }
+                 std::string name = objectNode.attribute("name").as_string();
+                 float x = objectNode.attribute("x").as_float();
+                 float y = objectNode.attribute("y").as_float();
 
-                        if (enemy != nullptr && enemy->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                 int tiledId = objectNode.attribute("id").as_int();
 
-                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                            {
-                                enemy->active = false;
-                                enemy->pendingToDelete = true;
-                            }
-                        }
+                 // Create entity based on type
+                 if (entityType == "Player") {
+                     // Create Player entity
+                     if (player == nullptr || !player->active || player->pendingToDelete) {
+                         player = std::dynamic_pointer_cast<Player>(Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAYER));
+                         player->position = Vector2D(x, y);
+                         player->Start(); //L17: Important to call Start to initialize teh Entity
+                     }
+                     //If the player already exists, just set its position
+                     else {
+                         player->SetPosition(Vector2D(x, y));
+                     }
+                 }
+                 else if (entityType == "Enemy") {
+                     // Create Enemy entity
+                     if (name == "Streptococus") {
+                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                        enemy->Start(); //L17: Important to call Start to initialize the Entity
-                    }
-                    else if (name == "Eosinofilo") {
-                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
-                        enemy->position = Vector2D(x, y);
-                        enemy->tiledId = tiledId;
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                        if (enemy != nullptr && enemy->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                            {
-                                enemy->active = false;
-                                enemy->pendingToDelete = true;
-                            }
-                        }
+                         enemy->Start(); //L17: Important to call Start to initialize the Entity
+                     }
 
-                        enemy->Start(); //L17: Important to call Start to initialize the Entity
-                    }
-                    else if (name == "LinfocitoTNK") {
-                        LOG("LINFOCITO TNK CREADO");
-                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::LINFOCITO_TNK));
-                        enemy->position = Vector2D(x, y);
-                        enemy->tiledId = tiledId;
+                     else if (name == "Eosinofilo") {
+                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::EOSINOFILO));
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                        if (enemy != nullptr && enemy->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                            {
-                                enemy->active = false;
-                                enemy->pendingToDelete = true;
-                            }
-                        }
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                        enemy->Start(); //L17: Important to call Start to initialize the Entity
-                    }
-                    else if (name == "VirusBasico")
-                        {
-                            const std::shared_ptr<Entity>& enemy =
-                                std::dynamic_pointer_cast<Entity>(
-                                    Engine::GetInstance().entityManager->CreateEntity(EntityType::VIRUS_BASICO)
-                                );
+                         enemy->Start(); //L17: Important to call Start to initialize the Entity
+                     }
+                     else if (name == "LinfocitoTNK") {
+                         LOG("LINFOCITO TNK CREADO");
+                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::LINFOCITO_TNK));
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                            enemy->position = Vector2D(x, y);
-                            enemy->tiledId = tiledId;
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                            if (enemy != nullptr && enemy->tiledId != -1)
-                            {
-                                auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                                if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                                {
-                                    enemy->active = false;
-                                    enemy->pendingToDelete = true;
-                                }
-                            }
+                         enemy->Start(); //L17: Important to call Start to initialize the Entity
+                     }
+                     else if (name == "VirusBasico")
+                     {
+                         const std::shared_ptr<Entity>& enemy =
+                             std::dynamic_pointer_cast<Entity>(
+                                 Engine::GetInstance().entityManager->CreateEntity(EntityType::VIRUS_BASICO)
+                             );
 
-                            enemy->Start();
-                        }
-                    else if (name == "Plaquetas")
-                    {
-                        const std::shared_ptr<Entity>& enemy =
-                            std::dynamic_pointer_cast<Entity>(
-                                Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAQUETA)
-                            );
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                        enemy->position = Vector2D(x, y);
-                        enemy->tiledId = tiledId;
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                        if (enemy != nullptr && enemy->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                            {
-                                enemy->active = false;
-                                enemy->pendingToDelete = true;
-                            }
-                        }
+                         enemy->Start();
+                     }
+                     else if (name == "Plaquetas")
+                     {
+                         const std::shared_ptr<Entity>& enemy =
+                             std::dynamic_pointer_cast<Entity>(
+                                 Engine::GetInstance().entityManager->CreateEntity(EntityType::PLAQUETA)
+                             );
 
-                        enemy->Start();
-                    }
-                    
-                    else if (name == "Dendriticas") {
-                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::DENDRITICAS));
-                        enemy->position = Vector2D(x, y);
-                        enemy->tiledId = tiledId;
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                        if (enemy != nullptr && enemy->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                            {
-                                enemy->active = false;
-                                enemy->pendingToDelete = true;
-                            }
-                        }
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                        enemy->Start(); //L17: Important to call Start to initialize the Entity
-                    }
-                    else if (name == "LinfocitoT") {
-                        LOG("LinfocitoT CREADA");
-                        const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::LINFOCITOT));
-                        enemy->position = Vector2D(x, y);
-                        enemy->tiledId = tiledId;
+                         enemy->Start();
+                     }
 
-                        if (enemy != nullptr && enemy->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                     else if (name == "Dendriticas") {
+                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::DENDRITICAS));
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                            if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
-                            {
-                                enemy->active = false;
-                                enemy->pendingToDelete = true;
-                            }
-                        }
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                        enemy->Start(); //L17: Important to call Start to initialize the Entity
-                    }
-                }
-                else if (entityType == "Checkpoint")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CHECKPOINT);
-                    std::shared_ptr<Checkpoint> checkpoint = std::dynamic_pointer_cast<Checkpoint>(e);
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                    checkpoint->position = Vector2D(x, y);
-                    checkpoint->name = name;
+                         enemy->Start(); //L17: Important to call Start to initialize the Entity
+                     }
+                     else if (name == "LinfocitoT") {
+                         LOG("LinfocitoT CREADA");
+                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::LINFOCITOT));
+                         enemy->position = Vector2D(x, y);
+                         enemy->tiledId = tiledId;
 
-                    int id;
+                         if (enemy != nullptr && enemy->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                    pugi::xml_node properties = objectNode.child("properties");
-                    if (properties)
-                    {
-                        for (pugi::xml_node prop : properties.children("property"))
-                        {
-                            std::string propName = prop.attribute("name").as_string();
-                            if (propName == "isActive")
-                            {
-                                bool active = prop.attribute("value").as_bool();
-                                checkpoint->SetActive(active);
-                            }
-                            else if (propName == "_id")
-                            {
-                                id = prop.attribute("value").as_int();
-                                checkpoint->dialogues_ids.push_back(id);
-                            }
-                            else if (propName == "amount")
-                            {
-                                for (int i = 1; i < prop.attribute("value").as_int(); ++i)
-                                {
-                                    id += 1;
-                                    checkpoint->dialogues_ids.push_back(id);
-                                }
-                            }
-                        }
-                    }
+                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             {
+                                 enemy->active = false;
+                                 enemy->pendingToDelete = true;
+                             }
+                         }
 
-                    checkpoint->tiledId = tiledId;
+                         enemy->Start(); //L17: Important to call Start to initialize the Entity
+                     }
+                 }
+                 else if (entityType == "Cell")
+                 {
+                     if (name == "Fibroblasto")
+                     {
+                         std::shared_ptr<CelulaBasica> cell =
+                             std::dynamic_pointer_cast<CelulaBasica>(
+                                 Engine::GetInstance().entityManager->CreateEntity(EntityType::CELULA_BASICA)
+                             );
 
-                    if (checkpoint != nullptr && checkpoint->tiledId != -1)
-                    {
-                        auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                         if (cell != nullptr)
+                         {
+                             cell->SetCellType(CelulaBasica::CellType::FIBROBLASTO);
+                             cell->position = Vector2D(x, y);
+                             cell->tiledId = tiledId;
+                             cell->Start();
+                         }
+                     }
+                   }
+                     else if (entityType == "Checkpoint")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CHECKPOINT);
+                         std::shared_ptr<Checkpoint> checkpoint = std::dynamic_pointer_cast<Checkpoint>(e);
 
-                        if (std::find(deadList.begin(), deadList.end(), checkpoint->tiledId) != deadList.end())
-                        {
-                            checkpoint->active = false;
-                            checkpoint->pendingToDelete = true;
-                        }
-                    }
+                         checkpoint->position = Vector2D(x, y);
+                         checkpoint->name = name;
 
-                    checkpoint->Awake();
-                    checkpoint->Start();
+                         int id;
 
-                }
-                else if (entityType == "Collectibles")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::COLLECTIBLES);
-                    std::shared_ptr<Collectibles> collectible = std::dynamic_pointer_cast<Collectibles>(e);
+                         pugi::xml_node properties = objectNode.child("properties");
+                         if (properties)
+                         {
+                             for (pugi::xml_node prop : properties.children("property"))
+                             {
+                                 std::string propName = prop.attribute("name").as_string();
+                                 if (propName == "isActive")
+                                 {
+                                     bool active = prop.attribute("value").as_bool();
+                                     checkpoint->SetActive(active);
+                                 }
+                                 else if (propName == "_id")
+                                 {
+                                     id = prop.attribute("value").as_int();
+                                     checkpoint->dialogues_ids.push_back(id);
+                                 }
+                                 else if (propName == "amount")
+                                 {
+                                     for (int i = 1; i < prop.attribute("value").as_int(); ++i)
+                                     {
+                                         id += 1;
+                                         checkpoint->dialogues_ids.push_back(id);
+                                     }
+                                 }
+                             }
+                         }
 
-                    if (collectible != nullptr)
-                    {
-                        collectible->position = Vector2D(x, y);
-                        collectible->name = name;
-                        collectible->tiledId = tiledId;
+                         checkpoint->tiledId = tiledId;
 
-                        if (collectible != nullptr && collectible->tiledId != -1)
-                        {
-                            auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                         if (checkpoint != nullptr && checkpoint->tiledId != -1)
+                         {
+                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                            if (std::find(deadList.begin(), deadList.end(), collectible->tiledId) != deadList.end())
-                            {
-                                collectible->active = false;
-                                collectible->pendingToDelete = true;
-                            }
-                        }
+                             if (std::find(deadList.begin(), deadList.end(), checkpoint->tiledId) != deadList.end())
+                             {
+                                 checkpoint->active = false;
+                                 checkpoint->pendingToDelete = true;
+                             }
+                         }
 
-                        pugi::xml_node properties = objectNode.child("properties");
-                        if (properties)
-                        {
-                            for (pugi::xml_node prop : properties.children("property"))
-                            {
-                                std::string propName = prop.attribute("name").as_string();
-                                if (propName == "c_num")
-                                {
-                                    collectible->c_num = prop.attribute("value").as_int();
-                                }
-                                else if (propName == "destMap") {
-                                    collectible->destMap = prop.attribute("value").as_string();
-                                }
-                                else if (propName == "destX") {
-                                    collectible->destX = prop.attribute("value").as_float();
-                                }
-                                else if (propName == "destY") {
-                                    collectible->destY = prop.attribute("value").as_float();
-                                }
-                            }
-                        }
+                         checkpoint->Awake();
+                         checkpoint->Start();
 
-                        collectible->Awake();
-                        collectible->Start();
-                    }
-                }
-                else if (entityType == "Door") 
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DOOR);
-                    std::shared_ptr<Door> door = std::dynamic_pointer_cast<Door>(e);
+                     }
+                     else if (entityType == "Collectibles")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::COLLECTIBLES);
+                         std::shared_ptr<Collectibles> collectible = std::dynamic_pointer_cast<Collectibles>(e);
 
-                    float width = objectNode.attribute("width").as_float();
-                    float height = objectNode.attribute("height").as_float();
-                    std::string destination = objectNode.attribute("Destination").as_string();
+                         if (collectible != nullptr)
+                         {
+                             collectible->position = Vector2D(x, y);
+                             collectible->name = name;
+                             collectible->tiledId = tiledId;
 
-                    if (door != nullptr)
-                    {
-                        door->position = Vector2D(x + width/2, y + height/2);
-                        door->name = name;
-                        door->tiledId = tiledId;
-                        door->width = width;
-                        door->height = height;
+                             if (collectible != nullptr && collectible->tiledId != -1)
+                             {
+                                 auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                        pugi::xml_node properties = objectNode.child("properties");
-                        if (properties)
-                        {
-                            for (pugi::xml_node prop : properties.children("property"))
-                            {
-                                std::string propName = prop.attribute("name").as_string();
-                                if (propName == "Destination")
-                                {
-                                    door->destination = prop.attribute("value").as_string();
-                                }
-                                else if (propName == "playerX")
-                                {
-                                    door->playerX = prop.attribute("value").as_float();
-                                }
-                                else if (propName == "playerY")
-                                {
-                                    door->playerY = prop.attribute("value").as_float();
-                                }
-                            }
-                        }
+                                 if (std::find(deadList.begin(), deadList.end(), collectible->tiledId) != deadList.end())
+                                 {
+                                     collectible->active = false;
+                                     collectible->pendingToDelete = true;
+                                 }
+                             }
 
-                        door->Awake();
-                        door->Start();
-                    }
-                }
-                else if (entityType == "Acid")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ACID);
-                    std::shared_ptr<Acid> acid = std::dynamic_pointer_cast<Acid>(e);
+                             pugi::xml_node properties = objectNode.child("properties");
+                             if (properties)
+                             {
+                                 for (pugi::xml_node prop : properties.children("property"))
+                                 {
+                                     std::string propName = prop.attribute("name").as_string();
+                                     if (propName == "c_num")
+                                     {
+                                         collectible->c_num = prop.attribute("value").as_int();
+                                     }
+                                     else if (propName == "destMap") {
+                                         collectible->destMap = prop.attribute("value").as_string();
+                                     }
+                                     else if (propName == "destX") {
+                                         collectible->destX = prop.attribute("value").as_float();
+                                     }
+                                     else if (propName == "destY") {
+                                         collectible->destY = prop.attribute("value").as_float();
+                                     }
+                                 }
+                             }
 
-                    float width = objectNode.attribute("width").as_float();
-                    float height = objectNode.attribute("height").as_float();
+                             collectible->Awake();
+                             collectible->Start();
+                         }
+                     }
+                     else if (entityType == "Door")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DOOR);
+                         std::shared_ptr<Door> door = std::dynamic_pointer_cast<Door>(e);
 
-                    if (acid != nullptr)
-                    {
-                        acid->position = Vector2D(x + width / 2, y + height / 2);
-                        acid->name = name;
-                        acid->tiledId = tiledId;
-                        acid->width = width;
-                        acid->height = height;
+                         float width = objectNode.attribute("width").as_float();
+                         float height = objectNode.attribute("height").as_float();
+                         std::string destination = objectNode.attribute("Destination").as_string();
 
-                        acid->Awake();
-                        acid->Start();
-                    }
-                }
-                else if (entityType == "Electric")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ELECTRIC);
-                    std::shared_ptr<Electric> electric = std::dynamic_pointer_cast<Electric>(e);
+                         if (door != nullptr)
+                         {
+                             door->position = Vector2D(x + width / 2, y + height / 2);
+                             door->name = name;
+                             door->tiledId = tiledId;
+                             door->width = width;
+                             door->height = height;
 
-                    float width = objectNode.attribute("width").as_float();
-                    float height = objectNode.attribute("height").as_float();
+                             pugi::xml_node properties = objectNode.child("properties");
+                             if (properties)
+                             {
+                                 for (pugi::xml_node prop : properties.children("property"))
+                                 {
+                                     std::string propName = prop.attribute("name").as_string();
+                                     if (propName == "Destination")
+                                     {
+                                         door->destination = prop.attribute("value").as_string();
+                                     }
+                                     else if (propName == "playerX")
+                                     {
+                                         door->playerX = prop.attribute("value").as_float();
+                                     }
+                                     else if (propName == "playerY")
+                                     {
+                                         door->playerY = prop.attribute("value").as_float();
+                                     }
+                                 }
+                             }
 
-                    if (electric != nullptr)
-                    {
-                        electric->position = Vector2D(x + width / 2, y + height / 2);
-                        electric->name = name;
-                        electric->tiledId = tiledId;
-                        electric->width = width;
-                        electric->height = height;
+                             door->Awake();
+                             door->Start();
+                         }
+                     }
+                     else if (entityType == "Acid")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ACID);
+                         std::shared_ptr<Acid> acid = std::dynamic_pointer_cast<Acid>(e);
 
-                        electric->Awake();
-                        electric->Start();
-                    }
-                    }
-                else if (entityType == "dialogTrigger")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
-                    std::shared_ptr<DialogTrigger> dialogTrigger = std::dynamic_pointer_cast<DialogTrigger>(e);
+                         float width = objectNode.attribute("width").as_float();
+                         float height = objectNode.attribute("height").as_float();
 
-                    float width = objectNode.attribute("width").as_float();
-                    float height = objectNode.attribute("height").as_float();
+                         if (acid != nullptr)
+                         {
+                             acid->position = Vector2D(x + width / 2, y + height / 2);
+                             acid->name = name;
+                             acid->tiledId = tiledId;
+                             acid->width = width;
+                             acid->height = height;
 
-                    if (dialogTrigger != nullptr)
-                    {
-                        dialogTrigger->position = Vector2D(x + width / 2, y + height / 2);
-                        dialogTrigger->name = name;
-                        dialogTrigger->tiledId = tiledId;
-                        dialogTrigger->w = width;
-                        dialogTrigger->h = height;
+                             acid->Awake();
+                             acid->Start();
+                         }
+                     }
+                     else if (entityType == "Electric")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ELECTRIC);
+                         std::shared_ptr<Electric> electric = std::dynamic_pointer_cast<Electric>(e);
 
-                        int id = 0;
+                         float width = objectNode.attribute("width").as_float();
+                         float height = objectNode.attribute("height").as_float();
 
-                        pugi::xml_node properties = objectNode.child("properties");
-                        if (properties)
-                        {
-                            for (pugi::xml_node prop : properties.children("property"))
-                            {
-                                std::string propName = prop.attribute("name").as_string();
-                                if (propName == "_id")
-                                {
-                                    id = prop.attribute("value").as_int();
-                                    dialogTrigger->dialogues_ids.push_back(id);
-                                }
-                                else if (propName == "amount")
-                                {
-                                    for (int i = 1; i < prop.attribute("value").as_int(); ++i)
-                                    {
-                                        id += 1;
-                                        dialogTrigger->dialogues_ids.push_back(id);
-                                    }
-                                }
-                                else if (propName == "lock")
-                                {
-                                    dialogTrigger->lock = prop.attribute("value").as_bool();
-                                }
-                            }
-                        }
+                         if (electric != nullptr)
+                         {
+                             electric->position = Vector2D(x + width / 2, y + height / 2);
+                             electric->name = name;
+                             electric->tiledId = tiledId;
+                             electric->width = width;
+                             electric->height = height;
 
-                        dialogTrigger->Awake();
-                        dialogTrigger->Start();
-                    }
-                }
-                else if (entityType == "Egg") 
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::POWER_EGG);
-                    std::shared_ptr<PowerEgg> egg = std::dynamic_pointer_cast<PowerEgg>(e);
+                             electric->Awake();
+                             electric->Start();
+                         }
+                     }
+                     else if (entityType == "dialogTrigger")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::DIALOG_TRIGGER);
+                         std::shared_ptr<DialogTrigger> dialogTrigger = std::dynamic_pointer_cast<DialogTrigger>(e);
 
-                    if (egg != nullptr) 
-                    {
-                        egg->position = Vector2D(x, y);
-                        egg->name = name;
-                        egg->tiledId = tiledId;
+                         float width = objectNode.attribute("width").as_float();
+                         float height = objectNode.attribute("height").as_float();
 
-                        pugi::xml_node properties = objectNode.child("properties");
-                        if (properties)
-                        {
-                            for (pugi::xml_node prop : properties.children("property"))
-                            {
-                                std::string propName = prop.attribute("name").as_string();
-                                if (propName == "Assimilate")
-                                {
-                                    egg->assimilate = prop.attribute("value").as_int();
-                                }
-                            }
-                        }
+                         if (dialogTrigger != nullptr)
+                         {
+                             dialogTrigger->position = Vector2D(x + width / 2, y + height / 2);
+                             dialogTrigger->name = name;
+                             dialogTrigger->tiledId = tiledId;
+                             dialogTrigger->w = width;
+                             dialogTrigger->h = height;
 
-                        egg->Awake();
-                        egg->Start();
-                    }
-                }
-                else if (entityType == "anim_tile")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ANIMATED_TILE);
-                    std::shared_ptr<AnimatedTile> tile = std::dynamic_pointer_cast<AnimatedTile>(e);
+                             int id = 0;
 
-                    if (tile != nullptr)
-                    {
-                        tile->position = Vector2D(x, y);
-                        tile->name = name;
-                        tile->tiledId = tiledId;
+                             pugi::xml_node properties = objectNode.child("properties");
+                             if (properties)
+                             {
+                                 for (pugi::xml_node prop : properties.children("property"))
+                                 {
+                                     std::string propName = prop.attribute("name").as_string();
+                                     if (propName == "_id")
+                                     {
+                                         id = prop.attribute("value").as_int();
+                                         dialogTrigger->dialogues_ids.push_back(id);
+                                     }
+                                     else if (propName == "amount")
+                                     {
+                                         for (int i = 1; i < prop.attribute("value").as_int(); ++i)
+                                         {
+                                             id += 1;
+                                             dialogTrigger->dialogues_ids.push_back(id);
+                                         }
+                                     }
+                                     else if (propName == "lock")
+                                     {
+                                         dialogTrigger->lock = prop.attribute("value").as_bool();
+                                     }
+                                 }
+                             }
 
-                        pugi::xml_node properties = objectNode.child("properties");
-                        if (properties)
-                        {
-                            for (pugi::xml_node prop : properties.children("property"))
-                            {
-                                std::string propName = prop.attribute("name").as_string();
-                                if (propName == "Texture")
-                                {
-                                    tile->LoadTexture(prop.attribute("value").as_string());
-                                }
-                            }
-                        }
+                             dialogTrigger->Awake();
+                             dialogTrigger->Start();
+                         }
+                     }
+                     else if (entityType == "Egg")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::POWER_EGG);
+                         std::shared_ptr<PowerEgg> egg = std::dynamic_pointer_cast<PowerEgg>(e);
 
-                        tile->Awake();
-                        tile->Start();
-                    }
-                }
-                else if (entityType == "Climbable")
-                {
-                    std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CLIMBABLE);
-                    std::shared_ptr<Climbable> climbable = std::dynamic_pointer_cast<Climbable>(e);
+                         if (egg != nullptr)
+                         {
+                             egg->position = Vector2D(x, y);
+                             egg->name = name;
+                             egg->tiledId = tiledId;
 
-                    float width = objectNode.attribute("width").as_float();
-                    float height = objectNode.attribute("height").as_float();
+                             pugi::xml_node properties = objectNode.child("properties");
+                             if (properties)
+                             {
+                                 for (pugi::xml_node prop : properties.children("property"))
+                                 {
+                                     std::string propName = prop.attribute("name").as_string();
+                                     if (propName == "Assimilate")
+                                     {
+                                         egg->assimilate = prop.attribute("value").as_int();
+                                     }
+                                 }
+                             }
 
-                    if (climbable != nullptr)
-                    {
-                        climbable->position = Vector2D(x + width / 2, y + height / 2);
-                        climbable->name = name;
-                        climbable->tiledId = tiledId;
-                        climbable->width = width;
-                        climbable->height = height;
+                             egg->Awake();
+                             egg->Start();
+                         }
+                     }
+                     else if (entityType == "anim_tile")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::ANIMATED_TILE);
+                         std::shared_ptr<AnimatedTile> tile = std::dynamic_pointer_cast<AnimatedTile>(e);
 
-                        pugi::xml_node properties = objectNode.child("properties");
-                        if (properties)
-                        {
-                            for (pugi::xml_node prop : properties.children("property"))
-                            {
-                                std::string propName = prop.attribute("name").as_string();
-                                if (propName == "isWaterfall")
-                                {
-                                    climbable->isWaterfall = prop.attribute("value").as_bool();
-                                }
-                            }
-                        }
+                         if (tile != nullptr)
+                         {
+                             tile->position = Vector2D(x, y);
+                             tile->name = name;
+                             tile->tiledId = tiledId;
 
-                        climbable->Awake();
-                        climbable->Start();
-                    }
-                }
-                else if (entityType == "Boss")
-                {
-                    if (Engine::GetInstance().scene->boss != nullptr) {
-                        Engine::GetInstance().scene->boss->position = Vector2D(x, y);
-                        Engine::GetInstance().scene->boss->triggerBody->SetPosition(Engine::GetInstance().scene->boss->position.getX() + 960, Engine::GetInstance().scene->boss->position.getY() + 960);
-                        LOG("BOSS IN POSITION");
-                    }
-                    else {
-                        LOG("THE BOSS IS NOT LOADED");
-                    }
-                }
-            }
-        }
-    }
-}
+                             pugi::xml_node properties = objectNode.child("properties");
+                             if (properties)
+                             {
+                                 for (pugi::xml_node prop : properties.children("property"))
+                                 {
+                                     std::string propName = prop.attribute("name").as_string();
+                                     if (propName == "Texture")
+                                     {
+                                         tile->LoadTexture(prop.attribute("value").as_string());
+                                     }
+                                 }
+                             }
+
+                             tile->Awake();
+                             tile->Start();
+                         }
+                     }
+                     else if (entityType == "Climbable")
+                     {
+                         std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::CLIMBABLE);
+                         std::shared_ptr<Climbable> climbable = std::dynamic_pointer_cast<Climbable>(e);
+
+                         float width = objectNode.attribute("width").as_float();
+                         float height = objectNode.attribute("height").as_float();
+
+                         if (climbable != nullptr)
+                         {
+                             climbable->position = Vector2D(x + width / 2, y + height / 2);
+                             climbable->name = name;
+                             climbable->tiledId = tiledId;
+                             climbable->width = width;
+                             climbable->height = height;
+
+                             pugi::xml_node properties = objectNode.child("properties");
+                             if (properties)
+                             {
+                                 for (pugi::xml_node prop : properties.children("property"))
+                                 {
+                                     std::string propName = prop.attribute("name").as_string();
+                                     if (propName == "isWaterfall")
+                                     {
+                                         climbable->isWaterfall = prop.attribute("value").as_bool();
+                                     }
+                                 }
+                             }
+
+                             climbable->Awake();
+                             climbable->Start();
+                         }
+                     }
+                     else if (entityType == "Boss")
+                     {
+                         if (Engine::GetInstance().scene->boss != nullptr) {
+                             Engine::GetInstance().scene->boss->position = Vector2D(x, y);
+                             Engine::GetInstance().scene->boss->triggerBody->SetPosition(Engine::GetInstance().scene->boss->position.getX() + 960, Engine::GetInstance().scene->boss->position.getY() + 960);
+                             LOG("BOSS IN POSITION");
+                         }
+                         else {
+                             LOG("THE BOSS IS NOT LOADED");
+                         }
+                     }
+                 }
+             }
+         }
+     }
+
 
  //L15 TODO 4: Define a method to save entities to the map XML
  void Map::SaveEntities(std::shared_ptr<Player> player) {
