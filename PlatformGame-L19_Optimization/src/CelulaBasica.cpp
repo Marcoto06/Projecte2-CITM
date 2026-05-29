@@ -37,13 +37,16 @@ bool CelulaBasica::Start()
 	);
 
 	pbody->listener = this;
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::UNKNOWN;
 	pbody->SetFixedRotation(true);
 
 	player = Engine::GetInstance().scene->player.get();
 
 	moveTimer.Start();
 	idleTimer.Start();
+
+	// TEMPORAL TEST (UnCOMMENT TO TEST PARASITE INTERACTION)
+	// Parasitize();
 
 	return true;
 }
@@ -78,8 +81,8 @@ void CelulaBasica::LoadCellData()
 		texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_fibroplastos_cardiacos.png");
 		parasitizedTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_FibroplastoParasitado.png");
 
-		texW = 256;
-		texH = 256;
+		texW = 96;
+		texH = 64;
 	}
 }
 
@@ -254,7 +257,7 @@ void CelulaBasica::Draw(float dt)
 	int frameH = animFrame.h;
 
 	int drawX = x - frameW / 2;
-	int drawY = y - frameH / 2;
+	int drawY = y - frameH / 2 - 70;
 
 	Engine::GetInstance().render->DrawTexture(
 		currentTexture,
@@ -265,7 +268,7 @@ void CelulaBasica::Draw(float dt)
 		0.0,
 		frameW / 2,
 		frameH / 2,
-		isFacingRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE,
+		isFacingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL, 
 		1.0f
 	);
 }
@@ -290,6 +293,12 @@ void CelulaBasica::Parasitize()
 		return;
 
 	isParasitized = true;
+
+	if (pbody != nullptr)
+	{
+		pbody->ctype = ColliderType::ENEMY;
+	}
+
 	currentState = CELL_STATE::PARASITIZED_CHASING;
 	parasitizedAnims.SetCurrent("pIdle");
 }
@@ -364,7 +373,12 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 
 	case ColliderType::PLAYER:
-		if (isParasitized && canDamagePlayer)
+		if (!isParasitized)
+		{
+			break;
+		}
+
+		if (canDamagePlayer)
 		{
 			Player* playerHit = (Player*)physB->listener;
 
