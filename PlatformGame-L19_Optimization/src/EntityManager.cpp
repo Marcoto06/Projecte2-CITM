@@ -12,6 +12,7 @@
 #include "PowerEgg.h"
 #include "AnimatedTile.h"
 #include "Boss1.h"
+#include "Boss2.h"
 #include "DialogTrigger.h"
 #include "Plaquetas.h"
 #include "Dendriticas.h"
@@ -147,6 +148,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::BOSS1:
 		entity = std::make_shared<Boss1>();
+		break;
+	case EntityType::BOSS2:
+		entity = std::make_shared<Boss2>();
 		break;
 	default:
 		break;

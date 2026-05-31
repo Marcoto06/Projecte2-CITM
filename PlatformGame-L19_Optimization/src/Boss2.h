@@ -76,7 +76,7 @@ private:
 	int currentFrame = 1;
 	int totalAnimFrames = 1;
 
-	bossAnimation* currentBodyAnimation;
+	bossAnimation* currentAnimation;
 
 private:
 	void GetPhysicsValues();
@@ -84,6 +84,7 @@ private:
 	void Draw(float dt);
 	void AnimationFinished(bossAnimation* animation);
 	void PlayAnimation(bossAnimation* animation);
+	void Attack();
 
 public:
 	PhysBody* pbody = nullptr;

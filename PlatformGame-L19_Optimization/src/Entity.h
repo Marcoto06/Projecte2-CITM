@@ -26,6 +26,7 @@ enum class EntityType
 	ACID,
 	ELECTRIC,
 	BOSS1,
+	BOSS2,
 	UNKNOWN
 };
 

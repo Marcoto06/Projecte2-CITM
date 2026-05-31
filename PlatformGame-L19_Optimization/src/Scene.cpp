@@ -16,7 +16,7 @@
 #include "UIManager.h"
 #include "UISlider.h"
 #include "UICheckBox.h"
-#include "Boss1.h"
+#include "Boss2.h"
 
 Scene::Scene() : Module()
 {
@@ -299,12 +299,12 @@ void Scene::LoadScene(SceneID newScene)
 		}		
 
 		//Create boss when booting up to avoid lagging afterwards.
-		/*std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
-		boss = std::dynamic_pointer_cast<Boss1>(e);
+		std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
+		boss = std::dynamic_pointer_cast<Boss2>(e);
 
 		boss->position = Vector2D(0, 0);
 		boss->Awake();
-		boss->Start();*/
+		boss->Start();
 
 		break;		
 	}

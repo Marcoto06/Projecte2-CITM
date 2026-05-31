@@ -6,7 +6,7 @@
 #include "pl_mpeg.h"
 #include <cstdio>
 #include <memory>
-#include "Boss1.h"
+#include "Boss2.h"
 
 struct SDL_Texture;
 class Player;
@@ -124,7 +124,7 @@ public:
 	int latidosFXId;
 	int fondoBocaFXId;
 
-	std::shared_ptr<Boss1> boss = nullptr;
+	std::shared_ptr<Boss2> boss = nullptr;
 
 	//FADE TRANSITIONS
 	FadeState fadeState = FadeState::NONE;
