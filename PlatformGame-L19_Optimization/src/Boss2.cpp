@@ -49,6 +49,39 @@ bool Boss2::Start() {
 	}
 	animations.push_back(&anim_idle->animation);
 
+	anim_rest = new bossAnimation(14, "rest", false);
+	for (int i = 1; i <= anim_rest->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss2/Descanso/Descanso_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		anim_rest->animation.push_back(frame);
+	}
+	animations.push_back(&anim_rest->animation);
+
+	anim_hit = new bossAnimation(14, "hit", false);
+	for (int i = 1; i <= anim_hit->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss2/Hit/Hit_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		anim_hit->animation.push_back(frame);
+	}
+	animations.push_back(&anim_hit->animation);
+
+	anim_death = new bossAnimation(35, "death", false);
+	for (int i = 1; i <= anim_death->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss2/Morir/Morir_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		anim_death->animation.push_back(frame);
+	}
+	animations.push_back(&anim_death->animation);
+
 	triggerBody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 960, position.getY() + 960, 1920, 1920, bodyType::STATIC);
 	triggerBody->ctype = ColliderType::SENSOR;
 	triggerBody->listener = this;
@@ -223,6 +256,8 @@ void Boss2::Initialize() {
 	//Set Current Animation as intro
 	PlayAnimation(anim_intro);
 	Engine::GetInstance().physics->DeletePhysBody(triggerBody);
+	pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX(), initialPos.getY(), 500, 500, bodyType::STATIC);
+	pbody->listener = this;
 	active = true;
 }
 
