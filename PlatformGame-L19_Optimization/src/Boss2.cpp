@@ -38,6 +38,17 @@ bool Boss2::Start() {
 	}
 	animations.push_back(&anim_intro->animation);
 
+	anim_idle = new bossAnimation(24, "idle", true);
+	for (int i = 1; i <= anim_idle->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss2/IDLE/VirusF_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		anim_idle->animation.push_back(frame);
+	}
+	animations.push_back(&anim_idle->animation);
+
 	triggerBody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 960, position.getY() + 960, 1920, 1920, bodyType::STATIC);
 	triggerBody->ctype = ColliderType::SENSOR;
 	triggerBody->listener = this;
@@ -188,6 +199,9 @@ void Boss2::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 
 void Boss2::AnimationFinished(bossAnimation* animation)
 {
+	if (animation->name == "intro") {
+		PlayAnimation(anim_idle);
+	}
 	return;
 }
 
@@ -195,6 +209,7 @@ void Boss2::PlayAnimation(bossAnimation* animation)
 {
 	currentFrame = 1;
 	currentAnimation = animation;
+	frameTimer.Start();
 }
 
 Boss2::bossAnimation::bossAnimation(int frames, std::string name, bool loop) {
@@ -206,8 +221,8 @@ Boss2::bossAnimation::bossAnimation(int frames, std::string name, bool loop) {
 void Boss2::Initialize() {
 	initialPos = Vector2D(position.getX() + 1000, position.getY() + 850);
 	//Set Current Animation as intro
-	currentAnimation = anim_intro;
-	frameTimer.Start();
+	PlayAnimation(anim_intro);
+	Engine::GetInstance().physics->DeletePhysBody(triggerBody);
 	active = true;
 }
 
