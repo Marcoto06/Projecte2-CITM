@@ -82,9 +82,33 @@ bool Boss2::Start() {
 	}
 	animations.push_back(&anim_death->animation);
 
+	anim_shock = new bossAnimation(14, "shock", false);
+	for (int i = 1; i <= anim_shock->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss2/Impulso/Impulso_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		anim_shock->animation.push_back(frame);
+	}
+	animations.push_back(&anim_shock->animation);
+
+	anim_mucose = new bossAnimation(14, "mucose", false);
+	for (int i = 1; i <= anim_shock->frames; ++i)
+	{
+		std::string frameStr = std::to_string(i);
+		std::string pathStr = "Assets/Textures/Characters/Bosses/Boss2/Mucosa/Mucosa_SS_" + frameStr + ".png";
+		const char* path = pathStr.c_str();
+		SDL_Texture* frame = Engine::GetInstance().textures->Load(path);
+		anim_mucose->animation.push_back(frame);
+	}
+	animations.push_back(&anim_mucose->animation);
+
 	triggerBody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 960, position.getY() + 960, 1920, 1920, bodyType::STATIC);
 	triggerBody->ctype = ColliderType::SENSOR;
 	triggerBody->listener = this;
+
+	currentAttack = 0;
 
 	return true;
 }
@@ -98,6 +122,10 @@ bool Boss2::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intros") {
+		Attack();
+	}
 
 	//Func_EnemyStates(dt);
 	ApplyPhysics();
@@ -234,6 +262,7 @@ void Boss2::AnimationFinished(bossAnimation* animation)
 {
 	if (animation->name == "intro") {
 		PlayAnimation(anim_idle);
+		PrepareAttack();
 	}
 	return;
 }
@@ -261,7 +290,27 @@ void Boss2::Initialize() {
 	active = true;
 }
 
-void Boss2::Attack() {
-	int attack = SDL_rand(2);
+void Boss2::PrepareAttack() {
+	currentAttack += 1;
+	if (currentAttack > 5) currentAttack = 1;
+	attackTime = SDL_rand(5);
+	attackTimer.Start();
 	return;
+}
+
+void Boss2::Attack() {
+	PrepareAttack();
+	if (currentAttack != 5) 
+	{
+		if (currentAttack % 2 != 0) { //MUCOSE ATTACK
+			PlayAnimation(anim_mucose);
+		}
+		else { //SHOCK ATTACK
+			PlayAnimation(anim_shock);
+		}
+	}
+	else //DOES NOT ATTACK, INSTEAD RESTS
+	{
+		PlayAnimation(anim_rest);
+	}
 }

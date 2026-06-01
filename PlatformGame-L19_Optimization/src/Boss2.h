@@ -39,18 +39,10 @@ private:
 	Vector2D initialPos;
 	Vector2D stunHeadPos;
 
-	struct Hand {
-		PhysBody* pbody = nullptr;
-		Vector2D position = Vector2D(0, 0);
-		b2Vec2 velocity = b2Vec2_zero;
-		Vector2D idlePos = Vector2D(0, 0);
-		Timer attackTimer;
-		int attackCooldown = 0;
-		float v_speed = 0.25f;
-		float h_speed = 0.5;
-		bool attacking = false;
-		Hand() {};
-	};
+	int attackTime;
+	Timer attackTimer;
+	int currentAttack;
+
 	//Frame Timer
 	Timer frameTimer;
 
@@ -69,7 +61,7 @@ private:
 	bossAnimation* anim_intro;
 	bossAnimation* anim_hit;
 	bossAnimation* anim_idle;
-	bossAnimation* anim_impulse;
+	bossAnimation* anim_shock;
 	bossAnimation* anim_death;
 	bossAnimation* anim_mucose;
 
@@ -84,6 +76,7 @@ private:
 	void Draw(float dt);
 	void AnimationFinished(bossAnimation* animation);
 	void PlayAnimation(bossAnimation* animation);
+	void PrepareAttack();
 	void Attack();
 
 public:
