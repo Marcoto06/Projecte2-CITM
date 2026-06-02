@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Window.h"
 #include "tracy/Tracy.hpp"
 
 /* ----------------------- CONTROLS (Keyboard/Gamepad) ----------------------- 
@@ -255,6 +256,26 @@ bool Player::Update(float dt)
 	Teleport();
 	ApplyPhysics();
 
+
+	if (IsGodMode())
+	{
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+		{
+			Vector2D mousePos = Engine::GetInstance().input->GetMousePosition();
+
+			float scale = Engine::GetInstance().window->GetScale();
+			float cameraX = Engine::GetInstance().render->camera.x;
+			float cameraY = Engine::GetInstance().render->camera.y;
+
+			float worldX = (mousePos.getX() - cameraX) / scale;
+			float worldY = (mousePos.getY() - cameraY) / scale;
+
+			LOG("--- DEBUG MOUSE ---");
+			LOG("SCREEN -> X: %.2f | Y: %.2f", mousePos.getX(), mousePos.getY());
+			LOG("WORLD  -> X: %.2f | Y: %.2f", worldX, worldY);
+			LOG("-------------------");
+		}
+	}
 
 	return true;
 }

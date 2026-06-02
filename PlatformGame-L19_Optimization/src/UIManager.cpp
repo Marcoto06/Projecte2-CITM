@@ -112,7 +112,7 @@ bool UIManager::Update(float dt)
 		titleAnim.Update(dt);
 	}
 
-	if (currentPauseState == PauseMenuState::INVENTORY)
+	if (currentPauseState == PauseMenuState::INVENTORY || currentPauseState == PauseMenuState::INVENTORY2)
 	{
 		itemAmigdalaAnim.Update(dt);
 		itemSalivaAnim.Update(dt);
@@ -175,6 +175,9 @@ void UIManager::LoadUITextures() {
 	/* Pause UI*/
 	pauseOptionsMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Fondo_pause_menu.png");
 	inventoryPg1Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InventoryPg1.png");
+	inventoryPg2Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InventoryPg2.png");
+	inventoryNextBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha derecha.png");
+	inventoryPrevBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha izquierda.png");
 	minimapTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/LungsMap.png");
 	powerupsTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PowerUps_Menu.png");
 	continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/ContinueButton.png");
@@ -543,12 +546,13 @@ void UIManager::ShowPauseMenu() {
 
 	Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
 
-	if (currentPauseState == PauseMenuState::INVENTORY || currentPauseState == PauseMenuState::MINIMAP || currentPauseState == PauseMenuState::POWERUPS)
+	if (currentPauseState == PauseMenuState::INVENTORY || currentPauseState == PauseMenuState::INVENTORY2 || currentPauseState == PauseMenuState::MINIMAP || currentPauseState == PauseMenuState::POWERUPS)
 	{
 		SDL_Texture* texToDraw = nullptr;
 
 		
 		if (currentPauseState == PauseMenuState::INVENTORY) texToDraw = inventoryPg1Texture;
+		else if (currentPauseState == PauseMenuState::INVENTORY2) texToDraw = inventoryPg2Texture;
 		else if (currentPauseState == PauseMenuState::MINIMAP) texToDraw = minimapTexture;
 		else if (currentPauseState == PauseMenuState::POWERUPS) texToDraw = powerupsTexture;
 
@@ -558,7 +562,7 @@ void UIManager::ShowPauseMenu() {
 			Engine::GetInstance().render->DrawTexture(texToDraw, (w / 2) - (texW / 2), (h / 2) - (texH / 2), NULL, 0.0f);
 		}
 
-		if (currentPauseState == PauseMenuState::INVENTORY)
+		if (currentPauseState == PauseMenuState::INVENTORY || currentPauseState == PauseMenuState::INVENTORY2)
 		{
 
 			auto player = Engine::GetInstance().scene->player;
@@ -567,28 +571,78 @@ void UIManager::ShowPauseMenu() {
 				int startX = 172;
 				int startY = 148;
 				int offsetX = 93;
+				int offsetY = 100;
 
 				for (size_t i = 0; i < player->list_collectibles.size(); i++)
 				{
 					int c_num = player->list_collectibles[i];
 
-					SDL_Texture* animTexToDraw = nullptr;
-					SDL_Rect currentFrame;
+					bool drawThisPage = false;
+					int drawX = 0;
+					int drawY = 0;
 
-					if (c_num == 0)
+					if (c_num >= 0 && c_num <= 1) // MOUTH (Row 1, Pag 1)
 					{
-						animTexToDraw = itemAmigdalaTex;
-						currentFrame = itemAmigdalaAnim.GetCurrentFrame();
+						if (currentPauseState == PauseMenuState::INVENTORY) {
+							drawThisPage = true;
+							drawX = startX + (c_num * offsetX);
+							drawY = startY;
+						}
 					}
-					else if (c_num == 1)
+					else if (c_num >= 2 && c_num <= 7) // LUNGS (Row 2, Pag 1)
 					{
-						animTexToDraw = itemSalivaTex;
-						currentFrame = itemSalivaAnim.GetCurrentFrame();
+						if (currentPauseState == PauseMenuState::INVENTORY) {
+							drawThisPage = true;
+							drawX = startX + ((c_num - 2) * offsetX);
+							drawY = startY + offsetY;
+						}
+					}
+					else if (c_num >= 8 && c_num <= 12) // HEART (Row 3, Pag 1)
+					{
+						if (currentPauseState == PauseMenuState::INVENTORY) {
+							drawThisPage = true;
+							drawX = startX + ((c_num - 8) * offsetX);
+							drawY = startY + (offsetY * 2);
+						}
+					}
+					else if (c_num >= 13 && c_num <= 19) // STOMACH (Row 1, Pag 2)
+					{
+						if (currentPauseState == PauseMenuState::INVENTORY2) {
+							drawThisPage = true;
+							drawX = startX + ((c_num - 13) * offsetX);
+							drawY = startY;
+						}
+					}
+					else if (c_num >= 20 && c_num <= 24) // BRAIN (Row 2, Pag 2)
+					{
+						if (currentPauseState == PauseMenuState::INVENTORY2) {
+							drawThisPage = true;
+							drawX = startX + ((c_num - 20) * offsetX);
+							drawY = startY + offsetY;
+						}
 					}
 
-					if (animTexToDraw != nullptr)
-					{						
-						Engine::GetInstance().render->DrawTexture(animTexToDraw, startX + (i * offsetX), startY, &currentFrame, 0.0f, 0.0, 0, 0, SDL_FLIP_NONE, 2.0f);
+					if (drawThisPage)
+					{
+						SDL_Texture* animTexToDraw = nullptr;
+						SDL_Rect currentFrame = { 0,0,0,0 };
+
+						if (c_num == 0)
+						{
+							animTexToDraw = itemAmigdalaTex;
+							currentFrame = itemAmigdalaAnim.GetCurrentFrame();
+						}
+						else if (c_num == 1)
+						{
+							animTexToDraw = itemSalivaTex;
+							currentFrame = itemSalivaAnim.GetCurrentFrame();
+						}
+						// Add here the rest of collectibles with their corresponding animations when we have their .png and .tsx!!!
+
+						if (animTexToDraw != nullptr)
+						{
+							Engine::GetInstance().render->DrawTexture(animTexToDraw, drawX, drawY, &currentFrame, 0.0f, 0.0, 0, 0, SDL_FLIP_NONE, 2.0f);
+						}
 					}
 				}
 			}
@@ -645,13 +699,37 @@ void UIManager::LoadInventoryTab()
 
 	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 }; 
 	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
+	SDL_Rect nextButtonBounds = { 1632, 933, 66, 46 };
 
 	auto mapButton = CreateUIElement(UIElementType::BUTTON, 20, " ", mapButtonBounds, Engine::GetInstance().scene->GetScene());
 	mapButton->SetTexture(minimapTabButtonTexture);
 
 	auto powerUpsButton = CreateUIElement(UIElementType::BUTTON, 21, " ", powerUpsButtonBounds, Engine::GetInstance().scene->GetScene());
 	powerUpsButton->SetTexture(powerUpsTabButtonTexture);
+
+	auto nextButton = CreateUIElement(UIElementType::BUTTON, 23, " ", nextButtonBounds, Engine::GetInstance().scene->GetScene());
+	nextButton->SetTexture(inventoryNextBtnTexture);
 }
+
+void UIManager::LoadInventoryTab2()
+{
+	CleanUp();
+	currentPauseState = PauseMenuState::INVENTORY2;
+
+	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 };
+	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
+	SDL_Rect prevButtonBounds = { 220, 933, 66, 46 };
+
+	auto mapButton = CreateUIElement(UIElementType::BUTTON, 20, " ", mapButtonBounds, Engine::GetInstance().scene->GetScene());
+	mapButton->SetTexture(minimapTabButtonTexture);
+
+	auto powerUpsButton = CreateUIElement(UIElementType::BUTTON, 21, " ", powerUpsButtonBounds, Engine::GetInstance().scene->GetScene());
+	powerUpsButton->SetTexture(powerUpsTabButtonTexture);
+
+	auto prevButton = CreateUIElement(UIElementType::BUTTON, 24, " ", prevButtonBounds, Engine::GetInstance().scene->GetScene());
+	prevButton->SetTexture(inventoryPrevBtnTexture);
+}
+
 
 void UIManager::LoadMinimapTab()
 {
@@ -818,6 +896,12 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 	case 22: // Go to INVENTORY
 		LoadInventoryTab();
 		break;
+	case 23: // Go to INVENTORY PAGE 2
+		LoadInventoryTab2();
+		break;
+	case 24: // Go to INVENTORY PAGE 1 (from page 2)
+		LoadInventoryTab();
+		break;
 	}
 }
 
@@ -885,15 +969,8 @@ void UIManager::ShowPlayerUI() {
 		Engine::GetInstance().render->DrawText(line4.c_str(), 200, 275, line4.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
 		Engine::GetInstance().render->DrawText(line5.c_str(), 200, 300, line5.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
 		Engine::GetInstance().render->DrawText(line6.c_str(), 200, 325, line6.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
-		Engine::GetInstance().render->DrawText(line7.c_str(), 200, 350, line7.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });
-
-			
-			
-			
-			
-			
+		Engine::GetInstance().render->DrawText(line7.c_str(), 200, 350, line7.size() * letter_size, 30, SDL_Color{ 255,255,0,255 });			
 	}
-
 }
 
 

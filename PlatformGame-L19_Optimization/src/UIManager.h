@@ -42,6 +42,7 @@ public:
 		OPTIONS,
 		QUIT_CONFIRM,
 		INVENTORY,
+		INVENTORY2,
 		MINIMAP,
 		POWERUPS
 	};
@@ -81,6 +82,7 @@ public:
 	void LoadUITextures();
 
 	void LoadInventoryTab();
+	void LoadInventoryTab2();
 	void LoadMinimapTab();
 	void LoadPowerUpsTab();
 
@@ -110,6 +112,7 @@ public:
 	/* Pause menu Textures */
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;
 	SDL_Texture* inventoryPg1Texture = nullptr;
+	SDL_Texture* inventoryPg2Texture = nullptr;
 	SDL_Texture* minimapTexture = nullptr;
 	SDL_Texture* powerupsTexture = nullptr;
 	SDL_Texture* sliderBoxTexture = nullptr;
@@ -123,6 +126,10 @@ public:
 	SDL_Texture* backButtonTexture = nullptr;
 
 	SDL_Texture* inventoryTabButtonTexture = nullptr;
+
+	SDL_Texture* inventoryNextBtnTexture = nullptr;
+	SDL_Texture* inventoryPrevBtnTexture = nullptr;
+
 	SDL_Texture* itemAmigdalaTex = nullptr;
 	Animation itemAmigdalaAnim;
 	SDL_Texture* itemSalivaTex = nullptr;
