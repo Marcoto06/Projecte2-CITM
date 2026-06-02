@@ -116,7 +116,7 @@ bool VirusBasico::Update(float dt)
 			canAttack = false;
 			attackTimer.Start();
 
-			if (roll < 30)
+			if (roll < 45)
 			{
 				currentAttack = 3;
 				anims.SetCurrent("parasite");

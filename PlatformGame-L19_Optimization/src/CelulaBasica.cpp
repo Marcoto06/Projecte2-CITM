@@ -53,10 +53,11 @@ void CelulaBasica::LoadCellData()
 	if (cellType == CellType::FIBROBLASTO)
 	{
 		std::unordered_map<int, std::string> normalAliases = {
-			{0, "idle"},
-			{12, "walk"},
-			{36, "stun"},
-			{48, "death"}
+	{0, "idle"},
+	{12, "walk"},
+	{24, "damaged"},
+	{36, "stun"},
+	{48, "death"}
 		};
 
 		normalAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_fibroplastos_cardiacos.tsx", normalAliases);
@@ -64,11 +65,18 @@ void CelulaBasica::LoadCellData()
 		normalAnims.Func_SetAnimationLoop("death", false);
 
 		std::unordered_map<int, std::string> parasiteAliases = {
-			{0, "pIdle"},
-			{15, "pWalk"},
-			{60, "pDeath"},
-			{75, "pAttack"}
+	{0, "pIdle"},
+	{15, "pWalk"},
+	{30, "pDamaged"},
+	{45, "pStun"},
+	{60, "pDeath"},
+	{75, "pAttack"}
 		};
+
+		normalAnims.Func_SetAnimationLoop("damaged", false);
+
+		parasitizedAnims.Func_SetAnimationLoop("pDamaged", false);
+		parasitizedAnims.Func_SetAnimationLoop("pStun", true);
 
 		parasitizedAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_FibroplastoParasitado.tsx", parasiteAliases);
 		parasitizedAnims.SetCurrent("pIdle");
@@ -215,41 +223,46 @@ void CelulaBasica::Func_CellStates(float dt)
 	}
 
 	case CELL_STATE::STUNED:
+	{
 		velocity.x = 0.0f;
-
-		if (isParasitized)
-		{
-			parasitizedAnims.SetCurrent("pIdle");
-		}
-		else
-		{
-			normalAnims.SetCurrent("stun");
-		}
 
 		if (isHurt)
 		{
-			if (hurtTimer.ReadMSec() >= hurtDurationMs)
+			if (isParasitized)
+				parasitizedAnims.SetCurrent("pDamaged");
+			else
+				normalAnims.SetCurrent("damaged");
+
+			bool finished =
+				isParasitized
+				? parasitizedAnims.Func_HasCurrentAnimationFinished()
+				: normalAnims.Func_HasCurrentAnimationFinished();
+
+			if (finished)
 			{
 				isHurt = false;
-
-				currentState = isParasitized
-					? CELL_STATE::PARASITIZED_CHASING
-					: CELL_STATE::IDLE;
+				stunTimer.Start();
 			}
+
+			break;
 		}
-		else
-		{
-			if (stunTimer.ReadMSec() >= 5000.0f)
-			{
-				isStunned = false;
 
-				currentState = isParasitized
-					? CELL_STATE::PARASITIZED_CHASING
-					: CELL_STATE::IDLE;
-			}
+		if (isParasitized)
+			parasitizedAnims.SetCurrent("pStun");
+		else
+			normalAnims.SetCurrent("stun");
+
+		if (stunTimer.ReadMSec() >= 5000.0f)
+		{
+			isStunned = false;
+
+			currentState = isParasitized
+				? CELL_STATE::PARASITIZED_CHASING
+				: CELL_STATE::IDLE;
 		}
 
 		break;
+	}
 
 	case CELL_STATE::DEATH:
 		velocity.x = 0.0f;
@@ -450,8 +463,6 @@ void CelulaBasica::TakeDamage(int amount)
 
 	isHurt = true;
 	hurtTimer.Start();
-
-	currentState = CELL_STATE::STUNED;
 }
 
 bool CelulaBasica::IsParasitized() const
@@ -476,19 +487,21 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 		Player* playerHit = (Player*)physB->listener;
 
-		if (isParasitized && physA == attackHitbox)
+		if (physA == attackHitbox)
 		{
-			if (!attackHasHit && playerHit != nullptr && !playerHit->IsGodMode())
+			if (!attackHasHit &&
+				playerHit != nullptr &&
+				!playerHit->IsGodMode())
 			{
-				playerHit->playerCurrentHp -= contactDamage;
-
-				if (playerHit->playerCurrentHp < 0)
-					playerHit->playerCurrentHp = 0;
+				playerHit->OnCollision(playerHit->pbody, attackHitbox);
 
 				attackHasHit = true;
 			}
+
+			break;
 		}
-		else if (isParasitized)
+
+		if (isParasitized)
 		{
 			isTouchingPlayer = true;
 			touchingPlayer = playerHit;
