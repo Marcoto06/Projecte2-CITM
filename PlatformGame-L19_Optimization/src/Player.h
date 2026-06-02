@@ -240,11 +240,15 @@ private:
 		FALLING_JUMP,
 		END_JUMP,
 		DEATH,
-	    CLIMB
+		CLIMB,
+		JUMP_CASCADA,
+		INSIDE_CASCADA,
+		OUT_CASCADA
 	};
 
 	PLAYERSTATE currentState = PLAYERSTATE::IDLE;
 
+	Timer cascadaTimer;
 	Timer deathTimer;
 	bool dead = false;
 };

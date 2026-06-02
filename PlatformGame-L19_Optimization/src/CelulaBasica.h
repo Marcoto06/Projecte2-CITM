@@ -64,7 +64,9 @@ public:
 	int texH = 256;
 
 	PhysBody* pbody = nullptr;
+	PhysBody* attackHitbox = nullptr;
 
+	bool attackHasHit = false;
 	bool isParasitized = false;
 	bool isStunned = false;
 	bool isFacingRight = false;
@@ -72,6 +74,7 @@ public:
 	bool isHurt = false;
 	bool canDamagePlayer = true;
 	bool isTouchingPlayer = false;
+	bool canTongueAttack = true;
 	Player* touchingPlayer = nullptr;
 
 	float normalMoveSpeed = 1.0f;
@@ -79,6 +82,8 @@ public:
 	float detectionRange = 450.0f;
 	float hurtDurationMs = 500.0f;
 	float damageCooldownMs = 1500.0f;
+	float attackRange = 170.0f;
+	float attackCooldownMs = 1500.0f;
 
 	int contactDamage = 1;
 
@@ -93,6 +98,7 @@ public:
 	Timer stunTimer;
 	Timer damageTimer;
 	Timer hurtTimer;
+	Timer attackCooldownTimer;
 
 private:
 	b2Vec2 velocity;

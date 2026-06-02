@@ -49,7 +49,7 @@ bool Player::Start() {
 	#define PLAYER_FEET_TAG 2
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"}, {231, "death"}, {252, "spark"} };
+	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"}, {231, "death"}, {252, "spark"}, {273, "jumpCascada"},{279, "insideCascada"},{289, "outCascada"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora.tsx", aliases);
 	std::unordered_map<int, std::string> effects = { {0,"lifeUp"}, {16, "aux"} };
 	effectAnims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_LifeUp.tsx", effects);
@@ -72,6 +72,11 @@ bool Player::Start() {
 	anims.Func_SetAnimationLoop("airAttack", false);
 
 	anims.Func_SetAnimationLoop("death", false);
+
+	anims.Func_SetAnimationLoop("jumpCascada", false);
+	anims.Func_SetAnimationLoop("insideCascada", true);
+	anims.Func_SetAnimationLoop("outCascada", false);
+
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Doctora.png");
 	healText = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_LifeUp.png");
 
@@ -125,6 +130,9 @@ bool Player::Start() {
 	}*/
 	currentState = PLAYERSTATE::IDLE;
 	onGround = true;
+
+	hasAcidResistance = true; //QUITAR CUANDO ACABES PRUEBAS ACIDO
+	hasAscend = true; //QUITAR CUANDO ACABES PRUEBAS ASCENDER
 
 	return true;
 }
@@ -809,6 +817,35 @@ void Player::Func_PlayerState() {
 		return;
 	}
 
+	if (currentState == PLAYERSTATE::JUMP_CASCADA ||
+		currentState == PLAYERSTATE::INSIDE_CASCADA ||
+		currentState == PLAYERSTATE::OUT_CASCADA)
+	{
+		switch (currentState)
+		{
+		case PLAYERSTATE::JUMP_CASCADA:
+			if (cascadaTimer.ReadMSec() >= 1400.0f)
+			{
+				currentState = PLAYERSTATE::INSIDE_CASCADA;
+				anims.SetCurrent("insideCascada");
+			}
+			break;
+
+		case PLAYERSTATE::INSIDE_CASCADA:
+			break;
+
+		case PLAYERSTATE::OUT_CASCADA:
+			if (anims.HasCurrentAnimationFinished())
+			{
+				currentState = PLAYERSTATE::IDLE;
+				anims.SetCurrent("idle");
+			}
+			break;
+		}
+
+		return;
+	}
+
 	if ((currentState == PLAYERSTATE::FALLING_JUMP ||
 		currentState == PLAYERSTATE::JUMPING ||
 		currentState == PLAYERSTATE::PREPARE_JUMP)
@@ -1142,15 +1179,31 @@ void Player::Func_Climb()
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
 	{
 		isJumping = false;
-		if (!isClimbing) 
+		if (!isClimbing)
 		{
 			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
-			//SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
 			b2Body_SetGravityScale(pbody->body, 0.0f);
 			isClimbing = true;
-			currentState = PLAYERSTATE::CLIMB;
+
+			if (nearestClimbable != nullptr && nearestClimbable->isWaterfall)
+			{
+				currentState = PLAYERSTATE::JUMP_CASCADA;
+				anims.SetCurrent("jumpCascada");
+				cascadaTimer.Start();
+			}
+			else
+			{
+				currentState = PLAYERSTATE::CLIMB;
+			}
 		}
 		velocity.y = -7;
+
+		if (nearestClimbable != nullptr &&
+			nearestClimbable->isWaterfall &&
+			currentState == PLAYERSTATE::INSIDE_CASCADA)
+		{
+			anims.SetCurrent("insideCascada");
+		}
 	}
 	if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && dashState == false && nearestClimbable != nullptr)
 	{
@@ -1159,11 +1212,28 @@ void Player::Func_Climb()
 			if (!isClimbing && Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 			{
 				Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
-				//SetPosition(Vector2D(nearestClimbable->climbPoint, position.getY()));
 				b2Body_SetGravityScale(pbody->body, 0.0f);
 				isClimbing = true;
+
+				if (nearestClimbable != nullptr && nearestClimbable->isWaterfall)
+				{
+					currentState = PLAYERSTATE::JUMP_CASCADA;
+					anims.SetCurrent("jumpCascada");
+					cascadaTimer.Start();
+				}
+				else
+				{
+					currentState = PLAYERSTATE::CLIMB;
+				}
 			}
 			velocity.y = 7;
+
+			if (nearestClimbable != nullptr &&
+				nearestClimbable->isWaterfall &&
+				currentState == PLAYERSTATE::INSIDE_CASCADA)
+			{
+				anims.SetCurrent("insideCascada");
+			}
 		}
 		else {
 			currentState = PLAYERSTATE::IDLE;
@@ -1197,7 +1267,16 @@ void Player::ApplyPhysics() {
 }
 
 void Player::Draw(float dt) {
-	if ((isClimbing && ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_W)) == KEY_DOWN || (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) || isClimbing == false )
+	if ((isClimbing && (
+		Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN ||
+		Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN ||
+		Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT ||
+		Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT
+		)) ||
+		isClimbing == false ||
+		currentState == PLAYERSTATE::JUMP_CASCADA ||
+		currentState == PLAYERSTATE::INSIDE_CASCADA ||
+		currentState == PLAYERSTATE::OUT_CASCADA)
 	{
 		anims.Update(dt);
 	}
@@ -1247,14 +1326,25 @@ void Player::Draw(float dt) {
 		SDL_SetTextureAlphaMod(texture, 255);
 	}
 
+	float drawOffsetX = facingRight ? -330.0f : -220.0f;
+	float drawOffsetY = -390.0f;
+
+	if (currentState == PLAYERSTATE::JUMP_CASCADA ||
+		currentState == PLAYERSTATE::INSIDE_CASCADA ||
+		currentState == PLAYERSTATE::OUT_CASCADA)
+	{
+		drawOffsetX = -330.0f;
+		drawOffsetY = -200.0f;
+	}
+
 	if (facingRight)
 	{
-		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() + drawOffsetX, position.getY() + drawOffsetY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_NONE, 1.0f);
 		
 	}
 	else
 	{
-		Engine::GetInstance().render->DrawTexture(texture, position.getX() - 258, position.getY() - 450, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
+		Engine::GetInstance().render->DrawTexture(texture, position.getX() + drawOffsetX, position.getY() + drawOffsetY, &animFrame, 1.0f, 0.0, texW / 2, texH / 2, SDL_FLIP_HORIZONTAL, 1.0f);
 	}
 	
 	SDL_SetTextureAlphaMod(texture, 255);
@@ -1550,6 +1640,11 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		if (isClimbing == false || isJumping) {
 			nearestClimbable = nullptr;
 			canClimb = false;
+		}
+		if (nearestClimbable != nullptr && nearestClimbable->isWaterfall)
+		{
+			currentState = PLAYERSTATE::OUT_CASCADA;
+			anims.SetCurrent("outCascada");
 		}
 		b2Body_SetGravityScale(pbody->body, gravityScale);
 		isClimbing = false;

@@ -89,26 +89,9 @@ bool CelulaBasica::Update(float dt)
 
 	GetPhysicsValues();
 
-	if (!canDamagePlayer && damageTimer.ReadMSec() >= damageCooldownMs)
+	if (!canTongueAttack && attackCooldownTimer.ReadMSec() >= attackCooldownMs)
 	{
-		canDamagePlayer = true;
-	}
-
-	if (isParasitized && isTouchingPlayer && touchingPlayer != nullptr && canDamagePlayer)
-	{
-		if (!touchingPlayer->IsGodMode())
-		{
-			touchingPlayer->playerCurrentHp -= contactDamage;
-
-			if (touchingPlayer->playerCurrentHp < 0)
-				touchingPlayer->playerCurrentHp = 0;
-
-			isAttacking = true;
-			parasitizedAnims.SetCurrent("pAttack");
-
-			canDamagePlayer = false;
-			damageTimer.Start();
-		}
+		canTongueAttack = true;
 	}
 
 	Func_CellStates(dt);
@@ -168,22 +151,69 @@ void CelulaBasica::Func_CellStates(float dt)
 		break;
 
 	case CELL_STATE::PARASITIZED_CHASING:
+	{
+		Vector2D playerPos = Engine::GetInstance().scene->GetPlayerPosition();
+		Vector2D myPos = GetPosition();
+
+		float dx = playerPos.getX() - myPos.getX();
+		float distance = std::abs(dx);
+
 		if (isAttacking)
 		{
 			parasitizedAnims.SetCurrent("pAttack");
 			velocity.x = 0.0f;
 
+			if (attackHitbox == nullptr && !attackHasHit)
+			{
+				int x, y;
+				pbody->GetPosition(x, y);
+
+				float offsetX = isFacingRight ? 95.0f : -95.0f;
+
+				attackHitbox =
+					Engine::GetInstance().physics->Func_CreateTemporarySensor(
+						130,
+						70,
+						x + offsetX,
+						y - 30,
+						ColliderType::SENSOR
+					);
+
+				attackHitbox->listener = this;
+			}
+
 			if (parasitizedAnims.Func_HasCurrentAnimationFinished())
 			{
 				isAttacking = false;
+				attackHasHit = false;
+				canTongueAttack = false;
+				attackCooldownTimer.Start();
+
+				if (attackHitbox != nullptr)
+				{
+					Engine::GetInstance().physics->DeletePhysBody(attackHitbox);
+					attackHitbox = nullptr;
+				}
 			}
 		}
 		else
 		{
-			parasitizedAnims.SetCurrent("pWalk");
-			MoveParasitized();
+			if (distance <= attackRange && canTongueAttack)
+			{
+				isFacingRight = dx > 0.0f;
+				isAttacking = true;
+				attackHasHit = false;
+				parasitizedAnims.SetCurrent("pAttack");
+			}
+			else
+			{
+				parasitizedAnims.SetCurrent("pWalk");
+				MoveParasitized();
+			}
 		}
+
 		break;
+	}
 
 	case CELL_STATE::STUNED:
 		velocity.x = 0.0f;
@@ -444,29 +474,62 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 
 	case ColliderType::PLAYER:
-		if (isParasitized)
+	{
+		if (physA == attackHitbox || physB == attackHitbox)
 		{
-			isTouchingPlayer = true;
-			touchingPlayer = (Player*)physB->listener;
-		}
-		break;
-
-		if (canDamagePlayer)
-		{
-			Player* playerHit = (Player*)physB->listener;
-
-			if (playerHit != nullptr && !playerHit->IsGodMode())
+			if (!attackHasHit)
 			{
-				playerHit->playerCurrentHp -= contactDamage;
+				Player* playerHit = nullptr;
 
-				if (playerHit->playerCurrentHp < 0)
-					playerHit->playerCurrentHp = 0;
+				if (physA == attackHitbox)
+					playerHit = (Player*)physB->listener;
+				else
+					playerHit = (Player*)physA->listener;
 
-				canDamagePlayer = false;
-				damageTimer.Start();
+				if (playerHit != nullptr && !playerHit->IsGodMode())
+				{
+					playerHit->playerCurrentHp -= contactDamage;
+
+					if (playerHit->playerCurrentHp < 0)
+						playerHit->playerCurrentHp = 0;
+
+					attackHasHit = true;
+				}
+			}
+		}
+		else
+		{
+			if (isParasitized)
+			{
+				isTouchingPlayer = true;
+				touchingPlayer = (Player*)physB->listener;
+			}
+		}
+
+		break;
+	}
+
+	case ColliderType::SENSOR:
+	{
+		if (physA == attackHitbox && physB->ctype == ColliderType::PLAYER)
+		{
+			if (!attackHasHit)
+			{
+				Player* playerHit = (Player*)physB->listener;
+
+				if (playerHit != nullptr && !playerHit->IsGodMode())
+				{
+					playerHit->playerCurrentHp -= contactDamage;
+
+					if (playerHit->playerCurrentHp < 0)
+						playerHit->playerCurrentHp = 0;
+
+					attackHasHit = true;
+				}
 			}
 		}
 		break;
+	}
 	}
 }
 

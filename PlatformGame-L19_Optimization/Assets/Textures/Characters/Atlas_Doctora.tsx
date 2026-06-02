@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="273" columns="21">
- <image source="Atlas_Doctora.png" width="10752" height="6656"/>
+<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="336" columns="21">
+ <image source="Atlas_Doctora.png" width="10855" height="8649"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>
@@ -236,6 +236,32 @@
    <frame tileid="270" duration="100"/>
    <frame tileid="271" duration="100"/>
    <frame tileid="272" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="273">
+  <animation>
+   <frame tileid="278" duration="200"/>
+   <frame tileid="273" duration="200"/>
+   <frame tileid="274" duration="200"/>
+   <frame tileid="275" duration="200"/>
+   <frame tileid="276" duration="200"/>
+   <frame tileid="277" duration="200"/>
+   <frame tileid="278" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="279">
+  <animation>
+   <frame tileid="279" duration="200"/>
+   <frame tileid="280" duration="200"/>
+   <frame tileid="281" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="289">
+  <animation>
+   <frame tileid="289" duration="200"/>
+   <frame tileid="290" duration="200"/>
+   <frame tileid="291" duration="200"/>
+   <frame tileid="293" duration="200"/>
   </animation>
  </tile>
 </tileset>
