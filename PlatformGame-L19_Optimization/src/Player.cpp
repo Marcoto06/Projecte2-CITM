@@ -131,9 +131,6 @@ bool Player::Start() {
 	currentState = PLAYERSTATE::IDLE;
 	onGround = true;
 
-	hasAcidResistance = true; //QUITAR CUANDO ACABES PRUEBAS ACIDO
-	hasAscend = true; //QUITAR CUANDO ACABES PRUEBAS ASCENDER
-
 	return true;
 }
 
