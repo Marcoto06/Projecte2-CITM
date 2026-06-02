@@ -163,8 +163,7 @@ void CelulaBasica::Func_CellStates(float dt)
 			parasitizedAnims.SetCurrent("pAttack");
 			velocity.x = 0.0f;
 
-			if (attackHitbox == nullptr && !attackHasHit)
-			{
+			if (attackHitbox == nullptr) {
 				int x, y;
 				pbody->GetPosition(x, y);
 
@@ -176,7 +175,7 @@ void CelulaBasica::Func_CellStates(float dt)
 						70,
 						x + offsetX,
 						y - 30,
-						ColliderType::SENSOR
+						ColliderType::CELL_ATTACK
 					);
 
 				attackHitbox->listener = this;
@@ -475,59 +474,26 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 
 	case ColliderType::PLAYER:
 	{
-		if (physA == attackHitbox || physB == attackHitbox)
+		Player* playerHit = (Player*)physB->listener;
+
+		if (isParasitized && physA == attackHitbox)
 		{
-			if (!attackHasHit)
+			if (!attackHasHit && playerHit != nullptr && !playerHit->IsGodMode())
 			{
-				Player* playerHit = nullptr;
+				playerHit->playerCurrentHp -= contactDamage;
 
-				if (physA == attackHitbox)
-					playerHit = (Player*)physB->listener;
-				else
-					playerHit = (Player*)physA->listener;
+				if (playerHit->playerCurrentHp < 0)
+					playerHit->playerCurrentHp = 0;
 
-				if (playerHit != nullptr && !playerHit->IsGodMode())
-				{
-					playerHit->playerCurrentHp -= contactDamage;
-
-					if (playerHit->playerCurrentHp < 0)
-						playerHit->playerCurrentHp = 0;
-
-					attackHasHit = true;
-				}
+				attackHasHit = true;
 			}
 		}
-		else
+		else if (isParasitized)
 		{
-			if (isParasitized)
-			{
-				isTouchingPlayer = true;
-				touchingPlayer = (Player*)physB->listener;
-			}
+			isTouchingPlayer = true;
+			touchingPlayer = playerHit;
 		}
 
-		break;
-	}
-
-	case ColliderType::SENSOR:
-	{
-		if (physA == attackHitbox && physB->ctype == ColliderType::PLAYER)
-		{
-			if (!attackHasHit)
-			{
-				Player* playerHit = (Player*)physB->listener;
-
-				if (playerHit != nullptr && !playerHit->IsGodMode())
-				{
-					playerHit->playerCurrentHp -= contactDamage;
-
-					if (playerHit->playerCurrentHp < 0)
-						playerHit->playerCurrentHp = 0;
-
-					attackHasHit = true;
-				}
-			}
-		}
 		break;
 	}
 	}

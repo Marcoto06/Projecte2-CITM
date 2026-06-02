@@ -1323,8 +1323,8 @@ void Player::Draw(float dt) {
 		SDL_SetTextureAlphaMod(texture, 255);
 	}
 
-	float drawOffsetX = facingRight ? -330.0f : -220.0f;
-	float drawOffsetY = -390.0f;
+	float drawOffsetX = facingRight ? -300.0f : -210.0f;
+	float drawOffsetY = -450.0f;
 
 	if (currentState == PLAYERSTATE::JUMP_CASCADA ||
 		currentState == PLAYERSTATE::INSIDE_CASCADA ||
@@ -1421,6 +1421,36 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		b2Body_SetGravityScale(pbody->body, gravityScale);
 		anims.SetCurrent("idle");
 		break;
+	case ColliderType::CELL_ATTACK:
+	{
+		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH)
+		{
+			playerCurrentHp -= 1.0f;
+
+			if (playerCurrentHp < 0)
+				playerCurrentHp = 0;
+
+			Engine::GetInstance().audio->PlayFx(hurtFxId);
+
+			if (playerCurrentHp > 0)
+			{
+				isHurt = true;
+				hurtTimer.Start();
+			}
+			else
+			{
+				Engine::GetInstance().audio->PlayFx(deathFxId);
+				canMove = false;
+				canJump = false;
+				canAttack = false;
+				currentState = PLAYERSTATE::DEATH;
+				anims.SetCurrent("death");
+				deathTimer.Start();
+			}
+		}
+
+		break;
+	}
 	case ColliderType::ENEMY:{
 		LOG("End Collision ENEMY");
 
