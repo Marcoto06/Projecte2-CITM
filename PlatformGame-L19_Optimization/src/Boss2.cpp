@@ -241,6 +241,8 @@ void Boss2::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::SYRINGE:
 		if (physA == pbody && life > 0) {
 			life -= 1;
+			Engine::GetInstance().physics->DeletePhysBody(pbody);
+			pbody = nullptr;
 			PlayAnimation(anim_hit);
 		}
 		break;
@@ -266,6 +268,13 @@ void Boss2::AnimationFinished(bossAnimation* animation)
 	}
 	else if (animation->name == "mucose" || animation->name == "shock") {
 		PlayAnimation(anim_idle);
+	}
+	else if (animation->name == "hit") {
+		if (life > 0) {
+			currentAttack = 0;
+			PrepareAttack();
+			PlayAnimation(anim_idle);
+		}
 	}
 	return;
 }
@@ -331,7 +340,7 @@ void Boss2::Attack() {
 	else //DOES NOT ATTACK, INSTEAD RESTS
 	{
 		PlayAnimation(anim_rest);
-		pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX(), initialPos.getY(), 500, 500, bodyType::STATIC);
+		pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX() - 100, initialPos.getY(), 100, 800, bodyType::STATIC);
 		pbody->listener = this;
 	}
 }
