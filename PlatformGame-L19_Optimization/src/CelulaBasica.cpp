@@ -40,7 +40,7 @@ bool CelulaBasica::Start()
 	pbody->ctype = ColliderType::CELL;
 	pbody->SetFixedRotation(true);
 
-	if (cellType == CellType::NEURONA)
+	if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA)
 	{
 		b2Body_SetGravityScale(pbody->body, 0.0f);
 
@@ -178,6 +178,49 @@ void CelulaBasica::LoadCellData()
 
 		attackRange = 190.0f;
 	}
+	else if (cellType == CellType::SALMONELLA)
+	{
+		std::unordered_map<int, std::string> normalAliases = {
+			{0, "idle"},
+			{26, "walk"},
+			{52, "damaged"},
+			{78, "stun"},
+			{104, "death"}
+		};
+
+		normalAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Salmonella.tsx", normalAliases);
+		normalAnims.SetCurrent("idle");
+		normalAnims.Func_SetAnimationLoop("damaged", false);
+		normalAnims.Func_SetAnimationLoop("death", false);
+
+		std::unordered_map<int, std::string> parasiteAliases = {
+			{0, "pIdle"},
+			{42, "pWalk"},
+			{84, "pDamaged"},
+			{126, "pStun"},
+			{168, "pDeath"},
+			{210, "pAttack"}
+		};
+
+		parasitizedAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Salmonella_Parasitado.tsx", parasiteAliases);
+		parasitizedAnims.SetCurrent("pIdle");
+		parasitizedAnims.Func_SetAnimationLoop("pDamaged", false);
+		parasitizedAnims.Func_SetAnimationLoop("pStun", true);
+		parasitizedAnims.Func_SetAnimationLoop("pDeath", false);
+		parasitizedAnims.Func_SetAnimationLoop("pAttack", false);
+
+		texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Salmonella.png");
+		parasitizedTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Salmonella_Parasitado.png");
+
+		texW = 96;
+		texH = 96;
+
+		normalMoveSpeed = 1.2f;
+		parasitizedMoveSpeed = 2.4f;
+
+		attackRange = 130.0f;
+		contactDamage = 1;
+		}
 }
 
 bool CelulaBasica::Update(float dt)
@@ -202,8 +245,7 @@ void CelulaBasica::GetPhysicsValues()
 {
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
 
-	if (cellType == CellType::NEURONA && !isFallingToGround)
-	{
+	if ((cellType == CellType::NEURONA || cellType == CellType::SALMONELLA) && !isFallingToGround) {
 		int x, y;
 		pbody->GetPosition(x, y);
 
@@ -282,10 +324,18 @@ void CelulaBasica::Func_CellStates(float dt)
 		if (isAttacking)
 		{
 			parasitizedAnims.SetCurrent("pAttack");
-			velocity.x = 0.0f;
+
+			if (cellType == CellType::SALMONELLA)
+			{
+				velocity.x = isFacingRight ? 6.5f : -6.5f;
+			}
+			else
+			{
+				velocity.x = 0.0f;
+			}
 
 			if (attackHitbox == nullptr) {
-				int x, y;
+				int x, y;if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA && !isFallingToGround)
 				pbody->GetPosition(x, y);
 
 				float offsetX = isFacingRight ? 95.0f : -95.0f;
@@ -296,6 +346,19 @@ void CelulaBasica::Func_CellStates(float dt)
 						Engine::GetInstance().physics->Func_CreateTemporarySensor(
 							170, 170,
 							x, y - 20,
+							ColliderType::CELL_ATTACK
+						);
+				}
+				else if (cellType == CellType::SALMONELLA)
+				{
+					float offsetX = isFacingRight ? 105.0f : -105.0f;
+
+					attackHitbox =
+						Engine::GetInstance().physics->Func_CreateTemporarySensor(
+							150,
+							90,
+							x + offsetX,
+							y - 10,
 							ColliderType::CELL_ATTACK
 						);
 				}
@@ -609,8 +672,7 @@ void CelulaBasica::TakeDamage(int amount)
 	hurtTimer.Start();
 	currentState = CELL_STATE::STUNED;
 
-	if (cellType == CellType::NEURONA && isParasitized)
-	{
+	if ((cellType == CellType::NEURONA || cellType == CellType::SALMONELLA) && isParasitized) {
 		isFallingToGround = true;
 		b2Body_SetGravityScale(pbody->body, 80.0f);
 	}
@@ -639,7 +701,7 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 	}
 	case ColliderType::PLATFORM:
 	{
-		if (cellType == CellType::NEURONA && isFallingToGround)
+		if ((cellType == CellType::NEURONA || cellType == CellType::SALMONELLA) && isFallingToGround)
 		{
 			isFallingToGround = false;
 			b2Body_SetGravityScale(pbody->body, 0.0f);
@@ -654,13 +716,14 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	}
 	case ColliderType::SYRINGE:
-		if (!isStunned)
+	{
+		if (isParasitized && currentState != CELL_STATE::DEATH)
 		{
-			isStunned = true;
-			stunTimer.Start();
-			currentState = CELL_STATE::STUNED;
+			TakeDamage(1);
 		}
+
 		break;
+	}
 
 	case ColliderType::PLAYER:
 	{

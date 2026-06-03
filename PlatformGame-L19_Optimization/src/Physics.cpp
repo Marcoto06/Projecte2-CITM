@@ -334,8 +334,21 @@ void Physics::EndContact(b2ShapeId shapeA, b2ShapeId shapeB)
     if (!physA || !physB) return;
     if (IsPendingToDelete(physA) || IsPendingToDelete(physB)) return;
 
-    if (physA->listener && !IsPendingToDelete(physA)) physA->listener->OnCollisionEnd(physA, physB);
-    if (physB->listener && !IsPendingToDelete(physB)) physB->listener->OnCollisionEnd(physB, physA);
+    if (!physA || !physB) return;
+    if (IsPendingToDelete(physA) || IsPendingToDelete(physB)) return;
+
+    Entity* listenerA = physA->listener;
+    Entity* listenerB = physB->listener;
+
+    if (listenerA != nullptr && listenerA->active && !listenerA->pendingToDelete)
+    {
+        listenerA->OnCollisionEnd(physA, physB);
+    }
+
+    if (listenerB != nullptr && listenerB->active && !listenerB->pendingToDelete)
+    {
+        listenerB->OnCollisionEnd(physB, physA);
+    }
 }
 
 

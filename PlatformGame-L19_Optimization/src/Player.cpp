@@ -1444,7 +1444,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::CELL_ATTACK:
 	{
-		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH)
+		if (!godMode && currentState != PLAYERSTATE::DEATH)
 		{
 			playerCurrentHp -= 1.0f;
 

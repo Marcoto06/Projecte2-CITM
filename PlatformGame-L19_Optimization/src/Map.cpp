@@ -631,6 +631,21 @@ MapLayer* Map::GetNavigationLayer() {
                              cell->Start();
                          }
                      }
+                     else if (name == "Salmonella")
+                     {
+                         std::shared_ptr<CelulaBasica> cell =
+                             std::dynamic_pointer_cast<CelulaBasica>(
+                                 Engine::GetInstance().entityManager->CreateEntity(EntityType::CELULA_BASICA)
+                             );
+
+                         if (cell != nullptr)
+                         {
+                             cell->SetCellType(CelulaBasica::CellType::SALMONELLA);
+                             cell->position = Vector2D(x, y);
+                             cell->tiledId = tiledId;
+                             cell->Start();
+                         }
+                     }
                      else if (name == "Neurona")
                      {
                          std::shared_ptr<CelulaBasica> cell =
