@@ -40,6 +40,16 @@ bool CelulaBasica::Start()
 	pbody->ctype = ColliderType::CELL;
 	pbody->SetFixedRotation(true);
 
+	if (cellType == CellType::NEURONA)
+	{
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+
+		int x, y;
+		pbody->GetPosition(x, y);
+		floatBaseY = (float)y;
+		hasFloatBaseY = true;
+	}
+
 	player = Engine::GetInstance().scene->player.get();
 
 	moveTimer.Start();
@@ -126,6 +136,48 @@ void CelulaBasica::LoadCellData()
 		texW = 96;
 		texH = 64;
 	}
+	else if (cellType == CellType::NEURONA)
+	{
+		std::unordered_map<int, std::string> normalAliases = {
+			{0, "idle"},
+			{23, "walk"},
+			{46, "damaged"},
+			{69, "stun"},
+			{92, "death"}
+		};
+
+		normalAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Neuronas.tsx", normalAliases);
+		normalAnims.SetCurrent("idle");
+		normalAnims.Func_SetAnimationLoop("damaged", false);
+		normalAnims.Func_SetAnimationLoop("death", false);
+
+		std::unordered_map<int, std::string> parasiteAliases = {
+			{0, "pIdle"},
+			{16, "pWalk"},
+			{32, "pDamaged"},
+			{48, "pStun"},
+			{64, "pDeath"},
+			{80, "pAttack"}
+		};
+
+		parasitizedAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Neuronas_Infectadas.tsx", parasiteAliases);
+		parasitizedAnims.SetCurrent("pIdle");
+		parasitizedAnims.Func_SetAnimationLoop("pDamaged", false);
+		parasitizedAnims.Func_SetAnimationLoop("pStun", true);
+		parasitizedAnims.Func_SetAnimationLoop("pDeath", false);
+		parasitizedAnims.Func_SetAnimationLoop("pAttack", false);
+
+		texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Neuronas.png");
+		parasitizedTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Neuronas_Infectadas.png");
+
+		texW = 96;
+		texH = 96;
+
+		normalMoveSpeed = 1.2f;
+		parasitizedMoveSpeed = 2.2f;
+
+		attackRange = 190.0f;
+	}
 }
 
 bool CelulaBasica::Update(float dt)
@@ -149,7 +201,31 @@ bool CelulaBasica::Update(float dt)
 void CelulaBasica::GetPhysicsValues()
 {
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
-	velocity = { 0.0f, velocity.y };
+
+	if (cellType == CellType::NEURONA && !isFallingToGround)
+	{
+		int x, y;
+		pbody->GetPosition(x, y);
+
+		if (!hasFloatBaseY)
+		{
+			floatBaseY = (float)y;
+			hasFloatBaseY = true;
+		}
+
+		float diffY = floatBaseY - (float)y;
+
+		velocity.y = diffY * 0.035f;
+
+		if (velocity.y > 1.2f) velocity.y = 1.2f;
+		if (velocity.y < -1.2f) velocity.y = -1.2f;
+
+		velocity.x = 0.0f;
+	}
+	else
+	{
+		velocity = { 0.0f, velocity.y };
+	}
 }
 
 void CelulaBasica::Func_CellStates(float dt)
@@ -218,10 +294,19 @@ void CelulaBasica::Func_CellStates(float dt)
 				{
 					attackHitbox =
 						Engine::GetInstance().physics->Func_CreateTemporarySensor(
-							170,
-							170,
-							x,
-							y - 20,
+							170, 170,
+							x, y - 20,
+							ColliderType::CELL_ATTACK
+						);
+				}
+				else if (cellType == CellType::NEURONA)
+				{
+					float offsetX = isFacingRight ? 105.0f : -105.0f;
+
+					attackHitbox =
+						Engine::GetInstance().physics->Func_CreateTemporarySensor(
+							150, 45,
+							x + offsetX, y - 20,
 							ColliderType::CELL_ATTACK
 						);
 				}
@@ -231,10 +316,8 @@ void CelulaBasica::Func_CellStates(float dt)
 
 					attackHitbox =
 						Engine::GetInstance().physics->Func_CreateTemporarySensor(
-							130,
-							70,
-							x + offsetX,
-							y - 30,
+							130, 70,
+							x + offsetX, y - 30,
 							ColliderType::CELL_ATTACK
 						);
 				}
@@ -399,6 +482,13 @@ void CelulaBasica::Draw(float dt)
 	int drawX = x - frameW / 2;
 	int drawY = y - frameH / 2 - 70;
 
+	SDL_FlipMode flip = isFacingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+
+	if (cellType == CellType::NEURONA && isParasitized)
+	{
+		flip = isFacingRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	}
+
 	Engine::GetInstance().render->DrawTexture(
 		currentTexture,
 		drawX,
@@ -408,7 +498,7 @@ void CelulaBasica::Draw(float dt)
 		0.0,
 		frameW / 2,
 		frameH / 2,
-		isFacingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL, 
+		flip, 
 		1.0f
 	);
 }
@@ -518,6 +608,13 @@ void CelulaBasica::TakeDamage(int amount)
 	isStunned = true;
 	hurtTimer.Start();
 	currentState = CELL_STATE::STUNED;
+
+	if (cellType == CellType::NEURONA && isParasitized)
+	{
+		isFallingToGround = true;
+		b2Body_SetGravityScale(pbody->body, 80.0f);
+	}
+
 }
 
 bool CelulaBasica::IsParasitized() const
@@ -536,6 +633,22 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 			!isHurt)
 		{
 			currentState = CELL_STATE::DEATH;
+		}
+
+		break;
+	}
+	case ColliderType::PLATFORM:
+	{
+		if (cellType == CellType::NEURONA && isFallingToGround)
+		{
+			isFallingToGround = false;
+			b2Body_SetGravityScale(pbody->body, 0.0f);
+
+			velocity = b2Vec2_zero;
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
+
+			currentState = CELL_STATE::STUNED;
+			stunTimer.Start();
 		}
 
 		break;

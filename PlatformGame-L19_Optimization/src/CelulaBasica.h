@@ -15,7 +15,7 @@ public:
 	enum class CellType
 	{
 		FIBROBLASTO,
-		STREPTOCOCCUS,
+		STREPTOCOCCUS, //-------Add streptococcus as a new cell type instead of aspergillus, with its own unique behavior and animations.----------
 		ASPERGILLUS,
 		SALMONELLA,
 		NEURONA
@@ -75,6 +75,8 @@ public:
 	bool canDamagePlayer = true;
 	bool isTouchingPlayer = false;
 	bool canTongueAttack = true;
+	bool hasFloatBaseY = false;
+	bool isFallingToGround = false;
 	Player* touchingPlayer = nullptr;
 
 	float normalMoveSpeed = 1.0f;
@@ -84,6 +86,8 @@ public:
 	float damageCooldownMs = 1500.0f;
 	float attackRange = 170.0f;
 	float attackCooldownMs = 1500.0f;
+	float floatBaseY = 0.0f;
+	
 
 	int contactDamage = 1;
 
