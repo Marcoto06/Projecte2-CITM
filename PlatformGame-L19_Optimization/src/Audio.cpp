@@ -1,6 +1,7 @@
 #include "Audio.h"
 #include "Log.h"
 
+
 Audio::Audio() {
     name = "audio";
 }
@@ -209,7 +210,7 @@ bool Audio::PlayFx(int id, int repeat) {
 
     // 1. Buscar un canal libre (que no tenga audio en cola)
     SDL_AudioStream* free_stream = nullptr;
-    for (int i = 0; i < MAX_FX_CHANNELS; ++i) {
+    for (int i = 0; i < MAX_FX_CHANNELS -1; ++i) {
         // SDL_GetAudioStreamQueued devuelve 0 si el canal ya terminó de sonar
         if (sfx_channels_[i] && SDL_GetAudioStreamQueued(sfx_channels_[i]) == 0) {
             free_stream = sfx_channels_[i];
@@ -267,4 +268,44 @@ void Audio::SetSFXVolume(float volume)
             SDL_SetAudioStreamGain(sfx_channels_[i], sfx_volume_);
         }
     }
+}
+
+void Audio::StopMusicFx()
+{
+    if (!active) return;
+
+    if (sfx_channels_[MAX_FX_CHANNELS - 1]) {
+        SDL_ClearAudioStream(sfx_channels_[MAX_FX_CHANNELS - 1]);
+    }
+}
+bool Audio::PlayMusicFx(unsigned int id, int repeat)
+{
+    if (!active) return false;
+    if (id <= 0 || id > static_cast<int>(sfx_.size())) return false;
+    if (!EnsureStreams()) return false;
+
+    const SoundData& s = sfx_[static_cast<size_t>(id - 1)];
+
+    
+    SDL_AudioStream* music_stream = sfx_channels_[MAX_FX_CHANNELS - 1];
+    if (!music_stream) return false;
+
+    
+    SDL_ClearAudioStream(music_stream);
+
+   
+    if (!SDL_SetAudioStreamFormat(music_stream, &s.spec, &device_spec_)) {
+        LOG("Audio: SDL_SetAudioStreamFormat(music) failed: %s", SDL_GetError());
+        return false;
+    }
+
+  
+    for (int i = 0; i <= repeat; ++i) {
+        if (!SDL_PutAudioStreamData(music_stream, s.buf, s.len)) {
+            LOG("Audio: SDL_PutAudioStreamData(music) failed: %s", SDL_GetError());
+            return false;
+        }
+    }
+
+    return true;
 }

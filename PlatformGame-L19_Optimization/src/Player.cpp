@@ -99,9 +99,9 @@ bool Player::Start() {
 	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/hurt_doc.wav");
 	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/death_doc.wav");
 	stunAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stun_attack.wav");
-	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/jump_doc.wav");
+	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Doctora_Salto.wav");
 	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stun_attack_doc.wav");
-	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/suck_attack.wav");
+	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Absorver.wav");
 
 	//Audios
 	/*std::unordered_map< std::string,Audio> list_audios;
