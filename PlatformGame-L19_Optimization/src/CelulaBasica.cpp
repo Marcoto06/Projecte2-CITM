@@ -89,6 +89,43 @@ void CelulaBasica::LoadCellData()
 		texW = 96;
 		texH = 64;
 	}
+	else if (cellType == CellType::ASPERGILLUS)
+	{
+		std::unordered_map<int, std::string> normalAliases = {
+			{0, "idle"},
+			{24, "walk"},
+			{48, "damaged"},
+			{72, "stun"},
+			{96, "death"}
+		};
+
+		normalAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Asperguilus.tsx", normalAliases);
+		normalAnims.SetCurrent("idle");
+		normalAnims.Func_SetAnimationLoop("damaged", false);
+		normalAnims.Func_SetAnimationLoop("death", false);
+
+		std::unordered_map<int, std::string> parasiteAliases = {
+			{0, "pIdle"},
+			{35, "pWalk"},
+			{70, "pDamaged"},
+			{105, "pStun"},
+			{140, "pDeath"},
+			{175, "pAttack"}
+		};
+
+		parasitizedAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Asperguilus_Parasitado.tsx", parasiteAliases);
+		parasitizedAnims.SetCurrent("pIdle");
+		parasitizedAnims.Func_SetAnimationLoop("pDamaged", false);
+		parasitizedAnims.Func_SetAnimationLoop("pStun", true);
+		parasitizedAnims.Func_SetAnimationLoop("pDeath", false);
+		parasitizedAnims.Func_SetAnimationLoop("pAttack", false);
+
+		texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Asperguilus.png");
+		parasitizedTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Asperguilus_Parasitado.png");
+
+		texW = 96;
+		texH = 64;
+	}
 }
 
 bool CelulaBasica::Update(float dt)
@@ -177,14 +214,30 @@ void CelulaBasica::Func_CellStates(float dt)
 
 				float offsetX = isFacingRight ? 95.0f : -95.0f;
 
-				attackHitbox =
-					Engine::GetInstance().physics->Func_CreateTemporarySensor(
-						130,
-						70,
-						x + offsetX,
-						y - 30,
-						ColliderType::CELL_ATTACK
-					);
+				if (cellType == CellType::ASPERGILLUS)
+				{
+					attackHitbox =
+						Engine::GetInstance().physics->Func_CreateTemporarySensor(
+							170,
+							170,
+							x,
+							y - 20,
+							ColliderType::CELL_ATTACK
+						);
+				}
+				else
+				{
+					float offsetX = isFacingRight ? 95.0f : -95.0f;
+
+					attackHitbox =
+						Engine::GetInstance().physics->Func_CreateTemporarySensor(
+							130,
+							70,
+							x + offsetX,
+							y - 30,
+							ColliderType::CELL_ATTACK
+						);
+				}
 
 				attackHitbox->listener = this;
 			}
@@ -462,7 +515,9 @@ void CelulaBasica::TakeDamage(int amount)
 	}
 
 	isHurt = true;
+	isStunned = true;
 	hurtTimer.Start();
+	currentState = CELL_STATE::STUNED;
 }
 
 bool CelulaBasica::IsParasitized() const
@@ -474,6 +529,17 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
+	case ColliderType::SUCK_ZONE:
+	{
+		if (isParasitized &&
+			currentState == CELL_STATE::STUNED &&
+			!isHurt)
+		{
+			currentState = CELL_STATE::DEATH;
+		}
+
+		break;
+	}
 	case ColliderType::SYRINGE:
 		if (!isStunned)
 		{

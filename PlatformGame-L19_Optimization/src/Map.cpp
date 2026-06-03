@@ -631,6 +631,21 @@ MapLayer* Map::GetNavigationLayer() {
                              cell->Start();
                          }
                      }
+                     else if (name == "Asperguilus")
+                     {
+                         std::shared_ptr<CelulaBasica> cell =
+                             std::dynamic_pointer_cast<CelulaBasica>(
+                                 Engine::GetInstance().entityManager->CreateEntity(EntityType::CELULA_BASICA)
+                             );
+
+                         if (cell != nullptr)
+                         {
+                             cell->SetCellType(CelulaBasica::CellType::ASPERGILLUS);
+                             cell->position = Vector2D(x, y);
+                             cell->tiledId = tiledId;
+                             cell->Start();
+                         }
+                     }
                    }
                      else if (entityType == "Checkpoint")
                      {
