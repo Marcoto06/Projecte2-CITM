@@ -123,7 +123,7 @@ bool Boss2::Update(float dt)
 
 	GetPhysicsValues();
 
-	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intros") {
+	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intro" && currentAnimation->name != "death") {
 		Attack();
 	}
 
@@ -239,8 +239,10 @@ void Boss2::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}
 		break;
 	case ColliderType::SYRINGE:
-		if (life > 0) {
+		if (physA == pbody && life > 0) {
 			life -= 1;
+			Engine::GetInstance().physics->DeletePhysBody(pbody);
+			pbody = nullptr;
 			PlayAnimation(anim_hit);
 		}
 		break;
@@ -264,6 +266,22 @@ void Boss2::AnimationFinished(bossAnimation* animation)
 		PlayAnimation(anim_idle);
 		PrepareAttack();
 	}
+	else if (animation->name == "mucose" || animation->name == "shock") {
+		PlayAnimation(anim_idle);
+	}
+	else if (animation->name == "hit") {
+		if (life > 0) {
+			currentAttack = 0;
+			PrepareAttack();
+			PlayAnimation(anim_idle);
+		}
+		else {
+			PlayAnimation(anim_death);
+		}
+	}
+	else if (animation->name == "death") {
+		pendingToDelete = true;
+	}
 	return;
 }
 
@@ -285,15 +303,31 @@ void Boss2::Initialize() {
 	//Set Current Animation as intro
 	PlayAnimation(anim_intro);
 	Engine::GetInstance().physics->DeletePhysBody(triggerBody);
-	pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX(), initialPos.getY(), 500, 500, bodyType::STATIC);
-	pbody->listener = this;
+	/*pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX(), initialPos.getY(), 500, 500, bodyType::STATIC);
+	pbody->listener = this;*/
 	active = true;
 }
 
 void Boss2::PrepareAttack() {
 	currentAttack += 1;
-	if (currentAttack > 5) currentAttack = 1;
-	attackTime = SDL_rand(5);
+	if (currentAttack > 5)
+	{
+		currentAttack = 1;
+		if (pbody != nullptr) {
+			Engine::GetInstance().physics->DeletePhysBody(pbody);
+			pbody = nullptr;
+		}
+	}
+	if (currentAttack != 5) {
+		attackTime = SDL_rand(4);
+		while (attackTime <= 2) {
+			attackTime = SDL_rand(4);
+		}
+	}
+	else {
+		attackTime = 4;
+	}
+	
 	attackTimer.Start();
 	return;
 }
@@ -312,5 +346,7 @@ void Boss2::Attack() {
 	else //DOES NOT ATTACK, INSTEAD RESTS
 	{
 		PlayAnimation(anim_rest);
+		pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX() - 100, initialPos.getY(), 100, 800, bodyType::STATIC);
+		pbody->listener = this;
 	}
 }
