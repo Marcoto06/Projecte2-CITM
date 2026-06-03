@@ -941,9 +941,6 @@ static int LoadingScreenThread(void* data)
 			}
 		};
 
-	//LOCK = SDL_CreateMutex();
-	//SDL_LockMutex(LOCK);
-
 	std::string path = "Assets/Video/LoadingScreen.mpg";
 	const char* charPath = path.c_str();
 	video->plm = plm_create_with_filename(charPath);
@@ -991,10 +988,7 @@ static int LoadingScreenThread(void* data)
 
 		if (video->texture && video->buffer) {
 			SDL_RenderClear(Engine::GetInstance().render->renderer);
-			//SDL_UpdateTexture(video->texture, NULL, video->buffer, video->width * 4);
-			SDL_LockTexture(video->texture, NULL, &mPixels, &pitch);
-			SDL_memcpy(mPixels, video->buffer, video->width* video->height * 4);
-			SDL_UnlockTexture(video->texture);
+			SDL_UpdateTexture(video->texture, NULL, video->buffer, video->width * 4);
 			SDL_RenderTexture(Engine::GetInstance().render->renderer, video->texture, NULL, NULL);
 			SDL_RenderPresent(Engine::GetInstance().render->renderer);
 		}
@@ -1006,10 +1000,6 @@ static int LoadingScreenThread(void* data)
 			break;
 		}
 	}
-
-	//SDL_UnlockMutex(LOCK);
-	//SDL_DestroyMutex(LOCK);
-	//LOCK = NULL;
 
 	if (video->plm) plm_destroy(video->plm);
 	if (video->texture) SDL_DestroyTexture(video->texture);
@@ -1025,12 +1015,12 @@ static int LoadingScreenThread(void* data)
 
 
 void Scene::StartLoadingScreen() {
-	SDL_SetAtomicInt(&loadingFinished, 0);
+	//SDL_SetAtomicInt(&loadingFinished, 0);
 	thread = SDL_CreateThread(LoadingScreenThread, "LoadingScreen", NULL);
 }
 
 void Scene::EndLoadingScreen() {
-	SDL_SetAtomicInt(&loadingFinished, 1);
+	//SDL_SetAtomicInt(&loadingFinished, 1);
 	SDL_WaitThread(thread, NULL);
 
 }
