@@ -33,7 +33,7 @@ bool Scene::Awake()
 	LOG("Loading Scene");
 	
 	bool ret = true;
-
+	
 	return ret;
 }
 
@@ -54,6 +54,7 @@ bool Scene::Start()
 	Engine::GetInstance().audio->PlayFx(fondoBocaFXId, 50);
 	//Engine::GetInstance().audio->PlayFx(latidosFXId);
 
+	
 	return true;
 }
 
@@ -72,7 +73,6 @@ bool Scene::Update(float dt)
 
 		if (currentVideo.texture && currentVideo.buffer) {
 			SDL_UpdateTexture(currentVideo.texture, NULL, currentVideo.buffer, currentVideo.width * 4);
-
 			SDL_RenderTexture(Engine::GetInstance().render->renderer, currentVideo.texture, NULL, NULL);
 		}
 
@@ -295,16 +295,18 @@ void Scene::LoadScene(SceneID newScene)
 		}
 		else
 		{
+			StartLoadingScreen();
 			LoadLevel("MapTemplate.tmx");
+			EndLoadingScreen();
 		}		
 
 		//Create boss when booting up to avoid lagging afterwards.
-		std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
-		boss = std::dynamic_pointer_cast<Boss2>(e);
-
-		boss->position = Vector2D(0, 0);
-		boss->Awake();
-		boss->Start();
+		//std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
+		//boss = std::dynamic_pointer_cast<Boss2>(e);
+		//
+		//boss->position = Vector2D(0, 0);
+		//boss->Awake();
+		//boss->Start();
 
 		break;		
 	}
@@ -903,4 +905,132 @@ bool Scene::LoadGame(pugi::xml_node& root)
 	//LOG("Game successfully loaded from savegame.xml");
 
 	return true;
+}
+
+// *********************************************
+// Loading Screen functions
+// *********************************************
+
+SDL_Mutex* LOCK = NULL;
+SDL_AtomicInt loadingFinished;
+
+static int LoadingScreenThread(void* data)
+{
+	struct VideoData {
+		plm_t* plm = nullptr;
+		SDL_Texture* texture = nullptr;
+		uint8_t* buffer = nullptr;
+		int width = 0;
+		int height = 0;
+	};
+
+	bool done = false;
+
+	VideoData* video = new VideoData;
+	float dt;
+	double delta_time = 0.0;
+
+	auto OnVideoFrame = [](plm_t* self, plm_frame_t* frame, void* user)
+		{
+			VideoData* vd = static_cast<VideoData*>(user);
+
+			if (vd->buffer)
+			{
+				LOG("Decoding video frame");
+				plm_frame_to_rgba(frame, vd->buffer, vd->width * 4);
+			}
+		};
+
+	//LOCK = SDL_CreateMutex();
+	//SDL_LockMutex(LOCK);
+
+	std::string path = "Assets/Video/LoadingScreen.mpg";
+	const char* charPath = path.c_str();
+	video->plm = plm_create_with_filename(charPath);
+
+	if (!video->plm)
+	{
+		LOG("ERROR: Could not find or open video file: %s", charPath);
+		//isPlayingVideo = false;
+		return 0;
+	}
+
+	video->width = plm_get_width(video->plm);
+	video->height = plm_get_height(video->plm);
+
+	if (video->width == 0 || video->height == 0)
+	{
+		LOG("ERROR: File %s is not a valid MPEG video.", charPath);
+		plm_destroy(video->plm);
+		video->plm = nullptr;
+		//isPlayingVideo = false;
+		return 0;
+	}
+
+	LOG("Video loaded successfully: %s", charPath);
+
+	plm_set_audio_enabled(video->plm, 0);
+	plm_set_loop(video->plm, 0);
+
+	video->buffer = new uint8_t[video->width * video->height * 4];
+	video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_GetWindowPixelFormat(Engine::GetInstance().window->GetWindow()), SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
+
+	plm_set_video_decode_callback(video->plm, OnVideoFrame, video);
+
+	Uint64 last_time = SDL_GetTicksNS();
+	void* mPixels;
+	int pitch;
+
+	while (!done) {
+
+		Uint64 current_time = SDL_GetTicksNS();
+		dt = (double)(current_time - last_time) / 1000000000.0;
+		last_time = current_time;
+
+		plm_decode(video->plm, dt);	// pl_mpeg uses time in seconds, dt is in milliseconds
+
+		if (video->texture && video->buffer) {
+			SDL_RenderClear(Engine::GetInstance().render->renderer);
+			//SDL_UpdateTexture(video->texture, NULL, video->buffer, video->width * 4);
+			SDL_LockTexture(video->texture, NULL, &mPixels, &pitch);
+			SDL_memcpy(mPixels, video->buffer, video->width* video->height * 4);
+			SDL_UnlockTexture(video->texture);
+			SDL_RenderTexture(Engine::GetInstance().render->renderer, video->texture, NULL, NULL);
+			SDL_RenderPresent(Engine::GetInstance().render->renderer);
+		}
+
+		if (plm_has_ended(video->plm)) done = true;
+		
+		int exit = SDL_GetAtomicInt(&loadingFinished);
+		if (exit == 1) {
+			break;
+		}
+	}
+
+	//SDL_UnlockMutex(LOCK);
+	//SDL_DestroyMutex(LOCK);
+	//LOCK = NULL;
+
+	if (video->plm) plm_destroy(video->plm);
+	if (video->texture) SDL_DestroyTexture(video->texture);
+	if (video->buffer) delete[] video->buffer;
+
+	video->plm = nullptr;
+	video->texture = nullptr;
+	video->buffer = nullptr;
+	video = nullptr;
+
+	return 1;
+}
+
+
+void Scene::StartLoadingScreen() {
+	SDL_SetAtomicInt(&loadingFinished, 0);
+	thread = SDL_CreateThread(LoadingScreenThread, "LoadingScreen", NULL);
+}
+
+void Scene::EndLoadingScreen() {
+	SDL_SetAtomicInt(&loadingFinished, 1);
+	SDL_WaitThread(thread, NULL);
+
 }
