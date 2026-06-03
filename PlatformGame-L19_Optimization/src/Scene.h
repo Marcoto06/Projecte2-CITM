@@ -185,6 +185,8 @@ private:
 
 	void LoadVideo(VideoData* video, std::string _file);
 	void StopCurrentVideo();
+	void StartLoadingScreen();
+	void EndLoadingScreen();
 
 private:
 
@@ -193,8 +195,13 @@ private:
 	VideoData introVideo;
 	VideoData loadingVideo;
 	VideoData fallingVideo;
+	SDL_Thread* thread;
+	bool loadingDone = false;
+
+	int threadReturnValue;
 
 	bool transitionAfterVideo = false;
+
 	std::string videoNextMap = "";
 	float videoNextX = 0.0f;
 	float videoNextY = 0.0f;
