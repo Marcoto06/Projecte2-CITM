@@ -123,7 +123,7 @@ bool Boss2::Update(float dt)
 
 	GetPhysicsValues();
 
-	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intro") {
+	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intro" && currentAnimation->name != "death") {
 		Attack();
 	}
 
@@ -275,6 +275,12 @@ void Boss2::AnimationFinished(bossAnimation* animation)
 			PrepareAttack();
 			PlayAnimation(anim_idle);
 		}
+		else {
+			PlayAnimation(anim_death);
+		}
+	}
+	else if (animation->name == "death") {
+		pendingToDelete = true;
 	}
 	return;
 }

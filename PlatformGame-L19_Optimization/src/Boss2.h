@@ -29,7 +29,7 @@ public:
 	void Initialize();
 	Player* player = nullptr;
 
-	int life = 10;
+	int life = 1;
 	bool active = false;
 	PhysBody* triggerBody;
 

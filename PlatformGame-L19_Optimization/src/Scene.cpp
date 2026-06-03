@@ -48,12 +48,11 @@ bool Scene::Start()
 	//Audio fx
 	latidosFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/latidos.wav");
 	fondoBocaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/sonido de fondo 1.wav");
+	fondoPulmonesFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Pulmones_Background.wav");
 
 	LoadScene(currentScene); // start in MAIN_MENU
 	Engine::GetInstance().audio->PlayFx(latidosFXId, 50);
-	Engine::GetInstance().audio->PlayFx(fondoBocaFXId, 50);
-	//Engine::GetInstance().audio->PlayFx(latidosFXId);
-
+	//Engine::GetInstance().audio->PlayFx(fondoBocaFXId, 50);
 	
 	return true;
 }
@@ -494,9 +493,22 @@ void Scene::LoadInventoryMenu()
 
 void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 
-	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/level-iv-339695.wav");
+	Engine::GetInstance().audio->StopMusicFx();
 
-	//Call the function to load the map. 
+	
+	if (level == "MapTemplate.tmx")
+	{
+		
+		Engine::GetInstance().audio->PlayMusicFx(fondoBocaFXId, 50);
+	}
+	else if ( level.find("MapPulmo") != std::string::npos)
+	{
+		
+		Engine::GetInstance().audio->PlayMusicFx(fondoPulmonesFXId, 50);
+	}
+	// ESTOMAGO corazon ETC
+
+	
 	std::string map = level;
 	Engine::GetInstance().map->Load("Assets/Maps/", map);
 

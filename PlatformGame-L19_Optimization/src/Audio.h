@@ -33,6 +33,11 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(int fx, int repeat = 0);
 
+    bool PlayMusicFx(unsigned int id, int repeat = 0);
+
+    // Para EXCLUSIVAMENTE el canal de la música de fondo
+    void StopMusicFx();
+
 	// Volume control
     void SetMusicVolume(float volume); // 0.0f – 1.0f
     void SetSFXVolume(float volume);   // 0.0f – 1.0f
@@ -54,7 +59,7 @@ private:
 
     // Streams
     SDL_AudioStream* music_stream_{ nullptr }; // for background music (single)
-    static const int MAX_FX_CHANNELS = 30; // El número máximo de sonidos a la vez
+    static const int MAX_FX_CHANNELS = 40; // El número máximo de sonidos a la vez
     SDL_AudioStream* sfx_channels_[MAX_FX_CHANNELS] = { nullptr };
 
     // Loaded sounds

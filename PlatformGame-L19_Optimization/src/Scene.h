@@ -120,9 +120,10 @@ public:
 
 	void TriggerFallingVideo(std::string mapName, float destX, float destY);
 
-	//AUdio FX
+	//AUdio FX IDS
 	int latidosFXId;
 	int fondoBocaFXId;
+	int fondoPulmonesFXId;
 
 	std::shared_ptr<Boss2> boss = nullptr;
 
