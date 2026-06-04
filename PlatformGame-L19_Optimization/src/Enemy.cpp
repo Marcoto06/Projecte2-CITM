@@ -34,6 +34,12 @@ bool Enemy::Start() {
 	anims.SetCurrent("walk");
 	anims.Func_SetAnimationLoop("death", false);
 
+	//audio fx
+	idleFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Idle.wav");
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Walk.wav");
+	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Hurt.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Morir.wav");
+
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
 
@@ -140,6 +146,20 @@ void Enemy::GetPhysicsValues() {
 
 void Enemy::Func_EnemyStates(float dt)
 {
+
+	if (IsPlayerDetected() && audioTimer.ReadMSec() >= 1000.0f)
+	{
+		if (currentEState == ENEMYSTATES::WALKING)
+		{
+			Engine::GetInstance().audio->PlayFx(idleFxId); // idle
+		}
+		else if (currentEState == ENEMYSTATES::CHASING)
+		{
+			Engine::GetInstance().audio->PlayFx(walkFxId); // walk
+		}
+		audioTimer.Start(); 
+	}
+
 	switch (currentEState)
 	{
 	case Enemy::ENEMYSTATES::WALKING:
@@ -161,6 +181,8 @@ void Enemy::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 3000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
+
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -170,6 +192,8 @@ void Enemy::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 1500.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
+
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -399,6 +423,10 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 			timer_01.Start(); 
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
+
+			Engine::GetInstance().audio->PlayFx(hurtFxId);
+			LOG("audio test");
+
 			if (player->isBerserker)
 			{
 				player->RestoreHealthB();

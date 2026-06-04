@@ -95,13 +95,13 @@ bool Player::Start() {
 	floorSensorBody = Engine::GetInstance().physics->Func_CreateTemporarySensor(texW / 3, 10, (int)position.getX() + texW / 6, (int)position.getY() + 175, ColliderType::SENSOR);
 	floorSensorBody->listener = this;
 
-	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/walk_doc.wav");
-	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/hurt_doc.wav");
-	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/death_doc.wav");
-	stunAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stun_attack.wav");
-	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Doctora_Salto.wav");
-	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stun_attack_doc.wav");
-	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Absorver.wav");
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/walk_doc.wav");
+	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/hurt_doc.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/death_doc.wav");
+	stunAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack.wav");
+	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Doctora_Salto.wav");
+	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack_doc.wav");
+	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Absorver.wav");
 
 	//Audios
 	/*std::unordered_map< std::string,Audio> list_audios;

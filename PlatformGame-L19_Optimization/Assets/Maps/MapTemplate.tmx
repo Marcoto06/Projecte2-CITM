@@ -11951,7 +11951,7 @@
   <object id="21" name="Player" type="Player" x="89.6667" y="920.549">
    <point/>
   </object>
-  <object id="28" name="Streptococus" type="Enemy" x="1108.48" y="886.75">
+  <object id="28" name="Streptococus" type="Enemy" x="1336.48" y="1982.75">
    <point/>
   </object>
   <object id="30" name="Eosinofilo" type="Enemy" x="778.197" y="1549.62">
@@ -12030,7 +12030,7 @@
   <object id="92" name="Neurona" type="Cell" x="620.786" y="1761.34">
    <point/>
   </object>
-  <object id="95" name="Salmonella" type="Cell" x="1538.76" y="943.923">
+  <object id="95" name="Dendriticas" type="Enemy" x="1078.76" y="951.923">
    <point/>
   </object>
  </objectgroup>

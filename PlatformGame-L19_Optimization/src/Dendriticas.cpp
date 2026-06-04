@@ -34,6 +34,15 @@ bool Dendriticas::Start() {
 	anims.Func_SetAnimationLoop("death", false);
 	anims.Func_SetAnimationLoop("attack", false);
 
+	//audio fx
+	idleFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx dendriticas/Dendritica_Idle.wav");
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx dendriticas/Dendritica_walk.wav");
+	stunFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx dendriticas/Dendritica_Stun.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx dendriticas/Dendritica_muerte.wav");
+	attackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx dendriticas/Dendritica_ataque.wav");
+
+	audioTimer.Start(); // Iniciamos el timer ambiental
+
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Dendriticas.png");
 
@@ -140,6 +149,20 @@ void Dendriticas::GetPhysicsValues() {
 
 void Dendriticas::Func_EnemyStates(float dt)
 {
+
+	if (IsPlayerDetected() && audioTimer.ReadMSec() >= 1000.0f)
+	{
+		if (currentEState == ENEMYSTATES::WALKING)
+		{
+			Engine::GetInstance().audio->PlayFx(idleFxId);
+		}
+		else if (currentEState == ENEMYSTATES::CHASING)
+		{
+			Engine::GetInstance().audio->PlayFx(walkFxId);
+		}
+		audioTimer.Start();
+	}
+
 	switch (currentEState)
 	{
 	case Dendriticas::ENEMYSTATES::WALKING:
@@ -155,12 +178,21 @@ void Dendriticas::Func_EnemyStates(float dt)
 	case Dendriticas::ENEMYSTATES::STUNED:
 		anims.SetCurrent("stunned");
 
+		if (!stunSoundPlaying && timer_01.ReadMSec() < 50.0f)
+		{
+		
+			Engine::GetInstance().audio->PlayFx(stunFxId, 3);
+			stunSoundPlaying = true;
+		}
+
 		if (isBeingSucked)
 		{
 			if (!player->isAdrenaline)
 			{
 				if (suckTimer.ReadMSec() >= 3000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
+					stunSoundPlaying = false;
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -171,6 +203,8 @@ void Dendriticas::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 1500.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
+					stunSoundPlaying = false;
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -184,6 +218,7 @@ void Dendriticas::Func_EnemyStates(float dt)
 			{
 				currentEState = ENEMYSTATES::WALKING;
 				isStunned = false;
+				stunSoundPlaying = false;
 			}
 		}
 		break;
@@ -409,6 +444,7 @@ void Dendriticas::OnCollision(PhysBody* physA, PhysBody* physB) {
 			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
+			//stunSoundPlaying = false;
 			if (player->isBerserker)
 			{
 				player->RestoreHealthB();
@@ -426,6 +462,7 @@ void Dendriticas::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		if (currentEState != ENEMYSTATES::DEATH && currentEState != ENEMYSTATES::STUNED)
 		{
+			Engine::GetInstance().audio->PlayFx(attackFxId);
 			currentEState = ENEMYSTATES::ATTACK;
 			attackingPlayer = (Player*)physB->listener;
 		}

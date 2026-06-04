@@ -52,6 +52,14 @@ public:
 	Timer timer_01;
 	Timer suckTimer; 
 
+
+	//audio fx
+	int idleFxId;
+	int walkFxId;
+	int hurtFxId;
+	int deathFxId;
+	Timer audioTimer;
+
 	//bools
 	bool isStunned = false;
 	bool isFacingRight = false;
