@@ -27,6 +27,7 @@ enum class EntityType
 	ELECTRIC,
 	BOSS1,
 	BOSS2,
+	MUCOSA,
 	UNKNOWN
 };
 

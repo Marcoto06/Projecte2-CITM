@@ -201,6 +201,9 @@
     <ClCompile Include="src\Boss2.cpp">
       <Filter>Source Files\Game\Enemy\Bosses</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mucosa.cpp">
+      <Filter>Source Files\Game\Enemy\Bosses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -351,6 +354,9 @@
       <Filter>Source Files\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="src\Boss2.h">
+      <Filter>Source Files\Game\Enemy\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mucosa.h">
       <Filter>Source Files\Game\Enemy\Bosses</Filter>
     </ClInclude>
   </ItemGroup>

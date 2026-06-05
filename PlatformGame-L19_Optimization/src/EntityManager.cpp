@@ -23,6 +23,7 @@
 #include "Electric.h"
 #include "VirusBasico.h"
 #include "CelulaBasica.h"
+#include "Mucosa.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -151,6 +152,9 @@ std::shared_ptr<Entity> EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::BOSS2:
 		entity = std::make_shared<Boss2>();
+		break;
+	case EntityType::MUCOSA:
+		entity = std::make_shared<Mucosa>();
 		break;
 	default:
 		break;
