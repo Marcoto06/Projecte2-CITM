@@ -30,6 +30,7 @@ private:
 public:
 	int state = 0;
 	int texW, texH;
+	Vector2D spawnPos;
 	PhysBody* pbody;
 	b2Vec2 velocity;
 

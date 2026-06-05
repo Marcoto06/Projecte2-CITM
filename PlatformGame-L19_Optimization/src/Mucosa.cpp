@@ -32,10 +32,12 @@ bool Mucosa::Start()
 	projectileTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Bosses/Boss2/Mucosa_SS.png");
 
 	electricAnims.LoadFromTSX("Assets/Textures/Characters/Bosses/Boss2/Rayos_SS.tsx", aliases);
-	projectileAnims.SetCurrent("loop");
-	projectileAnims.Func_SetAnimationLoop("loop", true);
+	electricAnims.SetCurrent("loop");
+	electricAnims.Func_SetAnimationLoop("loop", true);
 
-	projectileTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Bosses/Boss2/Rayos_SS.png");
+	electricTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Bosses/Boss2/Rayos_SS.png");
+
+	staticTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Bosses/Boss2/Moco_SS.png");
 
 	texW = 256;
 	texH = 256;
@@ -48,10 +50,13 @@ bool Mucosa::Start()
 bool Mucosa::Update(float dt)
 {
 	if (state == 0) return true;
-	if (state == 1) projectileAnims.Update(dt);
+	if (state == 1) 
+	{
+		projectileAnims.Update(dt);
+		ApplyPhysics();
+	}
 	if (state == 3) electricAnims.Update(dt);
 
-	ApplyPhysics();
 	Draw(dt);
 	return true;
 }
@@ -63,6 +68,7 @@ void Mucosa::ApplyPhysics()
 		return;
 	}
 
+	velocity.x = 0;
 	velocity.y = Engine::GetInstance().physics->GetYVelocity(pbody);
 
 	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
@@ -74,7 +80,6 @@ void Mucosa::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::PLATFORM:
 		state = 2;
-		pendingToDelete = true;
 	default:
 		break;
 	}
@@ -92,15 +97,19 @@ void Mucosa::Draw(float dt)
 
 		int frameW = animFrame.w;
 		int frameH = animFrame.h;
-
-		int drawX = (int)position.getX() - (frameW / 2);
-		int drawY = (int)position.getY() - (frameH / 2);
+		
+		int drawX, drawY;
+		pbody->GetPosition(drawX, drawY);
+		drawX -= 256 / 2;
+		drawY -= 256 / 2;
 		Engine::GetInstance().render->DrawTexture(projectileTexture, drawX, drawY, &animFrame, 1.0f, 0.0, frameW / 2, frameH / 2, SDL_FLIP_NONE, 1.0f);
 	}
 	else if (state > 1)
 	{
 		int drawX, drawY;
 		pbody->GetPosition(drawX, drawY);
+		drawX -= 256 / 2;
+		drawY -= 256;
 		Engine::GetInstance().render->DrawTexture(staticTexture, drawX, drawY, NULL);
 	}
 }
@@ -141,6 +150,7 @@ bool Mucosa::Destroy()
 
 void Mucosa::Spawn() 
 {
+	position = spawnPos;
 	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX(), (int)position.getY(), 20, bodyType::DYNAMIC);
 
 	pbody->listener = this;
