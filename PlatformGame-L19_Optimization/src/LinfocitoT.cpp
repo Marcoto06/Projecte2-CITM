@@ -1,4 +1,4 @@
-#include "LinfocitoT.h"
+	#include "LinfocitoT.h"
 #include "Player.h"
 #include "Engine.h"
 #include "Textures.h"
@@ -35,6 +35,13 @@ bool LinfocitoT::Start() {
 	anims.Func_SetAnimationLoop("cargar", false);
 	anims.Func_SetAnimationLoop("chocar", false);
 	//anims.Func_SetAnimationLoop("rodar", false);
+
+	//audio
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocitoT/t walk.wav");
+	cargarFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocitoT/t cargar rodar.wav");
+	rodarFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocitoT/t rodar.wav");
+	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocitoT/t hurt.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocitoT/t morir.wav");
 
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Linfocito-T.png");
@@ -97,6 +104,9 @@ bool LinfocitoT::Update(float dt)
 				attackPhase = 0; //CARGAR
 				anims.SetCurrent("cargar");
 				velocity.x = 0.0f; // cargar
+
+				soundCargarPlayed = false;
+				soundRodarPlayed = false;
 			}
 			else
 			{
@@ -167,6 +177,13 @@ void LinfocitoT::GetPhysicsValues() {
 
 void LinfocitoT::Func_EnemyStates(float dt)
 {
+
+	if (currentEState == ENEMYSTATES::CHASING && IsPlayerDetected() && walkAudioTimer.ReadMSec() >= 3000.0f)
+	{
+		Engine::GetInstance().audio->PlayFx(walkFxId);
+		walkAudioTimer.Start();
+	}
+
 	switch (currentEState)
 	{
 	case LinfocitoT::ENEMYSTATES::WALKING:
@@ -188,6 +205,7 @@ void LinfocitoT::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 5000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -198,6 +216,7 @@ void LinfocitoT::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 2500.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -221,6 +240,13 @@ void LinfocitoT::Func_EnemyStates(float dt)
 		if (attackPhase == 0) //Cargar
 		{
 			velocity.x = 0.0f; 
+
+			if (!soundCargarPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(cargarFxId);
+				soundCargarPlayed = true;
+			}
+
 			if (anims.Func_HasCurrentAnimationFinished())
 			{
 				attackPhase = 1; //RODAR
@@ -230,13 +256,21 @@ void LinfocitoT::Func_EnemyStates(float dt)
 		}
 		else if (attackPhase == 1) //Rodar
 		{
-			
+
+			if (!soundRodarPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(rodarFxId);
+				soundRodarPlayed = true;
+			}
+
 			float dashSpeed = speed * 2.5f;
 			velocity.x = isFacingRight ? dashSpeed : -dashSpeed;
 
 			
 			if (timer_01.ReadMSec() > 2000.0f)
 			{
+				soundCargarPlayed = false;
+				soundRodarPlayed = false;
 				currentEState = ENEMYSTATES::CHASING;
 			}
 		}
@@ -245,6 +279,8 @@ void LinfocitoT::Func_EnemyStates(float dt)
 			velocity.x = 0.0f; 
 			if (anims.Func_HasCurrentAnimationFinished())
 			{
+				soundCargarPlayed = false;
+				soundRodarPlayed = false;
 				currentEState = ENEMYSTATES::CHASING; 
 			}
 		}
@@ -465,6 +501,7 @@ void LinfocitoT::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 				if (syringeHits >= 3)
 				{
+					Engine::GetInstance().audio->PlayFx(hurtFxId);
 					timer_01.Start();
 					currentEState = ENEMYSTATES::STUNED;
 					isStunned = true;

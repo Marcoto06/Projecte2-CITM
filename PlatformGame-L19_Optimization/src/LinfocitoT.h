@@ -53,6 +53,17 @@ public:
 	Timer timer_01;
 	Timer suckTimer;
 
+	//audiofx
+	int walkFxId;
+	int cargarFxId;
+	int rodarFxId;
+	int hurtFxId;
+	int deathFxId;
+
+	Timer walkAudioTimer;    
+	bool soundCargarPlayed = false;
+	bool soundRodarPlayed = false;
+
 	//bools
 	bool isStunned = false;
 	bool isFacingRight = false;
