@@ -110,6 +110,15 @@ bool Boss2::Start() {
 
 	currentAttack = 0;
 
+	//Initialize projectiles now to avoid creating them during the fight
+	for (int i = 0; i < 4; ++i) 
+	{
+		std::shared_ptr<Mucosa> m = std::dynamic_pointer_cast<Mucosa>(Engine::GetInstance().entityManager->CreateEntity(EntityType::MUCOSA));
+		m->position.setX(position.getX() - 200 + (100 * i));
+		m->position.setY(position.getY());
+		projectiles.push_back(m);
+	}
+
 	return true;
 }
 
@@ -338,6 +347,10 @@ void Boss2::Attack() {
 	{
 		if (currentAttack % 2 != 0) { //MUCOSE ATTACK
 			PlayAnimation(anim_mucose);
+			for (const auto mucose : projectiles)
+			{
+				mucose->Spawn();
+			}
 		}
 		else { //SHOCK ATTACK
 			PlayAnimation(anim_shock);

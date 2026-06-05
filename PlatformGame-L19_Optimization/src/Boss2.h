@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
+#include "Mucosa.h"
 
 struct SDL_Texture;
 class Player;
@@ -100,4 +101,6 @@ private:
 	};
 
 	BOSS_STATES currentState;
+
+	std::vector <std::shared_ptr<Mucosa>> projectiles;
 };

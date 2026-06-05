@@ -21,6 +21,8 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB) override;
 	void OnCollisionEnd(PhysBody* physA, PhysBody* physB) override;
 
+	void Spawn();
+
 private:
 	void Draw(float dt);
 	void ApplyPhysics();

@@ -23,29 +23,33 @@ bool Mucosa::Awake()
 
 bool Mucosa::Start()
 {
-	std::unordered_map<int, std::string> aliases = {{0, "projectile"}};
+	std::unordered_map<int, std::string> aliases = {{0, "loop"}};
 
 	projectileAnims.LoadFromTSX("Assets/Textures/Characters/Bosses/Boss2/Mucosa_SS.tsx", aliases);
-	projectileAnims.SetCurrent("projectile");
-	projectileAnims.Func_SetAnimationLoop("projectile", true);
+	projectileAnims.SetCurrent("loop");
+	projectileAnims.Func_SetAnimationLoop("loop", true);
 
 	projectileTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Bosses/Boss2/Mucosa_SS.png");
+
+	electricAnims.LoadFromTSX("Assets/Textures/Characters/Bosses/Boss2/Rayos_SS.tsx", aliases);
+	projectileAnims.SetCurrent("loop");
+	projectileAnims.Func_SetAnimationLoop("loop", true);
+
+	projectileTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Bosses/Boss2/Rayos_SS.png");
 
 	texW = 256;
 	texH = 256;
 
-	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX(),(int)position.getY(), 20, bodyType::DYNAMIC);
-
-	pbody->listener = this;
-	pbody->ctype = ColliderType::ENEMY;
+	state = 0;
 
 	return true;
 }
 
 bool Mucosa::Update(float dt)
 {
-	if (state == 0) projectileAnims.Update(dt);
-	if (state == 2) electricAnims.Update(dt);
+	if (state == 0) return true;
+	if (state == 1) projectileAnims.Update(dt);
+	if (state == 3) electricAnims.Update(dt);
 
 	ApplyPhysics();
 	Draw(dt);
@@ -68,6 +72,9 @@ void Mucosa::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
+	case ColliderType::PLATFORM:
+		state = 2;
+		pendingToDelete = true;
 	default:
 		break;
 	}
@@ -79,7 +86,7 @@ void Mucosa::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 
 void Mucosa::Draw(float dt)
 {
-	if (state == 0)
+	if (state == 1)
 	{
 		const SDL_Rect& animFrame = projectileAnims.GetCurrentFrame();
 
@@ -90,7 +97,7 @@ void Mucosa::Draw(float dt)
 		int drawY = (int)position.getY() - (frameH / 2);
 		Engine::GetInstance().render->DrawTexture(projectileTexture, drawX, drawY, &animFrame, 1.0f, 0.0, frameW / 2, frameH / 2, SDL_FLIP_NONE, 1.0f);
 	}
-	else 
+	else if (state > 1)
 	{
 		int drawX, drawY;
 		pbody->GetPosition(drawX, drawY);
@@ -130,4 +137,14 @@ bool Mucosa::Destroy()
 	active = false;
 	pendingToDelete = true;
 	return true;
+}
+
+void Mucosa::Spawn() 
+{
+	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX(), (int)position.getY(), 20, bodyType::DYNAMIC);
+
+	pbody->listener = this;
+	pbody->ctype = ColliderType::ENEMY;
+
+	state = 1;
 }
