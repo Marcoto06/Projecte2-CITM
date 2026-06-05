@@ -58,6 +58,14 @@ bool LinfocitoTNK::Start() {
 	anims.Func_SetAnimationLoop("salto", false);
 	anims.Func_SetAnimationLoop("topSalto", false);
 	anims.Func_SetAnimationLoop("bajadaSalto", false);
+	//audio fx
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk walk.wav");
+	cargarRodarFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk cargar rodar.wav");
+	rodarFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk rodar.wav");
+	cargarSaltoFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk cargar salto.wav");
+	aterrizarFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk aterrizar.wav");
+	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk hurt.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx linfocito TNK/tnk morir.wav");
 
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Linfocito-T-NK.png");
 
@@ -195,6 +203,11 @@ void LinfocitoTNK::GetPhysicsValues() {
 
 void LinfocitoTNK::Func_EnemyStates(float dt)
 {
+	if (currentEState == ENEMYSTATES::CHASING && IsPlayerDetected() && walkAudioTimer.ReadMSec() >= 3000.0f)
+	{
+		Engine::GetInstance().audio->PlayFx(walkFxId);
+		walkAudioTimer.Start();
+	}
 	switch (currentEState)
 	{
 	case LinfocitoTNK::ENEMYSTATES::WALKING:
@@ -224,6 +237,8 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			attackPhase = 0;
 			anims.SetCurrent("cargarRodar");
 			currentEState = ENEMYSTATES::ATTACK;
+			soundCargarRodarPlayed = false;
+			soundRodarPlayed = false;
 		}
 		else if (std::abs(dx) < 340.0f && std::abs(dy) < 140.0f)
 		{
@@ -238,6 +253,9 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 				anims.SetCurrent("cargarSalto");
 
 			currentEState = ENEMYSTATES::ATTACK;
+
+			attackTimer.Start();
+			soundCargarSaltoPlayed = false;
 		}
 		else
 		{
@@ -250,12 +268,18 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 
 	case ENEMYSTATES::ATTACK:
 	{
-		if (attackType == 1) 
+		if (attackType == 1)
 		{
-			if (attackPhase == 0) 
+			if (attackPhase == 0)
 			{
 				velocity.x = 0.0f;
 				anims.SetCurrent("cargarRodar");
+
+				if (!soundCargarRodarPlayed)
+				{
+					Engine::GetInstance().audio->PlayFx(cargarRodarFxId);
+					soundCargarRodarPlayed = true;
+				}
 
 				if (anims.Func_HasCurrentAnimationFinished())
 				{
@@ -264,9 +288,15 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 					attackTimer.Start();
 				}
 			}
-			else if (attackPhase == 1) 
+			else if (attackPhase == 1)
 			{
 				velocity.x = isFacingRight ? rollSpeed : -rollSpeed;
+
+				if (!soundRodarPlayed)
+				{
+					Engine::GetInstance().audio->PlayFx(rodarFxId);
+					soundRodarPlayed = true;
+				}
 
 				if (attackTimer.ReadMSec() >= rollAttackTime)
 				{
@@ -278,7 +308,7 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 						anims.SetCurrent("chocar1");
 				}
 			}
-			else if (attackPhase == 2) 
+			else if (attackPhase == 2)
 			{
 				velocity.x = 0.0f;
 
@@ -298,17 +328,25 @@ void LinfocitoTNK::Func_EnemyStates(float dt)
 			if (attackPhase == 0)
 			{
 				velocity.x = 0.0f;
-if (previousAttackType == 1)
-	anims.SetCurrent("cargarSalto2");
-else
-	anims.SetCurrent("cargarSalto");
+				if (previousAttackType == 1)
+					anims.SetCurrent("cargarSalto2");
+				else
+					anims.SetCurrent("cargarSalto");
+
+				// adjust timer audio
+				if (!soundCargarSaltoPlayed && attackTimer.ReadMSec() >= 600.0f)
+				{
+					Engine::GetInstance().audio->PlayFx(cargarSaltoFxId);
+					soundCargarSaltoPlayed = true;
+				}
+
 				if (anims.Func_HasCurrentAnimationFinished())
 				{
 					attackPhase = 1;
 					anims.SetCurrent("salto");
 					attackTimer.Start();
 				}
-			}
+			} 
 			else if (attackPhase == 1)
 			{
 				int x, y;
@@ -323,7 +361,7 @@ else
 				else
 				{
 					velocity.x = 0.0f;
-				}				
+				}
 				anims.SetCurrent("salto");
 				velocity.y = -6.0f;
 
@@ -348,12 +386,21 @@ else
 				else
 				{
 					velocity.x = 0.0f;
-				}				
+				}
 				anims.SetCurrent("bajadaSalto");
 				velocity.y = 6.0f;
 
+
+				//adjust timer audio
+				if (soundCargarSaltoPlayed && attackTimer.ReadMSec() >= 100)
+				{
+					Engine::GetInstance().audio->PlayFx(aterrizarFxId);
+					soundCargarSaltoPlayed = false; 
+				}
+
 				if (attackTimer.ReadMSec() >= jumpDownTime)
 				{
+					
 					previousAttackType = 2;
 					attackType = 0;
 					attackPhase = 0;
@@ -377,6 +424,7 @@ else
 			{
 				if (suckTimer.ReadMSec() >= 3000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -387,6 +435,7 @@ else
 			{
 				if (suckTimer.ReadMSec() >= absorbTime * 1000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -621,6 +670,7 @@ void LinfocitoTNK::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 			if (syringeHits >= 5)
 			{
+				Engine::GetInstance().audio->PlayFx(hurtFxId);
 				timer_01.Start();
 				currentEState = ENEMYSTATES::STUNED;
 				isStunned = true;

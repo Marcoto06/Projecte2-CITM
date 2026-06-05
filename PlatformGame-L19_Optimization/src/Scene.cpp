@@ -1028,11 +1028,11 @@ static int LoadingScreenThread(void* data)
 
 void Scene::StartLoadingScreen() {
 	//SDL_SetAtomicInt(&loadingFinished, 0);
-	thread = SDL_CreateThread(LoadingScreenThread, "LoadingScreen", NULL);
+	/*thread = SDL_CreateThread(LoadingScreenThread, "LoadingScreen", NULL);*/
 }
 
 void Scene::EndLoadingScreen() {
 	//SDL_SetAtomicInt(&loadingFinished, 1);
-	SDL_WaitThread(thread, NULL);
+	/*SDL_WaitThread(thread, NULL);*/
 
 }

@@ -12024,7 +12024,7 @@
   <object id="87" name="Fibroblasto" type="Cell" x="1504.3" y="1756.94">
    <point/>
   </object>
-  <object id="89" name="LinfocitoT" type="Enemy" x="1025.83" y="905.8">
+  <object id="89" name="LinfocitoTNK" type="Enemy" x="1025.83" y="905.8">
    <point/>
   </object>
   <object id="92" name="Neurona" type="Cell" x="620.786" y="1761.34">

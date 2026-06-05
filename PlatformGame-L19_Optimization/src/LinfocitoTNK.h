@@ -83,6 +83,20 @@ public:
 	int jumpTargetX = 0;
 	int jumpTargetY = 0;
 
+	//audiofx
+	int walkFxId;
+	int cargarRodarFxId;
+	int rodarFxId;
+	int cargarSaltoFxId;
+	int aterrizarFxId;
+	int hurtFxId;
+	int deathFxId;
+
+	Timer walkAudioTimer;
+	bool soundCargarRodarPlayed = false;
+	bool soundRodarPlayed = false;
+	bool soundCargarSaltoPlayed = false;
+
 	//bools
 	bool isStunned = false;
 	bool isFacingRight = false;
