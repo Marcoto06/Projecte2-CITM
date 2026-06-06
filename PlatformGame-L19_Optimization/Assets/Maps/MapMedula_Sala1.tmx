@@ -18,87 +18,87 @@
   </properties>
   <data>
    <tile gid="592"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
+   <tile/>
    <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
-   <tile gid="572"/>
+   <tile/>
    <tile gid="591"/>
    <tile gid="557"/>
    <tile/>
@@ -12269,87 +12269,87 @@
  <layer id="3" name="Collisions" width="90" height="68">
   <data>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
-   <tile gid="258"/>
+   <tile/>
    <tile gid="258"/>
    <tile gid="258"/>
    <tile/>
@@ -18402,7 +18402,7 @@
   <object id="3" name="Player" type="Player" x="820" y="4224">
    <point/>
   </object>
-  <object id="4" name="Door" type="Door" x="5344.76" y="-8.602" width="390.476" height="49.204">
+  <object id="4" name="Door" type="Door" x="63.76" y="-8.602" width="5674.48" height="65.204">
    <properties>
     <property name="Destination" value="MapPulmo_Sala2.tmx"/>
     <property name="Type" value="Door"/>
