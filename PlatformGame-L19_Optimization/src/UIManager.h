@@ -58,8 +58,9 @@ public:
 		OPTIONS
 	};
 
-	MainMenuState currentMenuState = MainMenuState::MAIN_BUTTONS;;
-	PauseMenuState currentPauseState = PauseMenuState::NOTPAUSED;;
+	MainMenuState currentMenuState = MainMenuState::MAIN_BUTTONS;
+	PauseMenuState currentPauseState = PauseMenuState::NOTPAUSED;
+	PauseMenuState lastActiveTab = PauseMenuState::INVENTORY;
 
 	/* Main Menu */
 	void LoadMainMenuButtons();
@@ -89,6 +90,7 @@ public:
 	void LoadInventoryTab2();
 	void LoadMinimapTab();
 	void LoadPowerUpsTab();
+	void LoadLastActiveTab();
 
 	/* Player UI */
 	void ShowPlayerUI();

@@ -796,6 +796,7 @@ void UIManager::LoadInventoryTab()
 {
 	CleanUp();
 	currentPauseState = PauseMenuState::INVENTORY;
+	lastActiveTab = PauseMenuState::INVENTORY;
 
 	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 }; 
 	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
@@ -815,6 +816,7 @@ void UIManager::LoadInventoryTab2()
 {
 	CleanUp();
 	currentPauseState = PauseMenuState::INVENTORY2;
+	lastActiveTab = PauseMenuState::INVENTORY2;
 
 	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 };
 	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
@@ -835,6 +837,7 @@ void UIManager::LoadMinimapTab()
 {
 	CleanUp();
 	currentPauseState = PauseMenuState::MINIMAP;
+	lastActiveTab = PauseMenuState::MINIMAP;
 
 	SDL_Rect inventoryButtonBounds = { 480, 58, 280, 66 };
 	SDL_Rect powerUpsButtonBounds = { 780, 58, 280, 66 };
@@ -850,6 +853,7 @@ void UIManager::LoadPowerUpsTab()
 {
 	CleanUp();
 	currentPauseState = PauseMenuState::POWERUPS;
+	lastActiveTab = PauseMenuState::POWERUPS;
 
 	SDL_Rect mapButtonBounds = { 188, 58, 280, 66 };
 	SDL_Rect inventoryButtonBounds = { 480, 58, 280, 66 };
@@ -859,6 +863,28 @@ void UIManager::LoadPowerUpsTab()
 
 	auto invBtn = CreateUIElement(UIElementType::BUTTON, 22, " ", inventoryButtonBounds, Engine::GetInstance().scene->GetScene());
 	invBtn->SetTexture(inventoryTabButtonTexture);
+}
+
+void UIManager::LoadLastActiveTab()
+{
+	switch (lastActiveTab)
+	{
+	case PauseMenuState::INVENTORY:
+		LoadInventoryTab();
+		break;
+	case PauseMenuState::INVENTORY2:
+		LoadInventoryTab2();
+		break;
+	case PauseMenuState::MINIMAP:
+		LoadMinimapTab();
+		break;
+	case PauseMenuState::POWERUPS:
+		LoadPowerUpsTab();
+		break;
+	default:
+		LoadInventoryTab();
+		break;
+	}
 }
 
 void UIManager::HandleUINavigation(int initialID, int finalID, MenuNavDirection direction) {

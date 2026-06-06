@@ -429,7 +429,7 @@ void Scene::HandlePause() {
 	bool tabPressed = Engine::GetInstance().input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN;
 
 	UIManager::PauseMenuState uiState = Engine::GetInstance().uiManager->currentPauseState;
-	bool inAnyInventoryTab = (uiState == UIManager::PauseMenuState::INVENTORY || uiState == UIManager::PauseMenuState::MINIMAP || uiState == UIManager::PauseMenuState::POWERUPS);
+	bool inAnyInventoryTab = (uiState == UIManager::PauseMenuState::INVENTORY || uiState == UIManager::PauseMenuState::INVENTORY2 || uiState == UIManager::PauseMenuState::MINIMAP || uiState == UIManager::PauseMenuState::POWERUPS);
 
 	if (!Engine::GetInstance().paused)
 	{
@@ -444,7 +444,7 @@ void Scene::HandlePause() {
 		else if (tabPressed)
 		{
 			Engine::GetInstance().paused = true;
-			Engine::GetInstance().uiManager->LoadInventoryTab();
+			Engine::GetInstance().uiManager->LoadLastActiveTab();
 		}
 	}
 	else
