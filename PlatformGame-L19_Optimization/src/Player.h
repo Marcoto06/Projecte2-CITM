@@ -8,6 +8,8 @@
 #include "Climbable.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
+#include <unordered_set>
+#include <string>
 
 struct SDL_Texture;
 
@@ -53,6 +55,8 @@ public:
 
 	void SetRespawnPosition(Vector2D pos);
 	Vector2D GetRespawnPosition() const { return respawnPosition; }
+
+	std::unordered_set<std::string> visitedRooms;
 
 private:
 

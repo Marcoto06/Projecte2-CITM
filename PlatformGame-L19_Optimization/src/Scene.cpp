@@ -515,6 +515,8 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 	//Call the function to load entities from the map
 	Engine::GetInstance().map->LoadEntities(player);
 
+	player->visitedRooms.insert(map);
+
 	if (playerX && playerY) {
 		player->SetPosition(Vector2D(playerX, playerY));
 		player->position = Vector2D(playerX, playerY);
@@ -775,6 +777,13 @@ void Scene::SaveGame()
 			pugi::xml_node itemNode = collectiblesNode.append_child("item");
 			itemNode.append_attribute("c_num").set_value(c_num);
 		}
+
+		pugi::xml_node visitedRoomsNode = playerNode.append_child("visited_rooms");
+		for (const std::string& room : player->visitedRooms)
+		{
+			pugi::xml_node roomNode = visitedRoomsNode.append_child("room");
+			roomNode.append_attribute("name").set_value(room.c_str());
+		}
 	}
 
 	pugi::xml_node worldNode = root.child("world");
@@ -874,6 +883,7 @@ bool Scene::LoadGame(pugi::xml_node& root)
 		if (player != nullptr)
 		{
 			player->list_collectibles.clear();
+			player->visitedRooms.clear();
 
 			pugi::xml_node collectiblesNode = playerNode.child("collectibles");
 			if (collectiblesNode)
@@ -882,6 +892,16 @@ bool Scene::LoadGame(pugi::xml_node& root)
 				{
 					int c_num = itemNode.attribute("c_num").as_int();
 					player->list_collectibles.push_back(c_num);
+				}
+			}
+
+			pugi::xml_node visitedRoomsNode = playerNode.child("visited_rooms");
+			if (visitedRoomsNode)
+			{
+				for (pugi::xml_node roomNode = visitedRoomsNode.child("room"); roomNode; roomNode = roomNode.next_sibling("room"))
+				{
+					std::string roomName = roomNode.attribute("name").as_string();
+					player->visitedRooms.insert(roomName);
 				}
 			}
 		}
@@ -1034,5 +1054,4 @@ void Scene::StartLoadingScreen() {
 void Scene::EndLoadingScreen() {
 	//SDL_SetAtomicInt(&loadingFinished, 1);
 	/*SDL_WaitThread(thread, NULL);*/
-
 }

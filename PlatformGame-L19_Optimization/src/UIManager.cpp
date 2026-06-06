@@ -10,6 +10,7 @@
 #include "Log.h"
 #include "EntityManager.h"
 #include "Player.h"
+#include "Map.h"
 
 UIManager::UIManager() :Module()
 {
@@ -29,8 +30,51 @@ bool UIManager::Awake()
 
 bool UIManager::Start()
 {
-	
+	roomsMetadata["MapTemplate.tmx"] = { 0, {0,0,1557,977}, 3840, 2112 };
 
+	roomsMetadata["MapPulmo_Sala1.tmx"] = { 1, {689,831,185,101}, 3840, 2176 };
+	roomsMetadata["MapPulmo_Sala2.tmx"] = { 1, {689,728,185,103}, 3840, 2176 };
+	roomsMetadata["MapPulmo_Sala3.tmx"] = { 1, {603,627,179,101}, 3840, 2176 };
+	roomsMetadata["MapPulmo_Sala4.tmx"] = { 1, {515,627,88,101}, 1920, 2176 };
+	roomsMetadata["MapPulmo_Sala5.tmx"] = { 1, {515,728,174,204}, 3840, 4352 };
+	roomsMetadata["MapPulmo_Sala6.tmx"] = { 1, {782,500,92,228}, 1920, 4864 };
+	roomsMetadata["MapPulmo_Sala7.tmx"] = { 1, {692,528,90,99}, 1920, 2176 };
+	roomsMetadata["MapPulmo_Sala8.tmx"] = { 1, {604,528,88,99}, 1920, 2176 };
+	roomsMetadata["MapPulmo_Sala9.tmx"] = { 1, {515,528,89,99}, 1920, 2176 };
+	roomsMetadata["MapPulmo_Sala10.tmx"] = { 1, {515,325,269,203}, 5760, 4352 };
+	roomsMetadata["MapPulmo_Sala11.tmx"] = { 1, {784,372,225,54}, 4800, 1088 };
+	roomsMetadata["MapPulmo_Sala12.tmx"] = { 1, {602,274,182,51}, 3840, 1088 };
+	roomsMetadata["MapPulmo_Sala13.tmx"] = { 1, {754,224,91,53}, 1920, 1088 };
+	roomsMetadata["MapPulmo_Sala14.tmx"] = { 1, {680,126,180,98}, 3904, 2176 };
+	roomsMetadata["MapPulmo_Sala16.tmx"] = { 1, {958,426,51,506}, 1920, 10880 };
+
+	roomsMetadata["MapCor_Sala1.tmx"] = { 2, {465,144,170,87}, 1920, 1280 };
+	roomsMetadata["MapCor_Sala2.tmx"] = { 2, {567,144,195,159}, 1920, 2176 };
+	roomsMetadata["MapCor_Sala3.tmx"] = { 2, {567,303,195,255}, 1920, 3264 };
+	roomsMetadata["MapCor_Sala4.tmx"] = { 2, {421,558,294,334}, 3840, 4325 };
+	roomsMetadata["MapCor_Sala5.tmx"] = { 2, {255,743,166,149}, 1920, 2176 };
+	roomsMetadata["MapCor_Sala6.tmx"] = { 2, {715,558,291,334}, 3840, 4352 };
+	roomsMetadata["MapCor_Sala7.tmx"] = { 2, {1006,717,172,175}, 2176, 1920 };
+	roomsMetadata["MapCor_Sala8.tmx"] = { 2, {1006,509,298,208}, 3840, 2304 };
+	roomsMetadata["MapCor_Sala9.tmx"] = { 2, {839,410,100,100}, 1984, 1280 };
+
+	roomsMetadata["MapEstomac_Sala1.tmx"] = { 3, {579,219,91,111}, 1920, 2176 };
+	roomsMetadata["MapEstomac_Sala2.tmx"] = { 3, {853,219,407,111}, 8640, 2176 };
+	roomsMetadata["MapEstomac_Sala3.tmx"] = { 3, {1253,219,97,405}, 1920, 8704 };
+	roomsMetadata["MapEstomac_Sala4.tmx"] = { 3, {488,620,869,212}, 18560, 4352 };
+	roomsMetadata["MapEstomac_Sala5.tmx"] = { 3, {1357,673,130,159}, 2880, 3264 };
+	roomsMetadata["MapEstomac_Sala6.tmx"] = { 3, {484,219,97,401}, 1920, 8704 };
+	roomsMetadata["MapEstomac_Sala7.tmx"] = { 3, {353,620,135,212}, 2880, 1536 };
+	roomsMetadata["MapEstomac_Sala8.tmx"] = { 3, {114,725,239,107}, 5120, 2176 };
+	roomsMetadata["MapEstomac_Sala9.tmx"] = { 3, {581,330,358,290}, 7680, 4352 };
+	roomsMetadata["MapEstomac_Sala10.tmx"] = { 3, {70,675,94,55}, 1920, 1088 };
+
+	roomsMetadata["MapMedula_Sala1.tmx"] = { 4, {698,121,163,814}, 5760, 4352 };
+	roomsMetadata["MapMedula_Sala2.tmx"] = { 4, {111,111,111,111}, 111, 111 };
+	roomsMetadata["MapMedula_Sala3.tmx"] = { 4, {111,111,111,111}, 111, 111 };
+	roomsMetadata["MapMedula_Sala4.tmx"] = { 4, {111,111,111,111}, 111, 111 };
+	roomsMetadata["MapMedula_Sala5.tmx"] = { 4, {111,111,111,111}, 111, 111 };
+	roomsMetadata["MapMedula_SalaBoss.tmx"] = { 4, {111,111,111,111}, 3200, 2944 };
 	
 	return true;
 }
@@ -174,11 +218,17 @@ void UIManager::LoadUITextures() {
 	
 	/* Pause UI*/
 	pauseOptionsMenuTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Fondo_pause_menu.png");
-	inventoryPg1Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InventoryPg1.png");
-	inventoryPg2Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InventoryPg2.png");
+	inventoryPg1Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Inventory/InventoryPg1.png");
+	inventoryPg2Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Inventory/InventoryPg2.png");
 	inventoryNextBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha derecha.png");
 	inventoryPrevBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha izquierda.png");
-	minimapTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/LungsMap.png");
+	mapWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/BaseScreen.png");
+	mapTextureMouth = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MouthMap.png");
+	mapTextureLung = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/LungsMap.png");
+	mapTextureHeart = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/HeartMap.png");
+	mapTextureStomach = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/StomachMap.png");
+	mapTextureMarrow = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MarrowMap.png");
+	mapTextureBrain = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/BrainMap.png");
 	powerupsTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PowerUps_Menu.png");
 	continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/ContinueButton.png");
 	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
@@ -553,7 +603,57 @@ void UIManager::ShowPauseMenu() {
 		
 		if (currentPauseState == PauseMenuState::INVENTORY) texToDraw = inventoryPg1Texture;
 		else if (currentPauseState == PauseMenuState::INVENTORY2) texToDraw = inventoryPg2Texture;
-		else if (currentPauseState == PauseMenuState::MINIMAP) texToDraw = minimapTexture;
+		else if (currentPauseState == PauseMenuState::MINIMAP)
+		{
+			if (mapWindowTexture != nullptr)
+			{
+				int bgW, bgH;
+				Engine::GetInstance().textures->GetSize(mapWindowTexture, bgW, bgH);
+				Engine::GetInstance().render->DrawTexture(mapWindowTexture, (w / 2) - (bgW / 2), (h / 2) - (bgH / 2), NULL, 0.0f);
+			}
+
+			std::string currentMap = Engine::GetInstance().map->mapFileName;
+			RoomMetadata currentRoomData = roomsMetadata[currentMap];
+
+			if (player != nullptr && !currentMap.empty())
+			{
+				player->visitedRooms.insert(currentMap);
+			}
+
+			SDL_Texture* zoneMapTexture = nullptr;
+			switch (currentRoomData.zoneID)
+			{
+			case 0: zoneMapTexture = mapTextureMouth; break;
+			case 1: zoneMapTexture = mapTextureLung; break;
+			case 2: zoneMapTexture = mapTextureHeart; break;
+			case 3: zoneMapTexture = mapTextureStomach; break;
+			case 4: zoneMapTexture = mapTextureMarrow; break;
+			case 5: zoneMapTexture = mapTextureBrain; break;
+			}
+
+			int zoneW, zoneH;
+			Engine::GetInstance().textures->GetSize(zoneMapTexture, zoneW, zoneH);
+			int mapDrawX = (w / 2) - (zoneW / 2);
+			int mapDrawY = (h / 2) - (zoneH / 2);
+
+			SDL_Rect alwaysVisibleRect = { 55, 133, 260, 270 };
+			int destAlwaysX = mapDrawX + alwaysVisibleRect.x;
+			int destAlwaysY = mapDrawY + alwaysVisibleRect.y;
+			Engine::GetInstance().render->DrawTexture(zoneMapTexture, destAlwaysX, destAlwaysY, &alwaysVisibleRect, 0.0f);
+
+			for (const std::string& roomName : player->visitedRooms)
+			{
+				if (roomsMetadata.find(roomName) != roomsMetadata.end() && roomsMetadata[roomName].zoneID == currentRoomData.zoneID)
+				{
+					RoomMetadata roomData = roomsMetadata[roomName];
+
+					int destX = mapDrawX + roomData.mapRect.x;
+					int destY = mapDrawY + roomData.mapRect.y;
+
+					Engine::GetInstance().render->DrawTexture(zoneMapTexture, destX, destY, &roomData.mapRect, 0.0f);
+				}
+			}
+		}
 		else if (currentPauseState == PauseMenuState::POWERUPS) texToDraw = powerupsTexture;
 
 		if (texToDraw != nullptr) {
