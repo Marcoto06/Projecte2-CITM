@@ -55,7 +55,19 @@ bool Mucosa::Update(float dt)
 		projectileAnims.Update(dt);
 		ApplyPhysics();
 	}
-	if (state == 3) electricAnims.Update(dt);
+	if (state == 3) 
+	{
+		if (electricTimer.ReadSec() >= electricTime) {
+			position = spawnPos;
+			if (pbody != nullptr)
+			{
+				Engine::GetInstance().physics->DeletePhysBody(pbody);
+				pbody = nullptr;
+			}
+			state = 0;
+		}
+		electricAnims.Update(dt);
+	}
 
 	Draw(dt);
 	return true;
@@ -80,6 +92,15 @@ void Mucosa::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::PLATFORM:
 		state = 2;
+		if (pbody != nullptr)
+		{
+			int x, y;
+			pbody->GetPosition(x, y);
+			Engine::GetInstance().physics->DeletePhysBody(pbody);
+			pbody = nullptr;
+			pbody = Engine::GetInstance().physics->CreateRectangleSensor(x, y - (256/4), 200, 200, bodyType::STATIC);
+			pbody->listener = this;
+		}
 	default:
 		break;
 	}
@@ -109,8 +130,17 @@ void Mucosa::Draw(float dt)
 		int drawX, drawY;
 		pbody->GetPosition(drawX, drawY);
 		drawX -= 256 / 2;
-		drawY -= 256;
+		drawY -= 256 / 4;
 		Engine::GetInstance().render->DrawTexture(staticTexture, drawX, drawY, NULL);
+		if (state == 3) 
+		{
+			const SDL_Rect& animFrame = electricAnims.GetCurrentFrame();
+
+			int frameW = animFrame.w;
+			int frameH = animFrame.h;
+
+			Engine::GetInstance().render->DrawTexture(electricTexture, drawX, drawY, &animFrame, 1.0f, 0.0, frameW / 2, frameH / 2, SDL_FLIP_NONE, 1.0f);
+		}
 	}
 }
 
@@ -151,10 +181,22 @@ bool Mucosa::Destroy()
 void Mucosa::Spawn() 
 {
 	position = spawnPos;
+	if (pbody != nullptr)
+	{
+		Engine::GetInstance().physics->DeletePhysBody(pbody);
+		pbody = nullptr;
+	}
 	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX(), (int)position.getY(), 20, bodyType::DYNAMIC);
 
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
 	state = 1;
+}
+
+void Mucosa::Electrify()
+{
+	state = 3;
+	electricTimer.Start();
+	pbody->ctype = ColliderType::ENEMY;
 }

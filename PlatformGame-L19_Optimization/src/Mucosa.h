@@ -22,6 +22,7 @@ public:
 	void OnCollisionEnd(PhysBody* physA, PhysBody* physB) override;
 
 	void Spawn();
+	void Electrify();
 
 private:
 	void Draw(float dt);
@@ -31,7 +32,7 @@ public:
 	int state = 0;
 	int texW, texH;
 	Vector2D spawnPos;
-	PhysBody* pbody;
+	PhysBody* pbody = nullptr;
 	b2Vec2 velocity;
 
 	SDL_Texture* projectileTexture = nullptr;

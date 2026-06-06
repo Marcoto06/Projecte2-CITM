@@ -345,7 +345,6 @@ void Boss2::PrepareAttack() {
 }
 
 void Boss2::Attack() {
-	PrepareAttack();
 	if (currentAttack != 5) 
 	{
 		if (currentAttack % 2 != 0) { //MUCOSE ATTACK
@@ -357,6 +356,10 @@ void Boss2::Attack() {
 		}
 		else { //SHOCK ATTACK
 			PlayAnimation(anim_shock);
+			for (const auto mucose : projectiles)
+			{
+				mucose->Electrify();
+			}
 		}
 	}
 	else //DOES NOT ATTACK, INSTEAD RESTS
@@ -365,4 +368,5 @@ void Boss2::Attack() {
 		pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX() - 100, initialPos.getY(), 100, 800, bodyType::STATIC);
 		pbody->listener = this;
 	}
+	PrepareAttack();
 }
