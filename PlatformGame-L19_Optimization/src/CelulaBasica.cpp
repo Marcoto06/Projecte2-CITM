@@ -75,6 +75,24 @@ bool CelulaBasica::Start()
 
 		aspergillusAudioTimer.Start();
 	}
+	else if (cellType == CellType::NEURONA)
+	{
+		neuronaWalkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx neuronas/Neurona_Walk.wav");
+		neuronaAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx neuronas/Neurona_Ataque.wav");
+		neuronaHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx neuronas/Neurona_Hurt.wav");
+		neuronaDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx neuronas/Neurona_Morir.wav");
+
+		neuronaAudioTimer.Start();
+	}
+	else if (cellType == CellType::SALMONELLA)
+	{
+		salmonellaWalkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx salmonella/salmo_walk.wav");
+		salmonellaAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx salmonella/salmo_atack.wav");
+		salmonellaHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx salmonella/salmo_hurt.wav");
+		salmonellaDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx salmonella/salmo_death.wav");
+
+		salmonellaAudioTimer.Start();
+	}
 
 	return true;
 }
@@ -276,12 +294,17 @@ bool CelulaBasica::Update(float dt)
 		isHurt = true;
 		currentState = CELL_STATE::STUNED;
 
-		// Forzamos el reinicio de los flags de audio para el Stun de ambos
+
 		fibroHurtSoundPlayed = false;
 		fibroAudioTimer.Start();
 
-		aspergillusHurtSoundPlayed = false; // Reinicio Aspergillus
-		aspergillusAudioTimer.Start();     //  Reinicio Aspergillus
+		aspergillusHurtSoundPlayed = false; 
+		aspergillusAudioTimer.Start();    
+		neuronaHurtSoundPlayed = false;
+		neuronaAudioTimer.Start();
+
+		salmonellaHurtSoundPlayed = false;
+		salmonellaAudioTimer.Start();
 
 		stunTimer.Start();
 	}
@@ -290,7 +313,9 @@ bool CelulaBasica::Update(float dt)
 	{
 		currentState = CELL_STATE::DEATH;
 		fibroDeathSoundPlayed = false;
-		aspergillusDeathSoundPlayed = false; // Permitimos la muerte instantánea del Aspergillus
+		aspergillusDeathSoundPlayed = false; 
+		neuronaDeathSoundPlayed = false;
+		salmonellaDeathSoundPlayed = false;
 	}
 	// FIN DEL BLOQUE DE TRUCOS
 
@@ -352,6 +377,28 @@ void CelulaBasica::Func_CellStates(float dt)
 			{
 				Engine::GetInstance().audio->PlayFx(aspergillusWalkFxId);
 				aspergillusAudioTimer.Start();
+			}
+		}
+	}
+	else if (cellType == CellType::NEURONA && IsPlayerDetected())
+	{
+		if ((currentState == CELL_STATE::MOVING || currentState == CELL_STATE::PARASITIZED_CHASING) && !isAttacking)
+		{
+			if (neuronaAudioTimer.ReadMSec() >= 2000.0f)
+			{
+				Engine::GetInstance().audio->PlayFx(neuronaWalkFxId);
+				neuronaAudioTimer.Start();
+			}
+		}
+	}
+	else if (cellType == CellType::SALMONELLA && IsPlayerDetected())
+	{
+		if ((currentState == CELL_STATE::MOVING || currentState == CELL_STATE::PARASITIZED_CHASING) && !isAttacking)
+		{
+			if (salmonellaAudioTimer.ReadMSec() >= 2000.0f)
+			{
+				Engine::GetInstance().audio->PlayFx(salmonellaWalkFxId);
+				salmonellaAudioTimer.Start();
 			}
 		}
 	}
@@ -418,6 +465,16 @@ void CelulaBasica::Func_CellStates(float dt)
 			{
 				Engine::GetInstance().audio->PlayFx(aspergillusAttackFxId);
 				aspergillusAttackSoundPlayed = true;
+			}
+			else if (cellType == CellType::NEURONA && !neuronaAttackSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(neuronaAttackFxId);
+				neuronaAttackSoundPlayed = true;
+			}
+			else if (cellType == CellType::SALMONELLA && !salmonellaAttackSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(salmonellaAttackFxId);
+				salmonellaAttackSoundPlayed = true;
 			}
 
 			if (cellType == CellType::SALMONELLA)
@@ -494,6 +551,8 @@ void CelulaBasica::Func_CellStates(float dt)
 
 				fibroAttackSoundPlayed = false;
 				aspergillusAttackSoundPlayed = false;
+				neuronaAttackSoundPlayed = false;
+				salmonellaAttackSoundPlayed = false;
 
 				if (attackHitbox != nullptr)
 				{
@@ -542,6 +601,16 @@ void CelulaBasica::Func_CellStates(float dt)
 				Engine::GetInstance().audio->PlayFx(aspergillusHurtFxId);
 				aspergillusHurtSoundPlayed = true;
 			}
+			else if (cellType == CellType::NEURONA && !neuronaHurtSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(neuronaHurtFxId);
+				neuronaHurtSoundPlayed = true;
+			}
+			else if (cellType == CellType::SALMONELLA && !salmonellaHurtSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(salmonellaHurtFxId);
+				salmonellaHurtSoundPlayed = true;
+			}
 
 			bool finished =
 				isParasitized
@@ -553,6 +622,9 @@ void CelulaBasica::Func_CellStates(float dt)
 				isHurt = false;
 				stunTimer.Start();
 				fibroAudioTimer.Start();
+				aspergillusAudioTimer.Start();
+				neuronaAudioTimer.Start();
+				salmonellaAudioTimer.Start();
 			}
 
 			break;
@@ -578,6 +650,9 @@ void CelulaBasica::Func_CellStates(float dt)
 			isStunned = false;
 			fibroHurtSoundPlayed = false;
 			aspergillusHurtSoundPlayed = false;
+			neuronaHurtSoundPlayed = false;
+			salmonellaHurtSoundPlayed = false;
+			
 
 			currentState = isParasitized
 				? CELL_STATE::PARASITIZED_CHASING
@@ -599,6 +674,16 @@ void CelulaBasica::Func_CellStates(float dt)
 		{
 			Engine::GetInstance().audio->PlayFx(aspergillusDeathFxId);
 			aspergillusDeathSoundPlayed = true;
+		}
+		else if (cellType == CellType::NEURONA && !neuronaDeathSoundPlayed)
+		{
+			Engine::GetInstance().audio->PlayFx(neuronaDeathFxId);
+			neuronaDeathSoundPlayed = true;
+		}
+		else if (cellType == CellType::SALMONELLA && !salmonellaDeathSoundPlayed)
+		{
+			Engine::GetInstance().audio->PlayFx(salmonellaDeathFxId);
+			salmonellaDeathSoundPlayed = true;
 		}
 
 		if (isParasitized)
@@ -682,7 +767,7 @@ void CelulaBasica::Draw(float dt)
 
 	SDL_FlipMode flip = isFacingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 
-	if (cellType == CellType::NEURONA && isParasitized)
+	if (cellType == CellType::NEURONA || cellType == CellType::NEURONA && isParasitized)
 	{
 		flip = isFacingRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 	}

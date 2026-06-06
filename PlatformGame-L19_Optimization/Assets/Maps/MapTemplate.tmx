@@ -12021,13 +12021,13 @@
     <property name="isActive" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="87" name="Fibroblasto" type="Cell" x="608.3" y="1728.94">
+  <object id="87" name="Salmonella" type="Cell" x="1720.3" y="1828.94">
    <point/>
   </object>
-  <object id="89" name="LinfocitoTNK" type="Enemy" x="1837.83" y="1693.8">
+  <object id="89" name="LinfocitoTNK" type="Enemy" x="497.83" y="1653.8">
    <point/>
   </object>
-  <object id="92" name="Neurona" type="Cell" x="1036.79" y="925.34">
+  <object id="92" name="Salmonella" type="Cell" x="1036.79" y="925.34">
    <point/>
   </object>
   <object id="95" name="Dendriticas" type="Enemy" x="1074.76" y="1959.92">

@@ -124,6 +124,24 @@ public:
 	bool aspergillusHurtSoundPlayed = false;
 	bool aspergillusDeathSoundPlayed = false;
 
+	int neuronaWalkFxId;
+	int neuronaAttackFxId;
+	int neuronaHurtFxId;
+	int neuronaDeathFxId;
+	Timer neuronaAudioTimer;
+	bool neuronaAttackSoundPlayed = false;
+	bool neuronaHurtSoundPlayed = false;
+	bool neuronaDeathSoundPlayed = false;
+
+	int salmonellaWalkFxId;
+	int salmonellaAttackFxId;
+	int salmonellaHurtFxId;
+	int salmonellaDeathFxId;
+	Timer salmonellaAudioTimer;
+	bool salmonellaAttackSoundPlayed = false;
+	bool salmonellaHurtSoundPlayed = false;
+	bool salmonellaDeathSoundPlayed = false;
+
 private:
 	b2Vec2 velocity;
 	b2Vec2 randomDirection;
