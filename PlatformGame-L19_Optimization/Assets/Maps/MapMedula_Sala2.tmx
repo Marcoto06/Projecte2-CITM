@@ -18397,8 +18397,8 @@
    <properties>
     <property name="Destination" value="MapPulmo_Sala3.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="0"/>
-    <property name="playerY" type="float" value="0"/>
+    <property name="playerX" type="float" value="5292"/>
+    <property name="playerY" type="float" value="4116"/>
    </properties>
   </object>
   <object id="3" name="Player" type="Player" x="675.636" y="4142.67">
