@@ -6,6 +6,8 @@
 #include "Vector2D.h"
 #include "Physics.h"
 
+class Player;
+
 class Mucosa : public Entity
 {
 public:
@@ -38,6 +40,8 @@ public:
 	SDL_Texture* projectileTexture = nullptr;
 	SDL_Texture* staticTexture = nullptr;
 	SDL_Texture* electricTexture = nullptr;
+
+	Player* player = nullptr;
 
 private:
 	AnimationSet projectileAnims;

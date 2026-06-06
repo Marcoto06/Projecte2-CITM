@@ -6,6 +6,7 @@
 #include "Collectibles.h"
 #include "Audio.h"
 #include "Climbable.h"
+#include "Mucosa.h"
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 #include <unordered_set>
@@ -214,6 +215,10 @@ public:
 	Climbable* nearestClimbable = nullptr;
 	Climbable* prevClimbable = nullptr;
 	bool isClimbing = false;
+
+	//Final boss damage
+	Mucosa* touchingMucose = nullptr;
+	float mucoseSpeed = 5.5f;
 
 	std::vector<int> list_collectibles;
 private:

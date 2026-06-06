@@ -237,6 +237,16 @@ bool Player::Update(float dt)
 			}
 		}
 
+		if (touchingMucose != nullptr) 
+		{
+			if (touchingMucose->state == 3) 
+			{
+				playerCurrentHp -= 1;
+				isHurt = true;
+				hurtTimer.Start();
+			}
+		}
+
 		if (!isSmall) {
 			AutoStepUp();
 
@@ -448,32 +458,35 @@ void Player::Move() {
 		y_axis_norm = 0.0f;
 	}
 
+	float speedToUse = normalSpeed;
+	if (touchingMucose != nullptr) speedToUse = mucoseSpeed;
+
 	if (godMode) {
 		velocity = { 0, 0 };
 
 		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) {
 			isMoving = true;
 			//Engine::GetInstance().audio->PlayFx(pasosFxId);
-			velocity.x = -normalSpeed * 2;
+			velocity.x = -speedToUse * 2;
 			facingRight = false;
 		}
 		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) {
 			isMoving = true;
 			//Engine::GetInstance().audio->PlayFx(pasosFxId);
-			velocity.x = normalSpeed * 2;
+			velocity.x = speedToUse * 2;
 			facingRight = true;
 		}
 
 		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || y_axis_norm <= -0.1) {
 			isMoving = true;
 			//Engine::GetInstance().audio->PlayFx(pasosFxId);
-			velocity.y = -normalSpeed * 2;
+			velocity.y = -speedToUse * 2;
 
 		}
 		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || y_axis_norm >= 0.1) {
 			isMoving = true;
 			//Engine::GetInstance().audio->PlayFx(pasosFxId);
-			velocity.y = normalSpeed * 2;
+			velocity.y = speedToUse * 2;
 
 		}
 		Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
@@ -513,13 +526,13 @@ void Player::Move() {
 			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 				isMoving = true;
 				//Engine::GetInstance().audio->PlayFx(pasosFxId);
-				velocity.x = -normalSpeed;
+				velocity.x = -speedToUse;
 				facingRight = false;
 			}
 			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
 				isMoving = true;
 				//Engine::GetInstance().audio->PlayFx(pasosFxId);
-				velocity.x = normalSpeed;
+				velocity.x = speedToUse;
 				facingRight = true;
 			}
 		}
@@ -1642,6 +1655,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		currentState = PLAYERSTATE::DEATH;
 		anims.SetCurrent("death");
 		break;
+	case ColliderType::MUCOSA: {
+		Mucosa* mucosa = (Mucosa*)physB->listener;
+		mucosa->player = this;
+		touchingMucose = mucosa;
+		break;
+	}
 	default:
 		break;
 	}
@@ -1696,8 +1715,9 @@ void Player::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		}
 		b2Body_SetGravityScale(pbody->body, gravityScale);
 		isClimbing = false;
-
 		break;
+	case ColliderType::MUCOSA:
+		if (touchingMucose != nullptr) touchingMucose = nullptr;
 	default:
 		break;
 	}

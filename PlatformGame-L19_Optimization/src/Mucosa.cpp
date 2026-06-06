@@ -65,6 +65,7 @@ bool Mucosa::Update(float dt)
 				pbody = nullptr;
 			}
 			state = 0;
+			if (player != nullptr) player->touchingMucose = nullptr;
 		}
 		electricAnims.Update(dt);
 	}
@@ -98,8 +99,9 @@ void Mucosa::OnCollision(PhysBody* physA, PhysBody* physB)
 			pbody->GetPosition(x, y);
 			Engine::GetInstance().physics->DeletePhysBody(pbody);
 			pbody = nullptr;
-			pbody = Engine::GetInstance().physics->CreateRectangleSensor(x, y - (256/4), 200, 200, bodyType::STATIC);
+			pbody = Engine::GetInstance().physics->CreateRectangleSensor(x, y - (256/16), 200, 200, bodyType::STATIC);
 			pbody->listener = this;
+			pbody->ctype = ColliderType::MUCOSA;
 		}
 	default:
 		break;
@@ -130,7 +132,7 @@ void Mucosa::Draw(float dt)
 		int drawX, drawY;
 		pbody->GetPosition(drawX, drawY);
 		drawX -= 256 / 2;
-		drawY -= 256 / 4;
+		drawY -= 256 / 2;
 		Engine::GetInstance().render->DrawTexture(staticTexture, drawX, drawY, NULL);
 		if (state == 3) 
 		{
@@ -189,7 +191,7 @@ void Mucosa::Spawn()
 	pbody = Engine::GetInstance().physics->CreateCircle((int)position.getX(), (int)position.getY(), 20, bodyType::DYNAMIC);
 
 	pbody->listener = this;
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::MUCOSA;
 
 	state = 1;
 }
@@ -198,5 +200,5 @@ void Mucosa::Electrify()
 {
 	state = 3;
 	electricTimer.Start();
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::MUCOSA;
 }

@@ -43,6 +43,7 @@ enum class ColliderType {
     ACID,
     ELECTRIC,
     DIALOG_TRIGGER,
+    MUCOSA,
     BOSS_HEAD,
     BOSS_L_HAND,
     BOSS_R_HAND,

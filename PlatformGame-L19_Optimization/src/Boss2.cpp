@@ -135,7 +135,7 @@ bool Boss2::Update(float dt)
 
 	GetPhysicsValues();
 
-	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intro" && currentAnimation->name != "death") {
+	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intro" && currentAnimation->name != "death" && life > 0) {
 		Attack();
 	}
 
@@ -325,10 +325,6 @@ void Boss2::PrepareAttack() {
 	if (currentAttack > 5)
 	{
 		currentAttack = 1;
-		if (pbody != nullptr) {
-			Engine::GetInstance().physics->DeletePhysBody(pbody);
-			pbody = nullptr;
-		}
 	}
 	if (currentAttack != 5) {
 		attackTime = SDL_rand(4);
@@ -347,6 +343,10 @@ void Boss2::PrepareAttack() {
 void Boss2::Attack() {
 	if (currentAttack != 5) 
 	{
+		if (pbody != nullptr) {
+			Engine::GetInstance().physics->DeletePhysBody(pbody);
+			pbody = nullptr;
+		}
 		if (currentAttack % 2 != 0) { //MUCOSE ATTACK
 			PlayAnimation(anim_mucose);
 			for (const auto mucose : projectiles)
