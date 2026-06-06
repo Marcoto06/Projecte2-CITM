@@ -55,6 +55,27 @@ bool CelulaBasica::Start()
 	moveTimer.Start();
 	idleTimer.Start();
 
+	//audiofx
+	if (cellType == CellType::FIBROBLASTO)
+	{
+		fibroWalkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx fibroplasto/fibro_walk.wav");
+		fibroAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx fibroplasto/fibro_atacar.wav");
+		fibroHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx fibroplasto/fibro_hurt.wav");
+		fibroStunFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx fibroplasto/fibro_stun.wav");
+		fibroDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx fibroplasto/fibro_morir.wav");
+
+		fibroAudioTimer.Start();
+	}
+	else if (cellType == CellType::ASPERGILLUS)
+	{
+		aspergillusWalkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx aspergillus/Asperguillus_Walk.wav");
+		aspergillusAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx aspergillus/Asperguillus_Atacar.wav");
+		aspergillusHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx aspergillus/Asperguillus_Stunt.wav");
+		aspergillusDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx aspergillus/Asperguillus_Morir.wav");
+
+		aspergillusAudioTimer.Start();
+	}
+
 	return true;
 }
 
@@ -234,6 +255,45 @@ bool CelulaBasica::Update(float dt)
 		canTongueAttack = true;
 	}
 
+	//BLOQIUE DE TRUCOS
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		Parasitize();
+	}
+
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		if (isParasitized)
+		{
+			isAttacking = true;
+			parasitizedAnims.SetCurrent("pAttack");
+		}
+	}
+
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		isStunned = true;
+		isHurt = true;
+		currentState = CELL_STATE::STUNED;
+
+		// Forzamos el reinicio de los flags de audio para el Stun de ambos
+		fibroHurtSoundPlayed = false;
+		fibroAudioTimer.Start();
+
+		aspergillusHurtSoundPlayed = false; // Reinicio Aspergillus
+		aspergillusAudioTimer.Start();     //  Reinicio Aspergillus
+
+		stunTimer.Start();
+	}
+
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		currentState = CELL_STATE::DEATH;
+		fibroDeathSoundPlayed = false;
+		aspergillusDeathSoundPlayed = false; // Permitimos la muerte instantánea del Aspergillus
+	}
+	// FIN DEL BLOQUE DE TRUCOS
+
 	Func_CellStates(dt);
 	ApplyPhysics();
 	Draw(dt);
@@ -272,6 +332,30 @@ void CelulaBasica::GetPhysicsValues()
 
 void CelulaBasica::Func_CellStates(float dt)
 {
+
+	if (cellType == CellType::FIBROBLASTO && IsPlayerDetected())
+	{
+		if ((currentState == CELL_STATE::MOVING || currentState == CELL_STATE::PARASITIZED_CHASING) && !isAttacking)
+		{
+			if (fibroAudioTimer.ReadMSec() >= 2000.0f)
+			{
+				Engine::GetInstance().audio->PlayFx(fibroWalkFxId);
+				fibroAudioTimer.Start();
+			}
+		}
+	}
+	else if (cellType == CellType::ASPERGILLUS && IsPlayerDetected())
+	{
+		if ((currentState == CELL_STATE::MOVING || currentState == CELL_STATE::PARASITIZED_CHASING) && !isAttacking)
+		{
+			if (aspergillusAudioTimer.ReadMSec() >= 2000.0f)
+			{
+				Engine::GetInstance().audio->PlayFx(aspergillusWalkFxId);
+				aspergillusAudioTimer.Start();
+			}
+		}
+	}
+
 	switch (currentState)
 	{
 	case CELL_STATE::IDLE:
@@ -325,6 +409,17 @@ void CelulaBasica::Func_CellStates(float dt)
 		{
 			parasitizedAnims.SetCurrent("pAttack");
 
+			if (cellType == CellType::FIBROBLASTO && !fibroAttackSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(fibroAttackFxId);
+				fibroAttackSoundPlayed = true;
+			}
+			else if (cellType == CellType::ASPERGILLUS && !aspergillusAttackSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(aspergillusAttackFxId);
+				aspergillusAttackSoundPlayed = true;
+			}
+
 			if (cellType == CellType::SALMONELLA)
 			{
 				velocity.x = isFacingRight ? 6.5f : -6.5f;
@@ -335,8 +430,10 @@ void CelulaBasica::Func_CellStates(float dt)
 			}
 
 			if (attackHitbox == nullptr) {
-				int x, y;if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA && !isFallingToGround)
+				int x, y;
 				pbody->GetPosition(x, y);
+				//if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA && !isFallingToGround)
+				//pbody->GetPosition(x, y);
 
 				float offsetX = isFacingRight ? 95.0f : -95.0f;
 
@@ -395,6 +492,9 @@ void CelulaBasica::Func_CellStates(float dt)
 				canTongueAttack = false;
 				attackCooldownTimer.Start();
 
+				fibroAttackSoundPlayed = false;
+				aspergillusAttackSoundPlayed = false;
+
 				if (attackHitbox != nullptr)
 				{
 					Engine::GetInstance().physics->DeletePhysBody(attackHitbox);
@@ -432,6 +532,17 @@ void CelulaBasica::Func_CellStates(float dt)
 			else
 				normalAnims.SetCurrent("damaged");
 
+			if (cellType == CellType::FIBROBLASTO && !fibroHurtSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(fibroHurtFxId);
+				fibroHurtSoundPlayed = true;
+			}
+			else if (cellType == CellType::ASPERGILLUS && !aspergillusHurtSoundPlayed)
+			{
+				Engine::GetInstance().audio->PlayFx(aspergillusHurtFxId);
+				aspergillusHurtSoundPlayed = true;
+			}
+
 			bool finished =
 				isParasitized
 				? parasitizedAnims.Func_HasCurrentAnimationFinished()
@@ -441,6 +552,7 @@ void CelulaBasica::Func_CellStates(float dt)
 			{
 				isHurt = false;
 				stunTimer.Start();
+				fibroAudioTimer.Start();
 			}
 
 			break;
@@ -451,9 +563,21 @@ void CelulaBasica::Func_CellStates(float dt)
 		else
 			normalAnims.SetCurrent("stun");
 
+
+		if (cellType == CellType::FIBROBLASTO)
+		{
+			if (fibroAudioTimer.ReadMSec() >= 1200.0f)
+			{
+				Engine::GetInstance().audio->PlayFx(fibroStunFxId);
+				fibroAudioTimer.Start(); 
+			}
+		}
+
 		if (stunTimer.ReadMSec() >= 5000.0f)
 		{
 			isStunned = false;
+			fibroHurtSoundPlayed = false;
+			aspergillusHurtSoundPlayed = false;
 
 			currentState = isParasitized
 				? CELL_STATE::PARASITIZED_CHASING
@@ -465,6 +589,17 @@ void CelulaBasica::Func_CellStates(float dt)
 
 	case CELL_STATE::DEATH:
 		velocity.x = 0.0f;
+
+		if (cellType == CellType::FIBROBLASTO && !fibroDeathSoundPlayed)
+		{
+			Engine::GetInstance().audio->PlayFx(fibroDeathFxId);
+			fibroDeathSoundPlayed = true;
+		}
+		else if (cellType == CellType::ASPERGILLUS && !aspergillusDeathSoundPlayed)
+		{
+			Engine::GetInstance().audio->PlayFx(aspergillusDeathFxId);
+			aspergillusDeathSoundPlayed = true;
+		}
 
 		if (isParasitized)
 		{

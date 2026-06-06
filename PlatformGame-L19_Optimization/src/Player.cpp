@@ -103,32 +103,6 @@ bool Player::Start() {
 	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack_doc.wav");
 	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Absorver.wav");
 
-	//Audios
-	/*std::unordered_map< std::string,Audio> list_audios;
-	{
-		audios.LoadFx("Assets/Audio/Fx/01-PASOS-consolidated.wav");
-		list_audios.insert({ "pasos",audios });
-		audios.LoadFx("Assets/Audio/Fx/02-PASOS 2-consolidated.wav");
-		list_audios.insert({ "pasos2",audios });
-		audios.LoadFx("Assets/Audio/Fx/03-salto pantalon-consolidated.wav");
-		list_audios.insert({ "salto" ,audios });
-		audios.LoadFx("Assets/Audio/Fx/04-aterrizar-consolidated.wav");
-		list_audios.insert({ "aterrizar" ,audios });
-		audios.LoadFx("Assets/Audio/Fx/05-barrido-consolidated.wav");
-		list_audios.insert({ "barrido",audios });
-		audios.LoadFx("Assets/Audio/Fx/06-recibir da�o doctora-consolidated.wav");
-		list_audios.insert({ "hit",audios });
-		audios.LoadFx("Assets/Audio/Fx/07-recibir da�o doctora 2-consolidated.wav");
-		list_audios.insert({ "hit2" ,audios });
-		audios.LoadFx("Assets/Audio/Fx/08-salto doctora-consolidated.wav");
-		list_audios.insert({"salto2" ,audios });
-		audios.LoadFx("Assets/Audio/Fx/09-morir doctora-consolidated.wav");
-		list_audios.insert({ "death",audios });
-		audios.LoadFx("Assets/Audio/Fx/10-atacar doctora-consolidated.wav");
-		list_audios.insert({ "attack",audios });
-		audios.LoadFx("Assets/Audio/Fx/11-inyectar-consolidated.wav");
-		list_audios.insert({ "inject",audios });
-	}*/
 	currentState = PLAYERSTATE::IDLE;
 	onGround = true;
 

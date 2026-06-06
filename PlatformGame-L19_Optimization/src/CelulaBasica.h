@@ -104,6 +104,26 @@ public:
 	Timer hurtTimer;
 	Timer attackCooldownTimer;
 
+	//audio fx
+	int fibroWalkFxId;
+	int fibroAttackFxId;
+	int fibroHurtFxId;
+	int fibroStunFxId;
+	int fibroDeathFxId;
+	Timer fibroAudioTimer;       
+	bool fibroAttackSoundPlayed = false;
+	bool fibroHurtSoundPlayed = false;
+	bool fibroDeathSoundPlayed = false;
+
+	int aspergillusWalkFxId;
+	int aspergillusAttackFxId;
+	int aspergillusHurtFxId;
+	int aspergillusDeathFxId;
+	Timer aspergillusAudioTimer;
+	bool aspergillusAttackSoundPlayed = false;
+	bool aspergillusHurtSoundPlayed = false;
+	bool aspergillusDeathSoundPlayed = false;
+
 private:
 	b2Vec2 velocity;
 	b2Vec2 randomDirection;
