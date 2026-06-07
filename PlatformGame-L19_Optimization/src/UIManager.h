@@ -119,13 +119,16 @@ public:
 	SDL_Texture* pauseOptionsMenuTexture = nullptr;
 	SDL_Texture* inventoryPg1Texture = nullptr;
 	SDL_Texture* inventoryPg2Texture = nullptr;
+
 	SDL_Texture* mapTextureMouth = nullptr;
 	SDL_Texture* mapTextureLung = nullptr;
 	SDL_Texture* mapTextureHeart = nullptr;
 	SDL_Texture* mapTextureStomach = nullptr;
 	SDL_Texture* mapTextureMarrow = nullptr;
+	SDL_Texture* mapTextureMarrow2 = nullptr;
 	SDL_Texture* mapTextureBrain = nullptr;
 	SDL_Texture* mapWindowTexture = nullptr;
+
 	SDL_Texture* powerupsTexture = nullptr;
 	SDL_Texture* sliderBoxTexture = nullptr;
 	SDL_Texture* sliderMusicTexture = nullptr;
