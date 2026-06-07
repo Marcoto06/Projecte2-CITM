@@ -51,6 +51,7 @@ bool Scene::Start()
 	latidosFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/latidos.wav");
 	fondoBocaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/sonido de fondo 1.wav");
 	fondoPulmonesFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Pulmones_Background.wav");
+	clicBotoFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx UI/Clic_Boto.wav");
 
 	LoadScene(currentScene); // start in MAIN_MENU
 	//Engine::GetInstance().audio->PlayFx(latidosFXId, 50);
@@ -219,6 +220,7 @@ bool Scene::PostUpdate()
 
 bool Scene::OnUIMouseClickEvent(UIElement* uiElement)
 {
+	Engine::GetInstance().audio->PlayFx(clicBotoFXId);
 	switch (currentScene)
 	{
 	case SceneID::INTRO_SCREEN:
@@ -453,6 +455,7 @@ void Scene::HandlePause() {
 		}
 		else if (tabPressed)
 		{
+			Engine::GetInstance().audio->PlayFx(clicBotoFXId);
 			Engine::GetInstance().paused = true;
 			Engine::GetInstance().uiManager->LoadLastActiveTab();
 		}
@@ -463,6 +466,7 @@ void Scene::HandlePause() {
 		{
 			if (escPressed || tabPressed)
 			{
+				Engine::GetInstance().audio->PlayFx(clicBotoFXId);
 				Engine::GetInstance().paused = false;
 				currentPauseState = PauseMenuState::NOTPAUSED;
 				Engine::GetInstance().uiManager->currentPauseState = UIManager::PauseMenuState::NOTPAUSED;

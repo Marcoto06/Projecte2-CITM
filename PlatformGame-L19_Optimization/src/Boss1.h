@@ -123,7 +123,16 @@ public:
 
 	//COSES ANTIGUES DE ENEMY -------------
 	Timer suckTimer;
-
+	//audiofx
+	int taeniaIntroFxId;
+	int taeniaIdleFxId;
+	int taeniaVerticalAtaFxId;
+	int taeniaHorizontalAtaFxId;
+	int taeniaHurtFxId;
+	int taeniaDeathFxId;
+	Timer taeniaIdleAudioTimer;
+	bool taeniaIntroSoundPlayed = false;
+	bool taeniaDeathSoundPlayed = false;
 	//bools
 	bool isStunned = false;
 

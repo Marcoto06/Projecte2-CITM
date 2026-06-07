@@ -214,6 +214,15 @@ bool Boss1::Start() {
 	triggerBody->ctype = ColliderType::SENSOR;
 	triggerBody->listener = this;
 
+	taeniaIntroFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Taenia/Taenia_Intro.wav");
+	taeniaIdleFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Taenia/Taenia_IDLE.wav");
+	taeniaVerticalAtaFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Taenia/Taenia_VerticalATA.wav");
+	taeniaHorizontalAtaFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Taenia/Taenia_HorizontalATA.wav");
+	taeniaHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Taenia/Taenia_Hurt.wav");
+	taeniaDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Taenia/Taenia_Death.wav");
+
+	taeniaIdleAudioTimer.Start();
+
 	return true;
 }
 
@@ -229,6 +238,14 @@ bool Boss1::Update(float dt)
 
 	//Func_EnemyStates(dt);
 	ApplyPhysics();
+
+	if (currentBodyAnimation == idle_body) {
+		
+		if (taeniaIdleAudioTimer.ReadMSec() >= 1000.0f) {
+			Engine::GetInstance().audio->PlayFx(taeniaIdleFxId);
+			taeniaIdleAudioTimer.Start();
+		}
+	}
 	if (currentBodyAnimation == stun_body) {
 		R_Hand->velocity.y = 0.5;
 		L_Hand->velocity.y = 0.5;
@@ -360,6 +377,11 @@ bool Boss1::Destroy()
 {
 	LOG("Destroying Boss1");
 	active = false;
+
+	if (!taeniaDeathSoundPlayed) {
+		Engine::GetInstance().audio->PlayFx(taeniaDeathFxId);
+		taeniaDeathSoundPlayed = true;
+	}
 
 	if (this->tiledId != -1) {
 		auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
@@ -546,6 +568,11 @@ void Boss1::AnimationFinished(bossAnimation* animation)
 
 void Boss1::PlayAnimation(bossAnimation* animation)
 {
+
+	if (animation == hurt_body || animation == hurt_R_hand || animation == hurt_L_hand) {
+		Engine::GetInstance().audio->PlayFx(taeniaHurtFxId);
+	}
+
 	if (animation->part == Body_Parts::BODY)
 	{
 		currentBodyFrame = 1;
@@ -582,6 +609,8 @@ void Boss1::Initialize() {
 	R_Hand->velocity.y = -0.15f;
 	L_Hand->velocity.y = -0.15f;
 	active = true;
+
+	Engine::GetInstance().audio->PlayFx(taeniaIntroFxId);
 }
 
 void Boss1::Attack(Hand* hand) {
@@ -592,9 +621,11 @@ void Boss1::Attack(Hand* hand) {
 		{
 			PlayAnimation(vertical_R_hand);
 			R_Hand->velocity.y = R_Hand->v_speed;
+			Engine::GetInstance().audio->PlayFx(taeniaVerticalAtaFxId);
 		}
 		else {
 			PlayAnimation(horizontal_R_hand);
+			Engine::GetInstance().audio->PlayFx(taeniaHorizontalAtaFxId);
 		}
 	}
 	else {
@@ -603,9 +634,11 @@ void Boss1::Attack(Hand* hand) {
 		{
 			PlayAnimation(vertical_L_hand);
 			L_Hand->velocity.y = L_Hand->v_speed;
+			Engine::GetInstance().audio->PlayFx(taeniaVerticalAtaFxId);
 		}
 		else {
 			PlayAnimation(horizontal_L_hand);
+			Engine::GetInstance().audio->PlayFx(taeniaHorizontalAtaFxId);
 		}
 	}
 }
