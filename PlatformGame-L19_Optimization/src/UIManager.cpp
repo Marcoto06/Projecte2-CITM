@@ -69,12 +69,12 @@ bool UIManager::Start()
 	roomsMetadata["MapEstomac_Sala9.tmx"] = { 3, {581,330,358,290}, 7680, 4352 };
 	roomsMetadata["MapEstomac_Sala10.tmx"] = { 3, {70,675,94,55}, 1920, 1088 };
 
-	roomsMetadata["MapMedula_Sala1.tmx"] = { 4, {698,121,163,814}, 5760, 4352 };
-	roomsMetadata["MapMedula_Sala2.tmx"] = { 4, {111,111,111,111}, 111, 111 };
-	roomsMetadata["MapMedula_Sala3.tmx"] = { 4, {111,111,111,111}, 111, 111 };
-	roomsMetadata["MapMedula_Sala4.tmx"] = { 4, {111,111,111,111}, 111, 111 };
-	roomsMetadata["MapMedula_Sala5.tmx"] = { 4, {111,111,111,111}, 111, 111 };
-	roomsMetadata["MapMedula_SalaBoss.tmx"] = { 4, {111,111,111,111}, 3200, 2944 };
+	roomsMetadata["MapMedula_Sala1.tmx"] = { 4, {698,816,163,119}, 5760, 4352 };
+	roomsMetadata["MapMedula_Sala2.tmx"] = { 4, {698,580,163,118}, 5760, 4352 };
+	roomsMetadata["MapMedula_Sala3.tmx"] = { 4, {698,351,163,118}, 5760, 4352 };
+	roomsMetadata["MapMedula_Sala4.tmx"] = { 4, {111,111,111,111}, 5760, 4352 };
+	roomsMetadata["MapMedula_Sala5.tmx"] = { 4, {111,111,111,111}, 5760, 4352 };
+	roomsMetadata["MapMedula_SalaBoss.tmx"] = { 5, {632,123,293,123}, 3200, 2944 };
 	
 	return true;
 }
@@ -222,13 +222,16 @@ void UIManager::LoadUITextures() {
 	inventoryPg2Texture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Inventory/InventoryPg2.png");
 	inventoryNextBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha derecha.png");
 	inventoryPrevBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha izquierda.png");
+
 	mapWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/BaseScreen.png");
 	mapTextureMouth = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MouthMap.png");
 	mapTextureLung = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/LungsMap.png");
 	mapTextureHeart = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/HeartMap.png");
 	mapTextureStomach = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/StomachMap.png");
-	mapTextureMarrow = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MarrowMap.png");
+	mapTextureMarrow = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MarrowMap.png"); 
+	mapTextureMarrow2 = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MarrowMap2.png");
 	mapTextureBrain = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/BrainMap.png");
+
 	powerupsTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PowerUps_Menu.png");
 	continuePauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/ContinueButton.png");
 	optionsPauseButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/OptionsButton.png");
@@ -628,7 +631,8 @@ void UIManager::ShowPauseMenu() {
 			case 2: zoneMapTexture = mapTextureHeart; break;
 			case 3: zoneMapTexture = mapTextureStomach; break;
 			case 4: zoneMapTexture = mapTextureMarrow; break;
-			case 5: zoneMapTexture = mapTextureBrain; break;
+			case 5: zoneMapTexture = mapTextureMarrow2; break;
+			case 6: zoneMapTexture = mapTextureBrain; break;
 			}
 
 			int zoneW, zoneH;
