@@ -27,9 +27,11 @@ public:
 	bool Destroy() override;
 	bool Destroy(Player* player);
 	void Initialize();
+	void Reset();
 	Player* player = nullptr;
 
 	int life = 10;
+	int maxLife = 10;
 	bool active = false;
 	PhysBody* triggerBody;
 	

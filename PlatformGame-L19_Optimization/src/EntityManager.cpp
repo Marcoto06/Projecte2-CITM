@@ -226,7 +226,7 @@ void EntityManager::ClearNonPlayerEntities()
 
 	for (const auto entity : entities)
 	{
-		if (entity->type != EntityType::PLAYER && entity->type != EntityType::BOSS1)
+		if (entity->type != EntityType::PLAYER && entity->type != EntityType::BOSS1 && entity->type != EntityType::BOSS2 && entity->type != EntityType::MUCOSA)
 		{
 			pendingDelete.push_back(entity);
 		}

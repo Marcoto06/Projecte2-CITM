@@ -57,6 +57,14 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB) {
 	if (other->ctype == ColliderType::PLAYER)
 	{
 		//Engine::GetInstance().scene->UnloadLevel();
+		if (Engine::GetInstance().scene->boss != nullptr)
+		{
+			Engine::GetInstance().scene->boss->Reset();
+		}
+		if (Engine::GetInstance().scene->boss2 != nullptr) 
+		{
+			Engine::GetInstance().scene->boss2->Reset();
+		}
 
 		Engine::GetInstance().scene->StartFadeToMap(destination, playerX, playerY, 0.5f);
 	}

@@ -247,7 +247,6 @@ void Boss2::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		if (physA == triggerBody && position != Vector2D(0, 0)) {
 			Initialize();
-			Engine::GetInstance().physics->DeletePhysBody(triggerBody);
 		}
 		break;
 	case ColliderType::SYRINGE:
@@ -315,6 +314,7 @@ void Boss2::Initialize() {
 	//Set Current Animation as intro
 	PlayAnimation(anim_intro);
 	Engine::GetInstance().physics->DeletePhysBody(triggerBody);
+	triggerBody = nullptr;
 	/*pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX(), initialPos.getY(), 500, 500, bodyType::STATIC);
 	pbody->listener = this;*/
 	active = true;
@@ -369,4 +369,22 @@ void Boss2::Attack() {
 		pbody->listener = this;
 	}
 	PrepareAttack();
+}
+
+void Boss2::Reset()
+{
+	position = Vector2D(0, 0);
+	if (triggerBody != nullptr)
+	{
+		triggerBody->SetPosition(position.getX() + 960, position.getY() + 960);
+	}
+	else 
+	{
+		triggerBody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 960, position.getY() + 960, 1920, 1920, bodyType::STATIC);
+		triggerBody->ctype = ColliderType::SENSOR;
+		triggerBody->listener = this;
+	}
+	currentAttack = 0;
+	life = maxLife;
+	active = false;
 }

@@ -302,13 +302,20 @@ void Scene::LoadScene(SceneID newScene)
 			EndLoadingScreen();
 		}		
 
-		//Create boss when booting up to avoid lagging afterwards.
-		std::shared_ptr<Entity> e = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
-		boss = std::dynamic_pointer_cast<Boss2>(e);
+		//Create bosses when booting up to avoid lagging afterwards.
+		std::shared_ptr<Entity> b1 = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
+		boss = std::dynamic_pointer_cast<Boss1>(b1);
 		
 		boss->position = Vector2D(0, 0);
 		boss->Awake();
 		boss->Start();
+
+		std::shared_ptr<Entity> b2 = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
+		boss2 = std::dynamic_pointer_cast<Boss2>(b2);
+
+		boss2->position = Vector2D(0, 0);
+		boss2->Awake();
+		boss2->Start();
 
 		break;		
 	}

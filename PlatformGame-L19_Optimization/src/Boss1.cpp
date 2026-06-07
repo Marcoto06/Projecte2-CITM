@@ -609,3 +609,23 @@ void Boss1::Attack(Hand* hand) {
 		}
 	}
 }
+
+void Boss1::Reset()
+{
+	position = Vector2D(0, 0);
+	if (triggerBody != nullptr)
+	{
+		triggerBody->SetPosition(position.getX() + 960, position.getY() + 960);
+	}
+	else
+	{
+		triggerBody = Engine::GetInstance().physics->CreateRectangleSensor(position.getX() + 960, position.getY() + 960, 1920, 1920, bodyType::STATIC);
+		triggerBody->ctype = ColliderType::SENSOR;
+		triggerBody->listener = this;
+	}
+	currentBodyFrame = 1;
+	currentLHandFrame = 1;
+	currentRHandFrame = 1;
+	life = maxLife;
+	active = false;
+}

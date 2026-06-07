@@ -28,12 +28,13 @@ public:
 	bool Destroy() override;
 	bool Destroy(Player* player);
 	void Initialize();
+	void Reset();
 	Player* player = nullptr;
 
 	int life = 1;
+	int maxLife = 1;
 	bool active = false;
 	PhysBody* triggerBody;
-
 
 private:
 
