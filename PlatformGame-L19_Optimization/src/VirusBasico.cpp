@@ -60,7 +60,7 @@ bool VirusBasico::Start()
 	pbody = Engine::GetInstance().physics->CreateCircle(
 		(int)position.getX() + texW / 2,
 		(int)position.getY() + texH / 2,
-		texW / 2,
+		70,
 		bodyType::DYNAMIC
 	);
 
@@ -79,6 +79,26 @@ bool VirusBasico::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (beingSucked &&
+		currentState == VIRUS_STATE::STUNED &&
+		suckTimer.ReadMSec() >= suckDelayMs)
+	{
+		beingSucked = false;
+
+		groundHitPlayed = false;
+		isStunned = true;
+
+		velocity = b2Vec2_zero;
+		Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
+
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+
+		anims.SetCurrent("death");
+		reviveTimer.Start();
+
+		currentState = VIRUS_STATE::TEMP_DEATH;
+	}
 
 	if (!canAttack && attackCooldownTimer.ReadMSec() >= attackCooldownMs)
 	{
@@ -251,7 +271,9 @@ void VirusBasico::Func_EnemyStates(float dt)
 
 		if (!groundHitPlayed)
 		{
-			if (anims.Func_HasCurrentAnimationFinished())
+			anims.SetCurrent("groundHit");
+
+			if (timer_01.ReadMSec() >= 350.0f)
 			{
 				groundHitPlayed = true;
 				anims.SetCurrent("stun");
@@ -384,6 +406,13 @@ void VirusBasico::Draw(float dt)
 
 	int drawX = x - frameW / 2;
 	int drawY = y - frameH / 2;
+
+	if (currentState == VIRUS_STATE::STUNED ||
+		currentState == VIRUS_STATE::TEMP_DEATH ||
+		currentState == VIRUS_STATE::REVIVING)
+	{
+		drawY -= 45;
+	}
 
 	Engine::GetInstance().render->DrawTexture(
 		texture,
@@ -637,20 +666,10 @@ void VirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 
 	case ColliderType::SUCK_ZONE:
-		if (currentState == VIRUS_STATE::STUNED)
+		if (currentState == VIRUS_STATE::STUNED && !beingSucked)
 		{
-			groundHitPlayed = false;
-			isStunned = true;
-
-			velocity = b2Vec2_zero;
-			Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
-
-			b2Body_SetGravityScale(pbody->body, 0.0f);
-
-			anims.SetCurrent("death");
-			reviveTimer.Start();
-
-			currentState = VIRUS_STATE::TEMP_DEATH;
+			beingSucked = true;
+			suckTimer.Start();
 		}
 		break;
 
