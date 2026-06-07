@@ -11974,7 +11974,7 @@
   </object>
   <object id="38" name="Door" type="Door" x="2752.12" y="2062.79" width="704.03" height="32.5763">
    <properties>
-    <property name="Destination" value="MapPulmo_Sala16.tmx"/>
+    <property name="Destination" value="MapCor_Sala7.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="533.33"/>
     <property name="playerY" type="float" value="10563.64"/>
