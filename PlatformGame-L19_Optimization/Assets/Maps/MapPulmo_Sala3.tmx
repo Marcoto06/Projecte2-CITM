@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="95">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="100">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -12354,6 +12354,21 @@
    <properties>
     <property name="Type" value="Climbable"/>
    </properties>
+  </object>
+  <object id="95" name="Asperguilus" type="Enemy" x="2400.19" y="1942.24">
+   <point/>
+  </object>
+  <object id="96" name="Eosinofilo" type="Enemy" x="1160.61" y="1809.09">
+   <point/>
+  </object>
+  <object id="97" name="VirusBasico" type="Enemy" x="2609.09" y="1748.48">
+   <point/>
+  </object>
+  <object id="98" name="Asperguilus" type="Enemy" x="2184.85" y="821.212">
+   <point/>
+  </object>
+  <object id="99" name="Eosinofilo" type="Enemy" x="3206.06" y="875.758">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles">

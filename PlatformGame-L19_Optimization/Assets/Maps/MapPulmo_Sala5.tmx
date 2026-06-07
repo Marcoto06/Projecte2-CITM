@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="16">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="24">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -24587,6 +24587,29 @@
    <properties>
     <property name="Type" value="Climbable"/>
    </properties>
+  </object>
+  <object id="16" name="CheckPoint" type="Checkpoint" x="3330.67" y="1213.33" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="18" name="Asperguilus" type="Enemy" x="336.364" y="1648.48">
+   <point/>
+  </object>
+  <object id="19" name="VirusBasico" type="Enemy" x="1454.55" y="1781.82">
+   <point/>
+  </object>
+  <object id="20" name="Asperguilus" type="Enemy" x="2751.52" y="2975.76">
+   <point/>
+  </object>
+  <object id="21" name="Eosinofilo" type="Enemy" x="2569.7" y="2300">
+   <point/>
+  </object>
+  <object id="22" name="Eosinofilo" type="Enemy" x="2263.64" y="833.333">
+   <point/>
+  </object>
+  <object id="23" name="VirusBasico" type="Enemy" x="3003.03" y="506.061">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

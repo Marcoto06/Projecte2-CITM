@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="11">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="23">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -24624,6 +24624,46 @@
     <property name="Assimilate" type="int" value="2"/>
     <property name="Type" value="Egg"/>
    </properties>
+  </object>
+  <object id="11" name="CheckPoint" type="Checkpoint" x="2754.33" y="125.22" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="12" name="CheckPoint" type="Checkpoint" x="448" y="318" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="13" name="VirusBasico" type="Enemy" x="1496.97" y="945.455">
+   <point/>
+  </object>
+  <object id="14" name="Eosinofilo" type="Enemy" x="736.364" y="1278.79">
+   <point/>
+  </object>
+  <object id="15" name="Fibroblasto" type="Enemy" x="545.455" y="1506.06">
+   <point/>
+  </object>
+  <object id="16" name="Plaquetas" type="Enemy" x="539.394" y="2251.52">
+   <point/>
+  </object>
+  <object id="17" name="Fibroblasto" type="Enemy" x="606.061" y="2839.39">
+   <point/>
+  </object>
+  <object id="18" name="Eosinofilo" type="Enemy" x="2354.55" y="2521.21">
+   <point/>
+  </object>
+  <object id="19" name="Fibroblasto" type="Enemy" x="2275.76" y="4036.36">
+   <point/>
+  </object>
+  <object id="20" name="VirusBasico" type="Enemy" x="2018.18" y="3824.24">
+   <point/>
+  </object>
+  <object id="21" name="Fibroblasto" type="Enemy" x="1593.94" y="4051.52">
+   <point/>
+  </object>
+  <object id="22" name="Plaquetas" type="Enemy" x="818.182" y="4133.33">
+   <point/>
   </object>
  </objectgroup>
 </map>
