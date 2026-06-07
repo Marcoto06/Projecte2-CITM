@@ -98,6 +98,7 @@ bool Player::Start() {
 	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/walk_doc.wav");
 	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/hurt_doc.wav");
 	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/death_doc.wav");
+	UIdeathID = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx UI/mort.wav");
 	stunAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack.wav");
 	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Doctora_Salto.wav");
 	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack_doc.wav");
@@ -1448,6 +1449,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			else
 			{
 				Engine::GetInstance().audio->PlayFx(deathFxId);
+				Engine::GetInstance().audio->PlayFx(UIdeathID, 2);
 				canMove = false;
 				canJump = false;
 				canAttack = false;
@@ -1506,6 +1508,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			else
 			{
 				Engine::GetInstance().audio->PlayFx(deathFxId);
+				Engine::GetInstance().audio->PlayFx(UIdeathID, 2);
 				LOG("Player has died!");
 				canMove = false;
 				canJump = false;
@@ -1550,6 +1553,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			else
 			{
 				Engine::GetInstance().audio->PlayFx(deathFxId);
+				Engine::GetInstance().audio->PlayFx(UIdeathID,2);
 				LOG("Player has died!");
 				canMove = false;
 				canJump = false;
@@ -1592,6 +1596,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			else
 			{
 				Engine::GetInstance().audio->PlayFx(deathFxId);
+				Engine::GetInstance().audio->PlayFx(UIdeathID, 2);
 				LOG("Player has died!");
 				canMove = false;
 				canJump = false;
@@ -1621,6 +1626,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ACID:
 		if (hasAcidResistance) break;
 		Engine::GetInstance().audio->PlayFx(deathFxId);
+		Engine::GetInstance().audio->PlayFx(UIdeathID, 2);
 		LOG("Player has died!");
 		canMove = false;
 		canJump = false;

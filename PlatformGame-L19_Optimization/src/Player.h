@@ -120,6 +120,7 @@ public:
 	int jumpFxId;
 	int hurtFxId;
 	int deathFxId;
+	int UIdeathID;
 	int stunAttackFxId;
 	int stunAttackDocFxId;
 	int suckAttackFxId;

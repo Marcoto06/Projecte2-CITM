@@ -12005,7 +12005,7 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="81" name="Plaquetas" type="Enemy" x="846.864" y="1977.67">
+  <object id="81" name="LinfocitoT" type="Enemy" x="770.864" y="1009.67">
    <point/>
   </object>
   <object id="83" name="Electric" type="Electric" x="9.64593" y="1393.45" width="192" height="894">
@@ -12027,7 +12027,7 @@
   <object id="89" name="LinfocitoTNK" type="Enemy" x="497.83" y="1653.8">
    <point/>
   </object>
-  <object id="92" name="Salmonella" type="Cell" x="1036.79" y="925.34">
+  <object id="92" name="Salmonella" type="Cell" x="820.786" y="1909.34">
    <point/>
   </object>
   <object id="95" name="Dendriticas" type="Enemy" x="1074.76" y="1959.92">

@@ -53,6 +53,10 @@ public:
 
 	bool drawDialog = false;
 
+	//audiofx
+	int dialogPopFxId;
+
+
 private:
 	SDL_Texture* dialogWindowTexture = NULL;
 	SDL_Texture* docTexture = NULL;

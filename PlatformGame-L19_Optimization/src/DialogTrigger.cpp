@@ -1,6 +1,7 @@
 #include "DialogTrigger.h"
 #include "Player.h"
 #include "Engine.h"
+#include "Audio.h"
 #include "Log.h"
 #include "DialogManager.h"
 
@@ -66,7 +67,7 @@ bool DialogTrigger::Destroy()
 
 void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 {
-	/*if (triggered) return;
+	if (triggered) return;
 
 	PhysBody* other = (physA == pbody) ? physB : physA;
 
@@ -80,7 +81,7 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 			TriggerDialog(dialogues_ids.at(0));
 			triggered = true;
 		}
-	}*/
+	}
 }
 
 void DialogTrigger::TriggerDialog(int id)

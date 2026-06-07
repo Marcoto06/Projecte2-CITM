@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Window.h"
+#include "Audio.h"
 #include <sstream>//Necessary to write multiple lines.
 
 
@@ -35,6 +36,10 @@ bool DialogManager::Start()
 	dialogWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Dialog_box.png");
 	docTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Doc.png");
 	lukeTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Dialogs/Luke.png");
+
+	dialogPopFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx UI/rebre_missatge.wav");
+
+
 	Load("Assets/Dialogos/", "Database.xml");
 	spawnDialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, 2000);
 	dialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, Engine::GetInstance().window->height - dialogWindowTexture->h);
@@ -108,6 +113,7 @@ void DialogManager::LoadDialogWindow(int id) {
 			}
 		}
 	}
+	Engine::GetInstance().audio->PlayFx(dialogPopFxId);
 }
 
 void DialogManager::ShowDialogWindow(float dt) 

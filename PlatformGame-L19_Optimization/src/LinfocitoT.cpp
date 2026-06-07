@@ -413,7 +413,7 @@ void LinfocitoT::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_HORIZONTAL,
+			SDL_FLIP_NONE,
 			1.0f
 		);
 	}
@@ -428,7 +428,7 @@ void LinfocitoT::Draw(float dt)
 			0.0,
 			(frameW / 2),
 			(frameH / 2),
-			SDL_FLIP_NONE,
+			SDL_FLIP_HORIZONTAL,
 			1.0f
 		);
 	}

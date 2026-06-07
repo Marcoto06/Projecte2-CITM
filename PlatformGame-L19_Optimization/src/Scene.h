@@ -122,6 +122,7 @@ public:
 
 	//AUdio FX IDS
 	int latidosFXId;
+	int loadingScreenID;
 	int fondoBocaFXId;
 	int fondoPulmonesFXId;
 
