@@ -224,6 +224,7 @@ void UIManager::LoadUITextures() {
 	inventoryPrevBtnTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/Inventario_flecha izquierda.png");
 
 	mapWindowTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/BaseScreen.png");
+	playerIconTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
 	mapTextureMouth = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/MouthMap.png");
 	mapTextureLung = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/LungsMap.png");
 	mapTextureHeart = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameMenus/Map/HeartMap.png");
@@ -656,6 +657,25 @@ void UIManager::ShowPauseMenu() {
 
 					Engine::GetInstance().render->DrawTexture(zoneMapTexture, destX, destY, &roomData.mapRect, 0.0f);
 				}
+			}
+
+			if (player != nullptr && playerIconTexture != nullptr)
+			{
+				Vector2D playerPos = player->GetPosition();
+
+				float percentX = playerPos.getX() / (float)currentRoomData.worldWidth;
+				float percentY = playerPos.getY() / (float)currentRoomData.worldHeight;
+
+				int iconLocalX = (int)(percentX * currentRoomData.mapRect.w);
+				int iconLocalY = (int)(percentY * currentRoomData.mapRect.h);
+
+				int finalIconX = mapDrawX + currentRoomData.mapRect.x + iconLocalX;
+				int finalIconY = mapDrawY + currentRoomData.mapRect.y + iconLocalY;
+
+				int iconW = 49;
+				int iconH = 49;
+
+				Engine::GetInstance().render->DrawTexture(playerIconTexture, finalIconX - (iconW / 2), finalIconY - (iconH / 2), NULL, 0.0f);
 			}
 		}
 		else if (currentPauseState == PauseMenuState::POWERUPS) texToDraw = powerupsTexture;

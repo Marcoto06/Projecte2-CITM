@@ -128,6 +128,7 @@ public:
 	SDL_Texture* mapTextureMarrow2 = nullptr;
 	SDL_Texture* mapTextureBrain = nullptr;
 	SDL_Texture* mapWindowTexture = nullptr;
+	SDL_Texture* playerIconTexture = nullptr;
 
 	SDL_Texture* powerupsTexture = nullptr;
 	SDL_Texture* sliderBoxTexture = nullptr;
