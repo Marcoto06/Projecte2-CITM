@@ -70,6 +70,7 @@ public:
 	float reviveTime = 20.0f;
 	float attackCooldownMs = 2500.0f;
 	float projectileSpawnDelayMs = 350.0f;
+	float suckDelayMs = 600.0f;
 
 	SDL_Texture* texture = nullptr;
 	int texW = 256;
@@ -86,6 +87,7 @@ public:
 	bool hasSpawnedProjectile = false;
 	bool canAttack = true;
 	bool attackingCell = false;
+	bool beingSucked = false;
 
 	Vector2D currentAttackTarget = Vector2D(0, 0);
 
@@ -95,6 +97,8 @@ public:
 	Timer reviveTimer;
 	Timer attackTimer;
 	Timer attackCooldownTimer;
+	Timer suckTimer;
+
 
 
 private:
