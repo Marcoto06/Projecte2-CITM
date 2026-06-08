@@ -164,6 +164,21 @@ public:
 	SDL_Texture* itemRamaTex = nullptr;
 	Animation itemRamaAnim;
 
+	SDL_Texture* itemCelulasParietalesTex = nullptr;
+	Animation itemCelulasParietalesAnim;
+	SDL_Texture* itemCelulasEpitelailesTex = nullptr;
+	Animation itemCelulasEpitelailesAnim;
+	SDL_Texture* itemTejidoEstomacalTex = nullptr;
+	Animation itemTejidoEstomacalAnim;
+	SDL_Texture* itemMucosaGastricaTex = nullptr;
+	Animation itemMucosaGastricaAnim;
+	SDL_Texture* itemUlcerasTex = nullptr;
+	Animation itemUlcerasAnim;
+	SDL_Texture* itemMasaTex = nullptr;
+	Animation itemMasaAnim;
+	SDL_Texture* itemCrisalidaTex = nullptr;
+	Animation itemCrisalidaAnim;
+
 	SDL_Texture* minimapTabButtonTexture = nullptr;
 	SDL_Texture* powerUpsTabButtonTexture = nullptr;
 

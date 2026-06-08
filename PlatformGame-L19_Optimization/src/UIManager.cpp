@@ -250,27 +250,58 @@ void UIManager::LoadUITextures() {
 	itemTejidoNecroTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Tejido_Necrotizado_Coleccionable.png");
 	itemRamaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Rama_Coleccionable.png");
 
+	itemCelulasParietalesTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/ExtractoCelulaParietal_Coleccionable.png");
+	itemCelulasEpitelailesTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Extracto_celula_Coleccionable_epitelial.png");
+	itemTejidoEstomacalTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/TejidoEstomacal_Coleccionable.png");
+	itemMucosaGastricaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/MucosaGastrica_Coleccioable.png");
+	itemUlcerasTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Formacion_Ulcerosa_Coleccionable.png");
+	itemMasaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Masa_Carcomida_Coleccionable.png");
+	itemCrisalidaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/ExtractoCrisalida_Coleccionable.png");
 
+	for (int i = 0; i < 9; ++i) {
+		itemTejidoEstomacalAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+		itemUlcerasAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemTejidoEstomacalAnim.SetLoop(true);
+	itemUlcerasAnim.SetLoop(true);
+
+	for (int i = 0; i < 10; ++i) {
+		itemCelulasParietalesAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemCelulasParietalesAnim.SetLoop(true);
 
 	for (int i = 0; i < 11; ++i) {
 		itemAmigdalaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemAmigdalaAnim.SetLoop(true);
-
-	for (int i = 0; i < 11; ++i) {
 		itemSalivaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemSalivaAnim.SetLoop(true);
-
-	for (int i = 0; i < 11; ++i) {
 		itemTejidoPulmonarAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
 	}
+	itemAmigdalaAnim.SetLoop(true);
+	itemSalivaAnim.SetLoop(true);
 	itemTejidoPulmonarAnim.SetLoop(true);
+
+	for (int i = 0; i < 12; ++i) {
+		itemMucosaGastricaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemMucosaGastricaAnim.SetLoop(true);
+
+	for (int i = 0; i < 13; ++i) {
+		itemMasaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemMasaAnim.SetLoop(true);
 
 	for (int i = 0; i < 14; ++i) {
 		itemCiliosAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+		itemRamaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
 	}
 	itemCiliosAnim.SetLoop(true);
+	itemRamaAnim.SetLoop(true);
+
+	for (int i = 0; i < 18; ++i) {
+		itemTejidoNecroAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+		itemCrisalidaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	}
+	itemTejidoNecroAnim.SetLoop(true);
+	itemCrisalidaAnim.SetLoop(true);
 
 	for (int i = 0; i < 19; ++i) {
 		itemMucosaPulmonarAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
@@ -282,17 +313,10 @@ void UIManager::LoadUITextures() {
 	}
 	itemNeocitoAnim.SetLoop(true);
 
-	for (int i = 0; i < 18; ++i) {
-		itemTejidoNecroAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
+	for (int i = 0; i < 30; ++i) {
+		itemCelulasEpitelailesAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
 	}
-	itemTejidoNecroAnim.SetLoop(true);
-
-	for (int i = 0; i < 14; ++i) {
-		itemRamaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemRamaAnim.SetLoop(true);
-
-
+	itemCelulasEpitelailesAnim.SetLoop(true);
 
 	minimapTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
 	powerUpsTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
@@ -831,6 +855,41 @@ void UIManager::ShowPauseMenu() {
 						{
 							animTexToDraw = itemRamaTex;
 							currentFrame = itemRamaAnim.GetCurrentFrame();
+						}
+						else if (c_num == 13)
+						{
+							animTexToDraw = itemCelulasParietalesTex;
+							currentFrame = itemCelulasParietalesAnim.GetCurrentFrame();
+						}
+						else if (c_num == 14)
+						{
+							animTexToDraw = itemCelulasEpitelailesTex;
+							currentFrame = itemCelulasEpitelailesAnim.GetCurrentFrame();
+						}
+						else if (c_num == 15)
+						{
+							animTexToDraw = itemTejidoEstomacalTex;
+							currentFrame = itemTejidoEstomacalAnim.GetCurrentFrame();
+						}
+						else if (c_num == 16)
+						{
+							animTexToDraw = itemMucosaGastricaTex;
+							currentFrame = itemMucosaGastricaAnim.GetCurrentFrame();
+						}
+						else if (c_num == 17)
+						{
+							animTexToDraw = itemUlcerasTex;
+							currentFrame = itemUlcerasAnim.GetCurrentFrame();
+						}
+						else if (c_num == 18)
+						{
+							animTexToDraw = itemMasaTex;
+							currentFrame = itemMasaAnim.GetCurrentFrame();
+						}
+						else if (c_num == 19)
+						{
+							animTexToDraw = itemCrisalidaTex;
+							currentFrame = itemCrisalidaAnim.GetCurrentFrame();
 						}
 						// Add here the rest of collectibles with their corresponding animations when we have their .png and .tsx!!!
 

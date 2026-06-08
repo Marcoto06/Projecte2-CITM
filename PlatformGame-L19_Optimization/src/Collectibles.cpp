@@ -39,6 +39,7 @@ bool Collectibles::Start() {
 		anims.LoadFromTSX("Assets/Textures/Collectibles/Saliva_Coleccionable.tsx", aliases);
 		texture = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Saliva_Coleccionable.png");
 		anims.SetCurrent("idle");
+		break;
 	case 2:
 		//Tejido pulmonar inflamado
 		aliases = { {0, "idle"} };
