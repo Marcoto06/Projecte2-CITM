@@ -699,7 +699,6 @@ void VirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::SUCK_ZONE:
 		if (currentState == VIRUS_STATE::STUNED && !beingSucked)
 		{
-<<<<<<< HEAD
 			groundHitPlayed = false;
 			isStunned = true;
 
@@ -713,10 +712,8 @@ void VirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 
 			currentState = VIRUS_STATE::TEMP_DEATH;
 			Engine::GetInstance().audio->PlayFx(deathFxId);
-=======
 			beingSucked = true;
 			suckTimer.Start();
->>>>>>> 1a0b3623d78a981b9f25aaffcf7b05713bbf196c
 		}
 		break;
 
