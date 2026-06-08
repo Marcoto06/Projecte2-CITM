@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="290" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="14">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="290" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="30">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -118464,6 +118464,53 @@
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1344"/>
     <property name="playerY" type="float" value="3540"/>
+   </properties>
+  </object>
+  <object id="14" name="VirusBasico" type="Enemy" x="18184" y="952">
+   <point/>
+  </object>
+  <object id="15" name="Dendritica " type="Enemy" x="15684" y="1714">
+   <point/>
+  </object>
+  <object id="16" name="VirusBasico" type="Enemy" x="16744" y="2112">
+   <point/>
+  </object>
+  <object id="17" name="Eosinofilo" type="Enemy" x="15352" y="1200">
+   <point/>
+  </object>
+  <object id="18" name="Eosinofilo" type="Enemy" x="15568" y="2536">
+   <point/>
+  </object>
+  <object id="19" name="Eosinofilo" type="Enemy" x="13600" y="1024">
+   <point/>
+  </object>
+  <object id="20" name="Eosinofilo " type="Enemy" x="13456" y="2040">
+   <point/>
+  </object>
+  <object id="21" name="Salmonella " type="Cell" x="12648" y="3864">
+   <point/>
+  </object>
+  <object id="22" name="Salmonella " type="Cell" x="6032" y="3864">
+   <point/>
+  </object>
+  <object id="23" name="Eosinofilo" type="Enemy " x="7164" y="704">
+   <point/>
+  </object>
+  <object id="25" name="VirusBasico" type="Enemy" x="4328" y="2256">
+   <point/>
+  </object>
+  <object id="26" name="Salmonella " type="Cell" x="4504" y="3864">
+   <point/>
+  </object>
+  <object id="27" name="LinfocitoT " type="Enemy" x="2580" y="1604">
+   <point/>
+  </object>
+  <object id="28" name="Salmonella" type="Cell" x="1168" y="3872">
+   <point/>
+  </object>
+  <object id="29" name="CheckPoint" type="Checkpoint" x="17460" y="-22" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

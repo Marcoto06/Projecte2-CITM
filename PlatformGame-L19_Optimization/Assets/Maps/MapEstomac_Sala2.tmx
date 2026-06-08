@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="135" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="7">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="135" height="34" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="13">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -27639,6 +27639,27 @@
    <properties>
     <property name="Type" value="Acid"/>
    </properties>
+  </object>
+  <object id="7" name="Salmonella" type="Cell" x="1500" y="450">
+   <point/>
+  </object>
+  <object id="8" name="Eosinofilo " type="Enemy" x="1398" y="1100">
+   <point/>
+  </object>
+  <object id="9" name="VirusBasico " type="Enemy" x="4766.67" y="375.758">
+   <point/>
+  </object>
+  <object id="10" name="LinfocitoT " type="Enemy" x="6876" y="476">
+   <point/>
+  </object>
+  <object id="11" name="Eosinofilo" type="Enemy" x="6908" y="1000">
+   <point/>
+  </object>
+  <object id="12" name="Collectibles" type="Collectibles" x="6770" y="1678">
+   <properties>
+    <property name="c_num" type="int" value="13"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

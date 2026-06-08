@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="120" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="5">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="120" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="13">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -49050,6 +49050,36 @@
    <properties>
     <property name="Type" value="Acid"/>
    </properties>
+  </object>
+  <object id="5" name="Eosinofilo" type="Enemy" x="6420.26" y="1306.85">
+   <point/>
+  </object>
+  <object id="6" name="Dendritica" type="Enemy" x="6085.95" y="2226.2">
+   <point/>
+  </object>
+  <object id="7" name="Eosinofilo" type="Enemy" x="4999.45" y="1519.59">
+   <point/>
+  </object>
+  <object id="8" name="Eosinofilo" type="Enemy" x="4551.17" y="2393.35">
+   <point/>
+  </object>
+  <object id="9" name="VirusBasico" type="Enemy " x="3449.47" y="2378.16">
+   <point/>
+  </object>
+  <object id="10" name="VirusBasico" type="Enemy" x="980.135" y="904.155">
+   <point/>
+  </object>
+  <object id="11" name="Collectibles" type="Collectibles" x="4004" y="466.667">
+   <properties>
+    <property name="c_num" type="int" value="17"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="12" name="Collectibles" type="Collectibles" x="468" y="1432">
+   <properties>
+    <property name="c_num" type="int" value="18"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

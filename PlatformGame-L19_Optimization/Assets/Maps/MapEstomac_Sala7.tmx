@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="45" height="24" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="7">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="45" height="24" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="8">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -6584,6 +6584,11 @@
   <object id="6" name="Acid" type="Acid" x="12.4906" y="1193.06" width="2864.02" height="349.055">
    <properties>
     <property name="Type" value="Acid"/>
+   </properties>
+  </object>
+  <object id="7" name="CheckPoint" type="Checkpoint" x="1649.33" y="948" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
