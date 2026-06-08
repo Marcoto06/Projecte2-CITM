@@ -6567,7 +6567,7 @@
     <property name="playerY" type="float" value="3790.91"/>
    </properties>
   </object>
-  <object id="4" name="Player" type="Player" x="1963.34" y="1136.84">
+  <object id="4" name="Player" type="Player" x="2411.34" y="736.84">
    <properties>
     <property name="Type" value="Player"/>
    </properties>
