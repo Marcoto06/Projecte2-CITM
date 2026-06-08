@@ -98,6 +98,7 @@ bool Player::Start() {
 	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/walk_doc.wav");
 	hurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/hurt_doc.wav");
 	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/death_doc.wav");
+	caerFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Doctora_Caer.wav");
 	UIdeathID = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx UI/mort.wav");
 	stunAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack.wav");
 	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Doctora_Salto.wav");
@@ -857,6 +858,7 @@ void Player::Func_PlayerState() {
 		currentState == PLAYERSTATE::PREPARE_JUMP)
 		&& onGround && !isAttacking)
 	{
+		Engine::GetInstance().audio->PlayFx(caerFxId);
 		currentState = PLAYERSTATE::END_JUMP;
 		anims.SetCurrent("endJump");
 

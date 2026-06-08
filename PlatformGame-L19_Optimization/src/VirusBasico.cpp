@@ -54,6 +54,15 @@ bool VirusBasico::Start()
 
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Virus_Basico.png");
 
+	//audios
+	idleFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_IDLE.wav");
+	attack1FxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_Ataque1.wav");
+	attack2FxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_Ataque2.wav");
+	parasiteFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_AtaqueParasitar.wav");
+	groundHitFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_Hurt.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_Morir.wav");
+	reviveFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx virus/Virus_Revivir.wav");
+
 	texW = 256;
 	texH = 256;
 
@@ -77,6 +86,23 @@ bool VirusBasico::Start()
 bool VirusBasico::Update(float dt)
 {
 	ZoneScoped;
+
+	if (currentState == VIRUS_STATE::IDLE || currentState == VIRUS_STATE::MOVING)
+	{
+		
+		if (idleChannel == -1)
+		{
+
+			idleChannel = Engine::GetInstance().audio->PlayFx(idleFxId);
+		}
+	}
+	else
+	{
+		if (idleChannel != -1)
+		{
+			idleChannel = -1;
+		}
+	}
 
 	GetPhysicsValues();
 
@@ -221,10 +247,12 @@ void VirusBasico::Func_EnemyStates(float dt)
 
 			if (currentAttack == 1)
 			{
+				Engine::GetInstance().audio->PlayFx(attack1FxId);
 				SpawnWaveProjectiles();
 			}
 			else if (currentAttack == 2)
 			{
+				Engine::GetInstance().audio->PlayFx(attack2FxId);
 				if (attackingCell)
 					SpawnBigProjectileToTarget(currentAttackTarget);
 				else
@@ -232,6 +260,7 @@ void VirusBasico::Func_EnemyStates(float dt)
 			}
 			else if (currentAttack == 3)
 			{
+				Engine::GetInstance().audio->PlayFx(parasiteFxId);
 				SpawnParasiteProjectileToTarget(currentAttackTarget);
 			}
 		}
@@ -282,6 +311,7 @@ void VirusBasico::Func_EnemyStates(float dt)
 		{
 			anims.SetCurrent("revive");
 			currentState = VIRUS_STATE::REVIVING;
+			Engine::GetInstance().audio->PlayFx(reviveFxId);
 		}
 
 		break;
@@ -633,6 +663,7 @@ void VirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 			groundHitPlayed = false;
 			anims.SetCurrent("groundHit");
 			currentState = VIRUS_STATE::STUNED;
+			Engine::GetInstance().audio->PlayFx(groundHitFxId);
 		}
 		break;
 
@@ -651,6 +682,7 @@ void VirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 			reviveTimer.Start();
 
 			currentState = VIRUS_STATE::TEMP_DEATH;
+			Engine::GetInstance().audio->PlayFx(deathFxId);
 		}
 		break;
 
@@ -665,6 +697,7 @@ void VirusBasico::OnCollision(PhysBody* physA, PhysBody* physB)
 
 			timer_01.Start();
 			anims.SetCurrent("groundHit");
+			Engine::GetInstance().audio->PlayFx(groundHitFxId);
 		}
 		break;
 	}

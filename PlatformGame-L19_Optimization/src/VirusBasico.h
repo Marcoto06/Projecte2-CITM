@@ -23,6 +23,16 @@ public:
 	bool CleanUp();
 	bool Destroy() override;
 
+	//audio
+	int idleFxId;
+	int attack1FxId;
+	int attack2FxId;
+	int parasiteFxId;
+	int groundHitFxId;
+	int deathFxId;
+	int reviveFxId;
+	int idleChannel = -1;
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnCollisionEnd(PhysBody* physA, PhysBody* physB);
 

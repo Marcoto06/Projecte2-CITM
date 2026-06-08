@@ -23,6 +23,7 @@ bool Checkpoint::Start()
     allCheckpoints.push_back(this);
 
     texture = Engine::GetInstance().textures->Load("Assets/Textures/Entities/Atlas_Punto_Guardado.png");
+    savePointFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx UI/Punto_Guardado.wav");
 
     std::unordered_map<int, std::string> aliases;
     aliases[0] = "inactive";
@@ -163,6 +164,10 @@ void Checkpoint::OnCollision(PhysBody* physA, PhysBody* physB)
 void Checkpoint::SetActive(bool active, bool fromLoad) {
 
     if (active) {
+
+        if (!isActive && !fromLoad) {
+            Engine::GetInstance().audio->PlayFx(savePointFxId);
+        }
         isActive = true;
         anims.SetCurrent("active");
 

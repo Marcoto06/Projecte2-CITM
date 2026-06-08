@@ -121,6 +121,7 @@ public:
 	int hurtFxId;
 	int deathFxId;
 	int UIdeathID;
+	int caerFxId;
 	int stunAttackFxId;
 	int stunAttackDocFxId;
 	int suckAttackFxId;

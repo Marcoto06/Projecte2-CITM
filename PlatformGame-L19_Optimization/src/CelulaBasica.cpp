@@ -488,9 +488,10 @@ void CelulaBasica::Func_CellStates(float dt)
 
 			if (attackHitbox == nullptr) {
 				int x, y;
+				/*pbody->GetPosition(x, y);*/
+				if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA && !isFallingToGround)
 				pbody->GetPosition(x, y);
-				//if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA && !isFallingToGround)
-				//pbody->GetPosition(x, y);
+				//cooment the two lines above and descomment the one already commented to use BLOQUE DE TRUCOS
 
 				float offsetX = isFacingRight ? 95.0f : -95.0f;
 
