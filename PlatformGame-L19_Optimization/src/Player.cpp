@@ -1078,9 +1078,9 @@ void Player::Func_Attacks(float dt) {
 		int playerX, playerY;
 		pbody->GetPosition(playerX, playerY);
 
-		float width = 55.0f;
+		float width = 110.0f;
 		float height = 90.0f;
-		float pivotLocalX = facingRight ? 52.5f : -52.5f;
+		float pivotLocalX = facingRight ? 78.5f : -78.5f;
 
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor((int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
 
@@ -1103,7 +1103,7 @@ void Player::Func_Attacks(float dt) {
 			if (suckBody != nullptr) {
 				int playerX, playerY;
 				pbody->GetPosition(playerX, playerY);
-				float pivotLocalX = facingRight ? 52.5f : -52.5f;
+				float pivotLocalX = facingRight ? 78.5f : -78.5f;
 				suckBody->SetPosition((int)(playerX + pivotLocalX), playerY + 22);
 			}
 		}
