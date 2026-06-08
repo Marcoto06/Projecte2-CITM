@@ -473,23 +473,32 @@ MapLayer* Map::GetNavigationLayer() {
                  }
                  else if (entityType == "Enemy") {
                      // Create Enemy entity
-                     if (name == "Streptococus") {
-                         const std::shared_ptr<Entity>& enemy = std::dynamic_pointer_cast<Entity>(Engine::GetInstance().entityManager->CreateEntity(EntityType::ENEMY));
-                         enemy->position = Vector2D(x, y);
-                         enemy->tiledId = tiledId;
+                     if (name == "Streptococus")
+                     {
+                         std::shared_ptr<CelulaBasica> cell =
+                             std::dynamic_pointer_cast<CelulaBasica>(
+                                 Engine::GetInstance().entityManager->CreateEntity(EntityType::CELULA_BASICA)
+                             );
 
-                         if (enemy != nullptr && enemy->tiledId != -1)
+                         if (cell != nullptr)
                          {
-                             auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
+                             cell->SetCellType(CelulaBasica::CellType::STREPTOCOCCUS);
+                             cell->position = Vector2D(x, y);
+                             cell->tiledId = tiledId;
 
-                             if (std::find(deadList.begin(), deadList.end(), enemy->tiledId) != deadList.end())
+                             if (cell->tiledId != -1)
                              {
-                                 enemy->active = false;
-                                 enemy->pendingToDelete = true;
-                             }
-                         }
+                                 auto& deadList = Engine::GetInstance().scene->destroyedEntitiesIds;
 
-                         enemy->Start(); //L17: Important to call Start to initialize the Entity
+                                 if (std::find(deadList.begin(), deadList.end(), cell->tiledId) != deadList.end())
+                                 {
+                                     cell->active = false;
+                                     cell->pendingToDelete = true;
+                                 }
+                             }
+
+                             cell->Start();
+                         }
                      }
 
                      else if (name == "Eosinofilo") {

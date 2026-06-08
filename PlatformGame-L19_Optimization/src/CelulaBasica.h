@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "Pathfinding.h"
+#include <memory>
 #include <box2d/box2d.h>
 #include <SDL3/SDL.h>
 
@@ -50,6 +52,9 @@ private:
 	void MoveParasitized();
 	void ApplyPhysics();
 	void Draw(float dt);
+	void UpdateStreptococcus(float dt);
+	void PerformStreptococcusPathfinding();
+	Vector2D GetNextStreptococcusPathTile() const;
 	bool IsPlayerDetected() const;
 
 public:
@@ -77,6 +82,10 @@ public:
 	bool canTongueAttack = true;
 	bool hasFloatBaseY = false;
 	bool isFallingToGround = false;
+	bool streptoIsBeingSucked = false;
+	bool isPlayerDetected = false;
+
+	Player* streptoAttackingPlayer = nullptr;
 	Player* touchingPlayer = nullptr;
 
 	float normalMoveSpeed = 1.0f;
@@ -87,12 +96,18 @@ public:
 	float attackRange = 170.0f;
 	float attackCooldownMs = 1500.0f;
 	float floatBaseY = 0.0f;
+	float streptoSpeed = 2.0f;
 	
-
+	int streptoIdleFxId = 0;
+	int streptoWalkFxId = 0;
+	int streptoHurtFxId = 0;
+	int streptoDeathFxId = 0;
 	int contactDamage = 1;
-
 	int maxHp = 6;
 	int currentHp = 6;
+
+	int pathfindingFrameCount = 0;
+	const int pathfindingUpdateRate = 30;
 
 	void TakeDamage(int amount);
 	bool IsParasitized() const;
@@ -103,6 +118,10 @@ public:
 	Timer damageTimer;
 	Timer hurtTimer;
 	Timer attackCooldownTimer;
+	Timer streptoTimer;
+	Timer streptoSuckTimer;
+	Timer streptoAudioTimer;
+
 
 	//audio fx
 	int fibroWalkFxId;
@@ -145,6 +164,8 @@ public:
 private:
 	b2Vec2 velocity;
 	b2Vec2 randomDirection;
+
+	std::shared_ptr<Pathfinding> streptoPathfinding = nullptr;
 
 	AnimationSet normalAnims;
 	AnimationSet parasitizedAnims;

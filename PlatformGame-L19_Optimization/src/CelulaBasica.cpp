@@ -7,6 +7,8 @@
 #include "Physics.h"
 #include "Log.h"
 #include "tracy/Tracy.hpp"
+#include "Audio.h"
+#include "Map.h"
 #include <cmath>
 #include <cstdlib>
 
@@ -39,6 +41,11 @@ bool CelulaBasica::Start()
 	pbody->listener = this;
 	pbody->ctype = ColliderType::CELL;
 	pbody->SetFixedRotation(true);
+
+	if (cellType == CellType::STREPTOCOCCUS)
+	{
+		pbody->ctype = ColliderType::ENEMY;
+	}
 
 	if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA)
 	{
@@ -93,6 +100,25 @@ bool CelulaBasica::Start()
 
 		salmonellaAudioTimer.Start();
 	}
+	else if (cellType == CellType::STREPTOCOCCUS)
+	{
+		streptoIdleFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Idle.wav");
+		streptoWalkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Walk.wav");
+		streptoHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Hurt.wav");
+		streptoDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx streptococcus/StreptococcusSanguini_Morir.wav");
+
+		streptoAudioTimer.Start();
+
+		streptoPathfinding = std::make_shared<Pathfinding>();
+
+		Vector2D pos = GetPosition();
+		Vector2D tilePos = Engine::GetInstance().map->WorldToMap(
+			(int)pos.getX(),
+			(int)pos.getY() + 1
+		);
+
+		streptoPathfinding->ResetPath(tilePos);
+	}
 
 	return true;
 }
@@ -137,6 +163,51 @@ void CelulaBasica::LoadCellData()
 
 		texW = 96;
 		texH = 64;
+	}
+	else if (cellType == CellType::STREPTOCOCCUS)
+	{
+		std::unordered_map<int, std::string> normalAliases = {
+			{0, "walk"},
+			{30, "idle"},
+			{60, "damaged"},
+			{90, "stun"},
+			{120, "death"}
+		};
+
+		std::unordered_map<int, std::string> parasiteAliases = {
+			{0, "pIdle"},
+			{14, "pWalk"},
+			{28, "pDamaged"},
+			{42, "pStun"},
+			{56, "pDeath"},
+			{70, "pAttack"}
+		};
+
+		parasitizedAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus_Parasitado.tsx", parasiteAliases);
+		parasitizedAnims.SetCurrent("pIdle");
+		parasitizedAnims.Func_SetAnimationLoop("pDamaged", false);
+		parasitizedAnims.Func_SetAnimationLoop("pStun", true);
+		parasitizedAnims.Func_SetAnimationLoop("pDeath", false);
+		parasitizedAnims.Func_SetAnimationLoop("pAttack", false);
+
+		normalAnims.LoadFromTSX("Assets/Textures/Characters/Atlas_Streptococus.tsx", normalAliases);
+		normalAnims.SetCurrent("walk");
+		normalAnims.Func_SetAnimationLoop("damaged", false);
+		normalAnims.Func_SetAnimationLoop("death", false);
+
+		texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus.png");
+		parasitizedTexture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Streptococus_Parasitado.png");
+
+		texW = 125;
+		texH = 60;
+
+		normalMoveSpeed = 0.0f;
+		detectionRange = 450.0f;
+		currentHp = 999;
+		maxHp = 999;
+		parasitizedMoveSpeed = 2.1f;
+		attackRange = 115.0f;
+		contactDamage = 1;
 	}
 	else if (cellType == CellType::ASPERGILLUS)
 	{
@@ -267,6 +338,14 @@ bool CelulaBasica::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (cellType == CellType::STREPTOCOCCUS && !isParasitized)
+	{
+		UpdateStreptococcus(dt);
+		ApplyPhysics();
+		Draw(dt);
+		return true;
+	}
 
 	if (!canTongueAttack && attackCooldownTimer.ReadMSec() >= attackCooldownMs)
 	{
@@ -528,6 +607,19 @@ void CelulaBasica::Func_CellStates(float dt)
 							ColliderType::CELL_ATTACK
 						);
 				}
+				else if (cellType == CellType::STREPTOCOCCUS)
+				{
+					float offsetX = isFacingRight ? 80.0f : -80.0f;
+
+					attackHitbox =
+						Engine::GetInstance().physics->Func_CreateTemporarySensor(
+							95,
+							80,
+							x + offsetX,
+							y - 20,
+							ColliderType::CELL_ATTACK
+						);
+				}
 				else
 				{
 					float offsetX = isFacingRight ? 95.0f : -95.0f;
@@ -766,7 +858,17 @@ void CelulaBasica::Draw(float dt)
 	int drawX = x - frameW / 2;
 	int drawY = y - frameH / 2 - 70;
 
+	if (cellType == CellType::STREPTOCOCCUS)
+	{
+		drawY = y - frameH / 2 - 80;
+	}
+
 	SDL_FlipMode flip = isFacingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+
+	if (cellType == CellType::STREPTOCOCCUS)
+	{
+		flip = isFacingRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	}
 
 	if (cellType == CellType::NEURONA || cellType == CellType::NEURONA && isParasitized)
 	{
@@ -911,6 +1013,17 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::SUCK_ZONE:
 	{
+		if (cellType == CellType::STREPTOCOCCUS && !isParasitized)
+		{
+			if (isStunned && !streptoIsBeingSucked)
+			{
+				streptoIsBeingSucked = true;
+				streptoSuckTimer.Start();
+				streptoAttackingPlayer = (Player*)physB->listener;
+			}
+
+			break;
+		}
 		if (isParasitized &&
 			currentState == CELL_STATE::STUNED &&
 			!isHurt)
@@ -938,6 +1051,25 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 	}
 	case ColliderType::SYRINGE:
 	{
+		if (cellType == CellType::STREPTOCOCCUS && !isParasitized)
+		{
+			if (!isStunned)
+			{
+				streptoTimer.Start();
+				currentState = CELL_STATE::STUNED;
+				isStunned = true;
+
+				Engine::GetInstance().audio->PlayFx(streptoHurtFxId);
+
+				if (player != nullptr && player->isBerserker)
+				{
+					player->RestoreHealthB();
+				}
+			}
+
+			break;
+		}
+
 		if (isParasitized && currentState != CELL_STATE::DEATH)
 		{
 			TakeDamage(1);
@@ -977,6 +1109,16 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void CelulaBasica::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 {
+	if (cellType == CellType::STREPTOCOCCUS && !isParasitized)
+	{
+		if (physB->ctype == ColliderType::SUCK_ZONE)
+		{
+			streptoIsBeingSucked = false;
+		}
+
+		return;
+	}
+
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
@@ -984,4 +1126,189 @@ void CelulaBasica::OnCollisionEnd(PhysBody* physA, PhysBody* physB)
 		touchingPlayer = nullptr;
 		break;
 	}
+}
+
+void CelulaBasica::UpdateStreptococcus(float dt)
+{
+	if (!isStunned)
+	{
+		isPlayerDetected = IsPlayerDetected();
+
+		if (isPlayerDetected)
+		{
+			currentState = CELL_STATE::PARASITIZED_CHASING; // lo usamos como CHASING interno
+		}
+		else
+		{
+			currentState = CELL_STATE::MOVING;
+		}
+	}
+
+	Vector2D currentPos = GetPosition();
+	bool isVisible = Engine::GetInstance().render->IsOnScreenWorldRect(
+		currentPos.getX(),
+		currentPos.getY(),
+		texW,
+		texH,
+		150
+	);
+
+	if (isVisible && currentState == CELL_STATE::PARASITIZED_CHASING)
+	{
+		pathfindingFrameCount++;
+
+		if (pathfindingFrameCount >= pathfindingUpdateRate)
+		{
+			PerformStreptococcusPathfinding();
+			pathfindingFrameCount = 0;
+		}
+	}
+	else
+	{
+		pathfindingFrameCount = 0;
+	}
+
+	if (IsPlayerDetected() && streptoAudioTimer.ReadMSec() >= 1000.0f)
+	{
+		if (currentState == CELL_STATE::MOVING)
+			Engine::GetInstance().audio->PlayFx(streptoIdleFxId);
+		else if (currentState == CELL_STATE::PARASITIZED_CHASING)
+			Engine::GetInstance().audio->PlayFx(streptoWalkFxId);
+
+		streptoAudioTimer.Start();
+	}
+
+	switch (currentState)
+	{
+	case CELL_STATE::MOVING:
+		normalAnims.SetCurrent("idle");
+		velocity.x = 0.0f;
+		break;
+
+	case CELL_STATE::PARASITIZED_CHASING:
+	{
+		normalAnims.SetCurrent("walk");
+		velocity.x = 0.0f;
+
+		Vector2D nextPathTile = GetNextStreptococcusPathTile();
+
+		if (nextPathTile.getX() >= 0 && nextPathTile.getY() >= 0)
+		{
+			Map* map = Engine::GetInstance().map.get();
+			Vector2D nextTileWorldPosition = map->MapToWorld(
+				(int)nextPathTile.getX(),
+				(int)nextPathTile.getY()
+			);
+
+			float targetX = nextTileWorldPosition.getX() + (map->GetTileWidth() * 0.5f);
+			float currentX = GetPosition().getX() + (texW * 0.5f);
+
+			const float horizontalTolerance = 4.0f;
+			float deltaX = targetX - currentX;
+
+			if (deltaX > horizontalTolerance)
+			{
+				velocity.x = streptoSpeed;
+				isFacingRight = true;
+			}
+			else if (deltaX < -horizontalTolerance)
+			{
+				velocity.x = -streptoSpeed;
+				isFacingRight = false;
+			}
+		}
+
+		break;
+	}
+
+	case CELL_STATE::STUNED:
+		velocity.x = 0.0f;
+		normalAnims.SetCurrent("stun");
+
+		if (streptoIsBeingSucked)
+		{
+			float suckTime = player != nullptr && player->isAdrenaline ? 1500.0f : 3000.0f;
+
+			if (streptoSuckTimer.ReadMSec() >= suckTime)
+			{
+				Engine::GetInstance().audio->PlayFx(streptoDeathFxId);
+				currentState = CELL_STATE::DEATH;
+				return;
+			}
+		}
+		else if (streptoTimer.ReadMSec() > 7000.0f)
+		{
+			currentState = CELL_STATE::MOVING;
+			isStunned = false;
+		}
+		break;
+
+	case CELL_STATE::DEATH:
+		normalAnims.SetCurrent("death");
+
+		if (normalAnims.Func_HasCurrentAnimationFinished())
+		{
+			if (player != nullptr && player->playerCurrentHp < player->playerMaxHp)
+			{
+				player->playerCurrentHp += 1;
+			}
+
+			if (player != nullptr)
+			{
+				player->healing = true;
+				player->effectAnims.SetCurrent("lifeUp");
+			}
+
+			Destroy();
+			return;
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+
+void CelulaBasica::PerformStreptococcusPathfinding()
+{
+	if (streptoPathfinding == nullptr)
+		return;
+
+	Map* map = Engine::GetInstance().map.get();
+
+	Vector2D enemyPosition = GetPosition();
+	Vector2D playerPosition = Engine::GetInstance().scene->GetPlayerPosition();
+
+	Vector2D originTile = map->WorldToMap(
+		(int)(enemyPosition.getX() + (texW * 0.5f)),
+		(int)(enemyPosition.getY() + (texH * 0.5f))
+	);
+
+	Vector2D destinationTile = map->WorldToMap(
+		(int)(playerPosition.getX() + 16),
+		(int)(playerPosition.getY() + 16)
+	);
+
+	streptoPathfinding->ResetPath(originTile);
+
+	while (streptoPathfinding->CanPropagateAStar(destinationTile))
+	{
+		streptoPathfinding->PropagateAStar(SQUARED, destinationTile);
+	}
+}
+
+Vector2D CelulaBasica::GetNextStreptococcusPathTile() const
+{
+	if (streptoPathfinding == nullptr)
+		return Vector2D(-1, -1);
+
+	const std::list<Vector2D>& pathTiles = streptoPathfinding->GetPathTiles();
+
+	if (pathTiles.size() <= 1)
+		return Vector2D(-1, -1);
+
+	auto nextTileIt = pathTiles.rbegin();
+	++nextTileIt;
+
+	return *nextTileIt;
 }
