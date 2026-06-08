@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="8">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="5">
  <tileset firstgid="1" name="atñas_2.6" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="atñas_2.6.png" width="1024" height="1024"/>
  </tileset>
@@ -2420,7 +2420,7 @@
    <tile gid="2119"/>
    <tile gid="2120"/>
    <tile gid="2071"/>
-   <tile gid="556"/>
+   <tile gid="2072"/>
    <tile gid="2073"/>
    <tile gid="2074"/>
    <tile gid="2075"/>
@@ -2510,7 +2510,7 @@
    <tile gid="2169"/>
    <tile gid="2170"/>
    <tile gid="2121"/>
-   <tile gid="556"/>
+   <tile gid="2122"/>
    <tile gid="2123"/>
    <tile gid="2124"/>
    <tile gid="2125"/>
@@ -2600,7 +2600,7 @@
    <tile gid="2219"/>
    <tile gid="2220"/>
    <tile gid="2171"/>
-   <tile gid="556"/>
+   <tile gid="2172"/>
    <tile gid="2173"/>
    <tile gid="2174"/>
    <tile gid="2175"/>
@@ -2690,8 +2690,8 @@
    <tile gid="2269"/>
    <tile gid="2270"/>
    <tile gid="2221"/>
-   <tile gid="556"/>
-   <tile gid="556"/>
+   <tile gid="2222"/>
+   <tile gid="2223"/>
    <tile gid="2224"/>
    <tile gid="2225"/>
    <tile gid="2226"/>
@@ -2781,7 +2781,7 @@
    <tile gid="2320"/>
    <tile gid="2271"/>
    <tile gid="2272"/>
-   <tile gid="556"/>
+   <tile gid="2273"/>
    <tile gid="2274"/>
    <tile gid="2275"/>
    <tile gid="2276"/>
@@ -2871,8 +2871,8 @@
    <tile gid="2370"/>
    <tile gid="2321"/>
    <tile gid="2322"/>
-   <tile gid="556"/>
-   <tile gid="556"/>
+   <tile gid="2323"/>
+   <tile gid="2324"/>
    <tile gid="2325"/>
    <tile gid="2326"/>
    <tile gid="2327"/>
@@ -2962,7 +2962,7 @@
    <tile gid="2371"/>
    <tile gid="2372"/>
    <tile gid="2373"/>
-   <tile gid="556"/>
+   <tile gid="2374"/>
    <tile gid="2375"/>
    <tile gid="2376"/>
    <tile gid="2377"/>
@@ -36802,15 +36802,6 @@
     <property name="playerX" type="float" value="675"/>
     <property name="playerY" type="float" value="4142"/>
    </properties>
-  </object>
-  <object id="5" name="VirusBasico" type="Enemy" x="5184" y="2248">
-   <point/>
-  </object>
-  <object id="6" name="Neurona" type="Cell" x="422.667" y="356">
-   <point/>
-  </object>
-  <object id="7" name="Neurona" type="Cell" x="348" y="1508">
-   <point/>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>

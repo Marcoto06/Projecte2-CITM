@@ -243,15 +243,6 @@ void UIManager::LoadUITextures() {
 	itemAmigdalaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Amigdala_Coleccionable.png");
 	itemSalivaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Saliva_Coleccionable.png");
 
-	itemTejidoPulmonarTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/TejidoAlveolar_Coleccionable.png");
-	itemCiliosTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Cilios_Coleccionables.png");
-	itemMucosaPulmonarTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/ExtractoMucosaPulmonar_Coleccionable.png");
-	itemNeocitoTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Neumocito_Coleccionable.png");
-	itemTejidoNecroTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Tejido_Necrotizado_Coleccionable.png");
-	itemRamaTex = Engine::GetInstance().textures->Load("Assets/Textures/Collectibles/Rama_Coleccionable.png");
-
-
-
 	for (int i = 0; i < 11; ++i) {
 		itemAmigdalaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
 	}
@@ -261,38 +252,6 @@ void UIManager::LoadUITextures() {
 		itemSalivaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
 	}
 	itemSalivaAnim.SetLoop(true);
-
-	for (int i = 0; i < 11; ++i) {
-		itemTejidoPulmonarAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemTejidoPulmonarAnim.SetLoop(true);
-
-	for (int i = 0; i < 14; ++i) {
-		itemCiliosAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemCiliosAnim.SetLoop(true);
-
-	for (int i = 0; i < 19; ++i) {
-		itemMucosaPulmonarAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemMucosaPulmonarAnim.SetLoop(true);
-
-	for (int i = 0; i < 21; ++i) {
-		itemNeocitoAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemNeocitoAnim.SetLoop(true);
-
-	for (int i = 0; i < 18; ++i) {
-		itemTejidoNecroAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemTejidoNecroAnim.SetLoop(true);
-
-	for (int i = 0; i < 14; ++i) {
-		itemRamaAnim.AddFrame({ i * 32, 0, 32, 32 }, 100);
-	}
-	itemRamaAnim.SetLoop(true);
-
-
 
 	minimapTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
 	powerUpsTabButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/PauseMenu_Buttons/BlankButtonTex.png");
@@ -801,36 +760,6 @@ void UIManager::ShowPauseMenu() {
 						{
 							animTexToDraw = itemSalivaTex;
 							currentFrame = itemSalivaAnim.GetCurrentFrame();
-						}
-						else if (c_num == 2)
-						{
-							animTexToDraw = itemTejidoPulmonarTex;
-							currentFrame = itemTejidoPulmonarAnim.GetCurrentFrame();
-						}
-						else if (c_num == 3)
-						{
-							animTexToDraw = itemCiliosTex;
-							currentFrame = itemCiliosAnim.GetCurrentFrame();
-						}
-						else if (c_num == 4)
-						{
-							animTexToDraw = itemMucosaPulmonarTex;
-							currentFrame = itemMucosaPulmonarAnim.GetCurrentFrame();
-						}
-						else if (c_num == 5)
-						{
-							animTexToDraw = itemNeocitoTex;
-							currentFrame = itemNeocitoAnim.GetCurrentFrame();
-						}
-						else if (c_num == 6)
-						{
-							animTexToDraw = itemTejidoNecroTex;
-							currentFrame = itemTejidoNecroAnim.GetCurrentFrame();
-						}
-						else if (c_num == 7)
-						{
-							animTexToDraw = itemRamaTex;
-							currentFrame = itemRamaAnim.GetCurrentFrame();
 						}
 						// Add here the rest of collectibles with their corresponding animations when we have their .png and .tsx!!!
 

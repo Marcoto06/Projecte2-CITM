@@ -151,19 +151,6 @@ public:
 	SDL_Texture* itemSalivaTex = nullptr;
 	Animation itemSalivaAnim;
 
-	SDL_Texture* itemTejidoPulmonarTex = nullptr;
-	Animation itemTejidoPulmonarAnim;
-	SDL_Texture* itemCiliosTex = nullptr;
-	Animation itemCiliosAnim;
-	SDL_Texture* itemMucosaPulmonarTex = nullptr;
-	Animation itemMucosaPulmonarAnim;
-	SDL_Texture* itemNeocitoTex = nullptr;
-	Animation itemNeocitoAnim;
-	SDL_Texture* itemTejidoNecroTex = nullptr;
-	Animation itemTejidoNecroAnim;
-	SDL_Texture* itemRamaTex = nullptr;
-	Animation itemRamaAnim;
-
 	SDL_Texture* minimapTabButtonTexture = nullptr;
 	SDL_Texture* powerUpsTabButtonTexture = nullptr;
 
