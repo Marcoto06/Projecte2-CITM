@@ -51,6 +51,8 @@ bool Scene::Start()
 	latidosFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/latidos.wav");
 	fondoBocaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/sonido de fondo 1.wav");
 	fondoPulmonesFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Pulmones_Background.wav");
+	fondoEstomagoFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/stomach_fondo.wav");
+	fondoMedulaFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/medula_fondo.wav");
 	clicBotoFXId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx UI/Clic_Boto.wav");
 
 	LoadScene(currentScene); // start in MAIN_MENU
@@ -525,7 +527,17 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 
 		Engine::GetInstance().audio->PlayFx(latidosFXId, 50);
 	}
-	// ESTOMAGO corazon ETC
+	else if (level.find("MapEstomac") != std::string::npos)
+	{
+
+		Engine::GetInstance().audio->PlayFx(fondoEstomagoFXId, 50);
+	}
+	else if (level.find("MapMedula") != std::string::npos)
+	{
+
+		Engine::GetInstance().audio->PlayFx(fondoMedulaFXId, 50);
+	}
+
 
 	
 	std::string map = level;

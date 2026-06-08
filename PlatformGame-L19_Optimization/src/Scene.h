@@ -127,6 +127,8 @@ public:
 	int clicBotoFXId;
 	int fondoBocaFXId;
 	int fondoPulmonesFXId;
+	int fondoEstomagoFXId;
+	int fondoMedulaFXId;
 
 	std::shared_ptr<Boss1> boss = nullptr;
 	std::shared_ptr<Boss2> boss2 = nullptr;
