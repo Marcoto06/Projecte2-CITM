@@ -62,6 +62,10 @@ public:
 	float knockbackForceX = 8.0f;
 	float knockbackForceY = -3.0f;
 
+	//audio
+	int eosinofiloBoomerangMoveFxId;
+	float timerMoveSound = 0.0f;
+
 	bool hasHitPlayer = false;
 
 	BoomerangState currentState = BoomerangState::OUTGOING;

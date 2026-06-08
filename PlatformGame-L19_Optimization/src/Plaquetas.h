@@ -50,7 +50,11 @@ public:
 	float stuntimer = 7.0f;
 	Timer timer_01;
 	Timer suckTimer;
-
+	//audio
+	int walkFxId;
+	int stunFxId;
+	int deathFxId;
+	float timerWalk = 0.0f;
 	//bools
 	bool isStunned = false;
 	bool isFacingRight = false;

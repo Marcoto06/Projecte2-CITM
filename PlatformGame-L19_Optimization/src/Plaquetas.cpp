@@ -36,6 +36,12 @@ bool Plaquetas::Start() {
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Plaquetas.png");
 
+	//audios
+	walkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Plaquetas/plaq_move.wav");
+	stunFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Plaquetas/plaq_stun.wav");
+	deathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Plaquetas/plaq_death.wav");
+
+
 	//Add physics to the enemy - initialize physics body
 	texW = 125;
 	texH = 80;
@@ -66,6 +72,10 @@ bool Plaquetas::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (timerWalk > 0.0f) {
+		timerWalk -= dt;
+	}
 
 	if (!isStunned)
 	{
@@ -149,6 +159,12 @@ void Plaquetas::Func_EnemyStates(float dt)
 	case Plaquetas::ENEMYSTATES::CHASING:
 		anims.SetCurrent("walk");
 		Move();
+
+		if (timerWalk <= 0.0f)
+		{
+			Engine::GetInstance().audio->PlayFx(walkFxId);
+			timerWalk = 2000.0f; //2seg
+		}
 		break;
 
 	case Plaquetas::ENEMYSTATES::STUNED:
@@ -160,6 +176,7 @@ void Plaquetas::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 3000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -170,6 +187,7 @@ void Plaquetas::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 1500.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(deathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -402,6 +420,7 @@ void Plaquetas::OnCollision(PhysBody* physA, PhysBody* physB) {
 			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
+			Engine::GetInstance().audio->PlayFx(stunFxId);
 			if (player->isBerserker)
 			{
 				player->RestoreHealthB();
