@@ -195,11 +195,28 @@ bool Player::Update(float dt)
 
 
 	if (Engine::GetInstance().input.get()->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		int shapeCount = b2Body_GetShapeCount(pbody->body);
+		std::vector<b2ShapeId> shapes(shapeCount);
+		b2Body_GetShapes(pbody->body, shapes.data(), shapeCount);
+
 		godMode = !godMode;
-		if(godMode)
+		if (godMode) {
 			b2Body_SetGravityScale(pbody->body, 0.0f);
-		else
+
+			//Disable collisions
+			b2Filter filter = b2Shape_GetFilter(shapes[0]);
+			filter.maskBits = 0; // 0 significa que no colisionará con nada
+			b2Shape_SetFilter(shapes[0], filter);
+		}
+		else {
 			b2Body_SetGravityScale(pbody->body, gravityScale);
+
+			//Enable collisions
+			b2Filter filter = b2Shape_GetFilter(shapes[0]);
+			filter.maskBits = 0xFFFFFFFF; // Restaura la máscara por defecto (colisiona con todo)
+			b2Shape_SetFilter(shapes[0], filter);
+			
+		}
 
 	}
 
@@ -1397,6 +1414,10 @@ bool Player::CleanUp()
  
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	Enemy* enemy;
+
+	if (godMode)
+		return;
+
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
@@ -1468,7 +1489,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		Entity* entityPtr = (Entity*)physB->listener;
 
-		
 		if (!godMode && !isHurt && currentState != PLAYERSTATE::DEATH && !entityPtr->IsEnemyStunned())
 		{
 			if (isBerserker)
@@ -1725,6 +1745,11 @@ void Player::SetRespawnPosition(Vector2D pos)
 {
 	respawnPosition = pos;
 	LOG("Checkpoint reached! New respawn: %f, %f", pos.getX(), pos.getY());
+}
+
+void Player::StopMovement() {
+	velocity.x = 0;
+	Engine::GetInstance().physics->SetLinearVelocity(pbody, velocity);
 }
 
 bool Player::Destroy()

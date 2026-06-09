@@ -28,17 +28,32 @@ bool DialogTrigger::Start() {
 
 bool DialogTrigger::Update(float dt)
 {
-	if (triggered)
+	if (show && triggered == false)
 	{
-		if(currentDialogDuration >= currentDialogTimer.ReadSec() || currentDialogDuration == 0)
-		{
-			Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
+		Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
+		player->StopMovement();
+		if (dialogues_ids.size() > 1) {
+			if (currentDialogId == dialogues_ids.at(dialogues_ids.size() - 1)) {
+				if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_SOUTH) == KEY_DOWN) {
+					Engine::GetInstance().dialogManager->drawDialog = false;
+					player->lock = false;
+					show = false;
+					triggered = true;
+				}
+			}
 		}
-		else if (currentDialogId == dialogues_ids.at(dialogues_ids.size() - 1)) {
-			Engine::GetInstance().dialogManager->drawDialog = false;
-			player->lock = false;
+		else if (dialogues_ids.size() == 1) {
+			if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_SOUTH) == KEY_DOWN) {
+				Engine::GetInstance().dialogManager->drawDialog = false;
+				player->lock = false;
+				show = false;
+				triggered = true;
+			}
 		}
-		if ((currentDialogDuration != 0 && currentDialogDuration < currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1))|| (currentDialogDuration == 0 && (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_SOUTH) == KEY_DOWN)))
+
+		if ((currentDialogDuration != 0 && currentDialogDuration < currentDialogTimer.ReadSec() && currentDialogId != dialogues_ids.at(dialogues_ids.size() - 1)) 
+			|| (currentDialogDuration == 0 && (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN 
+			|| Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_SOUTH) == KEY_DOWN)))
 		{
 			currentDialogId += 1;
 			TriggerDialog(currentDialogId);
@@ -67,7 +82,7 @@ bool DialogTrigger::Destroy()
 
 void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 {
-	/*if (triggered) return;
+	if (triggered) return;
 
 	PhysBody* other = (physA == pbody) ? physB : physA;
 
@@ -77,11 +92,40 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 
 		if (player != nullptr)
 		{
-			player->lock = lock;
-			TriggerDialog(dialogues_ids.at(0));
-			triggered = true;
+			switch (dialogues_ids.at(0)) {
+				case 11: {
+					if (Engine::GetInstance().scene->player->hasPowerJump) {
+						player->lock = lock;
+						show = true;
+						TriggerDialog(dialogues_ids.at(0));
+					}
+					else {
+						break;
+						return;
+					}
+					break;
+				}
+				case 17: {
+					if (Engine::GetInstance().scene->player->dialogTrigger6) {
+						player->lock = lock;
+						show = true;
+						TriggerDialog(dialogues_ids.at(0));
+					}
+					else {
+						break;
+						return;
+					}
+					break;
+				}
+				default: {
+					player->lock = lock;
+					show = true;
+					TriggerDialog(dialogues_ids.at(0));
+
+				}
+			}
 		}
-	}*/
+	}
 }
 
 void DialogTrigger::TriggerDialog(int id)

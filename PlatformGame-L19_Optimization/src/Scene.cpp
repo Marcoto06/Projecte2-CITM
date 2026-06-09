@@ -77,8 +77,10 @@ bool Scene::Update(float dt)
 		plm_decode(currentVideo.plm, dt / 1000.0f);	// pl_mpeg uses time in seconds, dt is in milliseconds
 
 		if (currentVideo.texture && currentVideo.buffer) {
+
 			SDL_UpdateTexture(currentVideo.texture, NULL, currentVideo.buffer, currentVideo.width * 4);
 			SDL_RenderTexture(Engine::GetInstance().render->renderer, currentVideo.texture, NULL, NULL);
+			
 		}
 
 		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm))
@@ -99,6 +101,7 @@ bool Scene::Update(float dt)
 					ChangeScene(SceneID::LEVEL);
 				}
 			}
+
 		}	
 
 		return true;
@@ -301,13 +304,17 @@ void Scene::LoadScene(SceneID newScene)
 		}
 		else
 		{
-			StartLoadingScreen();
+			//LoadLevel("MapTemplate.tmx");
+			//PlayVideo("LoadingScreen");
 			LoadLevel("MapTemplate.tmx");
-			EndLoadingScreen();
+			//LoadingScreenThread();
 		}		
 
+		
+		
+
 		//Create bosses when booting up to avoid lagging afterwards.
-		std::shared_ptr<Entity> b1 = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
+		/*std::shared_ptr<Entity> b1 = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS1);
 		boss = std::dynamic_pointer_cast<Boss1>(b1);
 		
 		boss->position = Vector2D(0, 0);
@@ -319,8 +326,9 @@ void Scene::LoadScene(SceneID newScene)
 
 		boss2->position = Vector2D(0, 0);
 		boss2->Awake();
-		boss2->Start();
+		boss2->Start();*/
 
+		WaitLoadingLevel();
 		break;		
 	}
 }
@@ -352,20 +360,6 @@ void Scene::UnloadCurrentScene() {
 // *********************************************
 
 void Scene::LoadMainMenu() {
-
-	//Engine::GetInstance().audio->PlayMusic("Assets/Audio/Music/retro-gaming-short-248416.wav");
-
-	/* Load all needed textures */
-
-	/*mainMenuBackground = Engine::GetInstance().textures->Load("Assets/Textures/UI/menu INCORPUS.png");
-	sliderBarTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBar.png");
-	sliderKnobTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderKnob.png");
-	backButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/BackButton.png");
-	playButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/PlayButton.png");
-	optionsButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/OptionsButton.png");
-	exitButtonTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/MainMenu_Buttons/ExitButton.png");
-	sliderBoxTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/SliderBox.png");
-	sliderAudioTexture = Engine::GetInstance().textures->Load("Assets/Textures/UI/Sliders/AudioIcon.png");*/
 	if (boss != nullptr) {
 		boss->CleanUp();
 	}
@@ -384,50 +378,7 @@ void Scene::UnloadMainMenu() {
 }
 
 void Scene::UpdateMainMenu(float dt) {
-	
 	Engine::GetInstance().uiManager->ShowMainMenuButtons();
-	//int firstElement = 0;
-	//int lastElement = 0;
-
-	//if (mainMenuBackground != nullptr)
-	//{
-	//	Engine::GetInstance().render->DrawTexture(mainMenuBackground, 0, 0, NULL, 0.0f);
-	//}
-
-	//if (currentMenuState == MainMenuState::OPTIONS) {
-	//	int w, h;
-	//	
-	//	Engine::GetInstance().window->GetWindowSize(w, h);
-
-	//	SDL_Rect fullscreenRect = { 0, 0, w, h };
-
-	//	Engine::GetInstance().render->DrawRectangle(fullscreenRect, 0, 0, 0, 150, true, false);
-
-	//	Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, (h - (sliderBoxTexture->h * 2)) / 2, NULL, 0.0f);
-	//	Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) - 65, NULL, 0.0f);
-
-	//	Engine::GetInstance().render->DrawTexture(sliderBoxTexture, (w - sliderBoxTexture->w) / 2, ((h - (sliderBoxTexture->h)) / 2) + 100, NULL, 0.0f);
-	//	Engine::GetInstance().render->DrawTexture(sliderAudioTexture, ((w - sliderAudioTexture->w) / 2) - 200, ((h - sliderAudioTexture->h) / 2) + 100, NULL, 0.0f);
-
-	//	firstElement = 4;
-	//	lastElement = 7;
-	//	
-	//}
-	//else {
-	//	firstElement = 1;
-	//	lastElement = 3;
-	//}
-
-	///* UI CONTROLS */
-	//if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_UP) == KEY_DOWN)
-	//	HandleUINavigation(firstElement, lastElement, MenuNavDirection::UP);
-	//else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_DOWN) == KEY_DOWN)
-	//	HandleUINavigation(firstElement, lastElement, MenuNavDirection::DOWN);
-	//else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_LEFT) == KEY_DOWN)
-	//	HandleUINavigation(firstElement, lastElement, MenuNavDirection::LEFT);
-	//else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || Engine::GetInstance().input->GetControllerKey(SDL_GAMEPAD_BUTTON_DPAD_RIGHT) == KEY_DOWN)
-	//	HandleUINavigation(firstElement, lastElement, MenuNavDirection::RIGHT);
-
 }
 
 // *********************************************
@@ -511,15 +462,14 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 
 	Engine::GetInstance().audio->StopMusicFx();
 
-	
 	if (level == "MapTemplate.tmx")
 	{
-		
+
 		Engine::GetInstance().audio->PlayMusicFx(fondoBocaFXId, 50);
 	}
-	else if ( level.find("MapPulmo") != std::string::npos)
+	else if (level.find("MapPulmo") != std::string::npos)
 	{
-		
+
 		Engine::GetInstance().audio->PlayMusicFx(fondoPulmonesFXId, 50);
 	}
 	else if (level.find("MapCor") != std::string::npos)
@@ -538,8 +488,6 @@ void Scene::LoadLevel(std::string level, float playerX, float playerY) {
 		Engine::GetInstance().audio->PlayFx(fondoMedulaFXId, 50);
 	}
 
-
-	
 	std::string map = level;
 	Engine::GetInstance().map->Load("Assets/Maps/", map);
 
@@ -974,115 +922,150 @@ bool Scene::LoadGame(pugi::xml_node& root)
 // Loading Screen functions
 // *********************************************
 
-SDL_Mutex* LOCK = NULL;
-SDL_AtomicInt loadingFinished;
+static int LoadLevelThread(void* data) {
 
-static int LoadingScreenThread(void* data)
-{
-	struct VideoData {
-		plm_t* plm = nullptr;
-		SDL_Texture* texture = nullptr;
-		uint8_t* buffer = nullptr;
-		int width = 0;
-		int height = 0;
-	};
+	Engine::GetInstance().audio->StopMusicFx();
 
-	bool done = false;
-
-	VideoData* video = new VideoData;
-	float dt;
-	double delta_time = 0.0;
-
-	auto OnVideoFrame = [](plm_t* self, plm_frame_t* frame, void* user)
-		{
-			VideoData* vd = static_cast<VideoData*>(user);
-
-			if (vd->buffer)
-			{
-				LOG("Decoding video frame");
-				plm_frame_to_rgba(frame, vd->buffer, vd->width * 4);
-			}
-		};
-
-	std::string path = "Assets/Video/LoadingScreen.mpg";
-	const char* charPath = path.c_str();
-	video->plm = plm_create_with_filename(charPath);
-
-	if (!video->plm)
+	std::string* level = static_cast<std::string*>(data);
+	if (*level == "MapTemplate.tmx")
 	{
-		LOG("ERROR: Could not find or open video file: %s", charPath);
-		//isPlayingVideo = false;
-		return 0;
+		Engine::GetInstance().audio->PlayMusicFx(Engine::GetInstance().scene->fondoBocaFXId, 50);
 	}
-
-	video->width = plm_get_width(video->plm);
-	video->height = plm_get_height(video->plm);
-
-	if (video->width == 0 || video->height == 0)
+	else if ((*level).find("MapPulmo") != std::string::npos)
 	{
-		LOG("ERROR: File %s is not a valid MPEG video.", charPath);
-		plm_destroy(video->plm);
-		video->plm = nullptr;
-		//isPlayingVideo = false;
-		return 0;
+		Engine::GetInstance().audio->PlayMusicFx(Engine::GetInstance().scene->fondoPulmonesFXId, 50);
+	}
+	else if ((*level).find("MapCor") != std::string::npos)
+	{
+		Engine::GetInstance().audio->PlayFx(Engine::GetInstance().scene->latidosFXId, 50);
+	}
+	else if ((*level).find("MapEstomac") != std::string::npos)
+	{
+		Engine::GetInstance().audio->PlayFx(Engine::GetInstance().scene->fondoEstomagoFXId, 50);
+	}
+	else if ((*level).find("MapMedula") != std::string::npos)
+	{
+		Engine::GetInstance().audio->PlayFx(Engine::GetInstance().scene->fondoMedulaFXId, 50);
 	}
 
-	LOG("Video loaded successfully: %s", charPath);
+	std::string map = *level;
+	Engine::GetInstance().map->Load("Assets/Maps/", map);
 
-	plm_set_audio_enabled(video->plm, 0);
-	plm_set_loop(video->plm, 0);
+	//Call the function to load entities from the map
+	Engine::GetInstance().map->LoadEntities(Engine::GetInstance().scene->player);
 
-	video->buffer = new uint8_t[video->width * video->height * 4];
-	video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_GetWindowPixelFormat(Engine::GetInstance().window->GetWindow()), SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
+	Engine::GetInstance().scene->player->visitedRooms.insert(map);
 
-	plm_set_video_decode_callback(video->plm, OnVideoFrame, video);
-
-	Uint64 last_time = SDL_GetTicksNS();
-	void* mPixels;
-	int pitch;
-
-	while (!done) {
-
-		Uint64 current_time = SDL_GetTicksNS();
-		dt = (double)(current_time - last_time) / 1000000000.0;
-		last_time = current_time;
-
-		plm_decode(video->plm, dt);	// pl_mpeg uses time in seconds, dt is in milliseconds
-
-		if (video->texture && video->buffer) {
-			SDL_RenderClear(Engine::GetInstance().render->renderer);
-			SDL_UpdateTexture(video->texture, NULL, video->buffer, video->width * 4);
-			SDL_RenderTexture(Engine::GetInstance().render->renderer, video->texture, NULL, NULL);
-			SDL_RenderPresent(Engine::GetInstance().render->renderer);
-		}
-
-		if (plm_has_ended(video->plm)) done = true;
-		
-		int exit = SDL_GetAtomicInt(&loadingFinished);
-		if (exit == 1) {
-			break;
-		}
-	}
-
-	if (video->plm) plm_destroy(video->plm);
-	if (video->texture) SDL_DestroyTexture(video->texture);
-	if (video->buffer) delete[] video->buffer;
-
-	video->plm = nullptr;
-	video->texture = nullptr;
-	video->buffer = nullptr;
-	video = nullptr;
+	/*if (playerX && playerY) {
+		player->SetPosition(Vector2D(playerX, playerY));
+		player->position = Vector2D(playerX, playerY);
+	}*/
 
 	return 1;
 }
 
-
-void Scene::StartLoadingScreen() {
-	//SDL_SetAtomicInt(&loadingFinished, 0);
-	/*thread = SDL_CreateThread(LoadingScreenThread, "LoadingScreen", NULL);*/
+void Scene::StartLoadLevel(std::string level) {
+	std::string* dynamicString = new std::string(level);
+	loadingThread = SDL_CreateThread(LoadLevelThread, "LoadingLevelThread", dynamicString);
 }
 
-void Scene::EndLoadingScreen() {
-	//SDL_SetAtomicInt(&loadingFinished, 1);
-	/*SDL_WaitThread(thread, NULL);*/
+void Scene::WaitLoadingLevel() {
+	SDL_WaitThread(loadingThread, NULL);
+}
+
+void Scene::LoadingScreenThread()
+{
+	//struct VideoData {
+	//	plm_t* plm = nullptr;
+	//	SDL_Texture* texture = nullptr;
+	//	uint8_t* buffer = nullptr;
+	//	int width = 0;
+	//	int height = 0;
+	//};
+
+	//VideoData* video = new VideoData;
+	//float dt;
+	//double delta_time = 0.0;
+
+	//auto OnVideoFrame = [](plm_t* self, plm_frame_t* frame, void* user)
+	//	{
+	//		VideoData* vd = static_cast<VideoData*>(user);
+
+	//		if (vd->buffer)
+	//		{
+	//			//LOG("Decoding video frame");
+	//			plm_frame_to_rgba(frame, vd->buffer, vd->width * 4);
+	//		}
+	//	};
+
+	//std::string path = "Assets/Video/LoadingScreen.mpg";
+	//const char* charPath = path.c_str();
+	//video->plm = plm_create_with_filename(charPath);
+
+	//if (!video->plm)
+	//{
+	//	LOG("ERROR: Could not find or open video file: %s", charPath);
+	//	//isPlayingVideo = false;
+	//	return;
+	//}
+
+	//video->width = plm_get_width(video->plm);
+	//video->height = plm_get_height(video->plm);
+
+	//if (video->width == 0 || video->height == 0)
+	//{
+	//	LOG("ERROR: File %s is not a valid MPEG video.", charPath);
+	//	plm_destroy(video->plm);
+	//	video->plm = nullptr;
+	//	//isPlayingVideo = false;
+	//	return;
+	//}
+
+	//LOG("Video loaded successfully: %s", charPath);
+
+	//plm_set_audio_enabled(video->plm, 0);
+	//plm_set_loop(video->plm, 0);
+
+	//video->buffer = new uint8_t[video->width * video->height * 4];
+	//video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_GetWindowPixelFormat(Engine::GetInstance().window->GetWindow()), SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
+
+	//plm_set_video_decode_callback(video->plm, OnVideoFrame, video);
+
+	//Uint64 last_time = SDL_GetTicksNS();
+	//void* mPixels;
+	//int pitch;
+
+	//while (!loadingDone) {
+
+	//	Uint64 current_time = SDL_GetTicksNS();
+	//	dt = (double)(current_time - last_time) / 1000000000.0;
+	//	last_time = current_time;
+
+	//	plm_decode(video->plm, dt);	// pl_mpeg uses time in seconds, dt is in milliseconds
+
+	//	if (video->texture && video->buffer) {
+	//		SDL_RenderClear(Engine::GetInstance().render->renderer);
+	//		SDL_UpdateTexture(video->texture, NULL, video->buffer, video->width * 4);
+	//		SDL_RenderTexture(Engine::GetInstance().render->renderer, video->texture, NULL, NULL);
+	//		SDL_RenderPresent(Engine::GetInstance().render->renderer);
+	//	}
+
+	//	if (plm_has_ended(video->plm)) loadingDone = true;
+	//}
+
+	////VideoLock = SDL_CreateMutex();
+	////SDL_LockMutex(VideoLock);
+
+	//if (video->plm) plm_destroy(video->plm);
+	//if (video->texture) SDL_DestroyTexture(video->texture);
+	//if (video->buffer) delete[] video->buffer;
+
+	//video->plm = nullptr;
+	//video->texture = nullptr;
+	//video->buffer = nullptr;
+	//video = nullptr;
+
+	////SDL_UnlockMutex(VideoLock);
+	////SDL_DestroyMutex(VideoLock);
+
 }

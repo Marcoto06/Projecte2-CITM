@@ -43,7 +43,7 @@ bool DialogManager::Start()
 	Load("Assets/Dialogos/", "Database.xml");
 	spawnDialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, 2000);
 	dialogPos = Vector2D(Engine::GetInstance().window->width / 2 - dialogWindowTexture->w / 2, Engine::GetInstance().window->height - dialogWindowTexture->h);
-	LoadDialogWindow(0);
+	//LoadDialogWindow(0);
 	return true;
 }
 
@@ -111,8 +111,10 @@ void DialogManager::LoadDialogWindow(int id) {
 			else {
 				currentPortrait = lukeTexture;
 			}
+			break;
 		}
 	}
+
 	Engine::GetInstance().audio->PlayFx(dialogPopFxId);
 }
 
@@ -137,14 +139,12 @@ void DialogManager::DrawDialogWindow() {
 	//Draw the actual text, with multiple lines if needed
 	int width = 20 * currentDialog->text.size();
 	std::stringstream ss(currentDialog->text);
-	std::string line;
 
-	int yOffset = 0;
 	int nLines = 1 + (width / 621);
 	if (nLines > 1)
 		width = 600;
 
-	Engine::GetInstance().render->DrawText(currentDialog->text.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90 + yOffset, width, 30*nLines, SDL_Color{ 255,255,255,255 });
+	Engine::GetInstance().render->DrawText(currentDialog->text.c_str(), currentDialogPos.getX() + 190, currentDialogPos.getY() + 90, width, 30*nLines, SDL_Color{ 255,255,255,255 });
 
 	/*while (std::getline(ss, line, '\n'))
 	{

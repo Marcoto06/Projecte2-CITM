@@ -23,6 +23,7 @@ public:
 
 public:
 	int w, h;
+	bool show = false;
 	bool triggered = false;
 	bool lock = false;
 	int currentDialogId;
