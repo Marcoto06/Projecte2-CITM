@@ -49,7 +49,7 @@
   <!-- ###### DIALOGOS PULMON START ######-->
 
   <!-- Mensaje 1 -->
-  <Dialog id="23" name="Luke" duration="3">Hey, Doc. It seems like all connection was lost when you fell down the trachea. Uhm…the patient…he…started convulsing violently.</Dialog>
+  <Dialog id="23" name="Luke" duration="3">Hey, Doc. It seems like all connection was lost when you fell down the trachea. Uhm… the patient… he… started convulsing violently.</Dialog>
   <Dialog id="24" name="Luke" duration="3">As soon as his vitals are stabilized, we'll try to get you out. In the meantime, take care, please.</Dialog>
   
   <!-- Mensaje 2 -->
@@ -62,7 +62,7 @@
 
   <!-- Mensaje coleccionables -->
   <Dialog id="29" name="Doctor" duration="3">The virus is deteriorating the patient's body bit by bit, and its vital functions seem to be changing.</Dialog>
-  <Dialog id="30" name="Doctor" duration="3">Some living cells were also infected and transformed into…monstrous versions of themselves.</Dialog>
+  <Dialog id="30" name="Doctor" duration="3">Some living cells were also infected and transformed into… monstrous versions of themselves.</Dialog>
 
   <!-- ###### DIALOGOS PULMON END ######-->
 
@@ -98,7 +98,7 @@
   <Dialog id="43" name="Luke" duration="5">I'm sure it must be hard down there as well, but, I need you to push through, please.</Dialog>
 
   <!-- Mensaje 3 -->
-  <Dialog id="44" name="Luke" duration="5">Doc, Morgan…he…killed himself. It was the hardest thing we ever had to agree upon, but, he…wanted to go before the illness took over him.</Dialog>
+  <Dialog id="44" name="Luke" duration="5">Doc, Morgan… he… killed himself. It was the hardest thing we ever had to agree upon, but, he…wanted to go before the illness took over him.</Dialog>
   <Dialog id="45" name="Luke" duration="5">I'll have to…do something about Theo. I'm unsure if I can.</Dialog>
 
   <!-- Mensaje coleccionables -->
@@ -109,14 +109,21 @@
   <!-- ###### DIALOGOS ESTOMAGO END ######-->
 
   <!-- ###### DIALOGOS CEREBRO START ######-->
+
+  <!-- Mensaje 1 -->
   <Dialog id="49" name="Luke" duration="5">Theo… is gone… Doc… I… did it. I had no other choice. I’m the only one left standing here. I… life faded from his eyes and I just… watched.</Dialog>
+
+  <!-- Mensaje 2 -->
   <Dialog id="50" name="Luke" duration="5">…I’ve stopped trying to reach outside, it’s no use. Listen, if you’re still there… please, you need to defeat the virus.</Dialog>
   <Dialog id="51" name="Luke" duration="5">There’s really no way out, but… the samples that you can gather… will surely cause a breakthrough.</Dialog>
   <Dialog id="52" name="Luke" duration="5">If anyone can do this, I know it’s you.</Dialog>
+
+  <!-- Mensaje 3 -->
   <Dialog id="53" name="Luke" duration="5">I think… this is how this ends for us. I’m… sorry I couldn’t do more than what I’ve done. I wish… we would’ve had more time and… if only things hadn’t taken such a turn… forget it. </Dialog>
   <Dialog id="55" name="Luke" duration="5">Doc, I’m…really glad we got to work together in this life. I hope I can bump into you on my next one. I have to…say goodbye now, but I know you’ve got this. Don’t miss me too much…see you. </Dialog>
 
+  <!-- Mensaje coleccionables -->
+  <Dialog id="56" name="Doctor" duration="5">A point of no return has been reached, it is now or never. If the virus is not defeated soon, the patient and what it carries within will pose a danger to everyone. I have to put an end to this.</Dialog>
+  
   <!-- ###### DIALOGOS CEREBRO END ######-->
-
-
 </Dialogs>

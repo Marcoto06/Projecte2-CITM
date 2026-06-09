@@ -560,9 +560,9 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 		LOG("STARTING NEW GAME");
 
 		Engine::GetInstance().scene->isContinuing = false;
-		//Engine::GetInstance().scene->StartFadeToScene(SceneID::LEVEL, 0.5f);
 
-		Engine::GetInstance().scene->PlayVideo("AnimaticaIntro");
+		//Engine::GetInstance().scene->PlayVideo("AnimaticaIntro");
+		Engine::GetInstance().scene->StartFadeToScene(SceneID::LEVEL, 0.5f);
 		break;
 	}
 	case 9: // CONTINUE BUTTON

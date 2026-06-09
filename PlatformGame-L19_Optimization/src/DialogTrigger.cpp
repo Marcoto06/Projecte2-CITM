@@ -92,6 +92,12 @@ void DialogTrigger::OnCollision(PhysBody* physA, PhysBody* physB)
 
 		if (player != nullptr)
 		{
+			//check if dialog triggered already
+			for (auto id : player->list_dialogs) {
+				if (id == dialogues_ids.at(0))
+					return;
+			}
+
 			switch (dialogues_ids.at(0)) {
 				case 11: {
 					if (Engine::GetInstance().scene->player->hasPowerJump) {

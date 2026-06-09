@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "Audio.h"
+#include "Scene.h"
 #include <sstream>//Necessary to write multiple lines.
 
 
@@ -114,7 +115,7 @@ void DialogManager::LoadDialogWindow(int id) {
 			break;
 		}
 	}
-
+	Engine::GetInstance().scene->player->list_dialogs.push_back(id);
 	Engine::GetInstance().audio->PlayFx(dialogPopFxId);
 }
 
