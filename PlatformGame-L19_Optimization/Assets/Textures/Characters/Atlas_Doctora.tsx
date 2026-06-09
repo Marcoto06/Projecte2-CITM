@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="336" columns="21">
- <image source="Atlas_Doctora.png" width="10855" height="8649"/>
+<tileset version="1.10" tiledversion="1.12.1" name="Atlas_Doctora" tilewidth="512" tileheight="512" tilecount="441" columns="21">
+ <image source="Atlas_Doctora.png" width="10855" height="11000"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>
@@ -262,6 +262,130 @@
    <frame tileid="290" duration="200"/>
    <frame tileid="291" duration="200"/>
    <frame tileid="293" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="294">
+  <animation>
+   <frame tileid="294" duration="100"/>
+   <frame tileid="295" duration="100"/>
+   <frame tileid="296" duration="100"/>
+   <frame tileid="297" duration="100"/>
+   <frame tileid="298" duration="100"/>
+   <frame tileid="299" duration="100"/>
+   <frame tileid="300" duration="100"/>
+   <frame tileid="301" duration="100"/>
+   <frame tileid="302" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="304">
+  <animation>
+   <frame tileid="304" duration="100"/>
+   <frame tileid="305" duration="100"/>
+   <frame tileid="306" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="308">
+  <animation>
+   <frame tileid="308" duration="100"/>
+   <frame tileid="309" duration="100"/>
+   <frame tileid="310" duration="100"/>
+   <frame tileid="311" duration="100"/>
+   <frame tileid="312" duration="100"/>
+   <frame tileid="313" duration="100"/>
+   <frame tileid="314" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="315">
+  <animation>
+   <frame tileid="315" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="336">
+  <animation>
+   <frame tileid="336" duration="100"/>
+   <frame tileid="337" duration="100"/>
+   <frame tileid="338" duration="100"/>
+   <frame tileid="339" duration="100"/>
+   <frame tileid="340" duration="100"/>
+   <frame tileid="341" duration="100"/>
+   <frame tileid="342" duration="100"/>
+   <frame tileid="343" duration="100"/>
+   <frame tileid="344" duration="100"/>
+   <frame tileid="345" duration="100"/>
+   <frame tileid="346" duration="100"/>
+   <frame tileid="347" duration="100"/>
+   <frame tileid="348" duration="100"/>
+   <frame tileid="349" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="357">
+  <animation>
+   <frame tileid="357" duration="100"/>
+   <frame tileid="358" duration="100"/>
+   <frame tileid="359" duration="100"/>
+   <frame tileid="360" duration="100"/>
+   <frame tileid="361" duration="100"/>
+   <frame tileid="362" duration="100"/>
+   <frame tileid="363" duration="100"/>
+   <frame tileid="364" duration="100"/>
+   <frame tileid="365" duration="100"/>
+   <frame tileid="366" duration="100"/>
+   <frame tileid="367" duration="100"/>
+   <frame tileid="368" duration="100"/>
+   <frame tileid="369" duration="100"/>
+   <frame tileid="370" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="378">
+  <animation>
+   <frame tileid="378" duration="100"/>
+   <frame tileid="379" duration="100"/>
+   <frame tileid="380" duration="100"/>
+   <frame tileid="381" duration="100"/>
+   <frame tileid="382" duration="100"/>
+   <frame tileid="383" duration="100"/>
+   <frame tileid="384" duration="100"/>
+   <frame tileid="385" duration="100"/>
+   <frame tileid="386" duration="100"/>
+   <frame tileid="387" duration="100"/>
+   <frame tileid="388" duration="100"/>
+   <frame tileid="389" duration="100"/>
+   <frame tileid="390" duration="100"/>
+   <frame tileid="391" duration="100"/>
+   <frame tileid="392" duration="100"/>
+   <frame tileid="393" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="399">
+  <animation>
+   <frame tileid="399" duration="100"/>
+   <frame tileid="400" duration="100"/>
+   <frame tileid="401" duration="100"/>
+   <frame tileid="402" duration="100"/>
+   <frame tileid="403" duration="100"/>
+   <frame tileid="404" duration="100"/>
+   <frame tileid="405" duration="100"/>
+   <frame tileid="406" duration="100"/>
+   <frame tileid="407" duration="100"/>
+   <frame tileid="408" duration="100"/>
+   <frame tileid="409" duration="100"/>
+   <frame tileid="410" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="420">
+  <animation>
+   <frame tileid="420" duration="100"/>
+   <frame tileid="421" duration="100"/>
+   <frame tileid="422" duration="100"/>
+   <frame tileid="423" duration="100"/>
+   <frame tileid="424" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="426">
+  <animation>
+   <frame tileid="426" duration="100"/>
+   <frame tileid="427" duration="100"/>
+   <frame tileid="428" duration="100"/>
   </animation>
  </tile>
 </tileset>
