@@ -50,7 +50,7 @@ bool Player::Start() {
 	#define PLAYER_FEET_TAG 2
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"}, {231, "death"}, {252, "spark"}, {273, "jumpCascada"},{279, "insideCascada"},{289, "outCascada"} };
+	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"}, {231, "death"}, {252, "spark"}, {294, "jumpCascada"},{304, "insideCascada"},{308, "outCascada"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora.tsx", aliases);
 	std::unordered_map<int, std::string> effects = { {0,"lifeUp"}, {16, "aux"} };
 	effectAnims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_LifeUp.tsx", effects);
@@ -1352,8 +1352,8 @@ void Player::Draw(float dt) {
 		currentState == PLAYERSTATE::INSIDE_CASCADA ||
 		currentState == PLAYERSTATE::OUT_CASCADA)
 	{
-		drawOffsetX = -330.0f;
-		drawOffsetY = -200.0f;
+		drawOffsetX = -300.0f;
+		drawOffsetY = -360.0f;
 	}
 
 	if (facingRight)
@@ -1626,17 +1626,22 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
 		break;
-	case ColliderType::CLIMBABLE: {
+	case ColliderType::CLIMBABLE:
+	{
 		Climbable* climbablePtr = (Climbable*)physB->listener;
-		if (climbablePtr->isWaterfall && !hasAscend) {
+
+		if (climbablePtr->isWaterfall && !hasAscend)
+		{
 			canClimb = false;
 			nearestClimbable = nullptr;
 			break;
 		}
-		else {
+		else
+		{
 			canClimb = true;
 			nearestClimbable = climbablePtr;
 		}
+
 		break;
 	}
 	case ColliderType::ACID:
