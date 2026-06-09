@@ -292,6 +292,16 @@ void Boss2::AnimationFinished(bossAnimation* animation)
 	}
 	else if (animation->name == "death") {
 		pendingToDelete = true;
+		int totalCollectibles = 15;
+
+		if (Engine::GetInstance().scene->player != nullptr && Engine::GetInstance().scene->player->list_collectibles.size() >= totalCollectibles)
+		{
+			Engine::GetInstance().scene->PlayVideo("AnimaticaEndv2");
+		}
+		else
+		{
+			Engine::GetInstance().scene->PlayVideo("AnimaticaEnd");
+		}
 	}
 	return;
 }
