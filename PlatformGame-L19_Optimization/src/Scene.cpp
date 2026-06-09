@@ -334,12 +334,12 @@ void Scene::LoadScene(SceneID newScene)
 		boss->Awake();
 		boss->Start();*/
 
-		/*std::shared_ptr<Entity> b2 = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
+		std::shared_ptr<Entity> b2 = Engine::GetInstance().entityManager->CreateEntity(EntityType::BOSS2);
 		boss2 = std::dynamic_pointer_cast<Boss2>(b2);
 
 		boss2->position = Vector2D(0, 0);
 		boss2->Awake();
-		boss2->Start();*/
+		boss2->Start();
 
 		//WaitLoadingLevel();
 		break;		
