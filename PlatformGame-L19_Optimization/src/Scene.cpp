@@ -101,7 +101,7 @@ bool Scene::Update(float dt)
 
 				StopCurrentVideo();
 
-				if (finishedVideoName == "AnimaticaFinal")
+				if (finishedVideoName == "AnimaticaIntro")
 				{
 					StartFadeToScene(SceneID::LEVEL, 0.5f);
 				}
@@ -656,7 +656,7 @@ void Scene::StopCurrentVideo() {
 	currentVideo.buffer = nullptr;
 
 	if (currentVideo.file == "AnimCaida") fallingVideo = currentVideo;
-	else if (currentVideo.file == "AnimaticaFinal") introVideo = currentVideo;
+	else if (currentVideo.file == "AnimaticaIntro") introVideo = currentVideo;
 	else if (currentVideo.file == "LoadingScreen") loadingVideo = currentVideo;
 	else if (currentVideo.file == "AnimaticaEnd") finalVideo = currentVideo;
 	else if (currentVideo.file == "AnimaticaEndv2") finalVideov2 = currentVideo;
