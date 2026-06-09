@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="120" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="16">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="120" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="244">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -49090,12 +49090,1297 @@
     <property name="isWaterfall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="15" name="Climbable" type="Climbable" x="3859.96" y="1470.61" width="292.077" height="2894.79">
+  <object id="15" name="Climbable" type="Climbable" x="3778.63" y="1409.28" width="386.744" height="2956.12">
    <properties>
     <property name="Type" value="Climbable"/>
     <property name="isWaterfall" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Anim_Tiles"/>
+ <objectgroup id="5" name="Anim_Tiles">
+  <object id="16" name="cascada_acid" type="anim_tile" x="4037.99" y="1409" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="17" name="cascada_acid" type="anim_tile" x="4037.99" y="1473" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="18" name="cascada_acid" type="anim_tile" x="4039.34" y="1730.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="19" name="cascada_acid" type="anim_tile" x="4039.34" y="1602.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="20" name="cascada_acid" type="anim_tile" x="4039.34" y="1538.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="21" name="cascada_acid" type="anim_tile" x="4039.34" y="1794.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="22" name="cascada_acid" type="anim_tile" x="4039.34" y="1666.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="23" name="cascada_acid" type="anim_tile" x="4037.99" y="1921.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="24" name="cascada_acid" type="anim_tile" x="4037.99" y="1857.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="25" name="cascada_acid" type="anim_tile" x="4037.99" y="1985.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="26" name="cascada_acid" type="anim_tile" x="3907.33" y="1409" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="27" name="cascada_acid" type="anim_tile" x="3907.33" y="1473" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="28" name="cascada_acid" type="anim_tile" x="3908.68" y="1730.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="29" name="cascada_acid" type="anim_tile" x="3908.68" y="1602.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="30" name="cascada_acid" type="anim_tile" x="3908.68" y="1538.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="31" name="cascada_acid" type="anim_tile" x="3908.68" y="1794.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="32" name="cascada_acid" type="anim_tile" x="3908.68" y="1666.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="33" name="cascada_acid" type="anim_tile" x="3907.33" y="1921.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="34" name="cascada_acid" type="anim_tile" x="3907.33" y="1857.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="35" name="cascada_acid" type="anim_tile" x="3907.33" y="1985.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="36" name="cascada_acid" type="anim_tile" x="3781.99" y="1409" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="37" name="cascada_acid" type="anim_tile" x="3781.99" y="1473" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="38" name="cascada_acid" type="anim_tile" x="3783.34" y="1730.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="39" name="cascada_acid" type="anim_tile" x="3783.34" y="1602.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="40" name="cascada_acid" type="anim_tile" x="3783.34" y="1538.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="41" name="cascada_acid" type="anim_tile" x="3783.34" y="1794.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="42" name="cascada_acid" type="anim_tile" x="3783.34" y="1666.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="43" name="cascada_acid" type="anim_tile" x="3781.99" y="1921.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="44" name="cascada_acid" type="anim_tile" x="3781.99" y="1857.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="45" name="cascada_acid" type="anim_tile" x="3781.99" y="1985.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="46" name="cascada_acid" type="anim_tile" x="4039.32" y="2050.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="47" name="cascada_acid" type="anim_tile" x="4039.32" y="2114.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="48" name="cascada_acid" type="anim_tile" x="4040.67" y="2371.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="49" name="cascada_acid" type="anim_tile" x="4040.67" y="2243.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="50" name="cascada_acid" type="anim_tile" x="4040.67" y="2179.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="51" name="cascada_acid" type="anim_tile" x="4040.67" y="2435.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="52" name="cascada_acid" type="anim_tile" x="4040.67" y="2307.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="53" name="cascada_acid" type="anim_tile" x="4039.32" y="2563" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="54" name="cascada_acid" type="anim_tile" x="4039.32" y="2498.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="55" name="cascada_acid" type="anim_tile" x="4039.32" y="2627" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="56" name="cascada_acid" type="anim_tile" x="3908.66" y="2050.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="57" name="cascada_acid" type="anim_tile" x="3908.66" y="2114.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="58" name="cascada_acid" type="anim_tile" x="3910.01" y="2371.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="59" name="cascada_acid" type="anim_tile" x="3910.01" y="2243.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="60" name="cascada_acid" type="anim_tile" x="3910.01" y="2179.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="61" name="cascada_acid" type="anim_tile" x="3910.01" y="2435.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="62" name="cascada_acid" type="anim_tile" x="3910.01" y="2307.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="63" name="cascada_acid" type="anim_tile" x="3908.66" y="2563" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="64" name="cascada_acid" type="anim_tile" x="3908.66" y="2498.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="65" name="cascada_acid" type="anim_tile" x="3908.66" y="2627" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="66" name="cascada_acid" type="anim_tile" x="3783.32" y="2050.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="67" name="cascada_acid" type="anim_tile" x="3783.32" y="2114.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="68" name="cascada_acid" type="anim_tile" x="3784.67" y="2371.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="69" name="cascada_acid" type="anim_tile" x="3784.67" y="2243.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="70" name="cascada_acid" type="anim_tile" x="3784.67" y="2179.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="71" name="cascada_acid" type="anim_tile" x="3784.67" y="2435.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="72" name="cascada_acid" type="anim_tile" x="3784.67" y="2307.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="73" name="cascada_acid" type="anim_tile" x="3783.32" y="2563" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="74" name="cascada_acid" type="anim_tile" x="3783.32" y="2498.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="75" name="cascada_acid" type="anim_tile" x="3783.32" y="2627" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="76" name="cascada_acid" type="anim_tile" x="4039.32" y="2693" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="77" name="cascada_acid" type="anim_tile" x="4039.32" y="2757" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="78" name="cascada_acid" type="anim_tile" x="4040.67" y="3014.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="79" name="cascada_acid" type="anim_tile" x="4040.67" y="2886.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="80" name="cascada_acid" type="anim_tile" x="4040.67" y="2822.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="81" name="cascada_acid" type="anim_tile" x="4040.67" y="3078.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="82" name="cascada_acid" type="anim_tile" x="4040.67" y="2950.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="83" name="cascada_acid" type="anim_tile" x="4039.32" y="3205.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="84" name="cascada_acid" type="anim_tile" x="4039.32" y="3141.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="85" name="cascada_acid" type="anim_tile" x="4039.32" y="3269.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="86" name="cascada_acid" type="anim_tile" x="3908.66" y="2693" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="87" name="cascada_acid" type="anim_tile" x="3908.66" y="2757" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="88" name="cascada_acid" type="anim_tile" x="3910.01" y="3014.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="89" name="cascada_acid" type="anim_tile" x="3910.01" y="2886.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="90" name="cascada_acid" type="anim_tile" x="3910.01" y="2822.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="91" name="cascada_acid" type="anim_tile" x="3910.01" y="3078.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="92" name="cascada_acid" type="anim_tile" x="3910.01" y="2950.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="93" name="cascada_acid" type="anim_tile" x="3908.66" y="3205.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="94" name="cascada_acid" type="anim_tile" x="3908.66" y="3141.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="95" name="cascada_acid" type="anim_tile" x="3908.66" y="3269.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="96" name="cascada_acid" type="anim_tile" x="3783.32" y="2693" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="97" name="cascada_acid" type="anim_tile" x="3783.32" y="2757" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="98" name="cascada_acid" type="anim_tile" x="3784.67" y="3014.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="99" name="cascada_acid" type="anim_tile" x="3784.67" y="2886.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="100" name="cascada_acid" type="anim_tile" x="3784.67" y="2822.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="101" name="cascada_acid" type="anim_tile" x="3784.67" y="3078.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="102" name="cascada_acid" type="anim_tile" x="3784.67" y="2950.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="103" name="cascada_acid" type="anim_tile" x="3783.32" y="3205.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="104" name="cascada_acid" type="anim_tile" x="3783.32" y="3141.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="105" name="cascada_acid" type="anim_tile" x="3783.32" y="3269.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="106" name="cascada_acid" type="anim_tile" x="4039.32" y="3335.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="107" name="cascada_acid" type="anim_tile" x="4039.32" y="3399.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="108" name="cascada_acid" type="anim_tile" x="4040.68" y="3656.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="109" name="cascada_acid" type="anim_tile" x="4040.68" y="3528.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="110" name="cascada_acid" type="anim_tile" x="4040.68" y="3464.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="111" name="cascada_acid" type="anim_tile" x="4040.68" y="3720.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="112" name="cascada_acid" type="anim_tile" x="4040.68" y="3592.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="113" name="cascada_acid" type="anim_tile" x="4039.32" y="3848.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="114" name="cascada_acid" type="anim_tile" x="4039.32" y="3784.32" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="115" name="cascada_acid" type="anim_tile" x="4039.32" y="3912.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="116" name="cascada_acid" type="anim_tile" x="3908.66" y="3335.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="117" name="cascada_acid" type="anim_tile" x="3908.66" y="3399.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="118" name="cascada_acid" type="anim_tile" x="3910.02" y="3656.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="119" name="cascada_acid" type="anim_tile" x="3910.02" y="3528.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="120" name="cascada_acid" type="anim_tile" x="3910.02" y="3464.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="121" name="cascada_acid" type="anim_tile" x="3910.02" y="3720.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="122" name="cascada_acid" type="anim_tile" x="3910.02" y="3592.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="123" name="cascada_acid" type="anim_tile" x="3908.66" y="3848.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="124" name="cascada_acid" type="anim_tile" x="3908.66" y="3784.32" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="125" name="cascada_acid" type="anim_tile" x="3908.66" y="3912.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="126" name="cascada_acid" type="anim_tile" x="3783.32" y="3335.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="127" name="cascada_acid" type="anim_tile" x="3783.32" y="3399.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="128" name="cascada_acid" type="anim_tile" x="3784.68" y="3656.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="129" name="cascada_acid" type="anim_tile" x="3784.68" y="3528.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="130" name="cascada_acid" type="anim_tile" x="3784.68" y="3464.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="131" name="cascada_acid" type="anim_tile" x="3784.68" y="3720.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="132" name="cascada_acid" type="anim_tile" x="3784.68" y="3592.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="133" name="cascada_acid" type="anim_tile" x="3783.32" y="3848.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="134" name="cascada_acid" type="anim_tile" x="3783.32" y="3784.32" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="135" name="cascada_acid" type="anim_tile" x="3783.32" y="3912.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="136" name="cascada_acid" type="anim_tile" x="4036.66" y="3978.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="137" name="cascada_acid" type="anim_tile" x="4036.66" y="4042.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="138" name="cascada_acid" type="anim_tile" x="4038.01" y="4299.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="139" name="cascada_acid" type="anim_tile" x="4038.01" y="4171.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="140" name="cascada_acid" type="anim_tile" x="4038.01" y="4107.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="142" name="cascada_acid" type="anim_tile" x="4038.01" y="4235.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="146" name="cascada_acid" type="anim_tile" x="3906" y="3978.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="147" name="cascada_acid" type="anim_tile" x="3906" y="4042.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="148" name="cascada_acid" type="anim_tile" x="3907.35" y="4299.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="149" name="cascada_acid" type="anim_tile" x="3907.35" y="4171.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="150" name="cascada_acid" type="anim_tile" x="3907.35" y="4107.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="152" name="cascada_acid" type="anim_tile" x="3907.35" y="4235.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="156" name="cascada_acid" type="anim_tile" x="3780.66" y="3978.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="157" name="cascada_acid" type="anim_tile" x="3780.66" y="4042.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="158" name="cascada_acid" type="anim_tile" x="3782.01" y="4299.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="159" name="cascada_acid" type="anim_tile" x="3782.01" y="4171.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="160" name="cascada_acid" type="anim_tile" x="3782.01" y="4107.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="162" name="cascada_acid" type="anim_tile" x="3782.01" y="4235.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="166" name="cascada_acid" type="anim_tile" x="2116.65" y="1918" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="167" name="cascada_acid" type="anim_tile" x="2116.65" y="1982" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="168" name="cascada_acid" type="anim_tile" x="2118" y="2239.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="169" name="cascada_acid" type="anim_tile" x="2118" y="2111.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="170" name="cascada_acid" type="anim_tile" x="2118" y="2047.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="171" name="cascada_acid" type="anim_tile" x="2118" y="2303.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="172" name="cascada_acid" type="anim_tile" x="2118" y="2175.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="173" name="cascada_acid" type="anim_tile" x="2116.65" y="2430.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="174" name="cascada_acid" type="anim_tile" x="2116.65" y="2366.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="175" name="cascada_acid" type="anim_tile" x="2116.65" y="2494.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="176" name="cascada_acid" type="anim_tile" x="1985.99" y="1918" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="177" name="cascada_acid" type="anim_tile" x="1985.99" y="1982" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="178" name="cascada_acid" type="anim_tile" x="1987.34" y="2239.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="179" name="cascada_acid" type="anim_tile" x="1987.34" y="2111.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="180" name="cascada_acid" type="anim_tile" x="1987.34" y="2047.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="181" name="cascada_acid" type="anim_tile" x="1987.34" y="2303.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="182" name="cascada_acid" type="anim_tile" x="1987.34" y="2175.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="183" name="cascada_acid" type="anim_tile" x="1985.99" y="2430.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="184" name="cascada_acid" type="anim_tile" x="1985.99" y="2366.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="185" name="cascada_acid" type="anim_tile" x="1985.99" y="2494.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="186" name="cascada_acid" type="anim_tile" x="2116.65" y="2560.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="187" name="cascada_acid" type="anim_tile" x="2116.65" y="2624.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="188" name="cascada_acid" type="anim_tile" x="2118" y="2882" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="189" name="cascada_acid" type="anim_tile" x="2118" y="2754" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="190" name="cascada_acid" type="anim_tile" x="2118" y="2690" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="191" name="cascada_acid" type="anim_tile" x="2118" y="2946" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="192" name="cascada_acid" type="anim_tile" x="2118" y="2818" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="193" name="cascada_acid" type="anim_tile" x="1985.99" y="2560.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="194" name="cascada_acid" type="anim_tile" x="1985.99" y="2624.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="195" name="cascada_acid" type="anim_tile" x="1987.34" y="2882" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="196" name="cascada_acid" type="anim_tile" x="1987.34" y="2754" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="197" name="cascada_acid" type="anim_tile" x="1987.34" y="2690" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="198" name="cascada_acid" type="anim_tile" x="1987.34" y="2946" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="199" name="cascada_acid" type="anim_tile" x="1987.34" y="2818" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="200" name="cascada_acid" type="anim_tile" x="2117.99" y="3011.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="201" name="cascada_acid" type="anim_tile" x="2117.99" y="3075.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="202" name="cascada_acid" type="anim_tile" x="2119.34" y="3332.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="203" name="cascada_acid" type="anim_tile" x="2119.34" y="3204.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="204" name="cascada_acid" type="anim_tile" x="2119.34" y="3140.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="205" name="cascada_acid" type="anim_tile" x="2119.34" y="3396.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="206" name="cascada_acid" type="anim_tile" x="2119.34" y="3268.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="207" name="cascada_acid" type="anim_tile" x="2117.99" y="3524" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="208" name="cascada_acid" type="anim_tile" x="2117.99" y="3459.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="209" name="cascada_acid" type="anim_tile" x="2117.99" y="3588" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="210" name="cascada_acid" type="anim_tile" x="1987.33" y="3011.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="211" name="cascada_acid" type="anim_tile" x="1987.33" y="3075.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="212" name="cascada_acid" type="anim_tile" x="1988.68" y="3332.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="213" name="cascada_acid" type="anim_tile" x="1988.68" y="3204.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="214" name="cascada_acid" type="anim_tile" x="1988.68" y="3140.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="215" name="cascada_acid" type="anim_tile" x="1988.68" y="3396.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="216" name="cascada_acid" type="anim_tile" x="1988.68" y="3268.66" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="217" name="cascada_acid" type="anim_tile" x="1987.33" y="3524" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="218" name="cascada_acid" type="anim_tile" x="1987.33" y="3459.99" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="219" name="cascada_acid" type="anim_tile" x="1987.33" y="3588" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="220" name="cascada_acid" type="anim_tile" x="2117.99" y="3654" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="221" name="cascada_acid" type="anim_tile" x="2117.99" y="3718" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="222" name="cascada_acid" type="anim_tile" x="2119.34" y="3975.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="223" name="cascada_acid" type="anim_tile" x="2119.34" y="3847.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="224" name="cascada_acid" type="anim_tile" x="2119.34" y="3783.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="225" name="cascada_acid" type="anim_tile" x="2119.34" y="4039.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="226" name="cascada_acid" type="anim_tile" x="2119.34" y="3911.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="227" name="cascada_acid" type="anim_tile" x="1987.33" y="3654" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="228" name="cascada_acid" type="anim_tile" x="1987.33" y="3718" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="229" name="cascada_acid" type="anim_tile" x="1988.68" y="3975.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="230" name="cascada_acid" type="anim_tile" x="1988.68" y="3847.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="231" name="cascada_acid" type="anim_tile" x="1988.68" y="3783.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="232" name="cascada_acid" type="anim_tile" x="1988.68" y="4039.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="233" name="cascada_acid" type="anim_tile" x="1988.68" y="3911.33" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="234" name="cascada_acid" type="anim_tile" x="2120" y="4294.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="235" name="cascada_acid" type="anim_tile" x="2120" y="4166.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="236" name="cascada_acid" type="anim_tile" x="2120" y="4102.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="238" name="cascada_acid" type="anim_tile" x="2120" y="4230.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="239" name="cascada_acid" type="anim_tile" x="1989.34" y="4294.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="240" name="cascada_acid" type="anim_tile" x="1989.34" y="4166.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="241" name="cascada_acid" type="anim_tile" x="1989.34" y="4102.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+  <object id="243" name="cascada_acid" type="anim_tile" x="1989.34" y="4230.67" width="128" height="64">
+   <properties>
+    <property name="Texture" value="cascada_acid_2T"/>
+    <property name="Type" value="anim_tile"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
