@@ -1190,7 +1190,7 @@ void UIManager::HandlePauseMenuUIEvents(UIElement* uiElement)
 // Player UI
 // *********************************************
 void UIManager::ShowPlayerUI() {
-	if (player != nullptr){
+	if (player != nullptr && player == Engine::GetInstance().scene->player){
 		changeLifeAnim(player->playerCurrentHp);
 		const SDL_Rect& animFrame = life_anims.GetCurrentFrame();
 		float texW = animFrame.w;
