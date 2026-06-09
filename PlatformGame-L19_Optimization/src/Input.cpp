@@ -63,7 +63,6 @@ bool Input::PreUpdate()
 
 	int numKeys = 0;
 	const bool* keys = SDL_GetKeyboardState(&numKeys);
-	controllerButtons = new KeyState[MAX_KEYS];
 
 	for (int i = 0; i < MAX_KEYS; ++i)
 	{
