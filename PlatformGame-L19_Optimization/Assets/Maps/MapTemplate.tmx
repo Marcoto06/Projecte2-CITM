@@ -11977,7 +11977,7 @@
     <property name="playerY" type="float" value="10563.64"/>
    </properties>
   </object>
-  <object id="78" name="Door" type="Door" x="944.696" y="930.481" width="704.03" height="32.5763">
+  <object id="78" name="Door" type="Door" x="1817.42" y="2048.95" width="704.03" height="32.5763">
    <properties>
     <property name="Destination" value="MapEstomac_Sala1"/>
     <property name="Type" value="Door"/>

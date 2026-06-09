@@ -50,7 +50,7 @@ bool Player::Start() {
 	#define PLAYER_FEET_TAG 2
 
 	// load
-	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"}, {231, "death"}, {252, "spark"}, {294, "jumpCascada"},{304, "insideCascada"},{308, "outCascada"} };
+	std::unordered_map<int, std::string> aliases = { {0,"idle"},{21,"run"},{42,"absorb"},{51,"extract"},{63,"endabsorb"},{84, "taptap"},{105, "prepareJump"},{111, "jumping"},{115, "jumping2"},{118, "fallingJump"},{122, "endJump"},{126, "climb"}, {147, "stun"}, {168, "airAttack"},{189, "hurt"}, {210, "crouch"},{315, "idleSmall"},{336, "small"},{357, "tall"},{378, "walkingSmall"},{231, "death"}, {252, "spark"}, {294, "jumpCascada"},{304, "insideCascada"},{308, "outCascada"} };
 	anims.LoadFromTSX("Assets/Textures/Characters/Atlas_Doctora.tsx", aliases);
 	std::unordered_map<int, std::string> effects = { {0,"lifeUp"}, {16, "aux"} };
 	effectAnims.LoadFromTSX("Assets/Textures/UI/InGameUI/Atlas_LifeUp.tsx", effects);
@@ -77,6 +77,11 @@ bool Player::Start() {
 	anims.Func_SetAnimationLoop("jumpCascada", false);
 	anims.Func_SetAnimationLoop("insideCascada", true);
 	anims.Func_SetAnimationLoop("outCascada", false);
+
+	anims.Func_SetAnimationLoop("small", false);
+	anims.Func_SetAnimationLoop("tall", false);
+	anims.Func_SetAnimationLoop("idleSmall", true);
+	anims.Func_SetAnimationLoop("walkingSmall", true);
 
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Doctora.png");
 	healText = Engine::GetInstance().textures->Load("Assets/Textures/UI/InGameUI/Atlas_LifeUp.png");
@@ -252,9 +257,9 @@ bool Player::Update(float dt)
 		}
 	}
 
-	if (hasCrouch) {
+	
 		Func_Small();
-	}
+	
 	Func_Climb();
 	Func_PlayerState();
 	Teleport();
@@ -862,7 +867,6 @@ void Player::Func_PlayerState() {
 
 		return;
 	}
-
 	if ((currentState == PLAYERSTATE::FALLING_JUMP ||
 		currentState == PLAYERSTATE::JUMPING ||
 		currentState == PLAYERSTATE::PREPARE_JUMP)
@@ -927,6 +931,53 @@ void Player::Func_PlayerState() {
 			anims.SetCurrent("idle");
 		}
 		break;
+	case PLAYERSTATE::BECOMING_SMALL:
+	{
+		if (anims.HasCurrentAnimationFinished())
+		{
+			currentState = PLAYERSTATE::SMALL_IDLE;
+			anims.SetCurrent("idleSmall");
+		}
+		break;
+	}
+
+	case PLAYERSTATE::BECOMING_TALL:
+	{
+		if (anims.HasCurrentAnimationFinished())
+		{
+			currentState = PLAYERSTATE::IDLE;
+			anims.SetCurrent("idle");
+		}
+		break;
+	}
+
+	case PLAYERSTATE::SMALL_IDLE:
+	{
+		if (isMoving)
+		{
+			currentState = PLAYERSTATE::SMALL_MOVE;
+			anims.SetCurrent("walkingSmall");
+		}
+		else
+		{
+			anims.SetCurrent("idleSmall");
+		}
+		break;
+	}
+
+	case PLAYERSTATE::SMALL_MOVE:
+	{
+		if (!isMoving)
+		{
+			currentState = PLAYERSTATE::SMALL_IDLE;
+			anims.SetCurrent("idleSmall");
+		}
+		else
+		{
+			anims.SetCurrent("walkingSmall");
+		}
+		break;
+	}
 
 	case Player::PLAYERSTATE::CLIMB:
 
@@ -1120,24 +1171,57 @@ void Player::Func_Attacks(float dt) {
 	}
 }
 
-void Player::Func_Small() {
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && onGround) {
+void Player::Func_Small()
+{
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_DOWN)
+		return;
+
+	if (!onGround || isJumping || isClimbing || isAttacking || isSucking)
+		return;
+
+	if (!isSmall)
+	{
 		Engine::GetInstance().physics->DeletePhysBody(pbody);
-		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() + 50, texW / 2, (texH - 50) / 2, bodyType::DYNAMIC);
+
+		pbody = Engine::GetInstance().physics->CreateRectangle(
+			(int)position.getX(),
+			(int)position.getY() + 50,
+			texW / 2,
+			(texH - 50) / 2,
+			bodyType::DYNAMIC
+		);
+
 		pbody->SetFixedRotation(true);
 		pbody->listener = this;
 		pbody->ctype = ColliderType::PLAYER;
+
 		isSmall = true;
+		canJump = false;
+
+		currentState = PLAYERSTATE::BECOMING_SMALL;
+		anims.SetCurrent("small");
 	}
-	else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP && isSmall && onGround) {
+	else
+	{
 		Engine::GetInstance().physics->DeletePhysBody(pbody);
-		pbody = Engine::GetInstance().physics->CreateRectangle((int)position.getX(), (int)position.getY() - 25, texW / 2, texH - 50, bodyType::DYNAMIC);
+
+		pbody = Engine::GetInstance().physics->CreateRectangle(
+			(int)position.getX(),
+			(int)position.getY() - 25,
+			texW / 2,
+			texH - 50,
+			bodyType::DYNAMIC
+		);
 
 		pbody->SetFixedRotation(true);
 		pbody->listener = this;
-
 		pbody->ctype = ColliderType::PLAYER;
+
 		isSmall = false;
+		canJump = true;
+
+		currentState = PLAYERSTATE::BECOMING_TALL;
+		anims.SetCurrent("tall");
 	}
 }
 
@@ -1347,6 +1431,27 @@ void Player::Draw(float dt) {
 
 	float drawOffsetX = facingRight ? -300.0f : -210.0f;
 	float drawOffsetY = -450.0f;
+
+	if (currentState == PLAYERSTATE::BECOMING_SMALL)
+	{
+		drawOffsetX = facingRight ? -300.0f : -210.0f;
+		drawOffsetY = -450.0f;
+	}
+	else if (currentState == PLAYERSTATE::SMALL_IDLE)
+	{
+		drawOffsetX = facingRight ? -380.0f : -120.0f;
+		drawOffsetY = -450.0f;
+	}
+	else if (currentState == PLAYERSTATE::SMALL_MOVE)
+	{
+		drawOffsetX = facingRight ? -380.0f : -120.0f;
+		drawOffsetY = -490.0f;
+	}
+	else if (currentState == PLAYERSTATE::BECOMING_TALL)
+	{
+		drawOffsetX = facingRight ? -300.0f : -210.0f;
+		drawOffsetY = -450.0f;
+	}
 
 	if (currentState == PLAYERSTATE::JUMP_CASCADA ||
 		currentState == PLAYERSTATE::INSIDE_CASCADA ||
