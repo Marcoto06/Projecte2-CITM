@@ -11977,9 +11977,9 @@
     <property name="playerY" type="float" value="10563.64"/>
    </properties>
   </object>
-  <object id="78" name="Door" type="Door" x="1819.72" y="2062.73" width="704.03" height="32.5763">
+  <object id="78" name="Door" type="Door" x="944.696" y="930.481" width="704.03" height="32.5763">
    <properties>
-    <property name="Destination" value="MapEstomac_Sala9.tmx"/>
+    <property name="Destination" value="MapEstomac_Sala1"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1528"/>
     <property name="playerY" type="float" value="2216"/>
@@ -12013,12 +12013,6 @@
    </properties>
   </object>
   <object id="101" name="Streptococus" type="Enemy" x="1256.27" y="2000.38">
-   <point/>
-  </object>
-  <object id="102" name="VirusBasico" type="Enemy" x="1387.18" y="877.32">
-   <point/>
-  </object>
-  <object id="103" name="Neurona" type="Cell" x="1132.25" y="962.297">
    <point/>
   </object>
   <object id="104" name="dialogTrigger2" type="dialogTrigger" x="1853.96" y="1195.62" width="251.784" height="18.1818">
