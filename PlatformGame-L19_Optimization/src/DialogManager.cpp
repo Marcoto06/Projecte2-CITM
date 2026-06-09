@@ -120,7 +120,6 @@ void DialogManager::LoadDialogWindow(int id) {
 
 void DialogManager::ShowDialogWindow(float dt) 
 {
-	drawDialog = true;
 	//Box pop up
 	if (currentDialogPos.getY() > dialogPos.getY())
 	{
