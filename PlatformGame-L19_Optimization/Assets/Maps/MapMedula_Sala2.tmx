@@ -36783,15 +36783,15 @@
  <objectgroup id="4" name="Entities">
   <object id="1" name="Door" type="Door" x="812.762" y="4295.4" width="4926.48" height="49.204">
    <properties>
-    <property name="Destination" value="MapPulmo_Sala1.tmx"/>
+    <property name="Destination" value="MapMedula_Sala1.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="5524"/>
-    <property name="playerY" type="float" value="348"/>
+    <property name="playerX" type="float" value="924"/>
+    <property name="playerY" type="float" value="468"/>
    </properties>
   </object>
   <object id="2" name="Door" type="Door" x="712.76" y="-0.602" width="5062.48" height="49.204">
    <properties>
-    <property name="Destination" value="MapPulmo_Sala3.tmx"/>
+    <property name="Destination" value="MapMedula_Sala3.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="5292"/>
     <property name="playerY" type="float" value="4116"/>

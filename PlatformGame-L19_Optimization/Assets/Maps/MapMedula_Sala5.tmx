@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="5">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="11">
  <tileset firstgid="1" name="Atlas_3.4" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="Atlas_3.4.png" width="1024" height="1024"/>
  </tileset>
@@ -36778,18 +36778,45 @@
   </data>
  </layer>
  <objectgroup id="4" name="Entities">
-  <object id="1" name="Door" type="Door" x="5004.76" y="159.398" width="390.476" height="49.204">
+  <object id="1" name="Door" type="Door" x="47.7903" y="-22.4202" width="5678.48" height="49.204">
    <properties>
-    <property name="Destination" value="MapPulmo_SalaBoss.tmx"/>
+    <property name="Destination" value="MapM edula_SalaBoss.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1604"/>
     <property name="playerY" type="float" value="1840"/>
    </properties>
   </object>
-  <object id="2" name="Door" type="Door" x="48" y="4340" width="360" height="32"/>
-  <object id="3" name="Door" type="Door" x="5362.55" y="4334.91" width="360" height="32"/>
-  <object id="4" name="Player" type="Player" x="788" y="4016">
+  <object id="4" name="Player" type="Player" x="528" y="4168">
    <point/>
+  </object>
+  <object id="5" name="CheckPoint" type="Checkpoint" x="2755.13" y="3135.76" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="6" name="dialogTrigger5" type="dialogTrigger" x="2791.42" y="3143.37" width="177.381" height="245.515">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="53"/>
+    <property name="amount" type="int" value="2"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" name="Door" type="Door" x="43.9115" y="4337.7" width="362.48" height="49.204">
+   <properties>
+    <property name="Destination" value="MapMedula_Sala4 .tmx"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="838"/>
+    <property name="playerY" type="float" value="176"/>
+   </properties>
+  </object>
+  <object id="9" name="Door" type="Door" x="5359.06" y="4334.67" width="362.48" height="49.204">
+   <properties>
+    <property name="Destination" value="MapMedula_Sala4 .tmx"/>
+    <property name="Type" value="Door"/>
+    <property name="playerX" type="float" value="5512"/>
+    <property name="playerY" type="float" value="150"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="5" name="Anim_Tiles"/>
