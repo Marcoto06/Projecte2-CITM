@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="67">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="69">
  <tileset firstgid="1" name="atñas_2.6" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="atñas_2.6.png" width="1024" height="1024"/>
  </tileset>
@@ -30880,7 +30880,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="90" height="68">
+ <layer id="3" name="Collisions" width="90" height="68" visible="0">
   <data>
    <tile gid="258"/>
    <tile/>
@@ -37032,6 +37032,19 @@
   </object>
   <object id="7" name="Neurona" type="Cell" x="348" y="1508">
    <point/>
+  </object>
+  <object id="67" name="CheckPoint" type="Checkpoint" x="1534.69" y="3835.86" width="256" height="256">
+   <properties>
+    <property name="isActive" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="68" name="dialogTrigger5" type="dialogTrigger" x="1570.98" y="3843.47" width="177.381" height="245.515">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="49"/>
+    <property name="amount" type="int" value="1"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
