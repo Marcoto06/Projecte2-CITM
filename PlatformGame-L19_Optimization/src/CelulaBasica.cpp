@@ -941,7 +941,7 @@ bool CelulaBasica::CleanUp()
 		Engine::GetInstance().textures->UnLoad(texture);
 		texture = nullptr;
 	}
-
+		
 	if (parasitizedTexture != nullptr)
 	{
 		Engine::GetInstance().textures->UnLoad(parasitizedTexture);
@@ -960,6 +960,10 @@ bool CelulaBasica::CleanUp()
 bool CelulaBasica::Destroy()
 {
 	active = false;
+
+	if (tiledId == 31)
+		player->dialogTrigger6 = true;
+
 	pendingToDelete = true;
 	return true;
 }

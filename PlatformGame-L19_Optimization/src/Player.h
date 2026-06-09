@@ -58,6 +58,7 @@ public:
 	Vector2D GetRespawnPosition() const { return respawnPosition; }
 
 	std::unordered_set<std::string> visitedRooms;
+	void StopMovement();
 
 private:
 
@@ -224,6 +225,10 @@ public:
 	float mucoseSpeed = 5.5f;
 
 	std::vector<int> list_collectibles;
+
+	//Dialog triggers
+	bool dialogTrigger6 = false;
+
 private:
 	b2Vec2 velocity;
 	AnimationSet anims;

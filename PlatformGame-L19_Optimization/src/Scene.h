@@ -192,8 +192,10 @@ private:
 
 	void LoadVideo(VideoData* video, std::string _file);
 	void StopCurrentVideo();
-	void StartLoadingScreen();
-	void EndLoadingScreen();
+	void StartLoadLevel(std::string level);
+	void WaitLoadingLevel();
+	void LoadingScreenThread();
+
 
 private:
 
@@ -202,8 +204,8 @@ private:
 	VideoData introVideo;
 	VideoData loadingVideo;
 	VideoData fallingVideo;
-	SDL_Thread* thread;
-	bool loadingDone = false;
+	SDL_Thread* loadingThread;
+	SDL_Thread* bossThread;
 
 	int threadReturnValue;
 
