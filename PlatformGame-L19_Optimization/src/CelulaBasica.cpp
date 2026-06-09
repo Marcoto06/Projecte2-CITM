@@ -30,6 +30,17 @@ bool CelulaBasica::Start()
 {
 	LoadCellData();
 
+	std::unordered_map<int, std::string> eggAliases = {
+	{0, "HuevoCerrado"},
+	{11, "Enclosionar"}
+	};
+
+	eggAnims.LoadFromTSX("Assets/Textures/Entities/Atlas_Huevo.tsx", eggAliases);
+	eggAnims.SetCurrent("HuevoCerrado");
+	eggAnims.Func_SetAnimationLoop("Enclosionar", false);
+
+	eggTexture = Engine::GetInstance().textures->Load("Assets/Textures/Entities/Atlas_Huevo.png");
+
 	pbody = Engine::GetInstance().physics->CreateRectangle(
 		(int)position.getX() + texW / 2,
 		(int)position.getY() + texH / 2,
@@ -333,6 +344,61 @@ bool CelulaBasica::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (isParasiteEgg)
+	{
+		velocity = b2Vec2_zero;
+
+		if (pbody != nullptr)
+		{
+			Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
+		}
+
+		if (!parasiteEggOpening &&
+			parasiteEggTimer.ReadMSec() >= parasiteEggClosedTimeMs)
+		{
+			parasiteEggOpening = true;
+			eggAnims.SetCurrent("Enclosionar");
+		}
+
+		if (parasiteEggOpening)
+		{
+			if (eggAnims.Func_HasCurrentAnimationFinished())
+			{
+				isParasiteEgg = false;
+				parasiteEggOpening = false;
+				parasiteEggReadyToHatch = false;
+
+				isParasitized = true;
+				currentHp = maxHp;
+
+				if (pbody != nullptr)
+				{
+					pbody->ctype = ColliderType::ENEMY;
+
+					if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA)
+					{
+						b2Body_SetGravityScale(pbody->body, 0.0f);
+
+						int x, y;
+						pbody->GetPosition(x, y);
+						floatBaseY = (float)y;
+						hasFloatBaseY = true;
+					}
+					else
+					{
+						b2Body_SetGravityScale(pbody->body, 1.0f);
+					}
+				}
+
+				currentState = CELL_STATE::PARASITIZED_CHASING;
+				parasitizedAnims.SetCurrent("pIdle");
+			}
+		}
+
+		Draw(dt);
+		return true;
+	}
 
 	if (cellType == CellType::STREPTOCOCCUS && !isParasitized)
 	{
@@ -665,7 +731,12 @@ void CelulaBasica::Func_CellStates(float dt)
 
 		break;
 	}
+	case CELL_STATE::PARASITE_EGG:
+	{
+		velocity = b2Vec2_zero;
 
+		break;
+	}
 	case CELL_STATE::STUNED:
 	{
 		velocity.x = 0.0f;
@@ -833,6 +904,39 @@ void CelulaBasica::ApplyPhysics()
 
 void CelulaBasica::Draw(float dt)
 {
+	if (isParasiteEgg)
+	{
+		eggAnims.Update(dt);
+		const SDL_Rect& animFrame = eggAnims.GetCurrentFrame();
+
+		int x, y;
+		pbody->GetPosition(x, y);
+
+		position.setX((float)x);
+		position.setY((float)y);
+
+		int frameW = animFrame.w;
+		int frameH = animFrame.h;
+
+		int drawX = x - frameW / 2;
+		int drawY = y - frameH / 2 - 35;
+
+		Engine::GetInstance().render->DrawTexture(
+			eggTexture,
+			drawX,
+			drawY,
+			&animFrame,
+			1.0f,
+			0.0,
+			frameW / 2,
+			frameH / 2,
+			SDL_FLIP_NONE,
+			1.0f
+		);
+
+		return;
+	}
+
 	AnimationSet& currentAnims = isParasitized ? parasitizedAnims : normalAnims;
 	SDL_Texture* currentTexture = isParasitized ? parasitizedTexture : texture;
 
@@ -898,19 +1002,62 @@ bool CelulaBasica::IsPlayerDetected() const
 
 void CelulaBasica::Parasitize()
 {
-	if (isParasitized)
+	if (isParasitized || isParasiteEgg)
 		return;
 
-	isParasitized = true;
-	currentHp = maxHp;
+	if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA)
+	{
+		isParasitized = true;
+		currentHp = maxHp;
+
+		isAttacking = false;
+		isHurt = false;
+		isStunned = false;
+
+		if (pbody != nullptr)
+		{
+			pbody->ctype = ColliderType::ENEMY;
+			b2Body_SetGravityScale(pbody->body, 0.0f);
+
+			int x, y;
+			pbody->GetPosition(x, y);
+			floatBaseY = (float)y;
+			hasFloatBaseY = true;
+		}
+
+		currentState = CELL_STATE::PARASITIZED_CHASING;
+		parasitizedAnims.SetCurrent("pIdle");
+
+		return;
+	}
+
+	isParasiteEgg = true;
+	parasiteEggOpening = false;
+	parasiteEggReadyToHatch = false;
+
+	isAttacking = false;
+	isHurt = false;
+	isStunned = false;
+
+	velocity = b2Vec2_zero;
 
 	if (pbody != nullptr)
 	{
-		pbody->ctype = ColliderType::ENEMY;
+		Engine::GetInstance().physics->SetLinearVelocity(pbody, b2Vec2_zero);
+		b2Body_SetGravityScale(pbody->body, 0.0f);
+		pbody->ctype = ColliderType::CELL;
 	}
 
-	currentState = CELL_STATE::PARASITIZED_CHASING;
-	parasitizedAnims.SetCurrent("pIdle");
+	currentState = CELL_STATE::PARASITE_EGG;
+
+	eggAnims.SetCurrent("HuevoCerrado");
+	parasiteEggTimer.Start();
+
+	if (attackHitbox != nullptr)
+	{
+		Engine::GetInstance().physics->DeletePhysBody(attackHitbox);
+		attackHitbox = nullptr;
+	}
 }
 
 void CelulaBasica::SetCellType(CellType type)
@@ -940,6 +1087,12 @@ bool CelulaBasica::CleanUp()
 	{
 		Engine::GetInstance().textures->UnLoad(texture);
 		texture = nullptr;
+	}
+
+	if (eggTexture != nullptr)
+	{
+		Engine::GetInstance().textures->UnLoad(eggTexture);
+		eggTexture = nullptr;
 	}
 		
 	if (parasitizedTexture != nullptr)

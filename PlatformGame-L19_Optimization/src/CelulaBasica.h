@@ -59,9 +59,11 @@ private:
 
 public:
 	Player* player = nullptr;
+	AnimationSet eggAnims;
 
 	CellType cellType = CellType::FIBROBLASTO;
 
+	SDL_Texture* eggTexture = nullptr;
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* parasitizedTexture = nullptr;
 
@@ -84,6 +86,10 @@ public:
 	bool isFallingToGround = false;
 	bool streptoIsBeingSucked = false;
 	bool isPlayerDetected = false;
+	bool isParasiteEgg = false;
+	bool parasiteEggOpening = false;
+	bool parasiteEggReadyToHatch = false;
+
 
 	Player* streptoAttackingPlayer = nullptr;
 	Player* touchingPlayer = nullptr;
@@ -97,7 +103,8 @@ public:
 	float attackCooldownMs = 1500.0f;
 	float floatBaseY = 0.0f;
 	float streptoSpeed = 2.0f;
-	
+	float parasiteEggClosedTimeMs = 5000.0f;
+
 	int streptoIdleFxId = 0;
 	int streptoWalkFxId = 0;
 	int streptoHurtFxId = 0;
@@ -121,6 +128,7 @@ public:
 	Timer streptoTimer;
 	Timer streptoSuckTimer;
 	Timer streptoAudioTimer;
+	Timer parasiteEggTimer;
 
 
 	//audio fx
@@ -175,6 +183,7 @@ private:
 		IDLE,
 		MOVING,
 		PARASITIZED_CHASING,
+		PARASITE_EGG,
 		STUNED,
 		DEATH
 	};
