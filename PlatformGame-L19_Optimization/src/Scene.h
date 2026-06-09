@@ -204,6 +204,8 @@ private:
 	VideoData introVideo;
 	VideoData loadingVideo;
 	VideoData fallingVideo;
+	VideoData finalVideo;
+	VideoData finalVideov2;
 	SDL_Thread* loadingThread;
 	SDL_Thread* bossThread;
 

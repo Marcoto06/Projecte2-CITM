@@ -41,9 +41,11 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	Engine::GetInstance().uiManager->LoadUITextures();
-	LoadVideo(&introVideo, "AnimaticaFinal");
+	LoadVideo(&introVideo, "AnimaticaIntro");
 	LoadVideo(&loadingVideo, "LoadingScreen");
 	LoadVideo(&fallingVideo, "AnimCaida");
+	LoadVideo(&finalVideo, "AnimaticaEnd");
+	LoadVideo(&finalVideov2, "AnimaticaEndv2");
 
 	//Audio fx
 	
@@ -95,8 +97,19 @@ bool Scene::Update(float dt)
 			}
 			else
 			{
+				std::string finishedVideoName = currentVideo.file;
+
 				StopCurrentVideo();
-				if (currentScene == SceneID::INTRO_SCREEN)
+
+				if (finishedVideoName == "AnimaticaFinal")
+				{
+					StartFadeToScene(SceneID::LEVEL, 0.5f);
+				}
+				else if (finishedVideoName == "AnimaticaEnd" || finishedVideoName == "AnimaticaEndv2")
+				{
+					StartFadeToScene(SceneID::MAIN_MENU, 0.5f);
+				}
+				else if (currentScene == SceneID::INTRO_SCREEN)
 				{
 					ChangeScene(SceneID::LEVEL);
 				}
@@ -645,6 +658,8 @@ void Scene::StopCurrentVideo() {
 	if (currentVideo.file == "AnimCaida") fallingVideo = currentVideo;
 	else if (currentVideo.file == "AnimaticaFinal") introVideo = currentVideo;
 	else if (currentVideo.file == "LoadingScreen") loadingVideo = currentVideo;
+	else if (currentVideo.file == "AnimaticaEnd") finalVideo = currentVideo;
+	else if (currentVideo.file == "AnimaticaEndv2") finalVideov2 = currentVideo;
 }
 
 void Scene::TriggerFallingVideo(std::string mapName, float destX, float destY)
@@ -1067,5 +1082,4 @@ void Scene::LoadingScreenThread()
 
 	////SDL_UnlockMutex(VideoLock);
 	////SDL_DestroyMutex(VideoLock);
-
 }
