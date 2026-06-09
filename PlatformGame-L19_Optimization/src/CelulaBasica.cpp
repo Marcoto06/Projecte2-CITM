@@ -42,11 +42,6 @@ bool CelulaBasica::Start()
 	pbody->ctype = ColliderType::CELL;
 	pbody->SetFixedRotation(true);
 
-	if (cellType == CellType::STREPTOCOCCUS)
-	{
-		pbody->ctype = ColliderType::ENEMY;
-	}
-
 	if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA)
 	{
 		b2Body_SetGravityScale(pbody->body, 0.0f);
@@ -566,11 +561,9 @@ void CelulaBasica::Func_CellStates(float dt)
 			}
 
 			if (attackHitbox == nullptr) {
+
 				int x, y;
-				/*pbody->GetPosition(x, y);*/
-				if (cellType == CellType::NEURONA || cellType == CellType::SALMONELLA && !isFallingToGround)
 				pbody->GetPosition(x, y);
-				//cooment the two lines above and descomment the one already commented to use BLOQUE DE TRUCOS
 
 				float offsetX = isFacingRight ? 95.0f : -95.0f;
 
@@ -1082,14 +1075,13 @@ void CelulaBasica::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 		Player* playerHit = (Player*)physB->listener;
 
-		if (physA == attackHitbox)
+		if (physA == attackHitbox || physB == attackHitbox)
 		{
 			if (!attackHasHit &&
 				playerHit != nullptr &&
 				!playerHit->IsGodMode())
 			{
 				playerHit->OnCollision(playerHit->pbody, attackHitbox);
-
 				attackHasHit = true;
 			}
 

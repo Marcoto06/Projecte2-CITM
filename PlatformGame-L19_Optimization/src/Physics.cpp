@@ -281,11 +281,20 @@ bool Physics::PostUpdate()
         }
     }
 
-    // Process bodies to delete after the world step
-    for (PhysBody* physBody : bodiesToDelete) {
+    for (PhysBody* physBody : bodiesToDelete)
+    {
         if (physBody == nullptr) continue;
-        b2DestroyBody(physBody->body);
+        if (B2_IS_NULL(physBody->body)) continue;
+
+        if (b2Body_IsValid(physBody->body))
+        {
+            b2DestroyBody(physBody->body);
+        }
+
+        physBody->body = b2_nullBodyId;
+        physBody->listener = nullptr;
     }
+
     bodiesToDelete.clear();
 
     return ret;
@@ -317,8 +326,21 @@ void Physics::BeginContact(b2ShapeId shapeA, b2ShapeId shapeB)
     PhysBody* physB = BodyToPhys(bodyB);
     if (!physA || !physB) return;
 
-    if (physA->listener && !IsPendingToDelete(physA)) physA->listener->OnCollision(physA, physB);
-    if (physB->listener && !IsPendingToDelete(physB)) physB->listener->OnCollision(physB, physA);
+    if (IsPendingToDelete(physA) || IsPendingToDelete(physB))
+        return;
+
+    Entity* listenerA = physA->listener;
+    Entity* listenerB = physB->listener;
+
+    if (listenerA != nullptr && listenerA->active && !listenerA->pendingToDelete)
+    {
+        listenerA->OnCollision(physA, physB);
+    }
+
+    if (listenerB != nullptr && listenerB->active && !listenerB->pendingToDelete)
+    {
+        listenerB->OnCollision(physB, physA);
+    }
 }
 
 void Physics::EndContact(b2ShapeId shapeA, b2ShapeId shapeB)
@@ -355,13 +377,22 @@ void Physics::EndContact(b2ShapeId shapeA, b2ShapeId shapeB)
 
 void Physics::DeletePhysBody(PhysBody* physBody)
 {
-	if (B2_IS_NULL(world)) return; // world already destroyed
-    if (physBody && !B2_IS_NULL(physBody->body) && physBody->listener && physBody->listener->active)
+    if (physBody == nullptr) return;
+    if (B2_IS_NULL(world)) return;
+    if (B2_IS_NULL(physBody->body)) return;
+
+    if (IsPendingToDelete(physBody)) return;
+
+    if (!b2Body_IsValid(physBody->body))
     {
-        // Don’t change contact/sensor flags here (can mismatch event buffers).
-        // Just clear user data so late events won’t dereference a dangling PhysBody*.
-        b2Body_SetUserData(physBody->body, nullptr);
+        physBody->body = b2_nullBodyId;
+        physBody->listener = nullptr;
+        return;
     }
+
+    b2Body_SetUserData(physBody->body, nullptr);
+    physBody->listener = nullptr;
+
     bodiesToDelete.push_back(physBody);
 }
 
