@@ -225,6 +225,7 @@ public:
 	float mucoseSpeed = 5.5f;
 
 	std::vector<int> list_collectibles;
+	std::vector<int> list_dialogs;
 
 	//Dialog triggers
 	bool dialogTrigger6 = false;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="104">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="33" tilewidth="64" tileheight="64" infinite="0" nextlayerid="29" nextobjectid="109">
  <properties>
   <property name="Draw" type="bool" value="true"/>
  </properties>
@@ -12020,6 +12020,46 @@
   </object>
   <object id="103" name="Neurona" type="Cell" x="1132.25" y="962.297">
    <point/>
+  </object>
+  <object id="104" name="dialogTrigger2" type="dialogTrigger" x="1853.96" y="1195.62" width="251.784" height="18.1818">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="6"/>
+    <property name="amount" type="int" value="3"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="105" name="dialogTrigger3" type="dialogTrigger" x="1743.03" y="1697.5" width="360.006" height="18.1818">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="9"/>
+    <property name="amount" type="int" value="2"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="106" name="dialogTrigger4" type="dialogTrigger" x="1408.89" y="1535.16" width="253.137" height="488.949">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="11"/>
+    <property name="amount" type="int" value="5"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="107" name="dialogTrigger5" type="dialogTrigger" x="2190.58" y="585.331" width="177.381" height="245.515">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="16"/>
+    <property name="amount" type="int" value="1"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="108" name="dialogTrigger6" type="dialogTrigger" x="3274.38" y="61.9882" width="20.4585" height="997.594">
+   <properties>
+    <property name="Type" value="dialogTrigger"/>
+    <property name="_id" type="int" value="17"/>
+    <property name="amount" type="int" value="3"/>
+    <property name="lock" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
  <layer id="7" name="Navigation" width="60" height="33">
