@@ -2331,7 +2331,7 @@
    <tile gid="3070"/>
   </data>
  </layer>
- <layer id="7" name="Middleground" width="50" height="46" parallaxx="1">
+ <layer id="7" name="Middleground" width="50" height="46">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
