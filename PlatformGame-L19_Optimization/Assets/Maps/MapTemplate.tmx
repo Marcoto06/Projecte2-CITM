@@ -11954,7 +11954,7 @@
   <object id="28" name="Streptococus" type="Enemy" x="1336.48" y="1982.75">
    <point/>
   </object>
-  <object id="30" name="Eosinofilo" type="Enemy" x="778.197" y="1549.62">
+  <object id="30" name="Eosinofilo" type="Enemy" x="830.2" y="1589.62">
    <point/>
   </object>
   <object id="31" name="Streptococus" type="Enemy" x="3684.61" y="1004.64">
@@ -12045,9 +12045,6 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="81" name="LinfocitoT" type="Enemy" x="1016.61" y="963.737">
-   <point/>
-  </object>
   <object id="83" name="Electric" type="Electric" x="9.64593" y="1393.45" width="192" height="894">
    <properties>
     <property name="Type" value="Electric"/>
@@ -12057,21 +12054,6 @@
    <properties>
     <property name="isActive" type="bool" value="false"/>
    </properties>
-  </object>
-  <object id="87" name="Salmonella" type="Cell" x="1720.3" y="1828.94">
-   <point/>
-  </object>
-  <object id="92" name="Salmonella" type="Cell" x="820.786" y="1909.34">
-   <point/>
-  </object>
-  <object id="95" name="Dendriticas" type="Enemy" x="1074.76" y="1959.92">
-   <point/>
-  </object>
-  <object id="97" name="LinfocitoTNK" type="Enemy" x="509.856" y="1653.59">
-   <point/>
-  </object>
-  <object id="98" name="VirusBasico" type="Enemy" x="1162.11" y="1538.76">
-   <point/>
   </object>
  </objectgroup>
  <layer id="7" name="Navigation" width="60" height="33">

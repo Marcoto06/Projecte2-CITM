@@ -104,6 +104,7 @@ bool Player::Start() {
 	jumpFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Doctora_Salto.wav");
 	stunAttackDocFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/stun_attack_doc.wav");
 	suckAttackFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/Absorver.wav");
+	dashFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx doc/dash_doc.wav");
 
 	currentState = PLAYERSTATE::IDLE;
 	onGround = true;
@@ -459,26 +460,22 @@ void Player::Move() {
 
 		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) {
 			isMoving = true;
-			//Engine::GetInstance().audio->PlayFx(pasosFxId);
 			velocity.x = -speedToUse * 2;
 			facingRight = false;
 		}
 		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) {
 			isMoving = true;
-			//Engine::GetInstance().audio->PlayFx(pasosFxId);
 			velocity.x = speedToUse * 2;
 			facingRight = true;
 		}
 
 		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || y_axis_norm <= -0.1) {
 			isMoving = true;
-			//Engine::GetInstance().audio->PlayFx(pasosFxId);
 			velocity.y = -speedToUse * 2;
 
 		}
 		else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || y_axis_norm >= 0.1) {
 			isMoving = true;
-			//Engine::GetInstance().audio->PlayFx(pasosFxId);
 			velocity.y = speedToUse * 2;
 
 		}
@@ -490,13 +487,11 @@ void Player::Move() {
 		{
 			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 				isMoving = true;
-				//Engine::GetInstance().audio->PlayFx(pasosFxId);
 				velocity.x = -vulnerableSpeed;
 				facingRight = false;
 			}
 			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
 				isMoving = true;
-				//Engine::GetInstance().audio->PlayFx(pasosFxId);
 				velocity.x = vulnerableSpeed;
 				facingRight = true;
 			}
@@ -518,13 +513,11 @@ void Player::Move() {
 		{
 			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || x_axis_norm <= -0.1) && !isSucking && canMove) {
 				isMoving = true;
-				//Engine::GetInstance().audio->PlayFx(pasosFxId);
 				velocity.x = -speedToUse;
 				facingRight = false;
 			}
 			if ((Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || x_axis_norm >= 0.1) && !isSucking && canMove) {
 				isMoving = true;
-				//Engine::GetInstance().audio->PlayFx(pasosFxId);
 				velocity.x = speedToUse;
 				facingRight = true;
 			}
@@ -1095,9 +1088,9 @@ void Player::Func_Attacks(float dt) {
 		int playerX, playerY;
 		pbody->GetPosition(playerX, playerY);
 
-		float width = 55.0f;
+		float width = 110.0f;
 		float height = 90.0f;
-		float pivotLocalX = facingRight ? 52.5f : -52.5f;
+		float pivotLocalX = facingRight ? 78.5f : -78.5f;
 
 		suckBody = Engine::GetInstance().physics->Func_CreateTemporarySensor((int)width, (int)height, pivotLocalX, playerY, ColliderType::SUCK_ZONE, 0.0f);
 
@@ -1120,7 +1113,7 @@ void Player::Func_Attacks(float dt) {
 			if (suckBody != nullptr) {
 				int playerX, playerY;
 				pbody->GetPosition(playerX, playerY);
-				float pivotLocalX = facingRight ? 52.5f : -52.5f;
+				float pivotLocalX = facingRight ? 78.5f : -78.5f;
 				suckBody->SetPosition((int)(playerX + pivotLocalX), playerY + 22);
 			}
 		}
@@ -1192,6 +1185,7 @@ void Player::Func_Dash()
 			{
 				b2Body_SetGravityScale(pbody->body, 0.0f);
 			}
+			Engine::GetInstance().audio->PlayFx(dashFxId);
 			dashing = true;
 			dashLeft -= 1;
 			dashTimer.Start();
@@ -1472,7 +1466,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			else
 			{
 				Engine::GetInstance().audio->PlayFx(deathFxId);
-				Engine::GetInstance().audio->PlayFx(UIdeathID, 2);
+				Engine::GetInstance().audio->PlayFx(UIdeathID, 3);
 				canMove = false;
 				canJump = false;
 				canAttack = false;

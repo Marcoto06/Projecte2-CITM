@@ -59,6 +59,12 @@ bool Eosinofilo::Start() {
 	anims.Func_SetAnimationLoop("deathBoomerang", false);
 	anims.Func_SetAnimationLoop("deathEmpty", false);
 
+	//audio
+	eosinofiloWalkFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Eosinofilo/eos_walk.wav");
+	eosinofiloHurtFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Eosinofilo/eos_hurt.wav");
+	eosinofiloBoomerangPopFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Eosinofilo/boomerang_pop.wav");
+	eosinofiloDeathFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Eosinofilo/eos_death.wav");
+
 	//Initialize Player parameters
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Atlas_Eosinofilo.png");
 
@@ -106,6 +112,10 @@ bool Eosinofilo::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (timerWalk > 0.0f) {
+		timerWalk -= dt;
+	}
 
 	if (!isStunned)
 	{
@@ -224,6 +234,13 @@ void Eosinofilo::Func_EnemyStates(float dt)
 	case Eosinofilo::ENEMYSTATES::MOVING:
 		anims.SetCurrent("move");
 		Move();
+
+		if (timerWalk <= 0.0f)
+		{
+			Engine::GetInstance().audio->PlayFx(eosinofiloWalkFxId);
+			timerWalk = 1800.0f;
+		}
+
 		break;
 
 	case Eosinofilo::ENEMYSTATES::STUNED:
@@ -235,6 +252,7 @@ void Eosinofilo::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 3000.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(eosinofiloDeathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -244,6 +262,7 @@ void Eosinofilo::Func_EnemyStates(float dt)
 			{
 				if (suckTimer.ReadMSec() >= 1500.0f)
 				{
+					Engine::GetInstance().audio->PlayFx(eosinofiloDeathFxId);
 					currentEState = ENEMYSTATES::DEATH;
 					return;
 
@@ -368,6 +387,7 @@ void Eosinofilo::SpawnBoomerang()
 	boomerang->SetOwner(this);
 	boomerang->SetSpawnPosition(spawnPosition);
 	boomerang->SetDirection(directionToPlayer);
+	Engine::GetInstance().audio->PlayFx(eosinofiloBoomerangPopFxId); 
 
 	boomerangIsActive = true;
 	hasBoomerangEquipped = false;
@@ -542,6 +562,7 @@ void Eosinofilo::OnCollision(PhysBody* physA, PhysBody* physB) {
 			timer_01.Start();
 			currentEState = ENEMYSTATES::STUNED;
 			isStunned = true;
+			Engine::GetInstance().audio->PlayFx(eosinofiloHurtFxId);
 			if (player->isBerserker)
 			{
 				player->RestoreHealthB();

@@ -123,6 +123,7 @@ public:
 	int deathFxId;
 	int UIdeathID;
 	int caerFxId;
+	int dashFxId;
 	int stunAttackFxId;
 	int stunAttackDocFxId;
 	int suckAttackFxId;

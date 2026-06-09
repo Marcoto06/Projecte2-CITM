@@ -33,6 +33,8 @@ bool Boomerang::Start()
 	anims.Func_SetAnimationLoop("move", true);
 
 	texture = Engine::GetInstance().textures->Load("Assets/Textures/Characters/Boomerang.png");
+	//audio
+	eosinofiloBoomerangMoveFxId = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Eosinofilo/boomerang_move.wav");
 
 	texW = 256;
 	texH = 256;
@@ -55,6 +57,15 @@ bool Boomerang::Start()
 bool Boomerang::Update(float dt)
 {
 	anims.Update(dt);
+
+	if (timerMoveSound > 0.0f) {
+		timerMoveSound -= dt;
+	}
+
+	if (timerMoveSound <= 0.0f) {
+		Engine::GetInstance().audio->PlayFx(eosinofiloBoomerangMoveFxId);
+		timerMoveSound = 1000.0f; 
+	}
 
 	if (currentState == BoomerangState::OUTGOING)
 	{

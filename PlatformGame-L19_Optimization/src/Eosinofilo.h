@@ -57,6 +57,13 @@ public:
 	Timer timer_01;
 	Timer suckTimer;
 
+	//audio
+	int eosinofiloWalkFxId;
+	int eosinofiloHurtFxId;
+	int eosinofiloBoomerangPopFxId;
+	int eosinofiloDeathFxId; // <-- Añadido sonido de muerte
+	float timerWalk = 0.0f;
+
 	//bools
 	bool isStunned = false;
 	bool isFacingRight = false;
