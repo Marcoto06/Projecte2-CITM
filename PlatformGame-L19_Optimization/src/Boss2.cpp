@@ -121,6 +121,12 @@ bool Boss2::Start() {
 		m->Start();
 		projectiles.push_back(m);
 	}
+	//audio
+	fx_intro = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Fermin/fer_intro.wav");
+	fx_hit = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Fermin/fer_hit.wav");
+	fx_mucose = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Fermin/fer_mucosa.wav");
+	fx_idle = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Fermin/fer_idle.wav");
+	fx_death = Engine::GetInstance().audio->LoadFx("Assets/Audio/Fx/Fx Fermin/fer_death.wav");
 
 	return true;
 }
@@ -134,6 +140,13 @@ bool Boss2::Update(float dt)
 	ZoneScoped;
 
 	GetPhysicsValues();
+
+	if (life > 0 && currentAnimation->name != "intro" && currentAnimation->name != "death") {
+		if (idleAudioTimer.ReadSec() >= idleAudioSeconds) {
+			Engine::GetInstance().audio->PlayFx(fx_idle);
+			idleAudioTimer.Start(); // Reiniciamos el timer
+		}
+	}
 
 	if (attackTimer.ReadSec() >= attackTime && currentAnimation->name != "intro" && currentAnimation->name != "death" && life > 0) {
 		Attack();
@@ -287,7 +300,9 @@ void Boss2::AnimationFinished(bossAnimation* animation)
 			PlayAnimation(anim_idle);
 		}
 		else {
+
 			PlayAnimation(anim_death);
+			Engine::GetInstance().audio->PlayFx(fx_death);
 		}
 	}
 	else if (animation->name == "death") {
@@ -321,6 +336,11 @@ Boss2::bossAnimation::bossAnimation(int frames, std::string name, bool loop) {
 
 void Boss2::Initialize() {
 	initialPos = Vector2D(position.getX() + 1000, position.getY() + 850);
+
+	Engine::GetInstance().audio->PlayFx(fx_intro);
+	Engine::GetInstance().audio->PlayFx(fx_idle);
+	idleAudioTimer.Start();
+
 	//Set Current Animation as intro
 	PlayAnimation(anim_intro);
 	Engine::GetInstance().physics->DeletePhysBody(triggerBody);
@@ -359,6 +379,8 @@ void Boss2::Attack() {
 		}
 		if (currentAttack % 2 != 0) { //MUCOSE ATTACK
 			PlayAnimation(anim_mucose);
+
+			Engine::GetInstance().audio->PlayFx(fx_mucose);
 			for (const auto mucose : projectiles)
 			{
 				mucose->Spawn();
@@ -366,8 +388,11 @@ void Boss2::Attack() {
 		}
 		else { //SHOCK ATTACK
 			PlayAnimation(anim_shock);
+
+			Engine::GetInstance().audio->PlayFx(fx_hit);
 			for (const auto mucose : projectiles)
 			{
+
 				mucose->Electrify();
 			}
 		}

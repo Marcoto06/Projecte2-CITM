@@ -86,7 +86,15 @@ public:
 
 	//COSES ANTIGUES DE ENEMY -------------
 	Timer suckTimer;
+	//audio
+	int fx_intro;
+	int fx_hit;
+	int fx_mucose;
+	int fx_idle;
+	int fx_death;
 
+	Timer idleAudioTimer;
+	int idleAudioSeconds = 1;
 	//bools
 	bool isStunned = false;
 
