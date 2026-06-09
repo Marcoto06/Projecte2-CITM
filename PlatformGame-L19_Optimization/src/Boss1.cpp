@@ -434,6 +434,7 @@ void Boss1::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (physA == triggerBody && position != Vector2D(0,0)) {
 			Initialize();
 			Engine::GetInstance().physics->DeletePhysBody(triggerBody);
+			triggerBody = nullptr;
 		}
 		break;
 	case ColliderType::SYRINGE:
