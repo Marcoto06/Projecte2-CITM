@@ -73,7 +73,8 @@ bool Checkpoint::Update(float dt)
 
     if (triggeredDialogue)
     {
-        if (currentDialogDuration >= currentDialogTimer.ReadSec() || currentDialogDuration == 0)
+        int sec = currentDialogTimer.ReadSec();
+        if (currentDialogDuration >= sec || currentDialogDuration == 0)
         {
             Engine::GetInstance().dialogManager->ShowDialogWindow(dt);
         }
@@ -82,6 +83,9 @@ bool Checkpoint::Update(float dt)
             currentDialogId += 1;
             TriggerDialog(currentDialogId);
             currentDialogTimer.Start();
+        }
+        else {
+            Engine::GetInstance().dialogManager->drawDialog = false;
         }
     }
 

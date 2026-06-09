@@ -1,11 +1,13 @@
 #include "Door.h"
 #include "Engine.h"
+#include "Engine.h"
 #include "Textures.h"
 #include "Audio.h"
 #include "Input.h"
 #include "Scene.h"
 #include "Log.h"
 #include "Physics.h"
+#include "DialogManager.h"
 #include "EntityManager.h"
 
 Door::Door() : Entity(EntityType::DOOR)
@@ -56,6 +58,7 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	if (other->ctype == ColliderType::PLAYER)
 	{
+		Engine::GetInstance().dialogManager->drawDialog = false;
 		//Engine::GetInstance().scene->UnloadLevel();
 		if (Engine::GetInstance().scene->boss != nullptr)
 		{
