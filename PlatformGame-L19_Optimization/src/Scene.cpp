@@ -85,8 +85,9 @@ bool Scene::Update(float dt)
 			
 		}
 
-		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm))
+		if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || plm_has_ended(currentVideo.plm) || videoTimer.ReadSec() >= currentVideo.duration)
 		{
+			
 			if (transitionAfterVideo)
 			{
 				transitionAfterVideo = false;
@@ -628,6 +629,15 @@ void Scene::LoadVideo(VideoData* video, std::string _file)
 	video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
 
 	plm_set_video_decode_callback(video->plm, OnVideoFrame, video);
+
+	if (_file == "AnimaticaIntro") video->duration = 30;
+	if (_file == "AnimCaida") video->duration = 45;
+	if (_file == "AnimaticaEnd") video->duration = 37;
+	if (_file == "AnimaticaEndv2") video->duration = 37;
+	if (_file == "LoadingScreen") video->duration = 13;
+
+		
+
 	videos.push_back(*video);
 }
 
@@ -640,6 +650,7 @@ void Scene::PlayVideo(std::string _file)
 			currentVideo = video;
 			isPlayingVideo = true;
 			Engine::GetInstance().uiManager->CleanUp();
+			videoTimer.Start();
 		}
 	}
 }

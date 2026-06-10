@@ -151,6 +151,8 @@ public:
 	float nextPlayerY = 0.0f;
 	bool shouldMovePlayer = false;
 	
+	Timer videoTimer;
+
 private:
 	struct VideoData {
 		std::string file;
@@ -159,7 +161,9 @@ private:
 		uint8_t* buffer = nullptr;
 		int width = 0;
 		int height = 0;
+		int duration = 0;
 	};
+
 
 	static void OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user);	//Callback function required by pl_mpeg to return video frames
 
