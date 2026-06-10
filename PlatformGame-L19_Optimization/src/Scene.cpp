@@ -594,6 +594,12 @@ void Scene::OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user)
 	}
 }
 
+void Scene::OnAudioFrame(plm_t* mpeg, plm_samples_t* samples, void* user)
+{
+	Uint32 dataSize = samples->count * sizeof(float) * 2;
+	SDL_PutAudioStreamData(Engine::GetInstance().audio->music_stream_, samples->interleaved, dataSize);
+}
+
 void Scene::LoadVideo(VideoData* video, std::string _file) 
 {
 	std::string path = "Assets/Video/" + _file + ".mpg";
@@ -621,7 +627,7 @@ void Scene::LoadVideo(VideoData* video, std::string _file)
 
 	LOG("Video loaded successfully: %s", charPath);
 
-	plm_set_audio_enabled(video->plm, 0);
+	plm_set_audio_enabled(video->plm, 1);
 	video->file = _file;
 	plm_set_loop(video->plm, 0);
 
@@ -629,6 +635,7 @@ void Scene::LoadVideo(VideoData* video, std::string _file)
 	video->texture = SDL_CreateTexture(Engine::GetInstance().render->renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, video->width, video->height);
 
 	plm_set_video_decode_callback(video->plm, OnVideoFrame, video);
+	plm_set_audio_decode_callback(video->plm, OnAudioFrame, video);
 
 	if (_file == "AnimaticaIntro") video->duration = 30;
 	if (_file == "AnimCaida") video->duration = 45;

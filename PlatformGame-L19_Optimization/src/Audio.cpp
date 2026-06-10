@@ -187,6 +187,13 @@ bool Audio::PlayMusic(const char* path, float fadeTime) {
     return true;
 }
 
+void Audio::StopMusic() {
+    // Stop any existing music: clear stream + free buffer
+    if (music_stream_) {
+        SDL_ClearAudioStream(music_stream_);
+    }
+    FreeSound(music_data_);
+}
 int Audio::LoadFx(const char* path) {
     if (!active) return 0;
     if (!EnsureStreams()) return 0;
@@ -278,6 +285,7 @@ void Audio::StopMusicFx()
         SDL_ClearAudioStream(sfx_channels_[MAX_FX_CHANNELS - 1]);
     }
 }
+
 bool Audio::PlayMusicFx(unsigned int id, int repeat)
 {
     if (!active) return false;

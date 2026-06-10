@@ -166,6 +166,7 @@ private:
 
 
 	static void OnVideoFrame(plm_t* mpeg, plm_frame_t* frame, void* user);	//Callback function required by pl_mpeg to return video frames
+	static void OnAudioFrame(plm_t* mpeg, plm_samples_t* samples, void* user);	//Callback function required by pl_mpeg to return audio frames
 
 	// L17 TODO 3: Define specific function for main menu scene: Load, Unload, Handle UI events
 	void LoadMainMenu();

@@ -560,7 +560,8 @@ void UIManager::HandleMainMenuUIEvents(UIElement* uiElement)
 		LOG("STARTING NEW GAME");
 
 		Engine::GetInstance().scene->isContinuing = false;
-
+		Engine::GetInstance().audio->StopMusicFx();
+		Engine::GetInstance().audio->StopMusic();
 		Engine::GetInstance().scene->PlayVideo("AnimaticaIntro");
 		//Engine::GetInstance().scene->StartFadeToScene(SceneID::LEVEL, 0.5f);
 		break;

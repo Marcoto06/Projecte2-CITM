@@ -36,6 +36,7 @@ public:
     bool PlayMusicFx(unsigned int id, int repeat = 0);
 
     // Para EXCLUSIVAMENTE el canal de la música de fondo
+    void StopMusic();
     void StopMusicFx();
 
 	// Volume control
@@ -44,6 +45,8 @@ public:
 
     float GetMusicVolume() const { return music_volume_; }
 	float GetSFXVolume() const { return sfx_volume_; }
+
+    SDL_AudioStream* music_stream_{ nullptr }; // for background music (single)
 
 private:
 
@@ -58,7 +61,6 @@ private:
     SDL_AudioSpec     device_spec_{};
 
     // Streams
-    SDL_AudioStream* music_stream_{ nullptr }; // for background music (single)
     static const int MAX_FX_CHANNELS = 40; // El número máximo de sonidos a la vez
     SDL_AudioStream* sfx_channels_[MAX_FX_CHANNELS] = { nullptr };
 
