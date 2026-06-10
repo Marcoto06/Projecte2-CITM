@@ -11969,7 +11969,7 @@
    </properties>
    <point/>
   </object>
-  <object id="38" name="Door" type="Door" x="1900.12" y="2034.79" width="704.03" height="32.5763">
+  <object id="38" name="Door" type="Door" x="2750.12" y="2072.79" width="704.03" height="32.5763">
    <properties>
     <property name="Destination" value="MapPulmo_Sala16.tmx"/>
     <property name="Type" value="Door"/>
@@ -11977,12 +11977,12 @@
     <property name="playerY" type="float" value="10563.64"/>
    </properties>
   </object>
-  <object id="78" name="Door" type="Door" x="2755.42" y="2062.95" width="704.03" height="32.5763">
+  <object id="78" name="Door" type="Door" x="1835.42" y="1994.95" width="704.03" height="32.5763">
    <properties>
-    <property name="Destination" value="MapMedula_SalaBoss.tmx"/>
+    <property name="Destination" value="MapMedula_Sala1.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="1528"/>
-    <property name="playerY" type="float" value="2216"/>
+    <property name="playerX" type="float" value="820"/>
+    <property name="playerY" type="float" value="4224"/>
    </properties>
   </object>
   <object id="41" name="Collectibles" type="Collectibles" x="3720.67" y="659.333">
@@ -12002,11 +12002,6 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="83" name="Electric" type="Electric" x="9.64593" y="1393.45" width="192" height="894">
-   <properties>
-    <property name="Type" value="Electric"/>
-   </properties>
-  </object>
   <object id="85" name="CheckPoint" type="Checkpoint" x="2152.5" y="575.5" width="256" height="256">
    <properties>
     <property name="isActive" type="bool" value="false"/>
@@ -12015,7 +12010,7 @@
   <object id="101" name="Streptococus" type="Enemy" x="1256.27" y="2000.38">
    <point/>
   </object>
-  <object id="104" name="dialogTrigger2" type="dialogTrigger" x="1853.96" y="1195.62" width="251.784" height="18.1818">
+  <object id="104" name="dialogTrigger2" type="dialogTrigger" x="1735.96" y="9.62" width="111.784" height="1004.18">
    <properties>
     <property name="Type" value="dialogTrigger"/>
     <property name="_id" type="int" value="6"/>
@@ -12047,7 +12042,7 @@
     <property name="lock" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="108" name="dialogTrigger6" type="dialogTrigger" x="3274.38" y="61.9882" width="20.4585" height="997.594">
+  <object id="108" name="dialogTrigger6" type="dialogTrigger" x="3274.38" y="61.9882" width="84.4585" height="1017.59">
    <properties>
     <property name="Type" value="dialogTrigger"/>
     <property name="_id" type="int" value="17"/>

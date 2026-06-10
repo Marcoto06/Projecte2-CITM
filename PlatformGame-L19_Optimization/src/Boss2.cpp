@@ -114,7 +114,7 @@ bool Boss2::Start() {
 	for (int i = 0; i < 4; ++i) 
 	{
 		std::shared_ptr<Mucosa> m = std::dynamic_pointer_cast<Mucosa>(Engine::GetInstance().entityManager->CreateEntity(EntityType::MUCOSA));
-		m->position.setX(position.getX() + 200 + (500 * i));
+		m->position.setX(position.getX() + 1000 + (500 * i));
 		m->position.setY(position.getY() + 500);
 		m->spawnPos = m->position;
 		m->Awake();
@@ -400,7 +400,7 @@ void Boss2::Attack() {
 	else //DOES NOT ATTACK, INSTEAD RESTS
 	{
 		PlayAnimation(anim_rest);
-		pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX() - 100, initialPos.getY(), 100, 800, bodyType::STATIC);
+		pbody = Engine::GetInstance().physics->CreateRectangleSensor(initialPos.getX() - 100, initialPos.getY() + 100, 100, 900, bodyType::STATIC);
 		pbody->listener = this;
 	}
 	PrepareAttack();

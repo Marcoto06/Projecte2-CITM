@@ -258,7 +258,7 @@ bool Player::Update(float dt)
 	}
 
 	
-		Func_Small();
+	Func_Small();
 	
 	Func_Climb();
 	Func_PlayerState();
@@ -1173,7 +1173,7 @@ void Player::Func_Attacks(float dt) {
 
 void Player::Func_Small()
 {
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_DOWN)
+	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_DOWN || !hasCrouch)
 		return;
 
 	if (!onGround || isJumping || isClimbing || isAttacking || isSucking)

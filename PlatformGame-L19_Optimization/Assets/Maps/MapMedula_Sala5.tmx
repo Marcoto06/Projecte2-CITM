@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="11">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="53">
  <tileset firstgid="1" name="Atlas_3.4" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="Atlas_3.4.png" width="1024" height="1024"/>
  </tileset>
  <tileset firstgid="257" name="middleground" tilewidth="5760" tileheight="4361" tilecount="1" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../Textures/Middleground/Medula/Medula_Espinal_Middleground.png" width="5760" height="4361"/>
+   <image width="5760" height="4361" source="../Textures/Middleground/Medula/Medula_Espinal_Middleground.png"/>
   </tile>
  </tileset>
  <tileset firstgid="258" name="Background" tilewidth="64" tileheight="64" tilecount="2300" columns="50">
@@ -18,7 +18,7 @@
  <tileset firstgid="8678" name="TileMetadata" tilewidth="64" tileheight="64" tilecount="2" columns="2">
   <image source="TileMetadata.png" width="128" height="64"/>
  </tileset>
- <layer id="8" name="Background" width="90" height="68" parallaxx="1.2">
+ <layer id="8" name="Background" width="90" height="68">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -16393,10 +16393,10 @@
    <tile/>
    <tile gid="25"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="27"/>
    <tile/>
@@ -16482,12 +16482,12 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -16496,12 +16496,12 @@
    <tile/>
    <tile gid="25"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="27"/>
    <tile/>
@@ -16572,27 +16572,27 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="25"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="27"/>
    <tile/>
@@ -16662,28 +16662,28 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="25"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile gid="41"/>
@@ -16752,28 +16752,28 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile gid="41"/>
@@ -16842,28 +16842,28 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile gid="25"/>
    <tile gid="26"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="61"/>
@@ -16932,31 +16932,31 @@
    <tile/>
    <tile gid="25"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17021,32 +17021,32 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17111,32 +17111,32 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17182,16 +17182,16 @@
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -17203,30 +17203,30 @@
    <tile gid="57"/>
    <tile gid="58"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17272,16 +17272,16 @@
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -17301,22 +17301,22 @@
    <tile gid="58"/>
    <tile gid="58"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17369,9 +17369,9 @@
    <tile gid="58"/>
    <tile gid="58"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -17400,13 +17400,13 @@
    <tile gid="58"/>
    <tile gid="58"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17460,8 +17460,8 @@
    <tile/>
    <tile gid="57"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="26"/>
@@ -17491,12 +17491,12 @@
    <tile/>
    <tile gid="57"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17550,12 +17550,12 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -17581,12 +17581,12 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17641,11 +17641,11 @@
    <tile/>
    <tile gid="57"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="26"/>
@@ -17672,11 +17672,11 @@
    <tile/>
    <tile gid="57"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
    <tile gid="42"/>
@@ -17732,13 +17732,13 @@
    <tile/>
    <tile gid="57"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -17763,10 +17763,10 @@
    <tile/>
    <tile gid="57"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="78"/>
    <tile gid="58"/>
    <tile gid="58"/>
@@ -17822,13 +17822,13 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="26"/>
@@ -17912,17 +17912,17 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -18002,17 +18002,17 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="26"/>
@@ -18092,25 +18092,25 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -18182,25 +18182,25 @@
    <tile gid="26"/>
    <tile gid="26"/>
    <tile gid="61"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="26"/>
@@ -18272,31 +18272,31 @@
    <tile gid="58"/>
    <tile gid="58"/>
    <tile gid="77"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="62"/>
    <tile gid="26"/>
    <tile gid="26"/>
@@ -18362,34 +18362,34 @@
    <tile/>
    <tile/>
    <tile gid="41"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
-   <tile gid="2147483690"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
+   <tile gid="42"/>
    <tile gid="43"/>
    <tile/>
    <tile/>
@@ -36780,7 +36780,7 @@
  <objectgroup id="4" name="Entities">
   <object id="1" name="Door" type="Door" x="47.7903" y="-22.4202" width="5678.48" height="49.204">
    <properties>
-    <property name="Destination" value="MapM edula_SalaBoss.tmx"/>
+    <property name="Destination" value="MapMedula_SalaBoss.tmx"/>
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="1604"/>
     <property name="playerY" type="float" value="1840"/>
@@ -36816,6 +36816,252 @@
     <property name="Type" value="Door"/>
     <property name="playerX" type="float" value="5512"/>
     <property name="playerY" type="float" value="150"/>
+   </properties>
+  </object>
+  <object id="11" name="cascada_medula" type="anim_tile" x="2816" y="277" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="12" name="cascada_medula_rayos" type="anim_tile" x="2816" y="451" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="13" name="cascada_medula_rayos" type="anim_tile" x="2816" y="1844.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="14" name="cascada_medula_rayos" type="anim_tile" x="2816" y="2540.99" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="15" name="cascada_medula_rayos" type="anim_tile" x="2816" y="3237.07" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="16" name="cascada_medula_rayos" type="anim_tile" x="2816" y="1147.11" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="17" name="cascada_medula" type="anim_tile" x="2816" y="624.939" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="18" name="cascada_medula_rayos" type="anim_tile" x="2816" y="277" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="19" name="cascada_medula_rayos" type="anim_tile" x="2816" y="1670.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="20" name="cascada_medula_rayos" type="anim_tile" x="2816" y="2366.99" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="21" name="cascada_medula_rayos" type="anim_tile" x="2816" y="3063.07" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="22" name="cascada_medula_rayos" type="anim_tile" x="2816" y="973.107" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="23" name="cascada_medula_rayos" type="anim_tile" x="2816" y="625" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="24" name="cascada_medula_rayos" type="anim_tile" x="2816" y="2018.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="25" name="cascada_medula_rayos" type="anim_tile" x="2816" y="2714.99" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="26" name="cascada_medula_rayos" type="anim_tile" x="2816" y="1321.11" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="27" name="cascada_medula" type="anim_tile" x="2816" y="973.357" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="28" name="cascada_medula" type="anim_tile" x="2816" y="1670.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="29" name="cascada_medula" type="anim_tile" x="2816" y="2366.71" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="30" name="cascada_medula" type="anim_tile" x="2816" y="799" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="31" name="cascada_medula" type="anim_tile" x="2816" y="1495.36" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="32" name="cascada_medula" type="anim_tile" x="2816" y="2192.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="33" name="cascada_medula" type="anim_tile" x="2816" y="2888.71" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="34" name="cascada_medula" type="anim_tile" x="2816" y="3237.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="35" name="cascada_medula" type="anim_tile" x="2816" y="451" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="36" name="cascada_medula" type="anim_tile" x="2816" y="1147.36" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="37" name="cascada_medula" type="anim_tile" x="2816" y="1844.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="38" name="cascada_medula" type="anim_tile" x="2816" y="2540.71" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="39" name="cascada_medula_rayos" type="anim_tile" x="2816" y="799.167" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="40" name="cascada_medula_rayos" type="anim_tile" x="2816" y="2192.61" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="41" name="cascada_medula_rayos" type="anim_tile" x="2816" y="2889.15" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="42" name="cascada_medula_rayos" type="anim_tile" x="2816" y="1495.28" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="43" name="cascada_medula" type="anim_tile" x="2816" y="1321.36" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="44" name="cascada_medula" type="anim_tile" x="2816" y="2018.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="45" name="cascada_medula" type="anim_tile" x="2816" y="2714.71" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="46" name="cascada_medula" type="anim_tile" x="2816" y="3063.44" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="48" name="cascada_medula" type="anim_tile" x="2815.97" y="102.515" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="49" name="cascada_medula_rayos" type="anim_tile" x="2815.97" y="102.515" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="50" name="cascada_medula_rayos" type="anim_tile" x="2815.97" y="-71.4848" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="51" name="cascada_medula" type="anim_tile" x="2815.97" y="-71.4848" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedula"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="52" name="Climbable" type="Climbable" x="2821.46" y="-12.425" width="125.077" height="3412.85">
+   <properties>
+    <property name="Type" value="Climbable"/>
+    <property name="isWaterfall" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

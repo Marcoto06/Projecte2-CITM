@@ -32,7 +32,7 @@ public:
 	Player* player = nullptr;
 
 	int life = 1;
-	int maxLife = 1;
+	int maxLife = 3;
 	bool active = false;
 	PhysBody* triggerBody;
 

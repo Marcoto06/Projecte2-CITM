@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="184">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="90" height="68" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="197">
  <tileset firstgid="1" name="Atlas_3.4" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="Atlas_3.4.png" width="1024" height="1024"/>
  </tileset>
@@ -15,13 +15,13 @@
  <tileset firstgid="8679" name="middleground" tilewidth="5760" tileheight="4361" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../Textures/Middleground/Medula/Medula_Espinal_Middleground.png" width="5760" height="4361"/>
+   <image width="5760" height="4361" source="../Textures/Middleground/Medula/Medula_Espinal_Middleground.png"/>
   </tile>
   <tile id="1">
-   <image source="../Textures/Middleground/Medula/Middleground.png" width="3200" height="2944"/>
+   <image width="3200" height="2944" source="../Textures/Middleground/Medula/Middleground.png"/>
   </tile>
  </tileset>
- <layer id="7" name="Background" width="90" height="68" parallaxx="1.2">
+ <layer id="7" name="Background" width="90" height="68">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -12850,6 +12850,72 @@
    <properties>
     <property name="Texture" value="CascadaMedulaRayos"/>
     <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="186" name="cascada_medula_rayos" type="anim_tile" x="1216" y="170" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="187" name="cascada_medula_rayos" type="anim_tile" x="1216" y="0" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="188" name="cascada_medula_rayos" type="anim_tile" x="1216" y="345.333" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="189" name="cascada_medula_rayos" type="anim_tile" x="1215.33" y="518.667" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="190" name="cascada_medula_rayos" type="anim_tile" x="1214.67" y="693.333" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="191" name="cascada_medula_rayos" type="anim_tile" x="1214.67" y="866.667" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="192" name="cascada_medula_rayos" type="anim_tile" x="1214.67" y="1038.67" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="193" name="cascada_medula_rayos" type="anim_tile" x="1213.33" y="1213.33" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="194" name="cascada_medula_rayos" type="anim_tile" x="1213.33" y="1388" width="128" height="174">
+   <properties>
+    <property name="Texture" value="CascadaMedulaRayos"/>
+    <property name="Type" value="anim_ti le"/>
+   </properties>
+  </object>
+  <object id="195" name="Climbable" type="Climbable" x="2893.46" y="-28.425" width="301.077" height="2524.85">
+   <properties>
+    <property name="Type" value="Climbable"/>
+    <property name="isWaterfall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="196" name="Climbable" type="Climbable" x="1209.46" y="-0.425" width="125.077" height="1440.85">
+   <properties>
+    <property name="Type" value="Climbable"/>
+    <property name="isWaterfall" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
@@ -31234,7 +31300,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="3" name="Collisions" width="90" height="68">
+ <layer id="3" name="Collisions" width="90" height="68" visible="0">
   <data>
    <tile gid="258"/>
    <tile/>
@@ -35686,13 +35752,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
+   <tile gid="258"/>
    <tile/>
    <tile/>
    <tile/>
@@ -37371,8 +37437,8 @@
    <properties>
     <property name="Destination" value="MapMedula_Sala4.tmx"/>
     <property name="Type" value="Door"/>
-    <property name="playerX" type="float" value="5348"/>
-    <property name="playerY" type="float" value="3940"/>
+    <property name="playerX" type="float" value="5248"/>
+    <property name="playerY" type="float" value="3900"/>
    </properties>
   </object>
   <object id="3" name="Player" type="Player" x="5308" y="4160">
